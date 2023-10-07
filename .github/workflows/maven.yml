@@ -28,8 +28,11 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
+    - name: Show Current Directory
+      run: |
+        pwd
     - name: Change Directory to bukkit
-      run: cd bukkit
+      run: cd /home/runner/work/leaderos-plugin/leaderos-plugin/bukkit
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
