@@ -17,3 +17,4 @@ jobs:
           java-version: 8
           project: maven # or gradle
           subdirectories: bukkit
+          custom-command: javadoc -d javadoc -sourcepath bukkit -subpackages .
