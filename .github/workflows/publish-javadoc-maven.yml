@@ -16,4 +16,3 @@ jobs:
           javadoc-branch: javadoc
           java-version: 8
           project: maven # or gradle
-          custom-command: javadoc -d javadoc -sourcepath bukkit
