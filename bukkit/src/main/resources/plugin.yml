@@ -1,0 +1,9 @@
+name: leaderos
+author: [geik]
+main: net.leaderos.plugin.Main
+version: 1.0
+api-version: 1.13
+commands:
+    auth:
+        description: Connects your ingame account with website
+        aliases: [web, kayıt, bağlan]

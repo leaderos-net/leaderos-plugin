@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>net.leaderos</groupId>
+    <artifactId>leaderos</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <shaded.package>org.cas.osd.platform.ciam.shaded</shaded.package>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <!-- Dependencies -->
+    <dependencies>
+        <!-- Spigot -->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.20.1-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Vault -->
+        <dependency>
+            <groupId>com.github.milkbowl</groupId>
+            <artifactId>Vault</artifactId>
+            <version>1.7.3</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.26</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- SimplixStorage -->
+        <dependency>
+            <groupId>com.github.poyrazinan</groupId>
+            <artifactId>SimplixStorage</artifactId>
+            <version>-ae92994823-1</version>
+        </dependency>
+        <!-- InventoryAPI -->
+        <dependency>
+            <groupId>de.themoep</groupId>
+            <artifactId>inventorygui</artifactId>
+            <!--The following version may not be the latest. Check it before using.-->
+            <version>1.5-SNAPSHOT</version>
+        </dependency>
+        <!-- Mojang Dep -->
+        <dependency>
+            <groupId>com.mojang</groupId>
+            <artifactId>authlib</artifactId>
+            <version>3.11.50</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- xSeries -->
+        <dependency>
+            <groupId>com.github.cryptomorin</groupId>
+            <artifactId>XSeries</artifactId>
+            <version>9.4.0</version>
+        </dependency>
+        <!-- NBT Api -->
+        <dependency>
+            <groupId>de.tr7zw</groupId>
+            <artifactId>item-nbt-api-plugin</artifactId>
+            <version>2.11.3</version>
+        </dependency>
+    </dependencies>
+
+    <!-- Repos -->
+    <repositories>
+        <!-- Jitpack Repo -->
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://www.jitpack.io</url>
+        </repository>
+        <!-- Spigot Repo -->
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <!-- InventoryAPI -->
+        <repository>
+            <id>minebench-repo</id>
+            <url>https://repo.minebench.de/</url>
+        </repository>
+        <!-- MojangAPI Repo -->
+        <repository>
+            <id>minecraft-repo</id>
+            <url>https://libraries.minecraft.net/</url>
+        </repository>
+        <!-- itemnbt -->
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.io/repository/maven-public/</url>
+        </repository>
+    </repositories>
+
+    <build>
+        <plugins>
+            <!-- Shade plugin for store dependency on jar -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.5.0</version>
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <minimizeJar>true</minimizeJar>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.cryptomorin.xseries</pattern>
+                            <shadedPattern>xyz.geik.farmer.shades.xseries</shadedPattern>
+                            <excludes>
+                                <exclude>com/cryptomorin/xseries/XBiome*</exclude>
+                                <exclude>com/cryptomorin/xseries/XEnchantment*</exclude>
+                                <exclude>com/cryptomorin/xseries/XEntity*</exclude>
+                                <exclude>com/cryptomorin/xseries/XPotion*</exclude>
+                                <exclude>com/cryptomorin/xseries/particles/*</exclude>
+                                <exclude>com/cryptomorin/xseries/XTag*</exclude>
+                                <exclude>com/cryptomorin/xseries/NMSExtras*</exclude>
+                                <exclude>com/cryptomorin/xseries/NoteBlockMusic*</exclude>
+                                <exclude>com/cryptomorin/xseries/SkullCacheListener*</exclude>
+                                <exclude>com/cryptomorin/xseries/XItemStack*</exclude>
+                            </excludes>
+                        </relocation>
+                        <relocation>
+                            <pattern>de.leonhard.storage</pattern>
+                            <shadedPattern>xyz.geik.farmer.shades.storage</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>de.themoep.inventorygui</pattern>
+                            <shadedPattern>xyz.geik.farmer.shades.inventorygui</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>org.jetbrains.annotations</pattern>
+                            <shadedPattern>xyz.geik.farmer.shades.jetbrains</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>de.tr7zw.nbtapi</pattern>
+                            <shadedPattern>xyz.geik.farmer.shades.nbtapi</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>
