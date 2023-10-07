@@ -16,4 +16,4 @@ jobs:
           javadoc-branch: javadoc
           java-version: 8
           project: maven # or gradle
-          # subdirectories: moduleA moduleB #for subdirectories support, needs to be run with custom command
+          subdirectories: bukkit
