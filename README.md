@@ -40,7 +40,7 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tortor quam,
 [![Leaderos JavaDoc](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/publish-javadoc-maven.yml/badge.svg)](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/publish-javadoc-maven.yml)
 [![Java CI with Maven](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/maven.yml/badge.svg)](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/maven.yml)
 
-### [Javadoc](https://poyrazinan.github.io/Farmer-v6/)
+### [Javadoc](https://leaderos-net.github.io/leaderos-plugin/)
 
 ### Maven:
 
@@ -54,8 +54,8 @@ Add this to your pom.xml if you use in maven.
 ```
 ```xml
 <dependency>
-    <groupId>com.github.poyrazinan</groupId>
-    <artifactId>Farmer-v6</artifactId>
+    <groupId>com.github.leaderos-net</groupId>
+    <artifactId>leaderos-plugin</artifactId>
     <version>{RELEASE-VERSION}</version>
 </dependency>
 ```
@@ -71,46 +71,32 @@ repositories {
 ```
 ```groovy
 dependencies {
-    implementation 'com.github.poyrazinan:Farmer-v6:{RELEASE-VERSION}'
+    implementation 'com.github.leaderos-net:leaderos-plugin:{RELEASE-VERSION}'
 }
 ```
 
 ### How to use?
 
-FarmerAPI has good javadoc.
+leaderos-plugin has good javadoc.
 
-You can check it out the farmer javadoc [Java-Doc](https://poyrazinan.github.io/Farmer-v6/javadoc)
+You can check it out the farmer javadoc [Java-Doc](https://leaderos-net.github.io/leaderos-plugin)
 
 ```java
 public class Main extends JavaPlugin {
     // Returns Main class of plugin
-    Main farmerMain = FarmerAPI.getInstance();
-    // Gets farmer manager
-    FarmerManager farmerManager = FarmerAPI.getFarmerManager();
+    Main leaderosMain = LeaderOSAPI.getInstance();
     // Gets storage manager
-    StorageManager storageManager = FarmerAPI.getStorageManager();
-    // Gets module manager
-    ModuleManager moduleManager = FarmerAPI.getModuleManager();
-    // Gets database manager
-    DatabaseManager databaseManager = FarmerAPI.getDatabaseManager();
+    StorageManager storageManager = LeaderOSAPI.getStorageManager();
 }
 ```
 
 ### Listeners
 
-* FarmerBoughtEvent
-* FarmerItemCollectEvent
-* FarmerItemProductionEvent
-* FarmerItemSellEvent
-* FarmerMainGuiOpenEvent
-* FarmerModuleGuiCreateEvent
-* FarmerRemoveEvent
-* FarmerStorageFullEvent
+* TODO
 
 ## Used Libraries
 
-* [spigot-api (1.19-R0.3-SNAPSHOT)](https://hub.spigotmc.org/stash/projects/SPIGOT/repos/spigot/browse)
-* [HikariCP](https://github.com/brettwooldridge/HikariCP)
+* [spigot-api (1.20-R0.1-SNAPSHOT)](https://hub.spigotmc.org/stash/projects/SPIGOT/repos/spigot/browse)
 * [lombok (LATEST)](https://github.com/projectlombok/lombok)
 * [BStats](https://bstats.org)
 * [Vault](https://www.spigotmc.org/resources/vault.34315/)
@@ -120,16 +106,6 @@ public class Main extends JavaPlugin {
 * [NBTApi](https://www.spigotmc.org/resources/nbt-api.7939/)
 * [AuthLib](https://mvnrepository.com/artifact/com.mojang/authlib/1.5.25)
 * [NBT-API](https://github.com/tr7zw/Item-NBT-API)
-* [WildStacker](https://github.com/BG-Software-LLC/WildStacker)
-* [FabledSkyblock](https://github.com/craftaro/FabledSkyBlock)
-* [TownyAdvanced](https://www.spigotmc.org/resources/towny-advanced.72694/)
-
-### Integration Libraries (Optional)
-* [SuperiorSkyblock2](https://github.com/BG-Software-LLC/SuperiorSkyblock2)
-* [GriefPrevention](https://www.spigotmc.org/resources/griefprevention.1884/)
-* [BentoBox](https://www.spigotmc.org/resources/bentobox-bskyblock-acidisland-skygrid-caveblock-aoneblock-boxed.73261/)
-* [ASkyBlock](https://www.spigotmc.org/resources/askyblock.1220/)
-* [FabledSkyblock](https://github.com/craftaro/FabledSkyBlock)
 
 ## Contributing
 
