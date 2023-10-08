@@ -1,7 +1,8 @@
 package net.leaderos.plugin.bukkit.api.managers;
 
-import de.leonhard.storage.Config;
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.bukkit.configuration.lang.Language;
+import net.leaderos.plugin.bukkit.helpers.ChatUtil;
 import net.leaderos.plugin.shared.module.Modulable;
 import org.bukkit.Bukkit;
 
@@ -33,18 +34,20 @@ public class ModuleManager {
      * Enables all modules
      */
     public void enableModules() {
-        Config lang = Main.getInstance().getLangFile();
+        Language lang = Main.getInstance().getLangFile();
         modules.forEach(module -> {
             if (module.getStatus()) {
                 module.setEnabled(true);
                 module.onEnable();
-                Bukkit.getConsoleSender().sendMessage(lang.getText("info.module-enabled")
-                        .replace("%module_name%", module.getName()));
+                String message = lang.getMessages().getInfo().getModuleEnabled()
+                        .replace("%module_name%", module.getName());
+                ChatUtil.sendMessage(Bukkit.getConsoleSender(), message);
             }
             else {
                 module.setEnabled(false);
-                Bukkit.getConsoleSender().sendMessage(lang.getText("info.module-closed")
-                        .replace("%module_name%", module.getName()));
+                String message = lang.getMessages().getInfo().getModuleClosed()
+                        .replace("%module_name%", module.getName());
+                ChatUtil.sendMessage(Bukkit.getConsoleSender(), message);
             }
         });
     }
@@ -53,13 +56,13 @@ public class ModuleManager {
      * Disables all modules
      */
     public void disableModules() {
-        Config lang = Main.getInstance().getLangFile();
         modules.forEach(module -> {
             if (module.isEnabled()) {
                 module.setEnabled(false);
                 module.onDisable();
-                Bukkit.getConsoleSender().sendMessage(lang.getText("info.module-disabled")
-                        .replace("%module_name%", module.getName()));
+                String message = Main.getInstance().getLangFile().getMessages().getInfo().getModuleDisabled()
+                        .replace("%module_name%", module.getName());
+                ChatUtil.sendMessage(Bukkit.getConsoleSender(), message);
             }
         });
     }

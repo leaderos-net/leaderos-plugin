@@ -1,7 +1,6 @@
 package net.leaderos.plugin.bukkit.api;
 
 import net.leaderos.plugin.bukkit.api.managers.ModuleManager;
-import net.leaderos.plugin.bukkit.api.managers.StorageManager;
 
 /**
  * LeaderOS plugins api class
@@ -25,22 +24,6 @@ public class LeaderOSAPI {
         if (moduleManager == null)
             moduleManager = new ModuleManager();
         return moduleManager;
-    }
-
-    /**
-     * StorageManager instance
-     */
-    private static StorageManager storageManager;
-
-    /**
-     * Gets Storage manager
-     * @see StorageManager
-     * @return StorageManager
-     */
-    public static StorageManager getStorageManager() {
-        if (storageManager == null)
-            storageManager = new StorageManager();
-        return storageManager;
     }
 
     /**

@@ -52,8 +52,8 @@ public abstract class Request {
      */
     public Request(String api, String body, @NotNull RequestType type) throws IOException, RequestException {
         this.body = body;
-        this.url = new URL( Main.getInstance().getConfigFile().getString("settings.url") + "/api/" + api);
-        this.apiKey = Main.getInstance().getConfigFile().getString("settings.api-key");
+        this.url = new URL( Main.getInstance().getConfigFile().getSettings().getUrl()+ "/api/" + api);
+        this.apiKey = Main.getInstance().getConfigFile().getSettings().getApiKey();
         this.connection = (HttpURLConnection) this.url.openConnection();
         // Request type selector
         connection.setRequestMethod(type.name().toUpperCase());

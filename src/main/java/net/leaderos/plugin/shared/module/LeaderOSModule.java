@@ -43,7 +43,7 @@ public abstract class LeaderOSModule implements Modulable {
      */
     @Override
     public boolean getStatus() {
-        return Main.getInstance().getModulesFile().getBoolean("modules." + getName() + ".status");
+        return (boolean) Main.getInstance().getModulesFile().get("modules." + getName() + ".status");
     }
 
     /**

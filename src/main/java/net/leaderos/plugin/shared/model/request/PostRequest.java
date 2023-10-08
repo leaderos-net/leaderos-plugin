@@ -27,6 +27,13 @@ public class PostRequest extends Request {
         super(api, body, RequestType.POST);
     }
 
+    /**
+     * Post request constructor
+     *
+     * @param api
+     * @throws IOException
+     * @throws RequestException
+     */
     public PostRequest(String api) throws IOException, RequestException {
         super(api, null, RequestType.POST);
     }

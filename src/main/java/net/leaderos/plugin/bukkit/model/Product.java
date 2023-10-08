@@ -8,6 +8,8 @@ import org.json.JSONObject;
 /**
  * Products of Categories on WebStore
  */
+@Getter
+@Setter
 public class Product {
 
     /**
