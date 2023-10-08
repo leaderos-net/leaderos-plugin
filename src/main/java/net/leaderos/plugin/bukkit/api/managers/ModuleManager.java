@@ -1,8 +1,8 @@
-package net.leaderos.plugin.api.managers;
+package net.leaderos.plugin.bukkit.api.managers;
 
 import de.leonhard.storage.Config;
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.modules.Modulable;
+import net.leaderos.plugin.shared.module.Modulable;
 import org.bukkit.Bukkit;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class ModuleManager {
             }
             else {
                 module.setEnabled(false);
-                Bukkit.getConsoleSender().sendMessage(lang.getText("info.module-enabled")
+                Bukkit.getConsoleSender().sendMessage(lang.getText("info.module-closed")
                         .replace("%module_name%", module.getName()));
             }
         });

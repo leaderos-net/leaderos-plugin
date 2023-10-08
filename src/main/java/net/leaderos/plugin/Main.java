@@ -2,7 +2,7 @@ package net.leaderos.plugin;
 
 import de.leonhard.storage.Config;
 import lombok.Getter;
-import net.leaderos.plugin.api.LeaderOSAPI;
+import net.leaderos.plugin.bukkit.api.LeaderOSAPI;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -51,7 +51,6 @@ public class Main extends JavaPlugin {
      * onEnable override method of Spigot library
      */
     public void onEnable() {
-
     }
 
     /**

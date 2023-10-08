@@ -1,4 +1,4 @@
-package net.leaderos.plugin.modules;
+package net.leaderos.plugin.shared.module;
 
 import lombok.Getter;
 import net.leaderos.plugin.Main;

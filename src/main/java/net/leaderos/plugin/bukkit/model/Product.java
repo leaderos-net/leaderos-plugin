@@ -1,4 +1,4 @@
-package net.leaderos.plugin.model;
+package net.leaderos.plugin.bukkit.model;
 
 import lombok.Getter;
 import lombok.Setter;

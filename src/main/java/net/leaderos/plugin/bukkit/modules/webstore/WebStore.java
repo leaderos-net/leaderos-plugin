@@ -1,6 +1,6 @@
-package net.leaderos.plugin.modules.webstore;
+package net.leaderos.plugin.bukkit.modules.webstore;
 
-import net.leaderos.plugin.modules.LeaderOSModule;
+import net.leaderos.plugin.shared.module.LeaderOSModule;
 
 /**
  * Web-store module of leaderos-plugin

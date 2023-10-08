@@ -1,4 +1,4 @@
-name: leaderos
+name: leaderos-plugin
 author: [geik]
 main: net.leaderos.plugin.Main
 version: 1.0

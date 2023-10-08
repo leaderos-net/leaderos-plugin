@@ -1,4 +1,4 @@
-package net.leaderos.plugin.exceptions;
+package net.leaderos.plugin.bukkit.exceptions;
 
 /**
  * @author poyrazinan

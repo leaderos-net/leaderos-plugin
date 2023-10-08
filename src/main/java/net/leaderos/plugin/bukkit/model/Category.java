@@ -1,4 +1,4 @@
-package net.leaderos.plugin.model;
+package net.leaderos.plugin.bukkit.model;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -36,6 +36,13 @@ public class Category {
     @Getter
     @Setter
     private List<Category> subCategories = new ArrayList<>();
+
+    /**
+     * Products of category
+     */
+    @Getter
+    @Setter
+    private List<Product> productList = new ArrayList<>();
 
     /**
      * Category constructor

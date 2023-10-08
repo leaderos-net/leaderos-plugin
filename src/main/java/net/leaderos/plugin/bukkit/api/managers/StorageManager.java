@@ -1,4 +1,4 @@
-package net.leaderos.plugin.api.managers;
+package net.leaderos.plugin.bukkit.api.managers;
 
 /**
  *

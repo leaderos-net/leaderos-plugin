@@ -1,0 +1,4 @@
+name: leaderos-bungee
+main: net.leaderos.plugin.Bungee
+version: 1.0
+author: geik
