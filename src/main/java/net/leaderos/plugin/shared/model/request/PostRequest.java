@@ -12,7 +12,6 @@ import java.io.IOException;
  * @author poyrazinan
  * @since 1.0
  */
-@Builder
 public class PostRequest extends Request {
 
     /**

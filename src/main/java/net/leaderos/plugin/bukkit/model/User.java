@@ -5,6 +5,7 @@ import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -14,45 +15,40 @@ import java.util.Date;
  * @author poyrazinan
  * @since 1.0
  */
+@Getter
 public class User {
 
     /**
      * Player id on website
      */
-    @Getter
     private String id;
 
     /**
      * Credit amount of player as double
      */
-    @Getter
     @Setter
     private double credit;
 
     /**
      * Username of player on website
      */
-    @Getter
     @Setter
     private String username;
 
     /**
      * Email of player on website
      */
-    @Getter
     @Setter
     private String email;
 
     /**
      * Creation ip of player on website
      */
-    @Getter
     private String creationIp;
 
     /**
      * Creation date of player on website
      */
-    @Getter
     private Date creationDate;
 
     /**
@@ -67,6 +63,13 @@ public class User {
         this.creationIp = user.getString("creationIp");
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        this.id = format.format(user.getString("creationDate"));
+        try {
+            this.creationDate = format.parse(user.getString("creationDate"));
+        }
+        catch (ParseException e) {
+            try {
+                this.creationDate = format.parse("1000-01-01 00:00:00");
+            } catch (ParseException ex) {}
+        }
     }
 }

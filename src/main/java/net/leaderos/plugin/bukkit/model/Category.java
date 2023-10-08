@@ -17,6 +17,8 @@ import java.util.List;
  * @author poyrazinan
  * @since 1.0
  */
+@Getter
+@Setter
 public class Category {
 
     /**
@@ -27,43 +29,31 @@ public class Category {
     /**
      * Category Id
      */
-    @Getter
-    @Setter
     private String categoryId;
 
     /**
      * Name of Category
      */
-    @Getter
-    @Setter
     private String categoryName;
 
     /**
      * Lore of category
      */
-    @Getter
-    @Setter
     private List<String> categoryLore;
 
     /**
      * Material of category item
      */
-    @Getter
-    @Setter
     private XMaterial material;
 
     /**
      * Sub-categories of category
      */
-    @Getter
-    @Setter
     private List<Category> subCategories = new ArrayList<>();
 
     /**
      * Products of category
      */
-    @Getter
-    @Setter
     private List<Product> productList = new ArrayList<>();
 
     /**
@@ -87,10 +77,10 @@ public class Category {
 
         // checks if there is any description for it
         String description = category.getString("minecraftDescription");
-        if (description.isEmpty())
-            // TODO default value
+        if (!description.isEmpty())
             this.categoryLore = Arrays.asList(description.split("\n"));
         else
+            // TODO default value
             this.categoryLore = Arrays.asList(description.split("\n"));
 
 
