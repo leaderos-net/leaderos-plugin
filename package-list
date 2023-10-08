@@ -1,3 +1,7 @@
 net.leaderos.plugin
 net.leaderos.plugin.api
 net.leaderos.plugin.api.managers
+net.leaderos.plugin.exceptions
+net.leaderos.plugin.model
+net.leaderos.plugin.modules
+net.leaderos.plugin.modules.webstore
