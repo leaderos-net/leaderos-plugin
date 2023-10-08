@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Getter @Setter
 @Names(strategy = NameStrategy.HYPHEN_CASE, modifier = NameModifier.TO_LOWER_CASE)
-public class Language  extends OkaeriConfig {
+public abstract class Language  extends OkaeriConfig {
 
     /**
      * Settings menu of config
