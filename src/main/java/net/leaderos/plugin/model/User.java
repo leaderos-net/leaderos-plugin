@@ -1,6 +1,5 @@
 package net.leaderos.plugin.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +14,6 @@ import java.util.Date;
  * @author poyrazinan
  * @since 1.0
  */
-@AllArgsConstructor
 public class User {
 
     /**
