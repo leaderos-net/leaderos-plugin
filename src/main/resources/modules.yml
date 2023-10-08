@@ -1,0 +1,7 @@
+modules:
+  WebStore:
+    status: true
+  Auth:
+    status: true
+  Bazaar:
+    status: true

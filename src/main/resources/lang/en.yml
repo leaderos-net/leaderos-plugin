@@ -1,0 +1,4 @@
+info:
+  module-enabled: "%module_name% enabled."
+  module-closed: "%module_name% closed."
+  module-disabled: "%module_name% disabled."

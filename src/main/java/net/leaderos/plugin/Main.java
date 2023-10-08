@@ -32,12 +32,19 @@ public class Main extends JavaPlugin {
     private Config langFile;
 
     /**
+     * Module file of plugin
+     */
+    @Getter
+    private Config modulesFile;
+
+    /**
      * onLoad override method of spigot library
      */
     public void onLoad() {
         instance = this;
         configFile = LeaderOSAPI.getStorageManager().initConfig("config");
         langFile = LeaderOSAPI.getStorageManager().initLangFile(getConfigFile().getString("settings.lang"));
+        modulesFile = LeaderOSAPI.getStorageManager().initConfig("modules");
     }
 
     /**
