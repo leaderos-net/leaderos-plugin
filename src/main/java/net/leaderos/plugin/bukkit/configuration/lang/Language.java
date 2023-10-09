@@ -1,6 +1,5 @@
 package net.leaderos.plugin.bukkit.configuration.lang;
 
-import com.cryptomorin.xseries.XMaterial;
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.annotation.NameModifier;
@@ -8,7 +7,6 @@ import eu.okaeri.configs.annotation.NameStrategy;
 import eu.okaeri.configs.annotation.Names;
 import lombok.Getter;
 import lombok.Setter;
-import net.leaderos.plugin.bukkit.modules.webstore.WebStoreGui;
 
 import java.util.Arrays;
 import java.util.List;
@@ -19,7 +17,7 @@ import java.util.List;
  */
 @Getter @Setter
 @Names(strategy = NameStrategy.HYPHEN_CASE, modifier = NameModifier.TO_LOWER_CASE)
-public abstract class Language  extends OkaeriConfig {
+public class Language  extends OkaeriConfig {
 
     /**
      * Settings menu of config
@@ -212,6 +210,59 @@ public abstract class Language  extends OkaeriConfig {
                 private String name = "&aNext Page";
             }
 
+            /**
+             * Default Category attributes
+             */
+            private DefaultCategory defaultCategory = new DefaultCategory();
+
+            /**
+             * Default Category arguments class
+             */
+            @Getter @Setter
+            public static class DefaultCategory extends OkaeriConfig {
+
+                /**
+                 * Default material
+                 */
+                private String material = "DIAMOND_BLOCK";
+
+                /**
+                 * Default Lore
+                 */
+                private List<String> lore = Arrays.asList(
+                        "&r",
+                        "&aClick for open category!"
+                );
+            }
+
+            /**
+             * DefaultProduct attributes
+             */
+            private DefaultProduct defaultProduct = new DefaultProduct();
+
+            /**
+             * DefaultProduct arguments class
+             */
+            @Getter @Setter
+            public static class DefaultProduct extends OkaeriConfig {
+
+                /**
+                 * Default material
+                 */
+                private String material = "DIAMOND";
+
+                /**
+                 * Default Lore
+                 */
+                private List<String> lore = Arrays.asList(
+                        "&r",
+                        "&7Price &8» &e%price%",
+                        "&7Stock &8» &e%stock%",
+                        "",
+                        "&aClick for buy!"
+                );
+            }
+
         }
 
         /**
@@ -243,7 +294,7 @@ public abstract class Language  extends OkaeriConfig {
              */
             private String guiName = "&8WebStore";
 
-            private String discountedPriceFormat = "&aPrice: &c&m{price}&r &a{discountedPrice}";
+            private String discountedPriceFormat = "&c&m{price}&r &a{discountedPrice}";
 
             private String discountAmountFormat = "&8[&a%{discount}&8]";
 

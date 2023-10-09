@@ -3,11 +3,13 @@ package net.leaderos.plugin.bukkit.model;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 
 /**
  * User object
@@ -17,6 +19,28 @@ import java.util.Date;
  */
 @Getter
 public class User {
+
+    /**
+     * user cache list
+     */
+    private static HashMap<String, User> userList = new HashMap<>();
+
+    /**
+     * cached userList getter
+     * @return cached user list
+     */
+    public static HashMap<String, User> getUserList() {
+        return userList;
+    }
+
+    /**
+     * Gets one player @Nullable
+     */
+    public static @Nullable User getUser(String name) {
+        if (userList.containsKey(name))
+            return userList.get(name);
+        else return null;
+    }
 
     /**
      * Player id on website
@@ -71,5 +95,10 @@ public class User {
                 this.creationDate = format.parse("1000-01-01 00:00:00");
             } catch (ParseException ex) {}
         }
+
+        // Adds data to cache
+        if (userList.containsKey(username))
+            userList.remove(username);
+        userList.put(username, this);
     }
 }

@@ -93,8 +93,7 @@ public class Product {
         if (!description.isEmpty())
             this.productLore = Arrays.asList(description.split("\n"));
         else
-            // TODO default value
-            this.productLore = Arrays.asList(description.split("\n"));
+            this.productLore = Main.getInstance().getLangFile().getGui().getDefaultGui().getDefaultProduct().getLore();
 
         // price, discountedPrice, stock data
         this.price = Double.parseDouble(product.getString("price"));
@@ -117,9 +116,9 @@ public class Product {
         if (materialName != null)
             this.material = XMaterial.valueOf(product.getString("minecraftItem"));
 
-        if (material == null || material.isSupported())
-            // TODO default item
-            this.material = XMaterial.DIAMOND;
+        if (material == null || !material.isSupported())
+            this.material = XMaterial.valueOf(Main.getInstance().getLangFile().getGui()
+                    .getDefaultGui().getDefaultProduct().getMaterial());
     }
 
     /**

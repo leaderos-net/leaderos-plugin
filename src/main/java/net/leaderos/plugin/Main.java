@@ -86,9 +86,9 @@ public class Main extends JavaPlugin {
                 it.load(true);
             });
             String langName = configFile.getSettings().getLang();
-            Class langClass = Class.forName("net.leaderos.plugin.bukkit.configuration.lang." + langName);
-            Class<Language> languageClass = langClass;
-            this.langFile = ConfigManager.create(languageClass, (it) -> {
+          //  Class langClass = Class.forName("net.leaderos.plugin.bukkit.configuration.lang." + langName);
+          //  Class<Language> languageClass = langClass;
+            this.langFile = ConfigManager.create(Language.class, (it) -> {
                 it.withConfigurer(new YamlBukkitConfigurer());
                 it.withBindFile(new File(this.getDataFolder() + "/lang", langName));
                 it.saveDefaults();

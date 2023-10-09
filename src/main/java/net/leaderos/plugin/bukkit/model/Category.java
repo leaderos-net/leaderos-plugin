@@ -3,6 +3,7 @@ package net.leaderos.plugin.bukkit.model;
 import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
 import lombok.Setter;
+import net.leaderos.plugin.Main;
 import net.leaderos.plugin.bukkit.helpers.ChatUtil;
 import net.leaderos.plugin.bukkit.helpers.GuiHelper;
 import org.bukkit.inventory.ItemStack;
@@ -96,17 +97,16 @@ public class Category {
         if (!description.isEmpty())
             this.categoryLore = Arrays.asList(description.split("\n"));
         else
-            // TODO default value
-            this.categoryLore = Arrays.asList(description.split("\n"));
+            this.categoryLore = Main.getInstance().getLangFile().getGui().getDefaultGui().getDefaultCategory().getLore();
 
 
         String materialName = category.getString("minecraftItem");
         if (materialName != null)
             this.material = XMaterial.valueOf(category.getString("minecraftItem"));
 
-        if (material == null || material.isSupported())
-            // TODO default item
-            this.material = XMaterial.DIAMOND;
+        if (material == null || !material.isSupported())
+            this.material = XMaterial.valueOf(Main.getInstance().getLangFile().getGui()
+                    .getDefaultGui().getDefaultCategory().getMaterial());
 
         // products
         JSONArray products = category.getJSONArray("products");

@@ -22,7 +22,7 @@ public class WebStore extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
-
+        Main.commandManager.unregisterCommand(new Commands());
     }
 
     /**
