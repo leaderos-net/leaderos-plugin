@@ -9,6 +9,8 @@ import net.leaderos.plugin.bukkit.helpers.ChatUtil;
 import net.leaderos.plugin.bukkit.helpers.GuiHelper;
 import net.leaderos.plugin.bukkit.model.Category;
 import net.leaderos.plugin.bukkit.model.Product;
+import net.leaderos.plugin.bukkit.model.User;
+import net.leaderos.plugin.bukkit.modules.auth.AuthLogin;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -75,7 +77,16 @@ public class WebStoreGui {
                     product.getProductIcon(),
                     1,
                     click ->  {
+                        click.getEvent().setCancelled(true);
                         // TODO Product click event
+                        if (User.isPlayerAuthed(player)) {
+
+                        }
+                        else {
+                            gui.close();
+                            AuthLogin.sendAuthModuleError(player);
+                            return true;
+                        }
                         gui.draw();
                         return true;
                     })))

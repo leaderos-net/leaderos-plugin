@@ -64,6 +64,28 @@ public class Language  extends OkaeriConfig {
         );
 
         /**
+         * Auth messages
+         */
+        private Auth auth = new Auth();
+
+        /**
+         * Auth messages of plugin
+         */
+        @Getter @Setter
+        public static class Auth extends OkaeriConfig {
+
+            /**
+             * Command Message
+             */
+            private String commandMessage = "<&aFor authentication click here!{&5Click Me!}(open_url:%link%)>";
+
+            /**
+             * Module error message
+             */
+            private String moduleError = "<&cThis system require you to login website, click here!{&5Click Me!}(open_url:%link%)>";
+        }
+
+        /**
          * Info messages
          */
         private Info info = new Info();

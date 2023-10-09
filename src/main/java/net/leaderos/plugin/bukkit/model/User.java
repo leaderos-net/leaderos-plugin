@@ -2,10 +2,14 @@ package net.leaderos.plugin.bukkit.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.leaderos.plugin.bukkit.exceptions.RequestException;
+import net.leaderos.plugin.shared.model.request.PostRequest;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -100,5 +104,36 @@ public class User {
         if (userList.containsKey(username))
             userList.remove(username);
         userList.put(username, this);
+    }
+
+    /**
+     * Generates user login link
+     *
+     * @param username of player
+     * @param uuid of player
+     * @return String of url
+     * @throws IOException
+     * @throws RequestException
+     */
+    public static String generateLink(String username, String uuid) throws IOException, RequestException {
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.append("username", username);
+        jsonObject.append("uuid", uuid);
+        PostRequest postRequest = new PostRequest("auth/generate-link", jsonObject.toString());
+        JSONObject response = postRequest.getResponse();
+        postRequest.closeConnection();
+        return response.getString("url");
+    }
+
+    /**
+     * is player authorized or not
+     *
+     * @param player user
+     * @return boolean of status
+     */
+    public static boolean isPlayerAuthed(Player player) {
+        if (getUser(player.getName()) == null)
+            return false;
+        else return true;
     }
 }
