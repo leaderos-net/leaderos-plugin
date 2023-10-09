@@ -3,6 +3,9 @@ package net.leaderos.plugin.bukkit.model;
 import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
 import lombok.Setter;
+import net.leaderos.plugin.bukkit.helpers.ChatUtil;
+import net.leaderos.plugin.bukkit.helpers.GuiHelper;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -20,6 +23,19 @@ import java.util.List;
 @Getter
 @Setter
 public class Category {
+
+    /**
+     * Category list
+     */
+    private static List<Category> categories = new ArrayList<>();
+
+    /**
+     * Getter of categories
+     * @return Category List
+     */
+    public static List<Category> getCategories() {
+        return categories;
+    }
 
     /**
      * Status of category
@@ -101,6 +117,18 @@ public class Category {
         JSONArray subcategories = category.getJSONArray("subcategories");
         if (!subcategories.isEmpty())
             subcategories.forEach(key -> this.subCategories.add(new Category((JSONObject) key)));
+
+        // Adds category to list
+        if (category.getString("parentID").equals("0"))
+            categories.add(this);
+    }
+
+    /**
+     * Gets item of category
+     * @return
+     */
+    public ItemStack getCategoryIcon() {
+        return GuiHelper.getItem(getMaterial(), ChatUtil.color(getCategoryName()), ChatUtil.color(getCategoryLore()));
     }
 
 }

@@ -4,6 +4,11 @@ main: net.leaderos.plugin.Main
 version: 1.0
 api-version: 1.13
 commands:
+    leaderos:
+        description: Default command of leaderos
+    webshop:
+        description: webshop default command
+        aliases: ["webstore", "store", "sitemarket", "webmarket"]
     auth:
         description: Connects your ingame account with website
         aliases: [web, kayıt, bağlan]

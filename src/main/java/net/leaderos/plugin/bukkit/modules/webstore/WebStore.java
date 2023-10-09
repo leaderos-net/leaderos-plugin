@@ -1,5 +1,6 @@
 package net.leaderos.plugin.bukkit.modules.webstore;
 
+import net.leaderos.plugin.Main;
 import net.leaderos.plugin.shared.module.LeaderOSModule;
 
 /**
@@ -14,7 +15,7 @@ public class WebStore extends LeaderOSModule {
      * onEnable method of module
      */
     public void onEnable() {
-
+        Main.commandManager.registerCommand(new Commands());
     }
 
     /**

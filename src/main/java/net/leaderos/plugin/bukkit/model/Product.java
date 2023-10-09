@@ -3,6 +3,10 @@ package net.leaderos.plugin.bukkit.model;
 import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
 import lombok.Setter;
+import net.leaderos.plugin.Main;
+import net.leaderos.plugin.bukkit.helpers.ChatUtil;
+import net.leaderos.plugin.bukkit.helpers.GuiHelper;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
@@ -12,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Products of Categories on WebStore
@@ -115,5 +120,57 @@ public class Product {
         if (material == null || material.isSupported())
             // TODO default item
             this.material = XMaterial.DIAMOND;
+    }
+
+    /**
+     * Gets item of product
+     * @return
+     */
+    public ItemStack getProductIcon() {
+        String displayName = getProductName();
+        List<String> lore;
+
+        // Discount calculation and replacements
+        boolean hasDiscount = false;
+        Date discountDate = getDiscountExpiryDate();
+
+        if (getDiscountedPrice() > 0 && discountDate.after(new Date()))
+            hasDiscount = true;
+
+        int discountAmount = (int) (((getPrice() - getDiscountedPrice()) / getPrice()) * 100);
+        // Formatters of discount
+        String discountedPriceFormat = Main.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountedPriceFormat()
+                .replace("{price}", price+"")
+                .replace("{discountedPrice}", discountedPrice+"");
+        String discountAmountFormat = Main.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountAmountFormat()
+                .replace("{discount}", discountAmount+"");
+        String stockUnlimited = Main.getInstance().getLangFile().getGui().getWebStoreGui().getStockUnlimited();
+
+
+        // Discount modifier of item
+        if (hasDiscount) {
+            displayName.replace("%discount_amount%", discountAmountFormat);
+            lore = getProductLore().stream().map(key -> key.replace("%discount_amount%" , discountAmountFormat)
+                    .replace("%price%", discountedPriceFormat)).collect(Collectors.toList());
+        }
+        else {
+            displayName.replace("%discount_amount%", "");
+            lore = getProductLore().stream().map(key -> key.replace("%discount_amount%" , "")
+                    .replace("%price%", price+"")).collect(Collectors.toList());
+        }
+
+        // Stock calculation for gui item
+        if (stock < 0)
+            lore = lore.stream().map(key -> key.replace("%stock%" , stockUnlimited))
+                    .collect(Collectors.toList());
+        else
+            lore = lore.stream().map(key -> key.replace("%stock%" , getStock()+""))
+                    .collect(Collectors.toList());
+
+        // Color utils
+        lore = ChatUtil.color(lore);
+        displayName = ChatUtil.color(displayName);
+
+        return GuiHelper.getItem(getMaterial(), displayName, lore);
     }
 }

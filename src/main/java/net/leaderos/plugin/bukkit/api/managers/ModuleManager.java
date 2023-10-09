@@ -1,13 +1,13 @@
 package net.leaderos.plugin.bukkit.api.managers;
 
+import lombok.Getter;
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.bukkit.configuration.lang.Language;
 import net.leaderos.plugin.bukkit.helpers.ChatUtil;
 import net.leaderos.plugin.shared.module.Modulable;
 import org.bukkit.Bukkit;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 /**
  * ModuleManager of leaderos-plugin
@@ -20,14 +20,21 @@ public class ModuleManager {
     /**
      * List of modules
      */
-    private List<Modulable> modules = new ArrayList<>();
+    private HashMap<String, Modulable> modules = new HashMap<>();
+
+    /**
+     * Module getter
+     */
+    public Modulable getModule(String name) {
+        return modules.get(name);
+    }
 
     /**
      * Registers module to module list
      * @param module of leaderos-plugin
      */
     public void registerModule(Modulable module) {
-        modules.add(module);
+        modules.put(module.getName(), module);
     }
 
     /**
@@ -35,7 +42,8 @@ public class ModuleManager {
      */
     public void enableModules() {
         Language lang = Main.getInstance().getLangFile();
-        modules.forEach(module -> {
+        modules.keySet().forEach(moduleName -> {
+            Modulable module = modules.get(moduleName);
             if (module.getStatus()) {
                 module.setEnabled(true);
                 module.onEnable();
@@ -56,7 +64,8 @@ public class ModuleManager {
      * Disables all modules
      */
     public void disableModules() {
-        modules.forEach(module -> {
+        modules.keySet().forEach(moduleName -> {
+            Modulable module = modules.get(moduleName);
             if (module.isEnabled()) {
                 module.setEnabled(false);
                 module.onDisable();
