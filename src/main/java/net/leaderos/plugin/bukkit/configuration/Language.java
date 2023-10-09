@@ -1,4 +1,4 @@
-package net.leaderos.plugin.bukkit.configuration.lang;
+package net.leaderos.plugin.bukkit.configuration;
 
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;

@@ -1,5 +1,5 @@
 <div align="center" style="margin-top: 5%">
-  <img src="assets/leaderos-logo.png" />
+  <img src="https://www.leaderos.net/apps/main/public/assets/img/brand/default.png" />
   <h1>leaderos-plugin</h1>
 <p>
 

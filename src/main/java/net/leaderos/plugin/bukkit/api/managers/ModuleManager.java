@@ -1,7 +1,7 @@
 package net.leaderos.plugin.bukkit.api.managers;
 
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.bukkit.configuration.lang.Language;
+import net.leaderos.plugin.bukkit.configuration.Language;
 import net.leaderos.plugin.bukkit.helpers.ChatUtil;
 import net.leaderos.plugin.shared.module.Modulable;
 import org.bukkit.Bukkit;
