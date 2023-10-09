@@ -5,8 +5,11 @@ net.leaderos.plugin.bukkit.commands
 net.leaderos.plugin.bukkit.configuration
 net.leaderos.plugin.bukkit.configuration.lang
 net.leaderos.plugin.bukkit.exceptions
+net.leaderos.plugin.bukkit.handlers
 net.leaderos.plugin.bukkit.helpers
+net.leaderos.plugin.bukkit.helpers.MDChat
 net.leaderos.plugin.bukkit.model
+net.leaderos.plugin.bukkit.modules.auth
 net.leaderos.plugin.bukkit.modules.webstore
 net.leaderos.plugin.shared.model
 net.leaderos.plugin.shared.model.request
