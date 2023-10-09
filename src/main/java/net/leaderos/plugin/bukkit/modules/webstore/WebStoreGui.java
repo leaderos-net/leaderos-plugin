@@ -61,6 +61,7 @@ public class WebStoreGui {
                 category.getCategoryIcon(),
                 1,
                 click ->  {
+                        showGui(player, category);
                         // TODO Category click event
                         gui.draw();
                         return true;

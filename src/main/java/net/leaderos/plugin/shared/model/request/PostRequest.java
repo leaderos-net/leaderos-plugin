@@ -5,6 +5,7 @@ import net.leaderos.plugin.bukkit.exceptions.RequestException;
 import net.leaderos.plugin.shared.model.Request;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * PostRequest class extended with Request
@@ -22,7 +23,7 @@ public class PostRequest extends Request {
      * @throws IOException      for HttpUrlConnection
      * @throws RequestException for response errors
      */
-    public PostRequest(String api, String body) throws IOException, RequestException {
+    public PostRequest(String api, Map<String, String> body) throws IOException, RequestException {
         super(api, body, RequestType.POST);
     }
 

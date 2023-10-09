@@ -6,12 +6,10 @@ import net.leaderos.plugin.shared.model.request.RequestType;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Map;
 
 /**
  * Request abstracted class
@@ -50,8 +48,8 @@ public abstract class Request {
      * @throws IOException for HttpUrlConnection
      * @throws RequestException for response errors
      */
-    public Request(String api, String body, @NotNull RequestType type) throws IOException, RequestException {
-        this.body = body;
+    public Request(String api, Map<String, String> body, @NotNull RequestType type) throws IOException, RequestException {
+        this.body = encodeFormData(body);
         this.url = new URL( Main.getInstance().getConfigFile().getSettings().getUrl()+ "/api/" + api);
         this.apiKey = Main.getInstance().getConfigFile().getSettings().getApiKey();
         this.connection = (HttpURLConnection) this.url.openConnection();
@@ -60,7 +58,7 @@ public abstract class Request {
 
         // Request Properties
         this.connection.setRequestProperty("X-Api-Key", this.apiKey);
-        this.connection.setRequestProperty("Content-Type", "application/json");
+        this.connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
         // Writes body if there is any
         if (this.body != null) {
@@ -70,6 +68,8 @@ public abstract class Request {
         }
 
         int responseCode = connection.getResponseCode();
+        // TODO REmove
+        System.out.println(responseCode + " " + connection.getResponseMessage());
         if (!(responseCode == HttpURLConnection.HTTP_CREATED
                 || responseCode == HttpURLConnection.HTTP_ACCEPTED
                 || responseCode == HttpURLConnection.HTTP_OK))
@@ -92,15 +92,33 @@ public abstract class Request {
             response.append(line);
         }
         reader.close();
-
+        connection.disconnect();
+        // TODO REmove
+        System.out.println(response);
         return new JSONObject(response.toString());
     }
 
     /**
-     * Closes connection of request
+     * Data encoder for request
+     * @param data body
+     * @return String value
      */
-    public void closeConnection() {
-        this.connection.disconnect();
+    private static String encodeFormData(Map<String, String> data) {
+        try {
+            StringBuilder encodedData = new StringBuilder();
+            for (Map.Entry<String, String> entry : data.entrySet()) {
+                if (encodedData.length() != 0) {
+                    encodedData.append("&");
+                }
+                encodedData.append(entry.getKey());
+                encodedData.append("=");
+                encodedData.append(entry.getValue());
+            }
+            return encodedData.toString();
+        }
+        catch (NullPointerException e) {
+            return null;
+        }
     }
 
 }

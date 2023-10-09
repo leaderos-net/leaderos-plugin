@@ -14,6 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * User object
@@ -116,12 +117,11 @@ public class User {
      * @throws RequestException
      */
     public static String generateLink(String username, String uuid) throws IOException, RequestException {
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.append("username", username);
-        jsonObject.append("uuid", uuid);
-        PostRequest postRequest = new PostRequest("auth/generate-link", jsonObject.toString());
-        JSONObject response = postRequest.getResponse();
-        postRequest.closeConnection();
+        Map<String, String> formData = new HashMap<>();
+        formData.put("username", username);
+        formData.put("uuid", uuid);
+        PostRequest postRequest = new PostRequest("auth/generate-link", formData);
+        JSONObject response = postRequest.getResponse().getJSONObject("data");
         return response.getString("url");
     }
 

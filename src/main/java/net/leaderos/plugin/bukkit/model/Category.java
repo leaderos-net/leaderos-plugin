@@ -4,13 +4,16 @@ import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
 import lombok.Setter;
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.bukkit.exceptions.RequestException;
 import net.leaderos.plugin.bukkit.helpers.ChatUtil;
 import net.leaderos.plugin.bukkit.helpers.GuiHelper;
+import net.leaderos.plugin.shared.model.request.GetRequest;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -87,36 +90,50 @@ public class Category {
             return;
         }
         this.categoryId = category.getString("id");
-        this.categoryName = category.getString("minecraftTitle");
         // if title is empty removes it.
-        if (categoryName.isEmpty())
+        try {
+            this.categoryName = category.getString("minecraftTitle");
+            if (this.categoryName.isEmpty())
+                throw new Exception();
+        }
+        catch (Exception e) {
             this.categoryName = category.getString("name");
+        }
 
-        // checks if there is any description for it
-        String description = category.getString("minecraftDescription");
-        if (!description.isEmpty())
-            this.categoryLore = Arrays.asList(description.split("\n"));
-        else
+        try {
+            this.categoryLore = Arrays.asList(category.getString("minecraftDescription").split("\r\n"));
+            if (categoryLore.isEmpty())
+                throw new Exception();
+        }
+        catch (Exception e) {
             this.categoryLore = Main.getInstance().getLangFile().getGui().getDefaultGui().getDefaultCategory().getLore();
-
+        }
 
         String materialName = category.getString("minecraftItem");
-        if (materialName != null)
-            this.material = XMaterial.valueOf(category.getString("minecraftItem"));
+        if (materialName != null && XMaterial.matchXMaterial(materialName).isPresent())
+            this.material = XMaterial.matchXMaterial(category.getString("minecraftItem")).get();
 
         if (material == null || !material.isSupported())
-            this.material = XMaterial.valueOf(Main.getInstance().getLangFile().getGui()
-                    .getDefaultGui().getDefaultCategory().getMaterial());
+            this.material = XMaterial.matchXMaterial(Main.getInstance().getLangFile().getGui()
+                    .getDefaultGui().getDefaultCategory().getMaterial()).get();
 
         // products
         JSONArray products = category.getJSONArray("products");
         if (!products.isEmpty())
-            products.forEach(key -> this.productList.add(new Product((JSONObject) key)));
+            products.forEach(key -> {
+                Product product = new Product((JSONObject) key);
+                if (product.isStatus())
+                    this.productList.add(product);
+            });
 
         // subcategories
         JSONArray subcategories = category.getJSONArray("subcategories");
         if (!subcategories.isEmpty())
-            subcategories.forEach(key -> this.subCategories.add(new Category((JSONObject) key)));
+            subcategories.forEach(key -> {
+                Category subCategory = new Category((JSONObject) key);
+                if (subCategory.isStatus())
+                    this.subCategories.add(subCategory);
+            });
 
         // Adds category to list
         if (category.getString("parentID").equals("0"))
@@ -129,6 +146,15 @@ public class Category {
      */
     public ItemStack getCategoryIcon() {
         return GuiHelper.getItem(getMaterial(), ChatUtil.color(getCategoryName()), ChatUtil.color(getCategoryLore()));
+    }
+
+    public static void loadAllCategories() throws IOException, RequestException {
+        if (!categories.isEmpty())
+            categories.clear();
+
+        GetRequest getRequest = new GetRequest("store/listing");
+        JSONObject response = getRequest.getResponse();
+        response.getJSONArray("categories").forEach(jsonObj -> new Category((JSONObject) jsonObj));
     }
 
 }

@@ -67,7 +67,7 @@ public class GuiHelper {
      */
     @Contract(" -> new")
     public static @NotNull GuiElement createPreviousPage() {
-        return new GuiPageElement('p',
+        return new GuiPageElement('b',
                 new ItemStack(Material.ARROW),
                 GuiPageElement.PageAction.PREVIOUS,
                 Main.getInstance().getLangFile().getGui().getDefaultGui().getPreviousPage().getName()

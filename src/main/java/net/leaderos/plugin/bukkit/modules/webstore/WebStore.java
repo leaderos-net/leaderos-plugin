@@ -1,7 +1,11 @@
 package net.leaderos.plugin.bukkit.modules.webstore;
 
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.bukkit.exceptions.RequestException;
+import net.leaderos.plugin.bukkit.model.Category;
 import net.leaderos.plugin.shared.module.LeaderOSModule;
+
+import java.io.IOException;
 
 /**
  * Web-store module of leaderos-plugin
@@ -16,6 +20,13 @@ public class WebStore extends LeaderOSModule {
      */
     public void onEnable() {
         Main.commandManager.registerCommand(new Commands());
+        try {
+            Category.loadAllCategories();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (RequestException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

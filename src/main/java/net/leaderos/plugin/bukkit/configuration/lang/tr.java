@@ -304,7 +304,7 @@ public class tr extends Language {
                     "         ",
                     "  ppppp  ",
                     "         ",
-                    "p       n"
+                    "b       n"
             );
 
             /**

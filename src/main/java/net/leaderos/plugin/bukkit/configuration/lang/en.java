@@ -304,7 +304,7 @@ public class en extends Language {
                     "         ",
                     "  ppppp  ",
                     "         ",
-                    "p       n"
+                    "b       n"
             );
 
             /**

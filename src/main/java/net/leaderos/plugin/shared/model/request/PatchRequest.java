@@ -4,6 +4,7 @@ import net.leaderos.plugin.bukkit.exceptions.RequestException;
 import net.leaderos.plugin.shared.model.Request;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * GetRequest class extended with Request
@@ -21,7 +22,7 @@ public class PatchRequest extends Request {
      * @throws IOException      for HttpUrlConnection
      * @throws RequestException for response errors
      */
-    public PatchRequest(String api, String body) throws IOException, RequestException {
+    public PatchRequest(String api, Map<String, String> body) throws IOException, RequestException {
         super(api, body, RequestType.PATCH);
     }
 

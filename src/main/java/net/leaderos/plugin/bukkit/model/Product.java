@@ -3,6 +3,7 @@ package net.leaderos.plugin.bukkit.model;
 import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.bukkit.helpers.ChatUtil;
 import net.leaderos.plugin.bukkit.helpers.GuiHelper;
@@ -12,10 +13,7 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -24,6 +22,11 @@ import java.util.stream.Collectors;
 @Getter
 @Setter
 public class Product {
+
+    /**
+     * dateFormatter
+     */
+    private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * Product status
@@ -83,27 +86,34 @@ public class Product {
             return;
         }
         this.productId = product.getString("id");
-        this.productName = product.getString("minecraftTitle");
-        // if title is empty removes it.
-        if (productName.isEmpty())
-            this.productName = product.getString("name");
 
-        // checks if there is any description for it
-        String description = product.getString("minecraftDescription");
-        if (!description.isEmpty())
-            this.productLore = Arrays.asList(description.split("\n"));
-        else
+        // if title is empty removes it.
+        try {
+            this.productName = product.getString("minecraftTitle");
+            if (this.productName.isEmpty())
+                throw new Exception();
+        }
+        catch (Exception e) {
+            this.productName = product.getString("name");
+        }
+
+        try {
+            this.productLore = Arrays.asList(product.getString("minecraftDescription").split("\r\n"));
+            if (productLore.isEmpty())
+                throw new Exception();
+        }
+        catch (Exception e) {
             this.productLore = Main.getInstance().getLangFile().getGui().getDefaultGui().getDefaultProduct().getLore();
+        }
 
         // price, discountedPrice, stock data
-        this.price = Double.parseDouble(product.getString("price"));
-        this.discountedPrice = Double.parseDouble(product.getString("discountedPrice"));
-        this.stock = Integer.parseInt(product.getString("stock"));
+        this.price = product.getDouble("price");
+        this.discountedPrice = product.getDouble("discountedPrice");
+        this.stock = product.getInt("stock");
 
         // expire date data
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         try {
-            this.discountExpiryDate = format.parse(product.getString("creationDate"));
+            this.discountExpiryDate = format.parse(product.getString("discountExpiryDate"));
         }
         catch (ParseException e) {
             try {
@@ -113,18 +123,19 @@ public class Product {
 
 
         String materialName = product.getString("minecraftItem");
-        if (materialName != null)
-            this.material = XMaterial.valueOf(product.getString("minecraftItem"));
+        if (materialName != null && XMaterial.matchXMaterial(materialName).isPresent())
+            this.material = XMaterial.matchXMaterial(product.getString("minecraftItem")).get();
 
         if (material == null || !material.isSupported())
-            this.material = XMaterial.valueOf(Main.getInstance().getLangFile().getGui()
-                    .getDefaultGui().getDefaultProduct().getMaterial());
+            this.material = XMaterial.matchXMaterial(Main.getInstance().getLangFile().getGui()
+                    .getDefaultGui().getDefaultProduct().getMaterial()).get();
     }
 
     /**
      * Gets item of product
      * @return
      */
+    @SneakyThrows
     public ItemStack getProductIcon() {
         String displayName = getProductName();
         List<String> lore;
@@ -133,7 +144,8 @@ public class Product {
         boolean hasDiscount = false;
         Date discountDate = getDiscountExpiryDate();
 
-        if (getDiscountedPrice() > 0 && discountDate.after(new Date()))
+        if (getDiscountedPrice() > 0
+                && (discountDate.after(new Date()) || format.format(discountDate).equals("1000-01-01 00:00:00")))
             hasDiscount = true;
 
         int discountAmount = (int) (((getPrice() - getDiscountedPrice()) / getPrice()) * 100);
@@ -148,12 +160,12 @@ public class Product {
 
         // Discount modifier of item
         if (hasDiscount) {
-            displayName.replace("%discount_amount%", discountAmountFormat);
+            displayName = displayName.replace("%discount_amount%", discountAmountFormat);
             lore = getProductLore().stream().map(key -> key.replace("%discount_amount%" , discountAmountFormat)
                     .replace("%price%", discountedPriceFormat)).collect(Collectors.toList());
         }
         else {
-            displayName.replace("%discount_amount%", "");
+            displayName = displayName.replace("%discount_amount%", "");
             lore = getProductLore().stream().map(key -> key.replace("%discount_amount%" , "")
                     .replace("%price%", price+"")).collect(Collectors.toList());
         }

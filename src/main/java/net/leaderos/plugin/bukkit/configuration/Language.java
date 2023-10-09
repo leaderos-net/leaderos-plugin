@@ -308,7 +308,7 @@ public class Language  extends OkaeriConfig {
                     "         ",
                     "  ppppp  ",
                     "         ",
-                    "p       n"
+                    "b       n"
             );
 
             /**
