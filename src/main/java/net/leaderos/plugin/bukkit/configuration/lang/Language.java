@@ -81,17 +81,17 @@ public class Language  extends OkaeriConfig {
             /**
              * Module enabled message
              */
-            private String moduleEnabled = "{prefix} %module_name% enabled.";
+            private String moduleEnabled = "{prefix} &a%module_name% enabled.";
 
             /**
              * Module closed message
              */
-            private String moduleClosed = "{prefix} %module_name% closed.";
+            private String moduleClosed = "{prefix} &c%module_name% closed.";
 
             /**
              * Module disabled message
              */
-            private String moduleDisabled = "{prefix} %module_name% disabled.";
+            private String moduleDisabled = "{prefix} &4%module_name% disabled.";
         }
 
         /**

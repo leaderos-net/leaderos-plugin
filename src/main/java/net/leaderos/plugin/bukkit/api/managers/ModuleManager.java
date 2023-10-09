@@ -1,6 +1,5 @@
 package net.leaderos.plugin.bukkit.api.managers;
 
-import lombok.Getter;
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.bukkit.configuration.lang.Language;
 import net.leaderos.plugin.bukkit.helpers.ChatUtil;
@@ -20,12 +19,12 @@ public class ModuleManager {
     /**
      * List of modules
      */
-    private HashMap<String, Modulable> modules = new HashMap<>();
+    private static HashMap<String, Modulable> modules = new HashMap<>();
 
     /**
      * Module getter
      */
-    public Modulable getModule(String name) {
+    public static Modulable getModule(String name) {
         return modules.get(name);
     }
 
@@ -43,7 +42,7 @@ public class ModuleManager {
     public void enableModules() {
         Language lang = Main.getInstance().getLangFile();
         modules.keySet().forEach(moduleName -> {
-            Modulable module = modules.get(moduleName);
+            Modulable module = getModule(moduleName);
             if (module.getStatus()) {
                 module.setEnabled(true);
                 module.onEnable();

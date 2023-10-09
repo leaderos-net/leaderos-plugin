@@ -6,11 +6,13 @@ import dev.triumphteam.cmd.core.message.MessageKey;
 import eu.okaeri.configs.ConfigManager;
 import eu.okaeri.configs.yaml.bukkit.YamlBukkitConfigurer;
 import lombok.Getter;
+import net.leaderos.plugin.bukkit.api.LeaderOSAPI;
 import net.leaderos.plugin.bukkit.commands.LeaderOSCommand;
 import net.leaderos.plugin.bukkit.configuration.Config;
 import net.leaderos.plugin.bukkit.configuration.Modules;
 import net.leaderos.plugin.bukkit.configuration.lang.Language;
 import net.leaderos.plugin.bukkit.helpers.ChatUtil;
+import net.leaderos.plugin.bukkit.modules.webstore.WebStore;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -58,7 +60,6 @@ public class Main extends JavaPlugin {
      */
     public void onLoad() {
         instance = this;
-        commandManager = BukkitCommandManager.create(Main.getInstance());
         setupFiles();
     }
 
@@ -66,6 +67,17 @@ public class Main extends JavaPlugin {
      * onEnable override method of Spigot library
      */
     public void onEnable() {
+        commandManager = BukkitCommandManager.create(Main.getInstance());
+        setupCommands();
+        LeaderOSAPI.getModuleManager().registerModule(new WebStore());
+        LeaderOSAPI.getModuleManager().enableModules();
+    }
+
+    /**
+     * onDisable override method of Spigot library
+     */
+    public void onDisable() {
+        LeaderOSAPI.getModuleManager().disableModules();
     }
 
     /**
@@ -90,7 +102,7 @@ public class Main extends JavaPlugin {
           //  Class<Language> languageClass = langClass;
             this.langFile = ConfigManager.create(Language.class, (it) -> {
                 it.withConfigurer(new YamlBukkitConfigurer());
-                it.withBindFile(new File(this.getDataFolder() + "/lang", langName));
+                it.withBindFile(new File(this.getDataFolder() + "/lang", langName + ".yml"));
                 it.saveDefaults();
                 it.load(true);
             });

@@ -13,7 +13,7 @@ public class LeaderOSAPI {
     /**
      * ModuleManager instance
      */
-    private static ModuleManager moduleManager;
+    private static ModuleManager moduleManager = new ModuleManager();
 
     /**
      * Gets Module Manager

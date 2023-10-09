@@ -2,7 +2,11 @@ package net.leaderos.plugin.shared.module;
 
 import lombok.Getter;
 import net.leaderos.plugin.Main;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
+
+import java.io.File;
 
 /**
  * Represents a Module and its main class. It contains fundamental methods
@@ -43,7 +47,9 @@ public abstract class LeaderOSModule implements Modulable {
      */
     @Override
     public boolean getStatus() {
-        return (boolean) Main.getInstance().getModulesFile().get("modules." + getName() + ".status");
+        File moduleFile = new File("plugins/" + Main.getInstance().getDescription().getName() + "/modules.yml");
+        FileConfiguration modules = YamlConfiguration.loadConfiguration(moduleFile);
+        return modules.getBoolean(getName() + ".status");
     }
 
     /**
