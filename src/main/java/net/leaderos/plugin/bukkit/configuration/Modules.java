@@ -75,5 +75,9 @@ public class Modules extends OkaeriConfig {
          * Status of Bazaar mode
          */
         private boolean status = true;
+        /**
+         * Server id of bazaar
+         */
+        private int serverId = 1;
     }
 }

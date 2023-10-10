@@ -7,10 +7,10 @@ import de.themoep.inventorygui.StaticGuiElement;
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.bukkit.helpers.ChatUtil;
 import net.leaderos.plugin.bukkit.helpers.GuiHelper;
-import net.leaderos.plugin.bukkit.model.Category;
-import net.leaderos.plugin.bukkit.model.Product;
-import net.leaderos.plugin.bukkit.model.User;
-import net.leaderos.plugin.bukkit.modules.auth.AuthLogin;
+import net.leaderos.plugin.bukkit.modules.webstore.model.Category;
+import net.leaderos.plugin.bukkit.modules.webstore.model.Product;
+import net.leaderos.plugin.shared.module.auth.model.User;
+import net.leaderos.plugin.shared.module.auth.AuthLogin;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

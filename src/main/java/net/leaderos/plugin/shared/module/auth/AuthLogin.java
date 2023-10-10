@@ -1,15 +1,11 @@
-package net.leaderos.plugin.bukkit.modules.auth;
+package net.leaderos.plugin.shared.module.auth;
 
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.bukkit.exceptions.RequestException;
 import net.leaderos.plugin.bukkit.helpers.ChatUtil;
 import net.leaderos.plugin.bukkit.helpers.MDChat.MDChatAPI;
-import net.leaderos.plugin.bukkit.model.User;
-import net.leaderos.plugin.shared.model.request.PostRequest;
+import net.leaderos.plugin.shared.module.auth.model.User;
 import net.leaderos.plugin.shared.module.LeaderOSModule;
 import org.bukkit.entity.Player;
-
-import java.io.IOException;
 
 /**
  * Auth module of leaderos-plugin

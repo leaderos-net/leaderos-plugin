@@ -11,9 +11,9 @@ import net.leaderos.plugin.bukkit.commands.LeaderOSCommand;
 import net.leaderos.plugin.bukkit.configuration.Config;
 import net.leaderos.plugin.bukkit.configuration.Modules;
 import net.leaderos.plugin.bukkit.configuration.Language;
-import net.leaderos.plugin.bukkit.handlers.LoginListener;
+import net.leaderos.plugin.shared.module.auth.handlers.LoginListener;
 import net.leaderos.plugin.bukkit.helpers.ChatUtil;
-import net.leaderos.plugin.bukkit.modules.auth.AuthLogin;
+import net.leaderos.plugin.shared.module.auth.AuthLogin;
 import net.leaderos.plugin.bukkit.modules.webstore.WebStore;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -103,9 +103,9 @@ public class Main extends JavaPlugin {
                 it.load(true);
             });
             String langName = configFile.getSettings().getLang();
-            Class langClass = Class.forName("net.leaderos.plugin.bukkit.configuration.lang." + langName);
-            Class<Language> languageClass = langClass;
-            this.langFile = ConfigManager.create(languageClass, (it) -> {
+        //    Class langClass = Class.forName("net.leaderos.plugin.bukkit.configuration.lang." + langName);
+        //    Class<Language> languageClass = langClass;
+            this.langFile = ConfigManager.create(Language.class, (it) -> {
                 it.withConfigurer(new YamlBukkitConfigurer());
                 it.withBindFile(new File(this.getDataFolder() + "/lang", langName + ".yml"));
                 it.saveDefaults();

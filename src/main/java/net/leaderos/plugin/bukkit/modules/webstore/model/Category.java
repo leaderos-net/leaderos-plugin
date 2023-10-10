@@ -1,4 +1,4 @@
-package net.leaderos.plugin.bukkit.model;
+package net.leaderos.plugin.bukkit.modules.webstore.model;
 
 import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
@@ -44,7 +44,7 @@ public class Category {
     /**
      * Status of category
      */
-    private boolean status = true;
+    private boolean status;
 
     /**
      * Category Id

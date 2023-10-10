@@ -316,11 +316,53 @@ public class Language  extends OkaeriConfig {
              */
             private String guiName = "&8WebStore";
 
+            /**
+             * Discounted price format
+             */
             private String discountedPriceFormat = "&c&m{price}&r &a{discountedPrice}";
 
+            /**
+             * Discount amount format
+             */
             private String discountAmountFormat = "&8[&a%{discount}&8]";
 
+            /**
+             * Stock unlimited format
+             */
             private String stockUnlimited = "&6&lUNLIMITED";
+        }
+
+        /**
+         * Bazaar gui object
+         */
+        private BazaarGui bazaarGui = new BazaarGui();
+
+        /**
+         * Bazaar gui arguments class
+         */
+        @Getter @Setter
+        public static class BazaarGui extends OkaeriConfig {
+
+            /**
+             * layout of gui
+             */
+            @Comment("Layout of gui")
+            private List<String> layout = Arrays.asList(
+                    "         ",
+                    " iiiiiii ",
+                    "         ",
+                    "b       n"
+            );
+
+            /**
+             * name of gui
+             */
+            private String guiName = "&8WebStore";
+
+            /**
+             * lore modifier
+             */
+            private String clickLore = "&aClick this for re-take!";
         }
 
     }

@@ -1,4 +1,4 @@
-package net.leaderos.plugin.bukkit.handlers;
+package net.leaderos.plugin.shared.module.auth.handlers;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

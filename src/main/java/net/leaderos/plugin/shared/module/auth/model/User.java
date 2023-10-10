@@ -1,4 +1,4 @@
-package net.leaderos.plugin.bukkit.model;
+package net.leaderos.plugin.shared.module.auth.model;
 
 import lombok.Getter;
 import lombok.Setter;
