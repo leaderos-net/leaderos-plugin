@@ -1,4 +1,4 @@
-package net.leaderos.plugin.bukkit.modules.webstore;
+package net.leaderos.plugin.bukkit.modules.webstore.gui;
 
 import de.themoep.inventorygui.DynamicGuiElement;
 import de.themoep.inventorygui.GuiElementGroup;

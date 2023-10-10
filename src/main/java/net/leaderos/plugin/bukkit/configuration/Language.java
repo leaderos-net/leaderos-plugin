@@ -299,6 +299,17 @@ public class Language  extends OkaeriConfig {
         public static class WebStoreGui extends OkaeriConfig {
 
             /**
+             * landing layout of gui
+             */
+            @Comment("Layout of gui")
+            private List<String> landingGuiLayout = Arrays.asList(
+                    "         ",
+                    "   ccc   ",
+                    "         ",
+                    "b       n"
+            );
+
+            /**
              * layout of gui
              */
             @Comment("Layout of gui")

@@ -1,4 +1,4 @@
-package net.leaderos.plugin.bukkit.modules.webstore;
+package net.leaderos.plugin.bukkit.modules.bazaar.command;
 
 import dev.triumphteam.cmd.bukkit.annotation.Permission;
 import dev.triumphteam.cmd.core.BaseCommand;
@@ -6,15 +6,16 @@ import dev.triumphteam.cmd.core.annotation.Command;
 import dev.triumphteam.cmd.core.annotation.Default;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.bukkit.api.LeaderOSAPI;
+import net.leaderos.plugin.bukkit.modules.bazaar.gui.BazaarGui;
 import org.bukkit.entity.Player;
 
 /**
- * webshop commands
+ * bazaar commands
  * @author poyrazinan
  * @since 1.0
  */
 @RequiredArgsConstructor
-@Command(value = "webshop", alias = {"webstore", "store", "sitemarket", "webmarket"})
+@Command(value = "bazaar", alias = {"webbazaar", "pazar"})
 public class Commands extends BaseCommand {
 
     /**
@@ -22,10 +23,9 @@ public class Commands extends BaseCommand {
      * @param player
      */
     @Default
-    @Permission("webshop.open")
+    @Permission("bazaar.open")
     public void defaultCommand(Player player) {
-        // TODO Open gui
-        if (LeaderOSAPI.getModuleManager().getModule("WebStore").isEnabled())
-            WebStoreGui.showGui(player, null);
+        if (LeaderOSAPI.getModuleManager().getModule("Bazaar").isEnabled())
+            BazaarGui.showGui(player);
     }
 }

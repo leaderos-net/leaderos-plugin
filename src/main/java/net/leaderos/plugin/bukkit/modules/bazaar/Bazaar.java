@@ -2,6 +2,7 @@ package net.leaderos.plugin.bukkit.modules.bazaar;
 
 import lombok.Getter;
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.bukkit.modules.bazaar.command.Commands;
 import net.leaderos.plugin.shared.module.LeaderOSModule;
 
 /**

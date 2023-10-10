@@ -2,6 +2,7 @@ package net.leaderos.plugin.bukkit.modules.webstore;
 
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.bukkit.exceptions.RequestException;
+import net.leaderos.plugin.bukkit.modules.webstore.command.Commands;
 import net.leaderos.plugin.bukkit.modules.webstore.model.Category;
 import net.leaderos.plugin.shared.module.LeaderOSModule;
 
