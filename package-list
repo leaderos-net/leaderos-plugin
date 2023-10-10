@@ -8,9 +8,13 @@ net.leaderos.plugin.bukkit.exceptions
 net.leaderos.plugin.bukkit.helpers
 net.leaderos.plugin.bukkit.helpers.MDChat
 net.leaderos.plugin.bukkit.modules.bazaar
+net.leaderos.plugin.bukkit.modules.bazaar.command
 net.leaderos.plugin.bukkit.modules.bazaar.exception
+net.leaderos.plugin.bukkit.modules.bazaar.gui
 net.leaderos.plugin.bukkit.modules.bazaar.model
 net.leaderos.plugin.bukkit.modules.webstore
+net.leaderos.plugin.bukkit.modules.webstore.command
+net.leaderos.plugin.bukkit.modules.webstore.gui
 net.leaderos.plugin.bukkit.modules.webstore.model
 net.leaderos.plugin.shared.model
 net.leaderos.plugin.shared.model.request
