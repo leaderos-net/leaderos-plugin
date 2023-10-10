@@ -1,5 +1,6 @@
 package net.leaderos.plugin.bukkit.configuration;
 
+import com.cryptomorin.xseries.XMaterial;
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.annotation.NameModifier;
@@ -359,21 +360,68 @@ public class Language  extends OkaeriConfig {
              */
             @Comment("Layout of gui")
             private List<String> layout = Arrays.asList(
-                    "         ",
+                    "    a    ",
                     " iiiiiii ",
-                    "         ",
                     "b       n"
             );
 
             /**
              * name of gui
              */
-            private String guiName = "&8WebStore";
+            private String guiName = "&8Bazaar";
 
             /**
              * lore modifier
              */
             private String clickLore = "&aClick this for re-take!";
+
+            /**
+             * withdraw item title
+             */
+            private String withdrawTitle = "&6&lWithdraw";
+
+            /**
+             * withdraw item subtitle progress
+             */
+            private String withdrawProgressSubtitle = "&7Withraw in progress...";
+
+            /**
+             * withdraw item subtitle success
+             */
+            private String withdrawSuccessSubtitle = "&aWithdraw success.";
+
+            /**
+             * withdraw item subtitle error
+             */
+            private String withdrawErrorSubtitle = "&cWithdraw error.";
+
+            /**
+             * Add item material
+             */
+            private String material = "GREEN_WOOL";
+            /**
+             * Add item title
+             */
+            private String addItemName = "&eAdd item to bazaar";
+
+            /**
+             * Add item lore
+             */
+            private List<String> addItemLore = Arrays.asList("", "&aClick for add item");
+
+            /**
+             * Add item gui name
+             */
+            private String addItemGuiName = "&8Bazaar » Add item";
+
+            /**
+             * layout of gui
+             */
+            @Comment("Layout of gui")
+            private List<String> addItemLayout = Arrays.asList(
+                    "iiiiiiiii",
+                    "iiiiiiiii"
+            );
         }
 
     }

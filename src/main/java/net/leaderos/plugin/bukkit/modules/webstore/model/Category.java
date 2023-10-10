@@ -153,7 +153,7 @@ public class Category {
             categories.clear();
 
         GetRequest getRequest = new GetRequest("store/listing");
-        JSONObject response = getRequest.getResponse();
+        JSONObject response = getRequest.getResponse().getResponseMessage();
         response.getJSONArray("categories").forEach(jsonObj -> new Category((JSONObject) jsonObj));
     }
 

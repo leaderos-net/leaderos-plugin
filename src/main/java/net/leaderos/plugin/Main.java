@@ -11,6 +11,7 @@ import net.leaderos.plugin.bukkit.commands.LeaderOSCommand;
 import net.leaderos.plugin.bukkit.configuration.Config;
 import net.leaderos.plugin.bukkit.configuration.Modules;
 import net.leaderos.plugin.bukkit.configuration.Language;
+import net.leaderos.plugin.bukkit.modules.bazaar.Bazaar;
 import net.leaderos.plugin.shared.module.auth.handlers.LoginListener;
 import net.leaderos.plugin.bukkit.helpers.ChatUtil;
 import net.leaderos.plugin.shared.module.auth.AuthLogin;
@@ -75,6 +76,7 @@ public class Main extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new LoginListener(), this);
         LeaderOSAPI.getModuleManager().registerModule(new WebStore());
         LeaderOSAPI.getModuleManager().registerModule(new AuthLogin());
+        LeaderOSAPI.getModuleManager().registerModule(new Bazaar());
         LeaderOSAPI.getModuleManager().enableModules();
     }
 

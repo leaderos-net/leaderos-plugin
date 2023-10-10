@@ -1,9 +1,13 @@
 package net.leaderos.plugin.shared.model;
 
+import lombok.Getter;
+import lombok.SneakyThrows;
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.bukkit.exceptions.RequestException;
 import net.leaderos.plugin.shared.model.request.RequestType;
+import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -40,6 +44,12 @@ public abstract class Request {
     private HttpURLConnection connection;
 
     /**
+     * Response object
+     */
+    @Getter
+    private Response response;
+
+    /**
      * Request constructor
      *
      * @param api of request
@@ -48,7 +58,7 @@ public abstract class Request {
      * @throws IOException for HttpUrlConnection
      * @throws RequestException for response errors
      */
-    public Request(String api, Map<String, String> body, @NotNull RequestType type) throws IOException, RequestException {
+    public Request(String api, Map<String, String> body, @NotNull RequestType type) throws IOException {
         this.body = encodeFormData(body);
         this.url = new URL( Main.getInstance().getConfigFile().getSettings().getUrl()+ "/api/" + api);
         this.apiKey = Main.getInstance().getConfigFile().getSettings().getApiKey();
@@ -68,12 +78,11 @@ public abstract class Request {
         }
 
         int responseCode = connection.getResponseCode();
-        // TODO REmove
-        System.out.println(responseCode + " " + connection.getResponseMessage());
-        if (!(responseCode == HttpURLConnection.HTTP_CREATED
+        boolean status = (responseCode == HttpURLConnection.HTTP_CREATED
                 || responseCode == HttpURLConnection.HTTP_ACCEPTED
-                || responseCode == HttpURLConnection.HTTP_OK))
-            throw new RequestException("Connection to website has failed", responseCode, connection.getResponseMessage());
+                || responseCode == HttpURLConnection.HTTP_OK);
+        this.response = new Response(responseCode, status, getResponseObj());
+        connection.disconnect();
     }
 
     /**
@@ -82,9 +91,10 @@ public abstract class Request {
      * @return JSONObject of response
      * @throws IOException for reader errors
      */
-    public JSONObject getResponse() throws IOException {
+    @SneakyThrows
+    private JSONObject getStream(InputStream stream) {
         // BufferedReader for read data
-        BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         StringBuilder response = new StringBuilder();
         String line;
 
@@ -92,10 +102,27 @@ public abstract class Request {
             response.append(line);
         }
         reader.close();
+        return new JSONObject(response.toString());
+    }
+
+    /**
+     * Gets response of request
+     *
+     * @return JSONObject of response
+     */
+    private JSONObject getResponseObj() {
+        JSONObject response;
+        try {
+            response = getStream(connection.getInputStream());
+        }
+        catch (Exception e) {
+            response = getStream(connection.getErrorStream());
+        }
+        // BufferedReader for read dat
         connection.disconnect();
         // TODO REmove
         System.out.println(response);
-        return new JSONObject(response.toString());
+        return response;
     }
 
     /**

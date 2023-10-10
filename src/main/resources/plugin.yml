@@ -9,6 +9,8 @@ commands:
     webshop:
         description: webshop default command
         aliases: ["webstore", "store", "sitemarket", "webmarket"]
+    bazaar:
+        description: bazaar default command
     auth:
         description: Connects your ingame account with website
         aliases: [web, kayıt, bağlan]

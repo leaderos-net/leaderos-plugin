@@ -1,5 +1,6 @@
 package net.leaderos.plugin.bukkit.modules.bazaar.gui;
 
+import com.cryptomorin.xseries.XMaterial;
 import de.themoep.inventorygui.DynamicGuiElement;
 import de.themoep.inventorygui.GuiElementGroup;
 import de.themoep.inventorygui.InventoryGui;
@@ -10,13 +11,11 @@ import net.leaderos.plugin.bukkit.helpers.ChatUtil;
 import net.leaderos.plugin.bukkit.helpers.GuiHelper;
 import net.leaderos.plugin.bukkit.modules.bazaar.exception.CacheNotFoundException;
 import net.leaderos.plugin.bukkit.modules.bazaar.model.PlayerBazaar;
-import net.leaderos.plugin.bukkit.modules.webstore.model.Category;
-import net.leaderos.plugin.bukkit.modules.webstore.model.Product;
-import net.leaderos.plugin.shared.module.auth.AuthLogin;
 import net.leaderos.plugin.shared.module.auth.model.User;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,6 +52,13 @@ public class BazaarGui {
             throw new CacheNotFoundException("cache not found");
         }
 
+        // Add item icon
+        gui.addElement(new StaticGuiElement('a', addItemIcon(), 1, click -> {
+            click.getEvent().setCancelled(true);
+            BazaarAddItemGui.showGui(player);
+            return false;
+        }));
+
         // Category group creator
         GuiElementGroup bazaarGui = new GuiElementGroup('i');
         if (!playerBazaarList.isEmpty())
@@ -61,8 +67,19 @@ public class BazaarGui {
                 element.getItem(),
                 1,
                 click ->  {
-                        // TODO bazaar click event
-                        gui.draw();
+                        click.getEvent().setCancelled(true);
+                        gui.close();
+                        String title = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawTitle());
+                        String subtitleError = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawErrorSubtitle());
+                        String subtitleSuccess = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawSuccessSubtitle());
+                        String subtitleProgress = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawProgressSubtitle());
+                        player.sendTitle(title, subtitleProgress);
+                        boolean withdrawStatus = element.withdrawItem(player);
+                        // TODO Title edit
+                        if (withdrawStatus)
+                            player.sendTitle(title, subtitleSuccess);
+                        else
+                            player.sendTitle(title, subtitleError);
                         return true;
                 })))
             );
@@ -72,5 +89,15 @@ public class BazaarGui {
         gui.addElement(GuiHelper.createNextPage());
         gui.addElement(GuiHelper.createPreviousPage());
         gui.show(player);
+    }
+
+    /**
+     * Add item icon
+     */
+    private static ItemStack addItemIcon() {
+        String displayName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemName());
+        XMaterial material = XMaterial.matchXMaterial(Main.getInstance().getLangFile().getGui().getBazaarGui().getMaterial()).orElse(XMaterial.GREEN_WOOL);
+        List<String> lore = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemLore());
+        return GuiHelper.getItem(material, displayName, lore);
     }
 }

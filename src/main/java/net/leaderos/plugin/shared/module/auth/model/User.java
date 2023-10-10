@@ -85,6 +85,8 @@ public class User {
      * @param user JSONObject of user
      */
     public User(@NotNull JSONObject user) {
+        // TODO Fix
+        /*
         this.id = user.getString("id");
         this.credit = Double.parseDouble(user.getString("credit"));
         this.username = user.getString("username");
@@ -100,6 +102,9 @@ public class User {
                 this.creationDate = format.parse("1000-01-01 00:00:00");
             } catch (ParseException ex) {}
         }
+        */
+        this.id = "1";
+        this.username = "Geyik";
 
         // Adds data to cache
         if (userList.containsKey(username))
@@ -121,7 +126,7 @@ public class User {
         formData.put("username", username);
         formData.put("uuid", uuid);
         PostRequest postRequest = new PostRequest("auth/generate-link", formData);
-        JSONObject response = postRequest.getResponse().getJSONObject("data");
+        JSONObject response = postRequest.getResponse().getResponseMessage().getJSONObject("data");
         return response.getString("url");
     }
 

@@ -1,5 +1,6 @@
 package net.leaderos.plugin.shared.module.auth.handlers;
 
+import net.leaderos.plugin.shared.module.auth.model.User;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -18,5 +19,6 @@ public class LoginListener implements Listener {
     @EventHandler
     public void playerLoginEvent(PlayerLoginEvent event) {
         // TODO Cache
+        new User(null);
     }
 }

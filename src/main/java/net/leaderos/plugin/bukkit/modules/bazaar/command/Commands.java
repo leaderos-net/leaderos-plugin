@@ -7,6 +7,7 @@ import dev.triumphteam.cmd.core.annotation.Default;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.bukkit.api.LeaderOSAPI;
 import net.leaderos.plugin.bukkit.modules.bazaar.gui.BazaarGui;
+import net.leaderos.plugin.shared.module.auth.model.User;
 import org.bukkit.entity.Player;
 
 /**
@@ -25,7 +26,7 @@ public class Commands extends BaseCommand {
     @Default
     @Permission("bazaar.open")
     public void defaultCommand(Player player) {
-        if (LeaderOSAPI.getModuleManager().getModule("Bazaar").isEnabled())
+        if (LeaderOSAPI.getModuleManager().getModule("Bazaar").isEnabled() && User.isPlayerAuthed(player))
             BazaarGui.showGui(player);
     }
 }

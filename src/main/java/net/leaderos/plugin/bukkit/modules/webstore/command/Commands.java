@@ -7,7 +7,6 @@ import dev.triumphteam.cmd.core.annotation.Default;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.bukkit.api.LeaderOSAPI;
 import net.leaderos.plugin.bukkit.modules.webstore.gui.MainWebStoreGui;
-import net.leaderos.plugin.bukkit.modules.webstore.gui.WebStoreGui;
 import org.bukkit.entity.Player;
 
 /**
