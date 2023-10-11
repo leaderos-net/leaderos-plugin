@@ -6,7 +6,12 @@
 
     <groupId>net.leaderos</groupId>
     <artifactId>leaderos</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>shared</module>
+        <module>bukkit</module>
+    </modules>
 
     <properties>
         <shaded.package>org.cas.osd.platform.ciam.shaded</shaded.package>
@@ -44,13 +49,6 @@
             <artifactId>inventorygui</artifactId>
             <!--The following version may not be the latest. Check it before using.-->
             <version>1.5-SNAPSHOT</version>
-        </dependency>
-        <!-- Mojang Dep -->
-        <dependency>
-            <groupId>com.mojang</groupId>
-            <artifactId>authlib</artifactId>
-            <version>3.11.50</version>
-            <scope>provided</scope>
         </dependency>
         <!-- xSeries -->
         <dependency>
@@ -114,11 +112,6 @@
         <repository>
             <id>minebench-repo</id>
             <url>https://repo.minebench.de/</url>
-        </repository>
-        <!-- MojangAPI Repo -->
-        <repository>
-            <id>minecraft-repo</id>
-            <url>https://libraries.minecraft.net/</url>
         </repository>
         <!-- itemnbt -->
         <repository>
