@@ -2,11 +2,16 @@ package net.leaderos.plugin.modules.cache.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.SneakyThrows;
+import net.leaderos.plugin.Main;
+import net.leaderos.shared.model.request.GetRequest;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -78,9 +83,8 @@ public class User {
      * Constructor of User object
      * @param user JSONObject of user
      */
+    @SneakyThrows
     public User(@NotNull JSONObject user) {
-        // TODO Fix
-        /*
         this.id = user.getString("id");
         this.credit = Double.parseDouble(user.getString("credit"));
         this.username = user.getString("username");
@@ -88,17 +92,7 @@ public class User {
         this.creationIp = user.getString("creationIp");
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        try {
-            this.creationDate = format.parse(user.getString("creationDate"));
-        }
-        catch (ParseException e) {
-            try {
-                this.creationDate = format.parse("1000-01-01 00:00:00");
-            } catch (ParseException ex) {}
-        }
-        */
-        this.id = "1";
-        this.username = "Geyik";
+        this.creationDate = format.parse(user.getString("creationDate"));
 
         // Adds data to cache
         if (userList.containsKey(username))
@@ -116,5 +110,37 @@ public class User {
         if (getUser(player.getName()) == null)
             return false;
         else return true;
+    }
+
+    /**
+     * loads all player data
+     */
+    public static void loginAllOnlinePlayers() {
+        Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () ->
+                Bukkit.getOnlinePlayers().forEach(player -> loginPlayer(player)));
+    }
+
+    /**
+     * Login cache load method
+     * @param player logined user
+     */
+    public static void loginPlayer(Player player) {
+        try {
+            GetRequest getRequest = new GetRequest("users/" + player.getName());
+            new User(getRequest.getResponse().getResponseMessage());
+        }
+        catch (Exception e) {
+            // TODO No user exception
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Unload player cache method
+     * @param playerName name of player
+     */
+    public static void unloadPlayerCache(String playerName) {
+        if (User.getUserList().containsKey(playerName))
+            User.getUserList().remove(playerName);
     }
 }

@@ -5,23 +5,30 @@ import net.leaderos.plugin.modules.cache.model.User;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
- * Login listener class
+ * Quit listener for remove cache
+ *
  * @author poyrazinan
  * @since 1.0
  */
-public class LoginListener implements Listener {
+public class QuitListener implements Listener {
 
     /**
-     * Login event of player
-     * @param event
+     * QuitListener constructor
+     */
+    public QuitListener(){}
+
+    /**
+     * QuitListener for remove cache
+     * @param event QuitEvent
      */
     @EventHandler
-    public void playerLoginEvent(PlayerLoginEvent event) {
+    public void quitListener(PlayerQuitEvent event) {
         Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
-            User.loginPlayer(event.getPlayer());
+            User.unloadPlayerCache(event.getPlayer().getName());
         });
     }
+
 }

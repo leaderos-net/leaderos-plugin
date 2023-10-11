@@ -7,6 +7,10 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Represents a Module and its main class. It contains fundamental methods
@@ -16,6 +20,35 @@ import java.io.File;
  * @since 1.0
  */
 public abstract class LeaderOSModule implements Modulable {
+
+    /**
+     * List of dependencies contains dependency tree
+     */
+    @Getter
+    private List<String> dependencies = new ArrayList<>();
+
+    /**
+     * Gets dependency list as string data for placeholders or messages.
+     *
+     * @return String of dependency list.
+     */
+    public String getDependencyListAsString() {
+        if (getDependencies().isEmpty())
+            return "";
+        else
+            return IntStream.range(0, getDependencies().size())
+                    .mapToObj(i -> (i + 1) + ". " + getDependencies().get(i))
+                    .collect(Collectors.joining(", "));
+    }
+
+    /**
+     * Adds dependency to module.
+     * @param name should be a module and name of it.
+     */
+    @Override
+    public void addDependency(String name) {
+        dependencies.add(name);
+    }
 
     /**
      * Gets name of module

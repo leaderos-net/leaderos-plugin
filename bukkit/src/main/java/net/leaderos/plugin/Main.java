@@ -56,7 +56,6 @@ public class Main extends JavaPlugin {
      */
     public void onEnable() {
         this.commandManager = BukkitCommandManager.create(this);
-        Bukkit.getPluginManager().registerEvents(new LoginListener(), this);
         setupCommands();
 
         LeaderOSAPI.getModuleManager().registerModule(new AuthLogin());

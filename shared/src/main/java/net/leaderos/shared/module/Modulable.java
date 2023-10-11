@@ -2,6 +2,8 @@ package net.leaderos.shared.module;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 /**
  * Interface Module class
  *
@@ -9,6 +11,28 @@ import org.jetbrains.annotations.NotNull;
  * @since 1.0
  */
 public interface Modulable {
+
+    /**
+     * Gets dependency list as string data for placeholders or messages.
+     *
+     * @return String of dependency list.
+     */
+    String getDependencyListAsString();
+
+    /**
+     * Add dependency to module.
+     * <p>If the module works with another module, you can add it with this method.</p>
+     * @param dependency should be a module and name of it.
+     */
+    void addDependency(String dependency);
+
+    /**
+     * Returns dependency tree of module.
+     * If there is any module to work with, the module require it for start.
+     *
+     * @return List of dependency list. (Module Names)
+     */
+    List<String> getDependencies();
 
     /**
      * Returns a value indicating whether this module is currently

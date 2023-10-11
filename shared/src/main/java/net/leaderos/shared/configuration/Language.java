@@ -1,6 +1,5 @@
 package net.leaderos.shared.configuration;
 
-import com.cryptomorin.xseries.XMaterial;
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.annotation.NameModifier;
@@ -115,6 +114,11 @@ public class Language  extends OkaeriConfig {
              * Module disabled message
              */
             private String moduleDisabled = "{prefix} &4%module_name% disabled.";
+
+            /**
+             * Missing dependency message
+             */
+            private String missingDependency = "{prefix} &4%module_name% has not started due missing dependency. &c[%dependencies%]";
         }
 
         /**

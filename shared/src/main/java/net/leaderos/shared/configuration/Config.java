@@ -40,5 +40,8 @@ public class Config extends OkaeriConfig {
 
         @Comment("API Key for request")
         private String apiKey = "2d8676260ffc79145cfb0ea736ac6a27";
+
+        @Comment("Time format for plugin")
+        private String timeFormat= "yyyy-MM-dd HH:mm:ss";
     }
 }

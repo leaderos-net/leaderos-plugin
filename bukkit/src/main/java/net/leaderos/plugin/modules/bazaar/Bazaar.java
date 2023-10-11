@@ -38,5 +38,7 @@ public class Bazaar extends LeaderOSModule {
     /**
      * Constructor of WebStore
      */
-    public Bazaar() {}
+    public Bazaar() {
+        addDependency("Cache");
+    }
 }

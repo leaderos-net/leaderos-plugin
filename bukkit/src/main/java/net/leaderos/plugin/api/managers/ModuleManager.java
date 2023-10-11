@@ -43,6 +43,21 @@ public class ModuleManager {
         Language lang = Main.getShared().getLangFile();
         modules.keySet().forEach(moduleName -> {
             Modulable module = getModule(moduleName);
+            // Checks if module has dependency
+            if (!module.getDependencies().isEmpty()) {
+                // Dependency status of module
+                boolean dependStatus = module.getDependencies().stream()
+                        .allMatch(dependency -> modules.get(dependency).getStatus());
+                // If requirements not met disables module
+                if (!dependStatus) {
+                    module.setEnabled(false);
+                    String message = lang.getMessages().getInfo().getMissingDependency()
+                            .replace("%module_name%", module.getName())
+                            .replace("%dependencies%", module.getDependencyListAsString());
+                    ChatUtil.sendMessage(Bukkit.getConsoleSender(), message);
+                    return;
+                }
+            }
             if (module.getStatus()) {
                 module.setEnabled(true);
                 module.onEnable();
