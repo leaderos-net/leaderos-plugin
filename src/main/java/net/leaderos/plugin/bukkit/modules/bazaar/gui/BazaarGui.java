@@ -7,11 +7,11 @@ import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.bukkit.helpers.ChatUtil;
-import net.leaderos.plugin.bukkit.helpers.GuiHelper;
-import net.leaderos.plugin.bukkit.modules.bazaar.exception.CacheNotFoundException;
+import net.leaderos.plugin.shared.helpers.ChatUtil;
+import net.leaderos.plugin.shared.helpers.GuiHelper;
+import net.leaderos.plugin.shared.exceptions.CacheNotFoundException;
 import net.leaderos.plugin.bukkit.modules.bazaar.model.PlayerBazaar;
-import net.leaderos.plugin.shared.module.auth.model.User;
+import net.leaderos.plugin.bukkit.modules.cache.model.User;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -52,7 +52,7 @@ public class BazaarGui {
         }
 
         // Add item icon
-        gui.addElement(new StaticGuiElement('a', addItemIcon(), 1, click -> {
+        gui.addElement(new StaticGuiElement('a', GuiHelper.addItemIcon(), 1, click -> {
             click.getEvent().setCancelled(true);
             BazaarAddItemGui.showGui(player);
             return false;
@@ -88,15 +88,5 @@ public class BazaarGui {
         gui.addElement(GuiHelper.createNextPage());
         gui.addElement(GuiHelper.createPreviousPage());
         gui.show(player);
-    }
-
-    /**
-     * Add item icon
-     */
-    private static ItemStack addItemIcon() {
-        String displayName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemName());
-        XMaterial material = XMaterial.matchXMaterial(Main.getInstance().getLangFile().getGui().getBazaarGui().getMaterial()).orElse(XMaterial.GREEN_WOOL);
-        List<String> lore = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemLore());
-        return GuiHelper.getItem(material, displayName, lore);
     }
 }

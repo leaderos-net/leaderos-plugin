@@ -5,8 +5,8 @@ import de.themoep.inventorygui.GuiElementGroup;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.bukkit.helpers.ChatUtil;
-import net.leaderos.plugin.bukkit.helpers.GuiHelper;
+import net.leaderos.plugin.shared.helpers.ChatUtil;
+import net.leaderos.plugin.shared.helpers.GuiHelper;
 import net.leaderos.plugin.bukkit.modules.webstore.model.Category;
 import org.bukkit.entity.Player;
 

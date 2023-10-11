@@ -1,6 +1,6 @@
-package net.leaderos.plugin.shared.module.auth.handlers;
+package net.leaderos.plugin.bukkit.modules.cache.handlers;
 
-import net.leaderos.plugin.shared.module.auth.model.User;
+import net.leaderos.plugin.bukkit.modules.cache.model.User;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;

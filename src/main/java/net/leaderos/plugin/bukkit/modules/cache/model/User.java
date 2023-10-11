@@ -1,8 +1,8 @@
-package net.leaderos.plugin.shared.module.auth.model;
+package net.leaderos.plugin.bukkit.modules.cache.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import net.leaderos.plugin.bukkit.exceptions.RequestException;
+import net.leaderos.plugin.shared.exceptions.RequestException;
 import net.leaderos.plugin.shared.model.request.PostRequest;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
@@ -10,8 +10,6 @@ import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;

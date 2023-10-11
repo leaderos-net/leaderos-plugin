@@ -4,8 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.bukkit.helpers.ChatUtil;
-import net.leaderos.plugin.bukkit.helpers.ItemUtils;
+import net.leaderos.plugin.shared.helpers.ChatUtil;
+import net.leaderos.plugin.shared.helpers.ItemUtils;
 import net.leaderos.plugin.bukkit.modules.bazaar.Bazaar;
 import net.leaderos.plugin.shared.model.request.DeleteRequest;
 import net.leaderos.plugin.shared.model.request.GetRequest;
@@ -103,52 +103,6 @@ public class PlayerBazaar {
         } catch (Exception e) {
             e.printStackTrace();
             return new ArrayList<>();
-        }
-    }
-
-
-    /**
-     * How many item can player store to bazaar.
-     *
-     * @param player to check player perm
-     * @return amount of can add
-     */
-    public static int getStorageAmount(Player player) {
-        String permissionPrefix = "bazaar.maxstorage.";
-        int defaultValue =  Main.getInstance().getModulesFile().getBazaar().getDefaultStorageSize();
-        try {
-            if (player == null)
-                return defaultValue;
-            else {
-                List<Integer> lists = new ArrayList<>();
-                for (PermissionAttachmentInfo attachmentInfo : player.getEffectivePermissions()) {
-                    if (attachmentInfo.getPermission().startsWith(permissionPrefix))
-                        lists.add(Integer.parseInt(attachmentInfo.getPermission().substring(attachmentInfo.getPermission().lastIndexOf(".") +1)));
-                }
-                if (!lists.isEmpty())
-                    defaultValue = lists.stream()
-                            .filter(PlayerBazaar::isInteger)
-                            .reduce(1, Integer::max);
-            }
-            return defaultValue;
-        }
-
-        catch(Exception e1) {
-            return defaultValue;
-        }
-    }
-
-    /**
-     * Checks the input is integer
-     *
-     * @param input of data
-     * @return status of int or not
-     */
-    private static boolean isInteger(int input) {
-        try {
-            return input > 0;
-        } catch(NumberFormatException exception) {
-            return false;
         }
     }
 }

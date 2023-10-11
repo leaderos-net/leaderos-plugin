@@ -7,7 +7,7 @@ import dev.triumphteam.cmd.core.annotation.Default;
 import dev.triumphteam.cmd.core.annotation.SubCommand;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.bukkit.helpers.ChatUtil;
+import net.leaderos.plugin.shared.helpers.ChatUtil;
 import org.bukkit.command.CommandSender;
 
 /**

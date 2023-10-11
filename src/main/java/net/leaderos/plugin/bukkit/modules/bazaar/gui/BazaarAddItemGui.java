@@ -1,25 +1,22 @@
 package net.leaderos.plugin.bukkit.modules.bazaar.gui;
 
-import com.cryptomorin.xseries.XMaterial;
 import de.themoep.inventorygui.*;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.bukkit.helpers.ChatUtil;
-import net.leaderos.plugin.bukkit.helpers.ItemUtils;
+import net.leaderos.plugin.shared.helpers.ChatUtil;
+import net.leaderos.plugin.shared.helpers.GameUtils;
+import net.leaderos.plugin.shared.helpers.ItemUtils;
 import net.leaderos.plugin.bukkit.modules.bazaar.Bazaar;
 import net.leaderos.plugin.bukkit.modules.bazaar.model.PlayerBazaar;
 import net.leaderos.plugin.shared.model.request.PostRequest;
-import net.leaderos.plugin.shared.module.auth.model.User;
+import net.leaderos.plugin.bukkit.modules.cache.model.User;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.inventory.meta.Damageable;
-import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
@@ -56,7 +53,10 @@ public class BazaarAddItemGui {
         // Close action area (event)
         gui.setCloseAction(close -> {
             // Calculating storage amounts
-            int maxStorageAmount = PlayerBazaar.getStorageAmount(player);
+            int maxStorageAmount = GameUtils.getAmountFromPerm(player,
+                    "bazaar.maxstorage.",
+                    Main.getInstance().getModulesFile().getBazaar().getDefaultStorageSize());
+
             int storedItemAmount = PlayerBazaar.getBazaarStorage(User.getUser(player.getName()).getId()).size();
             int canStoreAmount = maxStorageAmount - storedItemAmount;
             // Items which stored (airs included)
@@ -94,13 +94,13 @@ public class BazaarAddItemGui {
                         String.join("\n", item.getItemMeta().getLore()) : null;
                 int amount = item.getAmount();
                 int maxDurability = item.getType().getMaxDurability();
-                int durability = getDurability(item, maxDurability);
+                int durability = ItemUtils.getDurability(item, maxDurability);
                 String base64 = ItemUtils.toBase64(item);
                 double price = 0.0;
                 String creationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
                 int sold = 0;
-                String modelId = getModelId(item);
-                String enchantment = getEnchantments(item);
+                String modelId = ItemUtils.getModelId(item);
+                String enchantment = ItemUtils.getEnchantments(item);
 
                 Map<String, String> body = new HashMap<>();
                 body.put("owner", userId);
@@ -145,56 +145,5 @@ public class BazaarAddItemGui {
             return false; // Don't go back to the previous GUI (true would automatically go back to the previously opened one)
         });
         gui.show(player);
-    }
-
-    /**
-     * Gets modelId of item
-     * @param itemStack of item
-     * @return String of model data
-     */
-    private static String getModelId(ItemStack itemStack) {
-        String modelId = null;
-        if (XMaterial.supports(14) && itemStack.hasItemMeta() && itemStack.getItemMeta().hasCustomModelData())
-            modelId = itemStack.getItemMeta().getCustomModelData()+"";
-        return modelId;
-    }
-
-    /**
-     * Gets durability of item
-     * @param item itemstack
-     * @param maxDurability max durability of item
-     * @return durability as int
-     */
-    private static int getDurability(ItemStack item, int maxDurability) {
-        int durability = 0;
-        if (XMaterial.supports(13))
-            durability = maxDurability - ((Damageable) item.getItemMeta()).getDamage();
-        else
-            durability = maxDurability + 1 - item.getDurability();
-        return durability;
-    }
-
-    /**
-     * Enchantment data to serialize
-     * @param itemStack item
-     * @return String of serialized data
-     */
-    private static String getEnchantments(ItemStack itemStack) {
-        StringBuilder builder = new StringBuilder();
-        Set<Map.Entry<Enchantment, Integer>> entries;
-        if (itemStack.getType() == Material.ENCHANTED_BOOK) {
-            EnchantmentStorageMeta meta =(EnchantmentStorageMeta)itemStack.getItemMeta();
-            entries = meta.getStoredEnchants().entrySet();
-        } else {
-            entries = itemStack.getEnchantments().entrySet();
-        }
-        for (Map.Entry<Enchantment, Integer> entry : entries) {
-            builder.append((XMaterial.supports(13) ? entry.getKey().getKey().getKey() : entry.getKey().getName()).toUpperCase())
-                    .append(':').append(entry.getValue()).append(',');
-        }
-
-        String enchantments = builder.length() > 1 ?
-                builder.deleteCharAt(builder.lastIndexOf(",")).toString() : null;
-        return enchantments;
     }
 }

@@ -58,7 +58,68 @@ public class Modules extends OkaeriConfig {
     }
 
     /**
+     * Cache module
+     */
+    private Cache cache = new Cache();
+
+    /**
+     * Cache module settings
      *
+     * @since 1.0
+     * @author poyrazinan
+     */
+    @Getter
+    @Setter
+    public static class Cache extends OkaeriConfig {
+        /**
+         * Status of Cache mode
+         */
+        private boolean status = true;
+    }
+
+    /**
+     * Credit module
+     */
+    private Credit credit = new Credit();
+
+    /**
+     * Credit module settings
+     *
+     * @since 1.0
+     * @author poyrazinan
+     */
+    @Getter
+    @Setter
+    public static class Credit extends OkaeriConfig {
+        /**
+         * Status of Cache mode
+         */
+        private boolean status = true;
+    }
+
+    /**
+     * Voucher module
+     */
+    private Voucher voucher = new Voucher();
+
+    /**
+     * Voucher module settings
+     *
+     * @since 1.0
+     * @author poyrazinan
+     */
+    @Getter
+    @Setter
+    public static class Voucher extends OkaeriConfig {
+        /**
+         * Status of Cache mode
+         */
+        private boolean status = true;
+    }
+
+
+    /**
+     * bazaar module setting
      */
     private Bazaar Bazaar = new Bazaar();
 

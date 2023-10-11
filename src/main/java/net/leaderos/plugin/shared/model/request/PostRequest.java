@@ -1,7 +1,6 @@
 package net.leaderos.plugin.shared.model.request;
 
-import lombok.Builder;
-import net.leaderos.plugin.bukkit.exceptions.RequestException;
+import net.leaderos.plugin.shared.exceptions.RequestException;
 import net.leaderos.plugin.shared.model.Request;
 
 import java.io.IOException;

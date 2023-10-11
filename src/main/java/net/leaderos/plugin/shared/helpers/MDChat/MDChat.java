@@ -1,4 +1,4 @@
-package net.leaderos.plugin.bukkit.helpers.MDChat;
+package net.leaderos.plugin.shared.helpers.MDChat;
 
 
 import net.md_5.bungee.api.ChatColor;

@@ -1,4 +1,4 @@
-package net.leaderos.plugin.bukkit.modules.bazaar.exception;
+package net.leaderos.plugin.shared.exceptions;
 
 /**
  * @author poyrazinan

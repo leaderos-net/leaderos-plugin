@@ -1,4 +1,4 @@
-package net.leaderos.plugin.bukkit.helpers;
+package net.leaderos.plugin.shared.helpers;
 
 import com.cryptomorin.xseries.XMaterial;
 import de.themoep.inventorygui.GuiElement;
@@ -86,5 +86,17 @@ public class GuiHelper {
                 GuiPageElement.PageAction.NEXT,
                 Main.getInstance().getLangFile().getGui().getDefaultGui().getPreviousPage().getName()
         );
+    }
+
+
+    /**
+     * BazaarGui add item icon creator
+     * @see net.leaderos.plugin.bukkit.modules.bazaar.gui.BazaarGui
+     */
+    public static ItemStack addItemIcon() {
+        String displayName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemName());
+        XMaterial material = XMaterial.matchXMaterial(Main.getInstance().getLangFile().getGui().getBazaarGui().getMaterial()).orElse(XMaterial.GREEN_WOOL);
+        List<String> lore = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemLore());
+        return GuiHelper.getItem(material, displayName, lore);
     }
 }

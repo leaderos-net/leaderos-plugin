@@ -1,4 +1,4 @@
-package net.leaderos.plugin.bukkit.helpers;
+package net.leaderos.plugin.shared.helpers;
 
 import lombok.Data;
 
