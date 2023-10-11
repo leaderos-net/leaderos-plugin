@@ -1,11 +1,17 @@
 package net.leaderos.plugin.shared.module.auth;
 
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.shared.exceptions.RequestException;
 import net.leaderos.plugin.shared.helpers.ChatUtil;
 import net.leaderos.plugin.shared.helpers.MDChat.MDChatAPI;
-import net.leaderos.plugin.bukkit.modules.cache.model.User;
+import net.leaderos.plugin.shared.model.request.PostRequest;
 import net.leaderos.plugin.shared.module.LeaderOSModule;
 import org.bukkit.entity.Player;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Auth module of leaderos-plugin
@@ -29,13 +35,32 @@ public class AuthLogin extends LeaderOSModule {
         Main.commandManager.unregisterCommand(new Commands());
     }
 
+
+    /**
+     * Generates user login link
+     *
+     * @param username of player
+     * @param uuid of player
+     * @return String of url
+     * @throws IOException
+     * @throws RequestException
+     */
+    public static String generateLink(String username, String uuid) throws IOException {
+        Map<String, String> formData = new HashMap<>();
+        formData.put("username", username);
+        formData.put("uuid", uuid);
+        PostRequest postRequest = new PostRequest("auth/generate-link", formData);
+        JSONObject response = postRequest.getResponse().getResponseMessage().getJSONObject("data");
+        return response.getString("url");
+    }
+
     /**
      * sends auth command message
      * @param player
      */
     public static void sendAuthCommandMessage(Player player) {
         try {
-            String link = User.generateLink(player.getName(), player.getUniqueId().toString());
+            String link = generateLink(player.getName(), player.getUniqueId().toString());
             player.spigot().sendMessage(
                     MDChatAPI.getFormattedMessage(ChatUtil.color(Main.getInstance()
                             .getLangFile().getMessages()
@@ -52,7 +77,7 @@ public class AuthLogin extends LeaderOSModule {
      */
     public static void sendAuthModuleError(Player player) {
         try {
-            String link = User.generateLink(player.getName(), player.getUniqueId().toString());
+            String link = generateLink(player.getName(), player.getUniqueId().toString());
             player.spigot().sendMessage(
                     MDChatAPI.getFormattedMessage(ChatUtil.color(Main.getInstance()
                             .getLangFile().getMessages()

@@ -111,24 +111,6 @@ public class User {
     }
 
     /**
-     * Generates user login link
-     *
-     * @param username of player
-     * @param uuid of player
-     * @return String of url
-     * @throws IOException
-     * @throws RequestException
-     */
-    public static String generateLink(String username, String uuid) throws IOException, RequestException {
-        Map<String, String> formData = new HashMap<>();
-        formData.put("username", username);
-        formData.put("uuid", uuid);
-        PostRequest postRequest = new PostRequest("auth/generate-link", formData);
-        JSONObject response = postRequest.getResponse().getResponseMessage().getJSONObject("data");
-        return response.getString("url");
-    }
-
-    /**
      * is player authorized or not
      *
      * @param player user
