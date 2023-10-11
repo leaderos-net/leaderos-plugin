@@ -1,5 +1,7 @@
 package net.leaderos.plugin.api.managers;
 
+import net.leaderos.plugin.api.handlers.ModuleDisableEvent;
+import net.leaderos.plugin.api.handlers.ModuleEnableEvent;
 import net.leaderos.shared.configuration.Language;
 import net.leaderos.plugin.Main;
 import net.leaderos.shared.helpers.ChatUtil;
@@ -60,6 +62,8 @@ public class ModuleManager {
             }
             if (module.getStatus()) {
                 module.setEnabled(true);
+                // Enable event
+                Bukkit.getPluginManager().callEvent(new ModuleEnableEvent(module));
                 module.onEnable();
                 String message = lang.getMessages().getInfo().getModuleEnabled()
                         .replace("%module_name%", module.getName());
@@ -82,6 +86,8 @@ public class ModuleManager {
             Modulable module = modules.get(moduleName);
             if (module.isEnabled()) {
                 module.setEnabled(false);
+                // Disable event
+                Bukkit.getPluginManager().callEvent(new ModuleDisableEvent(module));
                 module.onDisable();
                 String message = Main.getShared().getLangFile().getMessages().getInfo().getModuleDisabled()
                         .replace("%module_name%", module.getName());

@@ -24,18 +24,12 @@ public class AuthLogin extends LeaderOSModule {
     /**
      * onEnable method of module
      */
-    public void onEnable() {
-        // TODO Command register
-        //Shared.getInstance().getCommandManager().registerCommand(new Commands());
-    }
+    public void onEnable() {}
 
     /**
      * onDisable method of module
      */
-    public void onDisable() {
-        // TODO Command register
-       // Shared.getInstance().getCommandManager().unregisterCommand(new Commands());
-    }
+    public void onDisable() {}
 
 
     /**

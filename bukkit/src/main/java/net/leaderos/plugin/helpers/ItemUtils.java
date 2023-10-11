@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * @author hyperion
+ * @author hyperion, poyrazinan
  * @since 1.0
  */
 public class ItemUtils {
