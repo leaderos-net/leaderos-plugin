@@ -347,13 +347,18 @@ public class Language  extends OkaeriConfig {
         /**
          * Bazaar gui object
          */
-        private BazaarGui bazaarGui = new BazaarGui();
+        private Bazaar bazaarGui = new Bazaar();
 
         /**
          * Bazaar gui arguments class
          */
         @Getter @Setter
-        public static class BazaarGui extends OkaeriConfig {
+        public static class Bazaar extends OkaeriConfig {
+
+            /**
+             * return item message
+             */
+            private String returnItemMessage = "{prefix} &cYou have reached max storage amount &4(%max_amount%) &creturned &4%amount% &citem.";
 
             /**
              * layout of gui

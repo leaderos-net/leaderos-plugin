@@ -12,7 +12,6 @@ import net.leaderos.plugin.bukkit.helpers.GuiHelper;
 import net.leaderos.plugin.bukkit.modules.bazaar.exception.CacheNotFoundException;
 import net.leaderos.plugin.bukkit.modules.bazaar.model.PlayerBazaar;
 import net.leaderos.plugin.shared.module.auth.model.User;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -62,9 +61,9 @@ public class BazaarGui {
         // Category group creator
         GuiElementGroup bazaarGui = new GuiElementGroup('i');
         if (!playerBazaarList.isEmpty())
-            playerBazaarList.stream().forEach(element -> bazaarGui.addElement(new DynamicGuiElement('s', (viewer)
+            playerBazaarList.stream().forEach(playerBazaarItem -> bazaarGui.addElement(new DynamicGuiElement('s', (viewer)
                     -> new StaticGuiElement('s',
-                element.getItem(),
+                playerBazaarItem.getItem(),
                 1,
                 click ->  {
                         click.getEvent().setCancelled(true);
@@ -74,7 +73,7 @@ public class BazaarGui {
                         String subtitleSuccess = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawSuccessSubtitle());
                         String subtitleProgress = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawProgressSubtitle());
                         player.sendTitle(title, subtitleProgress);
-                        boolean withdrawStatus = element.withdrawItem(player);
+                        boolean withdrawStatus = playerBazaarItem.withdrawItem(player);
                         // TODO Title edit
                         if (withdrawStatus)
                             player.sendTitle(title, subtitleSuccess);

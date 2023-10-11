@@ -7,6 +7,7 @@ import net.leaderos.plugin.Main;
 import net.leaderos.plugin.bukkit.helpers.ChatUtil;
 import net.leaderos.plugin.bukkit.helpers.ItemUtils;
 import net.leaderos.plugin.bukkit.modules.bazaar.Bazaar;
+import net.leaderos.plugin.bukkit.modules.bazaar.model.PlayerBazaar;
 import net.leaderos.plugin.shared.model.request.PostRequest;
 import net.leaderos.plugin.shared.module.auth.model.User;
 import org.bukkit.Bukkit;
@@ -16,6 +17,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
@@ -51,23 +53,43 @@ public class BazaarAddItemGui {
         // With a virtual inventory to access items later on
         Inventory inv = Bukkit.createInventory(null, InventoryType.CHEST);
         gui.addElement(new GuiStorageElement('i', inv));
+        // Close action area (event)
         gui.setCloseAction(close -> {
-
+            // Calculating storage amounts
+            int maxStorageAmount = PlayerBazaar.getStorageAmount(player);
+            int storedItemAmount = PlayerBazaar.getBazaarStorage(User.getUser(player.getName()).getId()).size();
+            int canStoreAmount = maxStorageAmount - storedItemAmount;
+            // Items which stored (airs included)
             ItemStack[] items = inv.getContents();
             String userId = User.getUser(player.getName()).getId();
             int serverId = Bazaar.getServerId();
 
+            // If player maxed out storage limit items will be added to
+            // this list then gives back to player.
+            List<ItemStack> returnItems = new ArrayList<>();
+
+            // item loop
             for (ItemStack item : items) {
+                // Checks if item is empty or null (can be AIR etc.)
                 if (item == null)
                     continue;
                 if (item.getType() == null)
                     continue;
                 if (item.getType().equals(Material.AIR))
                     continue;
+
+                // Calculates storage amount
+                if (canStoreAmount > 0)
+                    canStoreAmount--;
+                // If maxed out then add items to temp array
+                else {
+                    returnItems.add(item);
+                    continue;
+                }
                 // Item info
                 String material = item.getType().name();
                 String name = (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) ?
-                        item.getItemMeta().getDisplayName() : material.toString();
+                        item.getItemMeta().getDisplayName() : material;
                 String lore = (item.hasItemMeta() && item.getItemMeta().hasLore()) ?
                         String.join("\n", item.getItemMeta().getLore()) : null;
                 int amount = item.getAmount();
@@ -98,6 +120,7 @@ public class BazaarAddItemGui {
                 body.put("serverID", serverId+"");
                 body.put("itemID", item.getType().name());
 
+                // Sends response
                 try {
                     PostRequest postItem = new PostRequest("bazaar/storages/" + userId + "/items", body);
                     if (postItem.getResponse().getResponseCode() == HttpURLConnection.HTTP_OK) {
@@ -108,6 +131,16 @@ public class BazaarAddItemGui {
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
+            }
+
+            // Gives items back to player
+            if (!returnItems.isEmpty()) {
+                PlayerInventory playerInventory = player.getInventory();
+                returnItems.forEach(playerInventory::addItem);
+                String returnMessage = Main.getInstance().getLangFile().getGui().getBazaarGui().getReturnItemMessage();
+                returnMessage = returnMessage.replace("%max_amount%", maxStorageAmount+"")
+                                .replace("%amount%", returnItems.size()+"");
+                ChatUtil.sendMessage(player, returnMessage);
             }
             return false; // Don't go back to the previous GUI (true would automatically go back to the previously opened one)
         });

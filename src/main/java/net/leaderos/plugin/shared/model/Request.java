@@ -8,6 +8,7 @@ import net.leaderos.plugin.shared.model.request.RequestType;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.*;
@@ -91,8 +92,7 @@ public abstract class Request {
      * @return JSONObject of response
      * @throws IOException for reader errors
      */
-    @SneakyThrows
-    private JSONObject getStream(InputStream stream) {
+    private String getStream(InputStream stream) throws IOException {
         // BufferedReader for read data
         BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
         StringBuilder response = new StringBuilder();
@@ -102,7 +102,7 @@ public abstract class Request {
             response.append(line);
         }
         reader.close();
-        return new JSONObject(response.toString());
+        return response.toString();
     }
 
     /**
@@ -110,13 +110,21 @@ public abstract class Request {
      *
      * @return JSONObject of response
      */
+    @SneakyThrows
     private JSONObject getResponseObj() {
         JSONObject response;
+        String responseString = null;
         try {
-            response = getStream(connection.getInputStream());
+            responseString = getStream(connection.getInputStream());
+            response = new JSONObject(responseString);
         }
-        catch (Exception e) {
-            response = getStream(connection.getErrorStream());
+        catch (JSONException jsonException) {
+            JSONArray jsonArray = new JSONArray(responseString);
+            response = new JSONObject();
+            response.put("array", jsonArray);
+        }
+        catch (IOException e) {
+            response = new JSONObject(getStream(connection.getErrorStream()));
         }
         // BufferedReader for read dat
         connection.disconnect();

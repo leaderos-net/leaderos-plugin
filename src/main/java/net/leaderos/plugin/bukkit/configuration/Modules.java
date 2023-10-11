@@ -79,5 +79,10 @@ public class Modules extends OkaeriConfig {
          * Server id of bazaar
          */
         private int serverId = 1;
+
+        /**
+         * default storage size
+         */
+        private int defaultStorageSize = 5;
     }
 }

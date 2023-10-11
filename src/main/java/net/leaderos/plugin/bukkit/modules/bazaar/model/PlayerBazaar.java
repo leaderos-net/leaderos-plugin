@@ -4,19 +4,18 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.bukkit.exceptions.RequestException;
 import net.leaderos.plugin.bukkit.helpers.ChatUtil;
 import net.leaderos.plugin.bukkit.helpers.ItemUtils;
 import net.leaderos.plugin.bukkit.modules.bazaar.Bazaar;
 import net.leaderos.plugin.shared.model.request.DeleteRequest;
 import net.leaderos.plugin.shared.model.request.GetRequest;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.json.JSONArray;
+import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,6 +76,8 @@ public class PlayerBazaar {
     @SneakyThrows
     public boolean withdrawItem(Player player) {
         DeleteRequest deleteRequest = new DeleteRequest("bazaar/storage/" + getUserId() + "/items/" + getId());
+        // TODO Remove
+        Bukkit.broadcastMessage(deleteRequest.getResponse().getResponseCode() + "");
         if (deleteRequest.getResponse().getResponseCode() == HttpURLConnection.HTTP_OK) {
             ItemStack item = ItemUtils.fromBase64(getBase64());
             player.getInventory().addItem(item);
@@ -93,17 +94,61 @@ public class PlayerBazaar {
     public static List<PlayerBazaar> getBazaarStorage(String userId) {
         try {
             int serverId = Bazaar.getServerId();
-            GetRequest getRequest = new GetRequest("bazaar/storages/" + userId + "/items");
-            // TODO Fix
-            //+ serverId);
+            GetRequest getRequest = new GetRequest("bazaar/storages/" + userId + "/items?serverID=" + serverId);
             JSONObject response = getRequest.getResponse().getResponseMessage();
             List<PlayerBazaar> playerBazaarList = new ArrayList<>();
             // TODO NO ANY TEST HERE FIXXXXX!!
-            response.getJSONArray("test").forEach(bazaar -> playerBazaarList.add(new PlayerBazaar((JSONObject) bazaar, userId)));
+            response.getJSONArray("array").forEach(bazaar -> playerBazaarList.add(new PlayerBazaar((JSONObject) bazaar, userId)));
             return playerBazaarList;
         } catch (Exception e) {
             e.printStackTrace();
             return new ArrayList<>();
+        }
+    }
+
+
+    /**
+     * How many item can player store to bazaar.
+     *
+     * @param player to check player perm
+     * @return amount of can add
+     */
+    public static int getStorageAmount(Player player) {
+        String permissionPrefix = "bazaar.maxstorage.";
+        int defaultValue =  Main.getInstance().getModulesFile().getBazaar().getDefaultStorageSize();
+        try {
+            if (player == null)
+                return defaultValue;
+            else {
+                List<Integer> lists = new ArrayList<>();
+                for (PermissionAttachmentInfo attachmentInfo : player.getEffectivePermissions()) {
+                    if (attachmentInfo.getPermission().startsWith(permissionPrefix))
+                        lists.add(Integer.parseInt(attachmentInfo.getPermission().substring(attachmentInfo.getPermission().lastIndexOf(".") +1)));
+                }
+                if (!lists.isEmpty())
+                    defaultValue = lists.stream()
+                            .filter(PlayerBazaar::isInteger)
+                            .reduce(1, Integer::max);
+            }
+            return defaultValue;
+        }
+
+        catch(Exception e1) {
+            return defaultValue;
+        }
+    }
+
+    /**
+     * Checks the input is integer
+     *
+     * @param input of data
+     * @return status of int or not
+     */
+    private static boolean isInteger(int input) {
+        try {
+            return input > 0;
+        } catch(NumberFormatException exception) {
+            return false;
         }
     }
 }
