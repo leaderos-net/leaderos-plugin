@@ -17,7 +17,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 
 /**
- * Webstore gui
+ * Bazaar gui
  * @author poyrazinan
  * @since 1.0
  */
@@ -57,7 +57,7 @@ public class BazaarGui {
             return false;
         }));
 
-        // Category group creator
+        // Bazaar group creator
         GuiElementGroup bazaarGui = new GuiElementGroup('i');
         if (!playerBazaarList.isEmpty())
             playerBazaarList.stream().forEach(playerBazaarItem -> bazaarGui.addElement(new DynamicGuiElement('s', (viewer)

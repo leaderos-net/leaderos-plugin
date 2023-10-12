@@ -6,6 +6,7 @@ import dev.triumphteam.cmd.core.annotation.Command;
 import dev.triumphteam.cmd.core.annotation.Default;
 import dev.triumphteam.cmd.core.annotation.SubCommand;
 import lombok.RequiredArgsConstructor;
+import net.leaderos.plugin.Main;
 import net.leaderos.plugin.modules.credit.Credit;
 import net.leaderos.shared.Shared;
 import net.leaderos.shared.helpers.ChatUtil;
@@ -37,7 +38,7 @@ public class Commands extends BaseCommand {
         Response targetCurrency = Credit.currencyRequest(player.getName());
         if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
             ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                    Shared.getInstance().getLangFile().getMessages().getCreditInfo(),
+                    Main.getShared().getLangFile().getMessages().getCreditInfo(),
                     new Placeholder("{amount}", MoneyUtils.format(targetCurrency.getResponseMessage().getDouble("raw_credits")))
             ));
         }
@@ -90,14 +91,14 @@ public class Commands extends BaseCommand {
 
         if (Objects.requireNonNull(sendCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
             ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                    Shared.getInstance().getLangFile().getMessages().getSuccessfullySentCredit(),
+                    Main.getShared().getLangFile().getMessages().getSuccessfullySentCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),
                     new Placeholder("{target}", target)
             ));
 
             if (targetPlayer != null) {
                 ChatUtil.sendMessage(Objects.requireNonNull(targetPlayer), ChatUtil.replacePlaceholders(
-                        Shared.getInstance().getLangFile().getMessages().getReceivedCredit(),
+                        Main.getShared().getLangFile().getMessages().getReceivedCredit(),
                         new Placeholder("{amount}", MoneyUtils.format(amount)),
                         new Placeholder("{player}", player.getName())
                 ));
@@ -119,7 +120,7 @@ public class Commands extends BaseCommand {
         Response targetCurrency = Credit.currencyRequest(target);
         if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Shared.getInstance().getLangFile().getMessages().getCreditInfoOther(),
+                    Main.getShared().getLangFile().getMessages().getCreditInfoOther(),
                     new Placeholder("{amount}", MoneyUtils.format(targetCurrency.getResponseMessage().getDouble("raw_credits"))),
                     new Placeholder("{target}", target)
             ));
@@ -146,7 +147,7 @@ public class Commands extends BaseCommand {
 
         if (Objects.requireNonNull(addCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK)
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Shared.getInstance().getLangFile().getMessages().getSuccessfullyAddedCredit(),
+                    Main.getShared().getLangFile().getMessages().getSuccessfullyAddedCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),
                     new Placeholder("{target}", target)
             ));
@@ -177,7 +178,7 @@ public class Commands extends BaseCommand {
         Response removeCreditResponse = Credit.removeCreditRequest(target, amount);
         if (Objects.requireNonNull(removeCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Shared.getInstance().getLangFile().getMessages().getSuccessfullyRemovedCredit(),
+                    Main.getShared().getLangFile().getMessages().getSuccessfullyRemovedCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),
                     new Placeholder("{target}", target)
             ));
@@ -207,7 +208,7 @@ public class Commands extends BaseCommand {
 
         if (Objects.requireNonNull(setCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Shared.getInstance().getLangFile().getMessages().getSuccessfullySetCredit(),
+                    Main.getShared().getLangFile().getMessages().getSuccessfullySetCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),
                     new Placeholder("{target}", target)
             ));

@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.helpers.ItemUtils;
 import net.leaderos.plugin.modules.credit.Credit;
+import net.leaderos.plugin.modules.voucher.Voucher;
 import net.leaderos.shared.Shared;
 import net.leaderos.shared.helpers.ChatUtil;
 import net.leaderos.shared.helpers.MoneyUtils;
@@ -61,7 +62,7 @@ public class Commands extends BaseCommand {
         giveVoucher(player, amount);
 
         ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                Shared.getInstance().getLangFile().getMessages().getVouchers().getSuccessfullyGave(),
+                Main.getShared().getLangFile().getMessages().getVouchers().getSuccessfullyGave(),
                 new Placeholder("{target}", player.getName()),
                 new Placeholder("{amount}", MoneyUtils.format(amount))
         ));
@@ -100,7 +101,7 @@ public class Commands extends BaseCommand {
 
             if (Objects.requireNonNull(removeCreditRequest).getResponseCode() == HttpURLConnection.HTTP_OK) {
                 ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                        Shared.getInstance().getLangFile().getMessages().getVouchers().getSuccessfullyCreated(),
+                        Main.getShared().getLangFile().getMessages().getVouchers().getSuccessfullyCreated(),
                         new Placeholder("{amount}", MoneyUtils.format(amount))
                 ));
                 giveVoucher(player, amount);
@@ -136,13 +137,13 @@ public class Commands extends BaseCommand {
             return;
         }
 
-        int id = Main.getInstance().getVoucherData().getInt("lastCreated") + 1;
-        Main.getInstance().getVoucherData().set("lastCreated", id);
-        Main.getInstance().getVoucherData().save();
+        int id = Voucher.getVoucherData().getInt("lastCreated") + 1;
+        Voucher.getVoucherData().set("lastCreated", id);
+        Voucher.getVoucherData().save();
 
-        String name = ChatUtil.replacePlaceholders(Shared.getInstance().getLangFile().getMessages().getVouchers().getItemDisplayName(),
+        String name = ChatUtil.replacePlaceholders(Main.getShared().getLangFile().getMessages().getVouchers().getItemDisplayName(),
                 new Placeholder("{id}", id + ""), new Placeholder("{amount}", MoneyUtils.format(amount)));
-        List<String> lore = ChatUtil.replacePlaceholders(Shared.getInstance().getLangFile().getMessages().getVouchers().getItemLore(),
+        List<String> lore = ChatUtil.replacePlaceholders(Main.getShared().getLangFile().getMessages().getVouchers().getItemLore(),
                 new Placeholder("{id}", id + ""), new Placeholder("{amount}", MoneyUtils.format(amount)));
         ItemStack item = ItemUtils.getItem(XMaterial.PAPER, name, lore);
         NBTItem nbtItem = new NBTItem(item);

@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import java.text.SimpleDateFormat;
 
 /**
+ * Cache module placeholder system
  * @author poyrazinan
  * @since 1.0
  */

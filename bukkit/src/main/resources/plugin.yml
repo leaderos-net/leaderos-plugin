@@ -1,8 +1,9 @@
 name: leaderos-plugin
-author: [geik]
+author: [leaderos, geik]
 main: net.leaderos.plugin.Main
 version: 1.0
 api-version: 1.13
+softdepend: [PlaceholderAPI]
 commands:
     leaderos:
         description: Default command of leaderos
@@ -14,3 +15,5 @@ commands:
         description: bazaar default command
     auth:
         description: Connects your ingame account with website
+    donations:
+        description: Shows who donated server recently with

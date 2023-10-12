@@ -499,5 +499,45 @@ public class Language  extends OkaeriConfig {
             );
         }
 
+        /**
+         * Bazaar gui object
+         */
+        private RecentDonationsGui donationsGui = new RecentDonationsGui();
+
+        /**
+         * Bazaar gui arguments class
+         */
+        @Getter @Setter
+        public static class RecentDonationsGui extends OkaeriConfig {
+
+            /**
+             * donations gui layout
+             */
+            @Comment("Layout of gui")
+            private List<String> layout = Arrays.asList(
+                    "         ",
+                    "  ddddd  ",
+                    "b       n"
+            );
+
+            /**
+             * name of gui
+             */
+            private String guiName = "&8Recent Donators";
+
+            /**
+             * name of donator item
+             */
+            private String displayName = "&a%player%";
+
+            /**
+             * lore of donator item
+             */
+            private List<String> lore = Arrays.asList(
+                    "",
+                    "&7Donation: &e%credit% USD",
+                    ""
+            );
+        }
     }
 }

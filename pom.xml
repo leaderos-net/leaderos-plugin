@@ -40,7 +40,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.26</version>
+            <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
         <!-- InventoryAPI -->
@@ -172,7 +172,7 @@
                         </relocation>
                         <relocation>
                             <pattern>de.tr7zw.nbtapi</pattern>
-                            <shadedPattern>xyz.geik.farmer.shades.nbtapi</shadedPattern>
+                            <shadedPattern>net.leaderos.plugin.shades.nbtapi</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>dev.triumphteam</pattern>

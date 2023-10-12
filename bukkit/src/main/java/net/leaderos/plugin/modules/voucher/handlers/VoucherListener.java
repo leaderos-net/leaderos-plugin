@@ -4,6 +4,7 @@ import com.cryptomorin.xseries.XMaterial;
 import de.tr7zw.nbtapi.NBTItem;
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.modules.credit.Credit;
+import net.leaderos.plugin.modules.voucher.Voucher;
 import net.leaderos.shared.Shared;
 import net.leaderos.shared.helpers.ChatUtil;
 import net.leaderos.shared.helpers.MoneyUtils;
@@ -58,7 +59,7 @@ public class VoucherListener implements Listener {
             return;
         }
         // Checks is voucher has been used before
-        List<Integer> list = Main.getInstance().getVoucherData().getIntegerList("used");
+        List<Integer> list = Voucher.getVoucherData().getIntegerList("used");
         if (list.contains(id)) {
             ChatUtil.sendMessage(player, Shared.getInstance().getLangFile().getMessages().getVouchers().getAlreadyUsed());
             return;
@@ -68,12 +69,12 @@ public class VoucherListener implements Listener {
         if (Objects.requireNonNull(depositResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
             remove(player, id);
             list.add(id);
-            Main.getInstance().getVoucherData().set("used", list);
-            Main.getInstance().getVoucherData().save();
+            Voucher.getVoucherData().set("used", list);
+            Voucher.getVoucherData().save();
 
             // TODO update cache event
             ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                    Shared.getInstance().getLangFile().getMessages().getVouchers()
+                    Main.getShared().getLangFile().getMessages().getVouchers()
                             .getSuccessfullyUsed(), new Placeholder("{amount}", MoneyUtils.format(amount) + "")
             ));
         }

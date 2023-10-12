@@ -60,7 +60,7 @@ public class Modules extends OkaeriConfig {
     /**
      * Cache module
      */
-    private Cache cache = new Cache();
+    private Cache Cache = new Cache();
 
     /**
      * Cache module settings
@@ -80,7 +80,7 @@ public class Modules extends OkaeriConfig {
     /**
      * Credit module
      */
-    private Credit credit = new Credit();
+    private Credit Credit = new Credit();
 
     /**
      * Credit module settings
@@ -100,7 +100,7 @@ public class Modules extends OkaeriConfig {
     /**
      * Voucher module
      */
-    private Voucher voucher = new Voucher();
+    private Voucher Voucher = new Voucher();
 
     /**
      * Voucher module settings
@@ -114,7 +114,7 @@ public class Modules extends OkaeriConfig {
         /**
          * Status of Cache mode
          */
-        private boolean status = true;
+        private boolean status = false;
     }
 
 
@@ -145,5 +145,34 @@ public class Modules extends OkaeriConfig {
          * default storage size
          */
         private int defaultStorageSize = 5;
+    }
+
+    /**
+     * Donators module setting
+     */
+    private RecentDonations RecentDonations = new RecentDonations();
+
+    /**
+     * Donators module settings
+     *
+     * @since 1.0
+     * @author poyrazinan
+     */
+    @Getter
+    @Setter
+    public static class RecentDonations extends OkaeriConfig {
+        /**
+         * Status of Donators mode
+         */
+        private boolean status = false;
+        /**
+         * Donators scheduler second
+         */
+        private long updateSecond = 900;
+
+        /**
+         * Limit of recent donations
+         */
+        private int recentDonationLimit = 5;
     }
 }
