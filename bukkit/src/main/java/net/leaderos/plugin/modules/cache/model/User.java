@@ -26,30 +26,24 @@ public class User {
 
     /**
      * user cache list
+     * -- GETTER --
+     *  cached userList getter
+     *
      */
+    @Getter
     private static HashMap<String, User> userList = new HashMap<>();
-
-    /**
-     * cached userList getter
-     * @return cached user list
-     */
-    public static HashMap<String, User> getUserList() {
-        return userList;
-    }
 
     /**
      * Gets one player @Nullable
      */
     public static @Nullable User getUser(String name) {
-        if (userList.containsKey(name))
-            return userList.get(name);
-        else return null;
+        return userList.getOrDefault(name, null);
     }
 
     /**
      * Player id on website
      */
-    private String id;
+    private final String id;
 
     /**
      * Credit amount of player as double
@@ -72,12 +66,12 @@ public class User {
     /**
      * Creation ip of player on website
      */
-    private String creationIp;
+    private final String creationIp;
 
     /**
      * Creation date of player on website
      */
-    private Date creationDate;
+    private final Date creationDate;
 
     /**
      * Constructor of User object
@@ -95,8 +89,7 @@ public class User {
         this.creationDate = format.parse(user.getString("creationDate"));
 
         // Adds data to cache
-        if (userList.containsKey(username))
-            userList.remove(username);
+        userList.remove(username);
         userList.put(username, this);
     }
 
@@ -107,9 +100,7 @@ public class User {
      * @return boolean of status
      */
     public static boolean isPlayerAuthed(Player player) {
-        if (getUser(player.getName()) == null)
-            return false;
-        else return true;
+        return getUser(player.getName()) != null;
     }
 
     /**
@@ -117,14 +108,14 @@ public class User {
      */
     public static void loginAllOnlinePlayers() {
         Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () ->
-                Bukkit.getOnlinePlayers().forEach(player -> loginPlayer(player)));
+                Bukkit.getOnlinePlayers().forEach(User::loadPlayerCache));
     }
 
     /**
      * Login cache load method
      * @param player logined user
      */
-    public static void loginPlayer(Player player) {
+    public static void loadPlayerCache(Player player) {
         try {
             GetRequest getRequest = new GetRequest("users/" + player.getName());
             new User(getRequest.getResponse().getResponseMessage());
@@ -140,7 +131,6 @@ public class User {
      * @param playerName name of player
      */
     public static void unloadPlayerCache(String playerName) {
-        if (User.getUserList().containsKey(playerName))
-            User.getUserList().remove(playerName);
+        User.getUserList().remove(playerName);
     }
 }

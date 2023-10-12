@@ -35,9 +35,35 @@ public class Language  extends OkaeriConfig {
     public static class Messages extends OkaeriConfig {
 
         /**
-         * Prefix of plugin
+         * Prefix of plugin TODO Explain
          */
         private String prefix = "&3LeaderOS &8»";
+
+        private String creditInfo = "{prefix} &aYou have &e{amount} &acredit(s)";
+
+        private String creditInfoOther = "{prefix} &b{target} &ahas &e{amount} &acredit(s)";
+
+        private String cannotSendCreditYourself = "{prefix} &cYou can not send credit(s) to yourself.";
+
+        private String cannotSendCreditNegative = "{prefix} &cPlease enter a valid amount. The amount must be higher than 0.";
+
+        private String cannotSendCreditNotEnough = "{prefix} &cYou do not have enough credit(s).";
+
+        private String playerNotOnline = "{prefix} &cTarget player is not online.";
+
+        private String playerNotAvailable = "{prefix} &cPlayer is not available.";
+
+        private String targetPlayerNotAvailable = "{prefix} &cTarget player is not available.";
+
+        private String successfullySentCredit = "{prefix} &aSuccessfully sent &e{amount} credit(s) &ato &b{target}&a.";
+
+        private String successfullySetCredit = "{prefix} &aSuccessfully set credits to &e{amount} &afor &b{target}&a.";
+
+        private String successfullyAddedCredit = "{prefix} &aSuccessfully added &e{amount} credit &ato &b{target}&a.";
+
+        private String successfullyRemovedCredit = "{prefix} &aSuccessfully removed &e{amount} credit &afrom &b{target}&a.";
+
+        private String receivedCredit = "{prefix} &aYou just received &e{amount} credit(s) &afrom &e{player}.";
 
         /**
          * Help commands message

@@ -7,10 +7,10 @@ commands:
     leaderos:
         description: Default command of leaderos
     webshop:
-        description: webshop default command
-        aliases: ["webstore", "store", "sitemarket", "webmarket"]
+        description: Webshop module default command
+    credits:
+        description: Credits module command
     bazaar:
         description: bazaar default command
     auth:
         description: Connects your ingame account with website
-        aliases: [web, kayıt, bağlan]

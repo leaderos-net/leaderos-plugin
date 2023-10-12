@@ -55,7 +55,7 @@ public class Main extends JavaPlugin {
      * onEnable override method of Spigot library
      */
     public void onEnable() {
-        this.commandManager = BukkitCommandManager.create(this);
+        commandManager = BukkitCommandManager.create(this);
         setupCommands();
 
         // Loads module events

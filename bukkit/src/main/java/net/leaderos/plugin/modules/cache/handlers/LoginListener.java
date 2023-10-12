@@ -21,7 +21,7 @@ public class LoginListener implements Listener {
     @EventHandler
     public void playerLoginEvent(PlayerLoginEvent event) {
         Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
-            User.loginPlayer(event.getPlayer());
+            User.loadPlayerCache(event.getPlayer());
         });
     }
 }
