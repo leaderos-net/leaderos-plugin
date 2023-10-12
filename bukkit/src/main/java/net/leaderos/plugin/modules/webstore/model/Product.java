@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.helpers.ItemUtils;
 import net.leaderos.shared.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.GuiHelper;
 import org.bukkit.inventory.ItemStack;
@@ -182,6 +183,6 @@ public class Product {
         lore = ChatUtil.color(lore);
         displayName = ChatUtil.color(displayName);
 
-        return GuiHelper.getItem(getMaterial(), displayName, lore);
+        return ItemUtils.getItem(getMaterial(), displayName, lore);
     }
 }

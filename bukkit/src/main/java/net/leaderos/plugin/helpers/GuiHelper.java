@@ -43,25 +43,6 @@ public class GuiHelper {
     }
 
     /**
-     * Check for material and
-     * get item with a material.
-     * @param material of item
-     * @param name of item
-     * @param lore of item
-     * @return ItemStack of destination item
-     */
-    public static @NotNull ItemStack getItem(XMaterial material, String name, List<String> lore) {
-        ItemStack result;
-        // material based item
-        result = material.parseItem();
-        ItemMeta meta = result.getItemMeta();
-        meta.setLore(lore);
-        meta.setDisplayName(name);
-        result.setItemMeta(meta);
-        return result;
-    }
-
-    /**
      * Previous page item creator
      *
      * @return GuiElement of previous menu icon
@@ -97,6 +78,6 @@ public class GuiHelper {
         String displayName = ChatUtil.color(Shared.getInstance().getLangFile().getGui().getBazaarGui().getAddItemName());
         XMaterial material = XMaterial.matchXMaterial(Shared.getInstance().getLangFile().getGui().getBazaarGui().getMaterial()).orElse(XMaterial.GREEN_WOOL);
         List<String> lore = ChatUtil.color(Shared.getInstance().getLangFile().getGui().getBazaarGui().getAddItemLore());
-        return GuiHelper.getItem(material, displayName, lore);
+        return ItemUtils.getItem(material, displayName, lore);
     }
 }

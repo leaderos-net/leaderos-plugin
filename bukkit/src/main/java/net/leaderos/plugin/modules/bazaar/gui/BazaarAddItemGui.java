@@ -3,6 +3,7 @@ package net.leaderos.plugin.modules.bazaar.gui;
 import de.themoep.inventorygui.*;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.helpers.GuiHelper;
 import net.leaderos.plugin.modules.bazaar.model.PlayerBazaar;
 import net.leaderos.plugin.modules.cache.model.User;
 import net.leaderos.plugin.modules.bazaar.Bazaar;
@@ -46,6 +47,8 @@ public class BazaarAddItemGui {
         String guiName = ChatUtil.color(Main.getShared().getLangFile().getGui().getBazaarGui().getGuiName());
         InventoryGui gui = new InventoryGui(Main.getInstance(), null, guiName, layout);
         // Filler item for empty slots
+        ItemStack fillerItem = GuiHelper.getFiller();
+        gui.setFiller(fillerItem);
 
         // With a virtual inventory to access items later on
         Inventory inv = Bukkit.createInventory(null, InventoryType.CHEST);
@@ -77,6 +80,9 @@ public class BazaarAddItemGui {
                     continue;
                 if (item.getType().equals(Material.AIR))
                     continue;
+                // Checks if area is filler item
+                if (item.equals(fillerItem))
+                    continue;
 
                 // Calculates storage amount
                 if (canStoreAmount > 0)
@@ -97,15 +103,15 @@ public class BazaarAddItemGui {
                 int durability = ItemUtils.getDurability(item, maxDurability);
                 String base64 = ItemUtils.toBase64(item);
                 double price = 0.0;
-                String creationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.util.Date());
-                int sold = 0;
+                String creationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                 String modelId = ItemUtils.getModelId(item);
                 String enchantment = ItemUtils.getEnchantments(item);
 
                 Map<String, String> body = new HashMap<>();
                 body.put("owner", userId);
                 body.put("name", name);
-                body.put("lore", lore);
+                if (lore != null)
+                    body.put("lore", lore);
                 body.put("amount", amount+"");
                 body.put("maxDurability", maxDurability+"");
                 body.put("durability", durability+"");
@@ -113,10 +119,9 @@ public class BazaarAddItemGui {
                 body.put("price", price+"");
                 body.put("creationDate", creationDate);
                 // TODO Check
-                body.put("sold", sold+"");
                 body.put("modelID", modelId);
-                body.put("enchantment", enchantment);
-                body.put("description", null);
+                if (enchantment != null)
+                    body.put("enchantment", enchantment);
                 body.put("serverID", serverId+"");
                 body.put("itemID", item.getType().name());
 

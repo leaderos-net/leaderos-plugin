@@ -6,11 +6,14 @@ import dev.triumphteam.cmd.core.message.MessageKey;
 import lombok.Getter;
 import net.leaderos.plugin.api.LeaderOSAPI;
 import net.leaderos.plugin.handlers.ModuleEvents;
+import net.leaderos.plugin.modules.credit.Credit;
+import net.leaderos.plugin.modules.voucher.Voucher;
 import net.leaderos.shared.Shared;
 import net.leaderos.plugin.modules.cache.Cache;
 import net.leaderos.plugin.commands.LeaderOSCommand;
 import net.leaderos.plugin.modules.bazaar.Bazaar;
 import net.leaderos.plugin.modules.webstore.WebStore;
+import net.leaderos.shared.configuration.Data;
 import net.leaderos.shared.helpers.ChatUtil;
 import net.leaderos.shared.module.auth.AuthLogin;
 import org.bukkit.Bukkit;
@@ -38,6 +41,12 @@ public class Main extends JavaPlugin {
     private static Shared shared;
 
     /**
+     * Voucher data folder
+     */
+    @Getter
+    private Data voucherData;
+
+    /**
      * CommandManager
      */
     @Getter
@@ -57,14 +66,17 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         commandManager = BukkitCommandManager.create(this);
         setupCommands();
+        (voucherData = new Data("voucher_data.yml")).create();
 
         // Loads module events
         Bukkit.getPluginManager().registerEvents(new ModuleEvents(), Main.getInstance());
         // Loads modules
         LeaderOSAPI.getModuleManager().registerModule(new AuthLogin());
         LeaderOSAPI.getModuleManager().registerModule(new Cache());
+        LeaderOSAPI.getModuleManager().registerModule(new Credit());
         LeaderOSAPI.getModuleManager().registerModule(new WebStore());
         LeaderOSAPI.getModuleManager().registerModule(new Bazaar());
+        LeaderOSAPI.getModuleManager().registerModule(new Voucher());
         LeaderOSAPI.getModuleManager().enableModules();
     }
 

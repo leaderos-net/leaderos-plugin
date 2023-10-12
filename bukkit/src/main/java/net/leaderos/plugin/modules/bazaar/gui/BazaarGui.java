@@ -8,6 +8,7 @@ import lombok.SneakyThrows;
 import net.leaderos.plugin.modules.bazaar.model.PlayerBazaar;
 import net.leaderos.plugin.modules.cache.model.User;
 import net.leaderos.plugin.Main;
+import net.leaderos.shared.Shared;
 import net.leaderos.shared.exceptions.CacheNotFoundException;
 import net.leaderos.shared.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.GuiHelper;
@@ -66,6 +67,10 @@ public class BazaarGui {
                 click ->  {
                         click.getEvent().setCancelled(true);
                         gui.close();
+                        if (player.getInventory().firstEmpty() == -1) {
+                            ChatUtil.sendMessage(player, Shared.getInstance().getLangFile().getMessages().getCannotCreateFull());
+                            return false;
+                        }
                         String title = ChatUtil.color(Main.getShared().getLangFile().getGui().getBazaarGui().getWithdrawTitle());
                         String subtitleError = ChatUtil.color(Main.getShared().getLangFile().getGui().getBazaarGui().getWithdrawErrorSubtitle());
                         String subtitleSuccess = ChatUtil.color(Main.getShared().getLangFile().getGui().getBazaarGui().getWithdrawSuccessSubtitle());
@@ -77,7 +82,7 @@ public class BazaarGui {
                             player.sendTitle(title, subtitleSuccess);
                         else
                             player.sendTitle(title, subtitleError);
-                        return true;
+                        return false;
                 })))
             );
         gui.addElement(bazaarGui);

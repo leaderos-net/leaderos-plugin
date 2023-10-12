@@ -6,12 +6,15 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
+import org.jetbrains.annotations.NotNull;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -105,5 +108,24 @@ public class ItemUtils {
         else
             durability = maxDurability + 1 - item.getDurability();
         return durability;
+    }
+
+    /**
+     * Check for material and
+     * get item with a material.
+     * @param material of item
+     * @param name of item
+     * @param lore of item
+     * @return ItemStack of destination item
+     */
+    public static @NotNull ItemStack getItem(XMaterial material, String name, List<String> lore) {
+        ItemStack result;
+        // material based item
+        result = material.parseItem();
+        ItemMeta meta = result.getItemMeta();
+        meta.setLore(lore);
+        meta.setDisplayName(name);
+        result.setItemMeta(meta);
+        return result;
     }
 }

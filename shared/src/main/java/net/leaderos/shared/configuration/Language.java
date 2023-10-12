@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,6 +34,43 @@ public class Language  extends OkaeriConfig {
     @Getter
     @Setter
     public static class Messages extends OkaeriConfig {
+
+        /**
+         * Vouchers messages
+         */
+        private Vouchers vouchers = new Vouchers();
+
+        /**
+         * Voucher messages
+         */
+        @Getter @Setter
+        public static class Vouchers extends OkaeriConfig {
+
+            private String itemDisplayName = "&8[&a{amount} credit(s)&8] &7#{id}";
+
+            private List<String> itemLore = Collections.singletonList("&7Right click to use this voucher.");
+
+            @Comment({
+                    "Players should not have the vouchers anyway, they get deleted after used once.",
+                    "This is a thing only if there is a dupe bug."
+            })
+            private String alreadyUsed = "{prefix} &cSeems like this voucher already used once.";
+
+            private String successfullyUsed = "{prefix} &aSuccessfully used a voucher that worth &e{amount} credit(s)&a.";
+
+            private String successfullyCreated = "{prefix} &aSuccessfully created a voucher that worth &e{amount} credit(s)&a.";
+
+            private String cannotCreateNegative = "{prefix} &cPlease enter a valid amount. The amount must be higher than 0.";
+
+            private String cannotCreateNotEnough = "{prefix} &cYou do not have enough credit(s). Required: &e{amount} credits(s)";
+
+            private String successfullyGave = "{prefix} &aSuccessfully gave an voucher to &b{target} &afor amount &e{amount} credits(s)";
+
+            private String helpStaff = "{prefix} &7/vouchers give <player> <amount>";
+
+            private String help = "{prefix} &7/vouchers create <amount>";
+
+        }
 
         /**
          * Prefix of plugin TODO Explain
@@ -64,6 +102,8 @@ public class Language  extends OkaeriConfig {
         private String successfullyRemovedCredit = "{prefix} &aSuccessfully removed &e{amount} credit &afrom &b{target}&a.";
 
         private String receivedCredit = "{prefix} &aYou just received &e{amount} credit(s) &afrom &e{player}.";
+
+        private String cannotCreateFull = "{prefix} &cPlease create some space in your inventory and try again.";
 
         /**
          * Help commands message

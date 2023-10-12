@@ -4,6 +4,7 @@ import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
 import lombok.Setter;
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.helpers.ItemUtils;
 import net.leaderos.shared.exceptions.RequestException;
 import net.leaderos.shared.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.GuiHelper;
@@ -145,7 +146,7 @@ public class Category {
      * @return
      */
     public ItemStack getCategoryIcon() {
-        return GuiHelper.getItem(getMaterial(), ChatUtil.color(getCategoryName()), ChatUtil.color(getCategoryLore()));
+        return ItemUtils.getItem(getMaterial(), ChatUtil.color(getCategoryName()), ChatUtil.color(getCategoryLore()));
     }
 
     public static void loadAllCategories() throws IOException, RequestException {
