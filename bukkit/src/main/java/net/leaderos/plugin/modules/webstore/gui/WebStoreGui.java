@@ -10,7 +10,7 @@ import net.leaderos.plugin.Main;
 import net.leaderos.plugin.modules.webstore.model.Product;
 import net.leaderos.shared.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.GuiHelper;
-import net.leaderos.shared.module.auth.AuthLogin;
+import net.leaderos.plugin.modules.auth.AuthLogin;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;

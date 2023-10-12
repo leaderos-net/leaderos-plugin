@@ -1,11 +1,11 @@
-package net.leaderos.shared.module.auth.commands;
+package net.leaderos.plugin.modules.auth.commands;
 
 import dev.triumphteam.cmd.bukkit.annotation.Permission;
 import dev.triumphteam.cmd.core.BaseCommand;
 import dev.triumphteam.cmd.core.annotation.Command;
 import dev.triumphteam.cmd.core.annotation.Default;
 import lombok.RequiredArgsConstructor;
-import net.leaderos.shared.module.auth.AuthLogin;
+import net.leaderos.plugin.modules.auth.AuthLogin;
 import org.bukkit.entity.Player;
 
 /**
@@ -15,7 +15,7 @@ import org.bukkit.entity.Player;
  */
 @RequiredArgsConstructor
 @Command(value = "auth", alias = {"authy", "kayit", "site", "web"})
-public class AuthCommand extends BaseCommand {
+public class Commands extends BaseCommand {
 
     /**
      * Default command of auth

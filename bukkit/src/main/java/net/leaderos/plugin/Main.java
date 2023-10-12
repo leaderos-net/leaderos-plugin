@@ -5,7 +5,6 @@ import dev.triumphteam.cmd.bukkit.message.BukkitMessageKey;
 import dev.triumphteam.cmd.core.message.MessageKey;
 import lombok.Getter;
 import net.leaderos.plugin.api.LeaderOSAPI;
-import net.leaderos.plugin.handlers.ModuleEvents;
 import net.leaderos.plugin.modules.credit.Credit;
 import net.leaderos.plugin.modules.voucher.Voucher;
 import net.leaderos.shared.Shared;
@@ -15,8 +14,7 @@ import net.leaderos.plugin.modules.bazaar.Bazaar;
 import net.leaderos.plugin.modules.webstore.WebStore;
 import net.leaderos.shared.configuration.Data;
 import net.leaderos.shared.helpers.ChatUtil;
-import net.leaderos.shared.module.auth.AuthLogin;
-import org.bukkit.Bukkit;
+import net.leaderos.plugin.modules.auth.AuthLogin;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -67,9 +65,6 @@ public class Main extends JavaPlugin {
         commandManager = BukkitCommandManager.create(this);
         setupCommands();
         (voucherData = new Data("voucher_data.yml")).create();
-
-        // Loads module events
-        Bukkit.getPluginManager().registerEvents(new ModuleEvents(), Main.getInstance());
         // Loads modules
         LeaderOSAPI.getModuleManager().registerModule(new AuthLogin());
         LeaderOSAPI.getModuleManager().registerModule(new Cache());

@@ -1,5 +1,7 @@
-package net.leaderos.shared.module.auth;
+package net.leaderos.plugin.modules.auth;
 
+import net.leaderos.plugin.Main;
+import net.leaderos.plugin.modules.auth.commands.Commands;
 import net.leaderos.shared.Shared;
 import net.leaderos.shared.helpers.ChatUtil;
 import net.leaderos.shared.helpers.MDChat.MDChatAPI;
@@ -24,12 +26,16 @@ public class AuthLogin extends LeaderOSModule {
     /**
      * onEnable method of module
      */
-    public void onEnable() {}
+    public void onEnable() {
+        Main.getCommandManager().registerCommand(new Commands());
+    }
 
     /**
      * onDisable method of module
      */
-    public void onDisable() {}
+    public void onDisable() {
+        Main.getCommandManager().unregisterCommand(new Commands());
+    }
 
 
     /**
