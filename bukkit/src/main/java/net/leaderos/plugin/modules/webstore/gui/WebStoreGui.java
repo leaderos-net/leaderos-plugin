@@ -11,10 +11,13 @@ import net.leaderos.plugin.modules.webstore.model.Product;
 import net.leaderos.shared.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.GuiHelper;
 import net.leaderos.plugin.modules.auth.AuthLogin;
+import net.leaderos.shared.model.Response;
+import net.leaderos.shared.model.request.PostRequest;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.*;
 
 /**
  * Webstore gui
@@ -73,23 +76,44 @@ public class WebStoreGui {
         GuiElementGroup productGroup = new GuiElementGroup('p');
         if (!productList.isEmpty())
             // Product Group
-            productList.stream().forEach(product -> productGroup.addElement(new DynamicGuiElement('e', (viewer)
+            productList.forEach(product -> productGroup.addElement(new DynamicGuiElement('e', (viewer)
                     -> new StaticGuiElement('e',
                     product.getProductIcon(),
                     1,
                     click ->  {
                         click.getEvent().setCancelled(true);
+                        gui.close();
                         // TODO Product click event
                         if (User.isPlayerAuthed(player)) {
+                            User user = User.getUser(player.getName());
+                            Map<String, String> body = new HashMap<>();
+                            body.put("user", user.getId());
+                            String[] products = new String[1];
+                            products[0] = product.getProductId();
+                            body.put("products", Arrays.toString(products));
 
+                            // Titles
+                            String title = ChatUtil.color(Main.getShared().getLangFile().getGui().getWebStoreGui().getBuyWebStoreTitle());
+                            String subtitleError = ChatUtil.color(Main.getShared().getLangFile().getGui().getWebStoreGui().getBuyWebStoreError());
+                            String subtitleProgress = ChatUtil.color(Main.getShared().getLangFile().getGui().getWebStoreGui().getBuyWebStoreProgress());
+                            String subtitleSuccess = ChatUtil.color(Main.getShared().getLangFile().getGui().getWebStoreGui().getBuyWebStoreSuccess());
+                            player.sendTitle(title, subtitleProgress);
+                            try {
+                                // TODO FIRAT HERE
+                                Response buyRequest = new PostRequest("store/buy", body).getResponse();
+                                // TODO CODE
+                                if (buyRequest.getResponseCode() == HttpURLConnection.HTTP_CREATED)
+                                    player.sendTitle(title, subtitleSuccess);
+                                else throw new IOException();
+                            } catch (IOException e) {
+                                // TODO Handling
+                                player.sendTitle(title, subtitleError);
+                                throw new RuntimeException(e);
+                            }
                         }
-                        else {
-                            gui.close();
+                        else
                             AuthLogin.sendAuthModuleError(player);
-                            return true;
-                        }
-                        gui.draw();
-                        return true;
+                        return false;
                     })))
             );
         gui.addElement(productGroup);

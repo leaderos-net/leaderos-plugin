@@ -376,7 +376,6 @@ public class Language  extends OkaeriConfig {
             private List<String> landingGuiLayout = Arrays.asList(
                     "         ",
                     "   ccc   ",
-                    "         ",
                     "b       n"
             );
 
@@ -412,6 +411,26 @@ public class Language  extends OkaeriConfig {
              * Stock unlimited format
              */
             private String stockUnlimited = "&6&lUNLIMITED";
+
+            /**
+             * withdraw item title
+             */
+            private String buyWebStoreTitle = "&6&lBuy Product";
+
+            /**
+             * withdraw item subtitle progress
+             */
+            private String buyWebStoreProgress = "&7Buy in progress...";
+
+            /**
+             * withdraw item subtitle success
+             */
+            private String buyWebStoreSuccess = "&aBuy success.";
+
+            /**
+             * withdraw item subtitle error
+             */
+            private String buyWebStoreError = "&cBuy error.";
         }
 
         /**

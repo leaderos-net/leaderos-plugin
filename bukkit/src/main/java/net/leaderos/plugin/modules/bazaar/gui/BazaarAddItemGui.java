@@ -132,6 +132,7 @@ public class BazaarAddItemGui {
                         // TODO Success
                         BazaarGui.showGui(player);
                     }
+                    else throw new Exception();
                     // TODO Else
                 } catch (Exception e) {
                     throw new RuntimeException(e);

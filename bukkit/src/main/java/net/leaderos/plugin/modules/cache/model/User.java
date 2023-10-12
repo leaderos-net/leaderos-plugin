@@ -83,9 +83,9 @@ public class User {
     public User(@NotNull JSONObject user) {
         this.id = user.getString("id");
         this.credit = Double.parseDouble(user.getString("credit"));
-        this.username = user.getString("username");
+        this.username = user.getString("realname");
         this.email = user.getString("email");
-        this.creationIp = user.getString("creationIp");
+        this.creationIp = user.getString("creationIP");
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         this.creationDate = format.parse(user.getString("creationDate"));

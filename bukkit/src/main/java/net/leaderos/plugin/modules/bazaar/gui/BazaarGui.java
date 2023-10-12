@@ -60,7 +60,7 @@ public class BazaarGui {
         // Bazaar group creator
         GuiElementGroup bazaarGui = new GuiElementGroup('i');
         if (!playerBazaarList.isEmpty())
-            playerBazaarList.stream().forEach(playerBazaarItem -> bazaarGui.addElement(new DynamicGuiElement('s', (viewer)
+            playerBazaarList.forEach(playerBazaarItem -> bazaarGui.addElement(new DynamicGuiElement('s', (viewer)
                     -> new StaticGuiElement('s',
                 playerBazaarItem.getItem(),
                 1,
