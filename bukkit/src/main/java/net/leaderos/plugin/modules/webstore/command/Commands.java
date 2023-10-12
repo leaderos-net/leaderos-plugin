@@ -20,7 +20,7 @@ public class Commands extends BaseCommand {
 
     /**
      * Default command of webshop
-     * @param player
+     * @param player executor
      */
     @Default
     @Permission("webshop.open")

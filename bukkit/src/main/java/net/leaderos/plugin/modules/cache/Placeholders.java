@@ -13,28 +13,33 @@ import java.text.SimpleDateFormat;
  */
 public class Placeholders extends PlaceholderExpansion {
 
+    /**
+     * Date formatter for placeholders
+     */
     private static SimpleDateFormat dateFormat = new SimpleDateFormat(
             Main.getShared().getConfigFile().getSettings().getTimeFormat());
 
     /**
      * identifier of placeholder
-     * @return
+     * @return identifier
      */
     public String getIdentifier() {
         return "leaderos-cache";
     }
 
     /**
-     The author of the Placeholder
-     This cannot be null
+     * The author of the Placeholder
+     * This cannot be null
+     * @return author name
      */
     public String getAuthor() {
         return "Geik";
     }
 
     /**
-     Same with #getAuthor() but for versioon
-     This cannot be null
+     * Same with #getAuthor() but for versioon
+     * This cannot be null
+     * @return version of plugin
      */
 
     public String getVersion() {
@@ -45,11 +50,10 @@ public class Placeholders extends PlaceholderExpansion {
      * PlaceholderRequest method
      * @param p player
      * @param identifier placeholder identifier
-     * @return
+     * @return placeholder value
      */
     @Override
     public String onPlaceholderRequest(Player p, String identifier) {
-
         // Checks if player authed
         if (!User.isPlayerAuthed(p))
             return "";

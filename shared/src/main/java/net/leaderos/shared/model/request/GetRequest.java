@@ -18,9 +18,8 @@ public class GetRequest extends Request {
      *
      * @param api of request
      * @throws IOException for HttpUrlConnection
-     * @throws RequestException for response errors
      */
-    public GetRequest(String api) throws IOException, RequestException {
+    public GetRequest(String api) throws IOException {
         super(api, null, RequestType.GET);
     }
 }

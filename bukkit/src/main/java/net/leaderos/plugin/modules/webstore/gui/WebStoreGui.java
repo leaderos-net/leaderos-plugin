@@ -31,6 +31,7 @@ public class WebStoreGui {
     /**
      * Opens gui to player
      * @param player to show gui
+     * @param categoryObj category to open
      */
     public static void showGui(Player player, Category categoryObj) {
         // Gui template as array

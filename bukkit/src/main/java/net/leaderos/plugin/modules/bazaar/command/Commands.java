@@ -5,8 +5,8 @@ import dev.triumphteam.cmd.core.BaseCommand;
 import dev.triumphteam.cmd.core.annotation.Command;
 import dev.triumphteam.cmd.core.annotation.Default;
 import lombok.RequiredArgsConstructor;
+import net.leaderos.plugin.api.managers.ModuleManager;
 import net.leaderos.plugin.modules.cache.model.User;
-import net.leaderos.plugin.api.LeaderOSAPI;
 import net.leaderos.plugin.modules.bazaar.gui.BazaarGui;
 import org.bukkit.entity.Player;
 
@@ -21,12 +21,12 @@ public class Commands extends BaseCommand {
 
     /**
      * Default command of webshop
-     * @param player
+     * @param player executor
      */
     @Default
     @Permission("bazaar.open")
     public void defaultCommand(Player player) {
-        if (LeaderOSAPI.getModuleManager().getModule("Bazaar").isEnabled() && User.isPlayerAuthed(player))
+        if (ModuleManager.getModule("Bazaar").isEnabled() && User.isPlayerAuthed(player))
             BazaarGui.showGui(player);
     }
 }

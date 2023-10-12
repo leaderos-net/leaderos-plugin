@@ -16,7 +16,7 @@ public class LoginListener implements Listener {
 
     /**
      * Login event of player
-     * @param event
+     * @param event LoginEvent
      */
     @EventHandler
     public void playerLoginEvent(PlayerLoginEvent event) {

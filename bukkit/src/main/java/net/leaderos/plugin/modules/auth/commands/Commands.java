@@ -19,7 +19,7 @@ public class Commands extends BaseCommand {
 
     /**
      * Default command of auth
-     * @param player
+     * @param player executor
      */
     @Default
     @Permission("leaderos.auth")

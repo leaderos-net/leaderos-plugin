@@ -44,6 +44,7 @@ public interface Modulable {
 
     /**
      * Sets enabled status
+     * @param isEnabled boolean status of enabled or not
      */
     void setEnabled(boolean isEnabled);
 

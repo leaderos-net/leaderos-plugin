@@ -35,6 +35,8 @@ public class User {
 
     /**
      * Gets one player @Nullable
+     * @param name - player name
+     * @return User data
      */
     public static @Nullable User getUser(String name) {
         return userList.getOrDefault(name, null);

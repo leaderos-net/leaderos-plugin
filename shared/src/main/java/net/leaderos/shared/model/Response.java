@@ -33,6 +33,7 @@ public class Response {
 
     /**
      * Getter of responseMessage
+     * @return JSONObject - message
      */
     public JSONObject getResponseMessage() {
         if (status)

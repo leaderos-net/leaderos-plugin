@@ -45,6 +45,7 @@ public class PlayerBazaar {
     /**
      * PlayerBazaar constructor
      * @param response of request
+     * @param userId of player
      */
     @SneakyThrows
     public PlayerBazaar(JSONObject response, String userId) {
@@ -55,7 +56,7 @@ public class PlayerBazaar {
 
     /**
      * Gets item of bazaar display
-     * @return
+     * @return ItemStack of bazaar item
      */
     public ItemStack getItem() {
         ItemStack item = ItemUtils.fromBase64(getBase64());
@@ -71,6 +72,8 @@ public class PlayerBazaar {
 
     /**
      * withdraw item from bazaar
+     * @param player clicker
+     * @return status of withdraw
      */
     @SneakyThrows
     public boolean withdrawItem(Player player) {
@@ -89,6 +92,8 @@ public class PlayerBazaar {
 
     /**
      * loads player bazaar items
+     * @param userId of player
+     * @return list of storage
      */
     public static List<PlayerBazaar> getBazaarStorage(String userId) {
         try {

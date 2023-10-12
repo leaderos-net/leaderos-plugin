@@ -44,8 +44,7 @@ public class AuthLogin extends LeaderOSModule {
      * @param username of player
      * @param uuid of player
      * @return String of url
-     * @throws IOException
-     * @throws RequestException
+     * @throws IOException request exception
      */
     public static String generateLink(String username, String uuid) throws IOException {
         Map<String, String> formData = new HashMap<>();
@@ -58,7 +57,7 @@ public class AuthLogin extends LeaderOSModule {
 
     /**
      * sends auth command message
-     * @param player
+     * @param player executor
      */
     public static void sendAuthCommandMessage(Player player) {
         try {
@@ -75,7 +74,7 @@ public class AuthLogin extends LeaderOSModule {
 
     /**
      * sends auth module error message
-     * @param player
+     * @param player executor
      */
     public static void sendAuthModuleError(Player player) {
         try {

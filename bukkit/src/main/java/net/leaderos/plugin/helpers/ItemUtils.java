@@ -27,8 +27,8 @@ public class ItemUtils {
     /**
      * convert item to base64
      *
-     * @param itemStack itemstack of item
-     * @return
+     * @param itemStack itemStack of item
+     * @return base64 of item
      */
     public static String toBase64(ItemStack itemStack) {
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -44,8 +44,8 @@ public class ItemUtils {
 
     /**
      * creates item stack by base64
-     * @param encoded
-     * @return
+     * @param encoded data
+     * @return created item
      */
     public static ItemStack fromBase64(String encoded) {
         try (ByteArrayInputStream outputStream = new ByteArrayInputStream(Base64Coder.decodeLines(encoded));

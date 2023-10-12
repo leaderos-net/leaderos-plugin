@@ -1,6 +1,5 @@
 package net.leaderos.shared.model.request;
 
-import net.leaderos.shared.exceptions.RequestException;
 import net.leaderos.shared.model.Request;
 
 import java.io.IOException;
@@ -20,9 +19,8 @@ public class PatchRequest extends Request {
      * @param api  of request
      * @param body of request
      * @throws IOException      for HttpUrlConnection
-     * @throws RequestException for response errors
      */
-    public PatchRequest(String api, Map<String, String> body) throws IOException, RequestException {
+    public PatchRequest(String api, Map<String, String> body) throws IOException {
         super(api, body, RequestType.PATCH);
     }
 
@@ -31,9 +29,8 @@ public class PatchRequest extends Request {
      *
      * @param api  of request
      * @throws IOException      for HttpUrlConnection
-     * @throws RequestException for response errors
      */
-    public PatchRequest(String api) throws IOException, RequestException {
+    public PatchRequest(String api) throws IOException {
         super(api, null, RequestType.PATCH);
     }
 }

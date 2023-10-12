@@ -12,7 +12,8 @@ public class MDChatAPI {
     /**
      * Send modern messages (Hoverable, linked messages)
      *
-     * @param message
+     * @param message string
+     * @return TextComponent formatted content
      */
     public static @NotNull TextComponent getFormattedMessage(String message) {
         return MDChat.getMessageFromString(message, true);

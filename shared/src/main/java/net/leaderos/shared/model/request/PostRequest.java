@@ -19,8 +19,7 @@ public class PostRequest extends Request {
      *
      * @param api  of request
      * @param body of request
-     * @throws IOException      for HttpUrlConnection
-     * @throws RequestException for response errors
+     * @throws IOException for HttpUrlConnection
      */
     public PostRequest(String api, Map<String, String> body) throws IOException {
         super(api, body, RequestType.POST);
@@ -29,9 +28,8 @@ public class PostRequest extends Request {
     /**
      * Post request constructor
      *
-     * @param api
-     * @throws IOException
-     * @throws RequestException
+     * @param api of request
+     * @throws IOException for HttpUrlConnection
      */
     public PostRequest(String api) throws IOException {
         super(api, null, RequestType.POST);

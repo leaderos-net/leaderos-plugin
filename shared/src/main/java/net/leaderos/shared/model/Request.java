@@ -56,7 +56,6 @@ public abstract class Request {
      * @param body of request
      * @param type of request type (POST or GET)
      * @throws IOException for HttpUrlConnection
-     * @throws RequestException for response errors
      */
     public Request(String api, Map<String, String> body, @NotNull RequestType type) throws IOException {
         this.body = encodeFormData(body);

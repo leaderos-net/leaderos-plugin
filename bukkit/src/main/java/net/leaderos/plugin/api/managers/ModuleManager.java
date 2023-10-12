@@ -25,6 +25,8 @@ public class ModuleManager {
 
     /**
      * Module getter
+     * @param name of module
+     * @return module
      */
     public static Modulable getModule(String name) {
         return modules.get(name);

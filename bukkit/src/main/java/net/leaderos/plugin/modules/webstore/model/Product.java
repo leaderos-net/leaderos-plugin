@@ -76,6 +76,7 @@ public class Product {
 
     /**
      * Constructor of Product
+     * @param product response data of product
      */
     public Product(@NotNull JSONObject product) {
         // Checks if product active or not
@@ -134,7 +135,7 @@ public class Product {
 
     /**
      * Gets item of product
-     * @return
+     * @return product icon for gui
      */
     @SneakyThrows
     public ItemStack getProductIcon() {

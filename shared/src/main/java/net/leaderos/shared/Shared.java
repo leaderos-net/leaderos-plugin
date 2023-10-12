@@ -48,6 +48,8 @@ public class Shared {
 
     /**
      * Constructor of shared
+     *
+     * @param plugin Main instance
      */
     public Shared(JavaPlugin plugin) {
         this.plugin = plugin;

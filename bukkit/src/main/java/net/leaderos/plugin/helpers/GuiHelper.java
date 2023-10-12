@@ -73,6 +73,8 @@ public class GuiHelper {
 
     /**
      * BazaarGui add item icon creator
+     *
+     * @return add item icon
      */
     public static ItemStack addItemIcon() {
         String displayName = ChatUtil.color(Shared.getInstance().getLangFile().getGui().getBazaarGui().getAddItemName());

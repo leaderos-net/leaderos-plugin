@@ -32,15 +32,8 @@ public class Category {
     /**
      * Category list
      */
+    @Getter
     private static List<Category> categories = new ArrayList<>();
-
-    /**
-     * Getter of categories
-     * @return Category List
-     */
-    public static List<Category> getCategories() {
-        return categories;
-    }
 
     /**
      * Status of category
@@ -143,7 +136,7 @@ public class Category {
 
     /**
      * Gets item of category
-     * @return
+     * @return category item
      */
     public ItemStack getCategoryIcon() {
         return ItemUtils.getItem(getMaterial(), ChatUtil.color(getCategoryName()), ChatUtil.color(getCategoryLore()));
