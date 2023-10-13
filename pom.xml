@@ -23,13 +23,6 @@
 
     <!-- Dependencies -->
     <dependencies>
-        <!-- Spigot -->
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.20.1-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -105,7 +98,7 @@
                     <relocations>
                         <relocation>
                             <pattern>com.cryptomorin.xseries</pattern>
-                            <shadedPattern>net.leaderos.plugin.shades.xseries</shadedPattern>
+                            <shadedPattern>net.leaderos.shades.xseries</shadedPattern>
                             <excludes>
                                 <exclude>com/cryptomorin/xseries/XBiome*</exclude>
                                 <exclude>com/cryptomorin/xseries/XEnchantment*</exclude>
@@ -121,27 +114,27 @@
                         </relocation>
                         <relocation>
                             <pattern>de.themoep.inventorygui</pattern>
-                            <shadedPattern>net.leaderos.plugin.shades.inventorygui</shadedPattern>
+                            <shadedPattern>net.leaderos.shades.inventorygui</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>org.jetbrains.annotations</pattern>
-                            <shadedPattern>net.leaderos.plugin.shades.jetbrains</shadedPattern>
+                            <shadedPattern>net.leaderos.shades.jetbrains</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>de.tr7zw.nbtapi</pattern>
-                            <shadedPattern>net.leaderos.plugin.shades.nbtapi</shadedPattern>
+                            <shadedPattern>net.leaderos.shades.nbtapi</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>dev.triumphteam</pattern>
-                            <shadedPattern>net.leaderos.plugin.shades.triumphteam</shadedPattern>
+                            <shadedPattern>net.leaderos.shades.triumphteam</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>eu.okaeri</pattern>
-                            <shadedPattern>net.leaderos.plugin.shades.okaeri</shadedPattern>
+                            <shadedPattern>net.leaderos.shades.okaeri</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>dev.s7a</pattern>
-                            <shadedPattern>net.leaderos.plugin.shades.s7a</shadedPattern>
+                            <shadedPattern>net.leaderos.shades.s7a</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

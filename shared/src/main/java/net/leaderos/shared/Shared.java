@@ -1,19 +1,12 @@
 package net.leaderos.shared;
 
 import lombok.Getter;
-import org.bukkit.plugin.java.JavaPlugin;
-
 /**
  * @author poyrazinan
  * @since 1.0
  */
 @Getter
 public class Shared {
-
-    /**
-     * Instance of plugin
-     */
-    private JavaPlugin plugin;
 
     /**
      * Shared instance
@@ -36,10 +29,10 @@ public class Shared {
     /**
      * Constructor of shared
      *
-     * @param plugin Main instance
+     * @param link api link
+     * @param apiKey api key
      */
-    public Shared(JavaPlugin plugin, String link, String apiKey) {
-        this.plugin = plugin;
+    public Shared(String link, String apiKey) {
         Shared.link = link;
         Shared.apiKey = apiKey;
         instance = this;

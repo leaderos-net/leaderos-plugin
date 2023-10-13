@@ -1,10 +1,10 @@
-package net.leaderos.plugin.helpers;
+package net.leaderos.bungee.helper;
 
-import net.leaderos.plugin.Main;
+import net.leaderos.bungee.Bungee;
 import net.leaderos.shared.helpers.Placeholder;
 import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.CommandSender;
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 /**
- * @author hyperion, poyrazinan
+ * @author hyperion
  * @since 1.0
  */
 public class ChatUtil {
@@ -70,7 +70,7 @@ public class ChatUtil {
      */
     public static void sendMessage(@NotNull CommandSender player, String message) {
         player.sendMessage(ChatUtil.color(replacePlaceholders(message, new Placeholder("{prefix}",
-                Main.getInstance().getLangFile().getMessages().getPrefix()))));
+                Bungee.getInstance().getLangFile().getMessages().getPrefix()))));
     }
 
     /**

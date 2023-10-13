@@ -1,6 +1,6 @@
-package net.leaderos.modules.auth.commands;
+package net.leaderos.bungee.modules.auth.commands;
 
-import net.leaderos.modules.auth.AuthLogin;
+import net.leaderos.bungee.modules.auth.AuthLogin;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
@@ -10,13 +10,13 @@ import net.md_5.bungee.api.plugin.Command;
  * @author poyrazinan
  * @since 1.0
  */
-public class Commands extends Command {
+public class AuthCommand extends Command {
 
     /**
      * Constructor of author command
      * @param name of command
      */
-    public Commands(String name) {
+    public AuthCommand(String name) {
         super(name);
     }
 

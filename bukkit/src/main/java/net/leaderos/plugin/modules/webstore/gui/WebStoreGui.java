@@ -12,7 +12,7 @@ import net.leaderos.plugin.modules.webstore.model.Category;
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.modules.webstore.model.Product;
 import net.leaderos.plugin.helpers.GuiHelper;
-import net.leaderos.shared.helpers.MDChat.MDChatAPI;
+import net.leaderos.plugin.helpers.MDChat.MDChatAPI;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.PostRequest;
 import net.leaderos.shared.module.auth.AuthHelper;
@@ -138,8 +138,8 @@ public class WebStoreGui {
                     }
                     else {
                         // If auth login is enabled
-                        if (ModuleManager.getModule("AuthLogin").getStatus()) {
-                            String authLink = AuthHelper.getAuthLink(player);
+                        if (ModuleManager.getModuleStatus("AuthLogin")) {
+                            String authLink = AuthHelper.getAuthLink(player.getName(), player.getUniqueId());
                             if (authLink != null)
                                 player.spigot().sendMessage(
                                         MDChatAPI.getFormattedMessage(

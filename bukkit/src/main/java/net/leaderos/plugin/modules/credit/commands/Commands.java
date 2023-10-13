@@ -130,6 +130,11 @@ public class Commands extends BaseCommand {
                     new Placeholder("{target}", target)
             ));
         }
+        else
+            ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
+                    Main.getInstance().getLangFile().getMessages().getPlayerNotAvailable(),
+                    new Placeholder("{amount}", MoneyUtils.format(targetCurrency.getResponseMessage().getDouble("raw_credits"))),
+                    new Placeholder("{target}", target)));
     }
 
     /**

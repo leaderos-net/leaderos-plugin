@@ -1,7 +1,7 @@
-package net.leaderos.modules.credits;
+package net.leaderos.bungee.modules.credits;
 
-import net.leaderos.Bungee;
-import net.leaderos.modules.credits.commands.Commands;
+import net.leaderos.bungee.Bungee;
+import net.leaderos.bungee.modules.credits.commands.CreditCommand;
 import net.leaderos.shared.module.LeaderOSModule;
 
 /**
@@ -15,21 +15,21 @@ public class Credit extends LeaderOSModule {
     /**
      * Commands of module
      */
-    private Commands commands;
+    private CreditCommand command;
 
     /**
      * onEnable method of module
      */
     public void onEnable() {
-        this.commands = new Commands("credits");
-        Bungee.getInstance().getProxy().getPluginManager().registerCommand(Bungee.getInstance(), commands);
+        this.command = new CreditCommand("credits");
+        Bungee.getInstance().getProxy().getPluginManager().registerCommand(Bungee.getInstance(), command);
     }
 
     /**
      * onDisable method of module
      */
     public void onDisable() {
-        Bungee.getInstance().getProxy().getPluginManager().unregisterCommand(commands);
+        Bungee.getInstance().getProxy().getPluginManager().unregisterCommand(command);
     }
 
 

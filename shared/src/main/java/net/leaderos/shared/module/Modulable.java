@@ -49,13 +49,6 @@ public interface Modulable {
     void setEnabled(boolean isEnabled);
 
     /**
-     * Gets status of module in module.yml
-     * <p>Enables or disables according to status.</p>
-     * @return true if the module enabled, otherwise false
-     */
-    boolean getStatus();
-
-    /**
      * Returns the name of the plugin.
      * <p>
      * This should return the bare name of the plugin and should be used for

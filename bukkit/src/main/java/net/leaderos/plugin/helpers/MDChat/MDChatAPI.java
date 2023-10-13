@@ -1,4 +1,4 @@
-package net.leaderos.shared.helpers.MDChat;
+package net.leaderos.plugin.helpers.MDChat;
 
 import net.md_5.bungee.api.chat.TextComponent;
 import org.jetbrains.annotations.NotNull;

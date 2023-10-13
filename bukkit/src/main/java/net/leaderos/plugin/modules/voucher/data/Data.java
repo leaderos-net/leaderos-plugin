@@ -1,6 +1,6 @@
 package net.leaderos.plugin.modules.voucher.data;
 
-import net.leaderos.shared.Shared;
+import net.leaderos.plugin.Main;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
@@ -23,7 +23,7 @@ public class Data extends YamlConfiguration {
      */
 
     public Data(String name){
-        file = new File("plugins/" + Shared.getInstance().getPlugin().getDescription().getName() + "/" + name);
+        file = new File("plugins/" + Main.getInstance().getDescription().getName() + "/" + name);
     }
 
     /**

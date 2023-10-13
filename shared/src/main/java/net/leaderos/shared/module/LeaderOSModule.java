@@ -1,12 +1,8 @@
 package net.leaderos.shared.module;
 
 import lombok.Getter;
-import net.leaderos.shared.Shared;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -72,17 +68,6 @@ public abstract class LeaderOSModule implements Modulable {
     @Override
     public void setEnabled(boolean isEnabled) {
         this.isEnabled = isEnabled;
-    }
-
-    /**
-     * Gets status of plugin
-     * @return boolean of status
-     */
-    @Override
-    public boolean getStatus() {
-        File moduleFile = new File("plugins/" + Shared.getInstance().getPlugin().getDescription().getName() + "/modules.yml");
-        FileConfiguration modules = YamlConfiguration.loadConfiguration(moduleFile);
-        return modules.getBoolean(getName() + ".status");
     }
 
     /**

@@ -7,7 +7,7 @@ import dev.triumphteam.cmd.core.annotation.Default;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.shared.helpers.MDChat.MDChatAPI;
+import net.leaderos.plugin.helpers.MDChat.MDChatAPI;
 import net.leaderos.shared.module.auth.AuthHelper;
 import org.bukkit.entity.Player;
 
@@ -27,7 +27,7 @@ public class Commands extends BaseCommand {
     @Default
     @Permission("leaderos.auth")
     public void defaultCommand(Player player) {
-        String link = AuthHelper.getAuthLink(player);
+        String link = AuthHelper.getAuthLink(player.getName(), player.getUniqueId());
         if (link != null)
             player.spigot().sendMessage(
                 MDChatAPI.getFormattedMessage(ChatUtil.color(Main.getInstance()

@@ -1,15 +1,13 @@
-package net.leaderos.plugin.api.managers;
+package net.leaderos.bungee.api;
 
-import net.leaderos.plugin.api.handlers.ModuleDisableEvent;
-import net.leaderos.plugin.api.handlers.ModuleEnableEvent;
-import net.leaderos.plugin.configuration.Language;
-import net.leaderos.plugin.Main;
-import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.shared.Shared;
+import lombok.SneakyThrows;
+import net.leaderos.bungee.Bungee;
+import net.leaderos.bungee.configuration.Language;
+import net.leaderos.bungee.helper.ChatUtil;
 import net.leaderos.shared.module.Modulable;
-import org.bukkit.Bukkit;
-import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
+import net.md_5.bungee.config.Configuration;
+import net.md_5.bungee.config.ConfigurationProvider;
+import net.md_5.bungee.config.YamlConfiguration;
 
 import java.io.File;
 import java.util.HashMap;
@@ -29,6 +27,7 @@ public class ModuleManager {
 
     /**
      * Module getter
+     *
      * @param name of module
      * @return module
      */
@@ -38,6 +37,7 @@ public class ModuleManager {
 
     /**
      * Registers module to module list
+     *
      * @param module of leaderos-plugin
      */
     public void registerModule(Modulable module) {
@@ -46,20 +46,21 @@ public class ModuleManager {
 
     /**
      * Gets module status
+     *
      * @param moduleName name of module
      * @return status
      */
+    @SneakyThrows
     public static boolean getModuleStatus(String moduleName) {
-        File moduleFile = new File("plugins/" + Main.getInstance().getDescription().getName() + "/modules.yml");
-        FileConfiguration modules = YamlConfiguration.loadConfiguration(moduleFile);
-        return modules.getBoolean(moduleName + ".status");
+        Configuration configuration = ConfigurationProvider.getProvider(YamlConfiguration.class).load(new File("plugins/" + Bungee.getInstance().getDescription().getName() + "/modules.yml"));
+        return configuration.getBoolean(moduleName + ".status");
     }
 
     /**
      * Enables all modules
      */
     public void enableModules() {
-        Language lang = Main.getInstance().getLangFile();
+        Language lang = Bungee.getInstance().getLangFile();
         modules.keySet().forEach(moduleName -> {
             Modulable module = getModule(moduleName);
             // Checks if module has dependency
@@ -73,24 +74,21 @@ public class ModuleManager {
                     String message = lang.getMessages().getInfo().getMissingDependency()
                             .replace("%module_name%", module.getName())
                             .replace("%dependencies%", module.getDependencyListAsString());
-                    ChatUtil.sendMessage(Bukkit.getConsoleSender(), message);
+                    ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), message);
                     return;
                 }
             }
             if (getModuleStatus(module.getName())) {
                 module.setEnabled(true);
-                // Enable event
-                Bukkit.getPluginManager().callEvent(new ModuleEnableEvent(module));
                 module.onEnable();
                 String message = lang.getMessages().getInfo().getModuleEnabled()
                         .replace("%module_name%", module.getName());
-                ChatUtil.sendMessage(Bukkit.getConsoleSender(), message);
-            }
-            else {
+                ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), message);
+            } else {
                 module.setEnabled(false);
                 String message = lang.getMessages().getInfo().getModuleClosed()
                         .replace("%module_name%", module.getName());
-                ChatUtil.sendMessage(Bukkit.getConsoleSender(), message);
+                ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), message);
             }
         });
     }
@@ -103,12 +101,10 @@ public class ModuleManager {
             Modulable module = modules.get(moduleName);
             if (module.isEnabled()) {
                 module.setEnabled(false);
-                // Disable event
-                Bukkit.getPluginManager().callEvent(new ModuleDisableEvent(module));
                 module.onDisable();
-                String message = Main.getInstance().getLangFile().getMessages().getInfo().getModuleDisabled()
+                String message = Bungee.getInstance().getLangFile().getMessages().getInfo().getModuleDisabled()
                         .replace("%module_name%", module.getName());
-                ChatUtil.sendMessage(Bukkit.getConsoleSender(), message);
+                ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), message);
             }
         });
     }
@@ -116,5 +112,6 @@ public class ModuleManager {
     /**
      * Constructor of ModuleManager
      */
-    public ModuleManager() {}
+    public ModuleManager() {
+    }
 }

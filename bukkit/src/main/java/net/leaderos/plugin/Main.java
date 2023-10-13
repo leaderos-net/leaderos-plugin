@@ -76,7 +76,7 @@ public class Main extends JavaPlugin {
     public void onLoad() {
         instance = this;
         setupFiles();
-        shared = new Shared(this, Main.getInstance().getConfigFile().getSettings().getUrl(),
+        shared = new Shared(Main.getInstance().getConfigFile().getSettings().getUrl(),
                 Main.getInstance().getConfigFile().getSettings().getApiKey());
     }
 
