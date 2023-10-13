@@ -11,6 +11,7 @@
     <modules>
         <module>shared</module>
         <module>bukkit</module>
+        <module>bungee</module>
     </modules>
 
     <properties>
@@ -29,13 +30,6 @@
             <version>1.20.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-        <!-- Bungeecord -->
-        <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-api</artifactId>
-            <version>1.20-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
         <!-- Lombok -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -43,37 +37,7 @@
             <version>1.18.30</version>
             <scope>provided</scope>
         </dependency>
-        <!-- InventoryAPI -->
-        <dependency>
-            <groupId>de.themoep</groupId>
-            <artifactId>inventorygui</artifactId>
-            <!--The following version may not be the latest. Check it before using.-->
-            <version>1.5-SNAPSHOT</version>
-        </dependency>
-        <!-- xSeries -->
-        <dependency>
-            <groupId>com.github.cryptomorin</groupId>
-            <artifactId>XSeries</artifactId>
-            <version>9.4.0</version>
-        </dependency>
-        <!-- NBT Api -->
-        <dependency>
-            <groupId>de.tr7zw</groupId>
-            <artifactId>item-nbt-api-plugin</artifactId>
-            <version>2.11.3</version>
-        </dependency>
-        <!-- Triump command -->
-        <dependency>
-            <groupId>dev.triumphteam</groupId>
-            <artifactId>triumph-cmd-bukkit</artifactId>
-            <version>2.0.0-SNAPSHOT</version>
-        </dependency>
-        <!-- Okaeri Config Storage -->
-        <dependency>
-            <groupId>eu.okaeri</groupId>
-            <artifactId>okaeri-configs-yaml-bukkit</artifactId>
-            <version>4.0.4</version>
-        </dependency>
+
         <!-- Jetbrains annotation -->
         <dependency>
             <groupId>org.jetbrains</groupId>
@@ -86,13 +50,6 @@
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
             <version>20230618</version>
-        </dependency>
-        <!-- PlaceholderAPI -->
-        <dependency>
-            <groupId>me.clip</groupId>
-            <artifactId>placeholderapi</artifactId>
-            <version>2.11.1</version>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 
@@ -181,6 +138,10 @@
                         <relocation>
                             <pattern>eu.okaeri</pattern>
                             <shadedPattern>net.leaderos.plugin.shades.okaeri</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>dev.s7a</pattern>
+                            <shadedPattern>net.leaderos.plugin.shades.s7a</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

@@ -5,6 +5,7 @@ import dev.triumphteam.cmd.core.BaseCommand;
 import dev.triumphteam.cmd.core.annotation.Command;
 import dev.triumphteam.cmd.core.annotation.Default;
 import lombok.RequiredArgsConstructor;
+import net.leaderos.plugin.api.managers.ModuleManager;
 import net.leaderos.plugin.modules.webstore.gui.MainWebStoreGui;
 import net.leaderos.plugin.api.LeaderOSAPI;
 import org.bukkit.entity.Player;
@@ -26,7 +27,8 @@ public class Commands extends BaseCommand {
     @Permission("webshop.open")
     public void defaultCommand(Player player) {
         // TODO Open gui
-        if (LeaderOSAPI.getModuleManager().getModule("WebStore").isEnabled())
+        LeaderOSAPI.getModuleManager();
+        if (ModuleManager.getModule("WebStore").isEnabled())
             MainWebStoreGui.showGui(player);
     }
 }

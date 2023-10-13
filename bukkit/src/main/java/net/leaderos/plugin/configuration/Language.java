@@ -1,4 +1,4 @@
-package net.leaderos.shared.configuration;
+package net.leaderos.plugin.configuration;
 
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
@@ -143,12 +143,17 @@ public class Language  extends OkaeriConfig {
             /**
              * Command Message
              */
-            private String commandMessage = "<&aFor authentication click here!{&5Click Me!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&aFor authentication click here!{&5Click Me!}(open_url:%link%)>";
 
             /**
              * Module error message
              */
-            private String moduleError = "<&cThis system require you to login website, click here!{&5Click Me!}(open_url:%link%)>";
+            private String moduleError = "{prefix} <&cThis system require you to login website, click here!{&5Click Me!}(open_url:%link%)>";
+
+            /**
+             * error on auth link
+             */
+            private String noLink = "{prefix} An error occured while connecting web-server. Please visit our website.";
         }
 
         /**
@@ -428,9 +433,19 @@ public class Language  extends OkaeriConfig {
             private String buyWebStoreSuccess = "&aBuy success.";
 
             /**
+             * withdraw item subtitle success
+             */
+            private String buyWebStoreNotEnoughCredit = "&cNot enough credits.";
+
+            /**
              * withdraw item subtitle error
              */
             private String buyWebStoreError = "&cBuy error.";
+
+            /**
+             * register website for this action
+             */
+            private String buyWebStoreNoAuthLinkError = "{prefix} &cYou must register website for this action!";
         }
 
         /**
@@ -550,11 +565,16 @@ public class Language  extends OkaeriConfig {
             private String displayName = "&a%player%";
 
             /**
+             * updates donation data
+             */
+            private String updatedDonationDataMessage = "{prefix} &aUpdated donations data.";
+
+            /**
              * lore of donator item
              */
             private List<String> lore = Arrays.asList(
                     "",
-                    "&7Donation: &e%credit% USD",
+                    "&7Donation: &e%credit% %symbol%",
                     ""
             );
         }

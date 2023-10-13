@@ -23,9 +23,7 @@ public class WebStore extends LeaderOSModule {
         Main.getCommandManager().registerCommand(new Commands());
         try {
             Category.loadAllCategories();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (RequestException e) {
+        } catch (IOException | RequestException e) {
             throw new RuntimeException(e);
         }
     }
@@ -40,5 +38,7 @@ public class WebStore extends LeaderOSModule {
     /**
      * Constructor of WebStore
      */
-    public WebStore() {}
+    public WebStore() {
+        addDependency("Cache");
+    }
 }

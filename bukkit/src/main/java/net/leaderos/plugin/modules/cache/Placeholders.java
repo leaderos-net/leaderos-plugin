@@ -18,7 +18,7 @@ public class Placeholders extends PlaceholderExpansion {
      * Date formatter for placeholders
      */
     private static SimpleDateFormat dateFormat = new SimpleDateFormat(
-            Main.getShared().getConfigFile().getSettings().getTimeFormat());
+            Main.getInstance().getConfigFile().getSettings().getTimeFormat());
 
     /**
      * identifier of placeholder
@@ -34,7 +34,7 @@ public class Placeholders extends PlaceholderExpansion {
      * @return author name
      */
     public String getAuthor() {
-        return "Geik";
+        return "leaderos";
     }
 
     /**

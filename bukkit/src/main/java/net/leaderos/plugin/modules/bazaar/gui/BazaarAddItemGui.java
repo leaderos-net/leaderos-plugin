@@ -1,16 +1,20 @@
 package net.leaderos.plugin.modules.bazaar.gui;
 
+import com.cryptomorin.xseries.XMaterial;
 import de.themoep.inventorygui.*;
+import dev.s7a.base64.Base64ItemStack;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.GuiHelper;
 import net.leaderos.plugin.modules.bazaar.model.PlayerBazaar;
 import net.leaderos.plugin.modules.cache.model.User;
 import net.leaderos.plugin.modules.bazaar.Bazaar;
-import net.leaderos.shared.helpers.ChatUtil;
 import net.leaderos.shared.helpers.GameUtils;
 import net.leaderos.plugin.helpers.ItemUtils;
+import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.PostRequest;
+import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -22,6 +26,7 @@ import org.bukkit.inventory.PlayerInventory;
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author poyrazinan
@@ -40,11 +45,11 @@ public class BazaarAddItemGui {
      * @param player to show gui
      */
     @SneakyThrows
-    public static void showGui(Player player) {
+    public static void showGui(Player player, int itemAmount) {
         // Gui template as array
-        String[] layout = Main.getShared().getLangFile().getGui().getBazaarGui().getAddItemLayout().toArray(new String[0]);
+        String[] layout = Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemLayout().toArray(new String[0]);
         // Inventory object
-        String guiName = ChatUtil.color(Main.getShared().getLangFile().getGui().getBazaarGui().getGuiName());
+        String guiName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getGuiName());
         InventoryGui gui = new InventoryGui(Main.getInstance(), null, guiName, layout);
         // Filler item for empty slots
         ItemStack fillerItem = GuiHelper.getFiller();
@@ -58,12 +63,11 @@ public class BazaarAddItemGui {
             // Calculating storage amounts
             int maxStorageAmount = GameUtils.getAmountFromPerm(player,
                     "bazaar.maxstorage.",
-                    Main.getShared().getModulesFile().getBazaar().getDefaultStorageSize());
+                    Main.getInstance().getModulesFile().getBazaar().getDefaultStorageSize());
 
-            int storedItemAmount = PlayerBazaar.getBazaarStorage(User.getUser(player.getName()).getId()).size();
-            int canStoreAmount = maxStorageAmount - storedItemAmount;
+            int canStoreAmount = maxStorageAmount - itemAmount;
             // Items which stored (airs included)
-            ItemStack[] items = inv.getContents();
+            List<ItemStack> items =  Arrays.stream(inv.getContents()).collect(Collectors.toList());
             String userId = User.getUser(player.getName()).getId();
             int serverId = Bazaar.getServerId();
 
@@ -93,15 +97,14 @@ public class BazaarAddItemGui {
                     continue;
                 }
                 // Item info
-                String material = item.getType().name();
-                String name = (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) ?
-                        item.getItemMeta().getDisplayName() : material;
+                XMaterial material = XMaterial.matchXMaterial(item);
+                String name = ItemUtils.getName(item);
                 String lore = (item.hasItemMeta() && item.getItemMeta().hasLore()) ?
                         String.join("\n", item.getItemMeta().getLore()) : null;
                 int amount = item.getAmount();
                 int maxDurability = item.getType().getMaxDurability();
                 int durability = ItemUtils.getDurability(item, maxDurability);
-                String base64 = ItemUtils.toBase64(item);
+                String base64 = Base64ItemStack.encode(item);
                 double price = 0.0;
                 String creationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                 String modelId = ItemUtils.getModelId(item);
@@ -115,22 +118,25 @@ public class BazaarAddItemGui {
                 body.put("amount", amount+"");
                 body.put("maxDurability", maxDurability+"");
                 body.put("durability", durability+"");
+
                 body.put("base64", base64);
                 body.put("price", price+"");
                 body.put("creationDate", creationDate);
                 // TODO Check
-                body.put("modelID", modelId);
+                if (modelId != null)
+                    body.put("modelID", modelId);
                 if (enchantment != null)
                     body.put("enchantment", enchantment);
                 body.put("serverID", serverId+"");
-                body.put("itemID", item.getType().name());
+                body.put("itemID", material.name());
 
                 // Sends response
                 try {
-                    PostRequest postItem = new PostRequest("bazaar/storages/" + userId + "/items", body);
-                    if (postItem.getResponse().getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    Response postBazaarItem = new PostRequest("bazaar/storages/" + userId + "/items", body).getResponse();
+                    if (postBazaarItem.getResponseCode() == HttpURLConnection.HTTP_OK
+                            && postBazaarItem.getResponseMessage().getBoolean("status")) {
                         // TODO Success
-                        BazaarGui.showGui(player);
+
                     }
                     else throw new Exception();
                     // TODO Else
@@ -143,7 +149,7 @@ public class BazaarAddItemGui {
             if (!returnItems.isEmpty()) {
                 PlayerInventory playerInventory = player.getInventory();
                 returnItems.forEach(playerInventory::addItem);
-                String returnMessage = Main.getShared().getLangFile().getGui().getBazaarGui().getReturnItemMessage();
+                String returnMessage = Main.getInstance().getLangFile().getGui().getBazaarGui().getReturnItemMessage();
                 returnMessage = returnMessage.replace("%max_amount%", maxStorageAmount+"")
                                 .replace("%amount%", returnItems.size()+"");
                 ChatUtil.sendMessage(player, returnMessage);

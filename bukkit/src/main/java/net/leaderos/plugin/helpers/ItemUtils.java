@@ -1,21 +1,14 @@
 package net.leaderos.plugin.helpers;
 
-import com.cryptomorin.xseries.SkullUtils;
 import com.cryptomorin.xseries.XMaterial;
-import net.leaderos.plugin.Main;
-import net.leaderos.plugin.modules.donators.model.RecentDonationData;
-import net.leaderos.shared.Shared;
-import net.leaderos.shared.helpers.ChatUtil;
-import net.leaderos.shared.helpers.Placeholder;
-import org.bukkit.Bukkit;
+import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.Material;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.jetbrains.annotations.NotNull;
@@ -23,8 +16,10 @@ import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author hyperion, poyrazinan
@@ -135,5 +130,37 @@ public class ItemUtils {
         meta.setDisplayName(name);
         result.setItemMeta(meta);
         return result;
+    }
+
+    /**
+     * Check for material and
+     * get item with a material.
+     * @param material of item
+     * @param name of item
+     * @param lore of item
+     * @param glow glow status of item
+     * @return ItemStack of destination item
+     */
+    public static @NotNull ItemStack getItem(XMaterial material, String name, List<String> lore, boolean glow) {
+        ItemStack result = getItem(material, name, lore);
+        ItemMeta meta = result.getItemMeta();
+        if (glow) {
+            meta.addEnchant(Enchantment.DURABILITY, 1, true);
+            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        }
+        result.setItemMeta(meta);
+        return result;
+    }
+
+    /**
+     * converts xmaterial to string
+     * @param item Item
+     */
+    public static String getName(ItemStack item) {
+        XMaterial material = XMaterial.matchXMaterial(item);
+        String name = (item.hasItemMeta() && item.getItemMeta().hasDisplayName()) ?
+                item.getItemMeta().getDisplayName() :
+                WordUtils.capitalize(material.name().replace('_', ' ').toLowerCase(Locale.ENGLISH));;
+        return name;
     }
 }

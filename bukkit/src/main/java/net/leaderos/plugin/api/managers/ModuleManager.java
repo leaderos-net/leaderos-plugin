@@ -2,9 +2,9 @@ package net.leaderos.plugin.api.managers;
 
 import net.leaderos.plugin.api.handlers.ModuleDisableEvent;
 import net.leaderos.plugin.api.handlers.ModuleEnableEvent;
-import net.leaderos.shared.configuration.Language;
+import net.leaderos.plugin.configuration.Language;
 import net.leaderos.plugin.Main;
-import net.leaderos.shared.helpers.ChatUtil;
+import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.shared.module.Modulable;
 import org.bukkit.Bukkit;
 
@@ -44,7 +44,7 @@ public class ModuleManager {
      * Enables all modules
      */
     public void enableModules() {
-        Language lang = Main.getShared().getLangFile();
+        Language lang = Main.getInstance().getLangFile();
         modules.keySet().forEach(moduleName -> {
             Modulable module = getModule(moduleName);
             // Checks if module has dependency
@@ -91,7 +91,7 @@ public class ModuleManager {
                 // Disable event
                 Bukkit.getPluginManager().callEvent(new ModuleDisableEvent(module));
                 module.onDisable();
-                String message = Main.getShared().getLangFile().getMessages().getInfo().getModuleDisabled()
+                String message = Main.getInstance().getLangFile().getMessages().getInfo().getModuleDisabled()
                         .replace("%module_name%", module.getName());
                 ChatUtil.sendMessage(Bukkit.getConsoleSender(), message);
             }

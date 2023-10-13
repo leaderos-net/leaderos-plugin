@@ -6,10 +6,10 @@ import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.GuiHelper;
 import net.leaderos.plugin.modules.donators.RecentDonations;
 import net.leaderos.plugin.modules.donators.model.RecentDonationData;
-import net.leaderos.shared.helpers.ChatUtil;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,9 +35,9 @@ public class RecentDonationGui {
     @SneakyThrows
     public static void showGui(Player player) {
         // Gui template as array
-        String[] layout = Main.getShared().getLangFile().getGui().getDonationsGui().getLayout().toArray(new String[0]);
+        String[] layout = Main.getInstance().getLangFile().getGui().getDonationsGui().getLayout().toArray(new String[0]);
         // Inventory object
-        String guiName = ChatUtil.color(Main.getShared().getLangFile().getGui().getDonationsGui().getGuiName());
+        String guiName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getDonationsGui().getGuiName());
         InventoryGui gui = new InventoryGui(Main.getInstance(), null, guiName, layout);
         // Filler item for empty slots
         gui.setFiller(GuiHelper.getFiller());

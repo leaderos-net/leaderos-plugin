@@ -72,7 +72,7 @@ public class Placeholders extends PlaceholderExpansion {
             String[] parts = identifier.split("_");
             String lastPart = parts[parts.length - 1];
             int donatorLine =  Integer.parseInt(lastPart);
-            if (donatorLine > Main.getShared().getModulesFile().getRecentDonations().getRecentDonationLimit())
+            if (donatorLine > Main.getInstance().getModulesFile().getRecentDonations().getRecentDonationLimit())
                 return null;
             return RecentDonationData.getRecentDonation(donatorLine-1);
 

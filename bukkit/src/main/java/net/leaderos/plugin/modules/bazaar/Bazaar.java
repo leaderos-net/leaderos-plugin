@@ -24,7 +24,7 @@ public class Bazaar extends LeaderOSModule {
      */
     public void onEnable() {
         // TODO check dependency
-        serverId = Main.getShared().getModulesFile().getBazaar().getServerId();
+        serverId = Main.getInstance().getModulesFile().getBazaar().getServerId();
         Main.getCommandManager().registerCommand(new Commands());
     }
 

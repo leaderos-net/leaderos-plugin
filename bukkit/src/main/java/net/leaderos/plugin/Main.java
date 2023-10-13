@@ -3,8 +3,14 @@ package net.leaderos.plugin;
 import dev.triumphteam.cmd.bukkit.BukkitCommandManager;
 import dev.triumphteam.cmd.bukkit.message.BukkitMessageKey;
 import dev.triumphteam.cmd.core.message.MessageKey;
+import eu.okaeri.configs.ConfigManager;
+import eu.okaeri.configs.yaml.bukkit.YamlBukkitConfigurer;
 import lombok.Getter;
 import net.leaderos.plugin.api.LeaderOSAPI;
+import net.leaderos.plugin.configuration.Config;
+import net.leaderos.plugin.configuration.Language;
+import net.leaderos.plugin.configuration.Modules;
+import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.credit.Credit;
 import net.leaderos.plugin.modules.donators.RecentDonations;
 import net.leaderos.plugin.modules.voucher.Voucher;
@@ -13,10 +19,11 @@ import net.leaderos.plugin.modules.cache.Cache;
 import net.leaderos.plugin.commands.LeaderOSCommand;
 import net.leaderos.plugin.modules.bazaar.Bazaar;
 import net.leaderos.plugin.modules.webstore.WebStore;
-import net.leaderos.shared.helpers.ChatUtil;
 import net.leaderos.plugin.modules.auth.AuthLogin;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.io.File;
 
 /**
  * Main class of project
@@ -38,6 +45,25 @@ public class Main extends JavaPlugin {
     @Getter
     private static Shared shared;
 
+
+    /**
+     * Config file of plugin
+     */
+    @Getter
+    private Config configFile;
+
+    /**
+     * Lang file of plugin
+     */
+    @Getter
+    private Language langFile;
+
+    /**
+     * Module file of plugin
+     */
+    @Getter
+    private Modules modulesFile;
+
     /**
      * CommandManager
      */
@@ -49,7 +75,9 @@ public class Main extends JavaPlugin {
      */
     public void onLoad() {
         instance = this;
-        shared = new Shared(this);
+        setupFiles();
+        shared = new Shared(this, Main.getInstance().getConfigFile().getSettings().getUrl(),
+                Main.getInstance().getConfigFile().getSettings().getApiKey());
     }
 
     /**
@@ -82,19 +110,52 @@ public class Main extends JavaPlugin {
     private void setupCommands() {
         commandManager.registerCommand(new LeaderOSCommand());
         commandManager.registerMessage(MessageKey.INVALID_ARGUMENT, (sender, invalidArgumentContext) ->
-                ChatUtil.sendMessage(sender, shared.getLangFile().getMessages().getCommand().getInvalidArgument()));
+                ChatUtil.sendMessage(sender, getLangFile().getMessages().getCommand().getInvalidArgument()));
 
         commandManager.registerMessage(MessageKey.UNKNOWN_COMMAND, (sender, invalidArgumentContext) ->
-                ChatUtil.sendMessage(sender, shared.getLangFile().getMessages().getCommand().getUnknownCommand()));
+                ChatUtil.sendMessage(sender, getLangFile().getMessages().getCommand().getUnknownCommand()));
 
         commandManager.registerMessage(MessageKey.NOT_ENOUGH_ARGUMENTS, (sender, invalidArgumentContext) ->
-                ChatUtil.sendMessage(sender, shared.getLangFile().getMessages().getCommand().getNotEnoughArguments()));
+                ChatUtil.sendMessage(sender, getLangFile().getMessages().getCommand().getNotEnoughArguments()));
 
         commandManager.registerMessage(MessageKey.TOO_MANY_ARGUMENTS, (sender, invalidArgumentContext) ->
-                ChatUtil.sendMessage(sender, shared.getLangFile().getMessages().getCommand().getTooManyArguments()));
+                ChatUtil.sendMessage(sender, getLangFile().getMessages().getCommand().getTooManyArguments()));
 
         commandManager.registerMessage(BukkitMessageKey.NO_PERMISSION, (sender, invalidArgumentContext) ->
-                ChatUtil.sendMessage(sender, shared.getLangFile().getMessages().getCommand().getNoPerm()));
+                ChatUtil.sendMessage(sender, getLangFile().getMessages().getCommand().getNoPerm()));
+    }
+
+    /**
+     * Setups config, lang and modules file file
+     */
+    public void setupFiles() {
+        try {
+            this.configFile = ConfigManager.create(Config.class, (it) -> {
+                it.withConfigurer(new YamlBukkitConfigurer());
+                it.withBindFile(new File(getDataFolder(), "config.yml"));
+                it.saveDefaults();
+                it.load(true);
+            });
+            this.modulesFile = ConfigManager.create(Modules.class, (it) -> {
+                it.withConfigurer(new YamlBukkitConfigurer());
+                it.withBindFile(new File(getDataFolder(), "modules.yml"));
+                it.saveDefaults();
+                it.load(true);
+            });
+            String langName = configFile.getSettings().getLang();
+            // TODO MULTI LANG
+            //    Class langClass = Class.forName("net.leaderos.plugin.bukkit.configuration.lang." + langName);
+            //    Class<Language> languageClass = langClass;
+            this.langFile = ConfigManager.create(Language.class, (it) -> {
+                it.withConfigurer(new YamlBukkitConfigurer());
+                it.withBindFile(new File(getDataFolder() + "/lang", langName + ".yml"));
+                it.saveDefaults();
+                it.load(true);
+            });
+        } catch (Exception exception) {
+            getPluginLoader().disablePlugin(this);
+            throw new RuntimeException("Error loading config.yml");
+        }
     }
 
     /**

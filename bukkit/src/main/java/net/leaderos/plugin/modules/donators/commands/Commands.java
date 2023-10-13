@@ -4,9 +4,14 @@ import dev.triumphteam.cmd.bukkit.annotation.Permission;
 import dev.triumphteam.cmd.core.BaseCommand;
 import dev.triumphteam.cmd.core.annotation.Command;
 import dev.triumphteam.cmd.core.annotation.Default;
+import dev.triumphteam.cmd.core.annotation.SubCommand;
 import lombok.RequiredArgsConstructor;
+import net.leaderos.plugin.Main;
 import net.leaderos.plugin.api.managers.ModuleManager;
+import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.donators.gui.RecentDonationGui;
+import net.leaderos.plugin.modules.donators.timer.Timer;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
@@ -23,9 +28,20 @@ public class Commands extends BaseCommand {
      * @param player executor
      */
     @Default
-    @Permission("recent.donations.open")
+    @Permission("donations.open")
     public void defaultCommand(Player player) {
         if (ModuleManager.getModule("RecentDonations").isEnabled())
             RecentDonationGui.showGui(player);
+    }
+
+    /**
+     * updateCache command
+     * @param sender executor
+     */
+    @SubCommand(value = "update", alias = {"güncelle"})
+    @Permission("donations.update")
+    public void updateCacheCommand(CommandSender sender) {
+        ChatUtil.sendMessage(sender, Main.getInstance().getLangFile().getGui().getDonationsGui().getUpdatedDonationDataMessage());
+        Timer.run();
     }
 }

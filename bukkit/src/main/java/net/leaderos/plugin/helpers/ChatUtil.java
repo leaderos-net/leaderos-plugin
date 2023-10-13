@@ -1,11 +1,10 @@
-package net.leaderos.shared.helpers;
+package net.leaderos.plugin.helpers;
 
-import me.clip.placeholderapi.PlaceholderAPI;
-import net.leaderos.shared.Shared;
+import net.leaderos.plugin.Main;
+import net.leaderos.shared.helpers.Placeholder;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang3.StringEscapeUtils;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
@@ -39,16 +38,6 @@ public class ChatUtil {
     private final static Pattern HEX_PATTERN = Pattern.compile("#[a-fA-F0-9]{6}");
 
     /**
-     * Sends message to command sender
-     * @param player executor
-     * @param message to send
-     */
-    public static void sendMessage(@NotNull CommandSender player, String message) {
-        player.sendMessage(color(replacePlaceholders(message, new Placeholder("{prefix}",
-                Shared.getInstance().getLangFile().getMessages().getPrefix()))));
-    }
-
-    /**
      * Applies chat color formats to message
      * @param message to convert
      * @return String of converted message
@@ -72,6 +61,16 @@ public class ChatUtil {
      */
     public static List<String> color(List<String> list) {
         return list.stream().map(ChatUtil::color).collect(Collectors.toList());
+    }
+
+    /**
+     * Sends message to command sender
+     * @param player executor
+     * @param message to send
+     */
+    public static void sendMessage(@NotNull CommandSender player, String message) {
+        player.sendMessage(ChatUtil.color(replacePlaceholders(message, new Placeholder("{prefix}",
+                Main.getInstance().getLangFile().getMessages().getPrefix()))));
     }
 
     /**

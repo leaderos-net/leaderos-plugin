@@ -41,24 +41,23 @@ public class RecentDonationData {
     private double credit;
 
     /**
+     * Credits symbol for placeholder
+     */
+    private String symbol;
+
+    /**
      * Updates all recent donations data
      */
     public static void updateAllRecentDonationsData() {
-        // TODO Update request
         List<RecentDonationData> donationDataList = new ArrayList<>();
         try {
-            Response recentDonationResponse = new GetRequest("donations/" + Main.getShared().getModulesFile().getRecentDonations().getRecentDonationLimit()).getResponse();
+            Response recentDonationResponse = new GetRequest("store/donates/?type=latest&limit=" + Main.getInstance().getModulesFile().getRecentDonations().getRecentDonationLimit()).getResponse();
             if (recentDonationResponse.getResponseCode() == HttpURLConnection.HTTP_OK)
                 recentDonationResponse.getResponseMessage().getJSONArray("array").forEach(recentDonation -> {
                     JSONObject donation = (JSONObject) recentDonation;
-                    donationDataList.add(new RecentDonationData(donation.getString("username"), donation.getDouble("credit")));
+                    donationDataList.add(new RecentDonationData(donation.getString("username"), donation.getDouble("raw_total"), donation.getString("currency")));
                 });
-            else
-                // TODO Exception handling
-                throw new IOException();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        } catch (IOException ignored) {}
         recentDonationDataList = donationDataList;
     }
 

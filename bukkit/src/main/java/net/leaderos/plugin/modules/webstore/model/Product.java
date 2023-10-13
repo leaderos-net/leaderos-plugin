@@ -5,9 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.ItemUtils;
-import net.leaderos.shared.helpers.ChatUtil;
-import net.leaderos.plugin.helpers.GuiHelper;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONObject;
@@ -105,7 +104,7 @@ public class Product {
                 throw new Exception();
         }
         catch (Exception e) {
-            this.productLore = Main.getShared().getLangFile().getGui().getDefaultGui().getDefaultProduct().getLore();
+            this.productLore = Main.getInstance().getLangFile().getGui().getDefaultGui().getDefaultProduct().getLore();
         }
 
         // price, discountedPrice, stock data
@@ -129,7 +128,7 @@ public class Product {
             this.material = XMaterial.matchXMaterial(product.getString("minecraftItem")).get();
 
         if (material == null || !material.isSupported())
-            this.material = XMaterial.matchXMaterial(Main.getShared().getLangFile().getGui()
+            this.material = XMaterial.matchXMaterial(Main.getInstance().getLangFile().getGui()
                     .getDefaultGui().getDefaultProduct().getMaterial()).get();
     }
 
@@ -152,12 +151,12 @@ public class Product {
 
         int discountAmount = (int) (((getPrice() - getDiscountedPrice()) / getPrice()) * 100);
         // Formatters of discount
-        String discountedPriceFormat = Main.getShared().getLangFile().getGui().getWebStoreGui().getDiscountedPriceFormat()
+        String discountedPriceFormat = Main.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountedPriceFormat()
                 .replace("{price}", price+"")
                 .replace("{discountedPrice}", discountedPrice+"");
-        String discountAmountFormat = Main.getShared().getLangFile().getGui().getWebStoreGui().getDiscountAmountFormat()
+        String discountAmountFormat = Main.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountAmountFormat()
                 .replace("{discount}", discountAmount+"");
-        String stockUnlimited = Main.getShared().getLangFile().getGui().getWebStoreGui().getStockUnlimited();
+        String stockUnlimited = Main.getInstance().getLangFile().getGui().getWebStoreGui().getStockUnlimited();
 
 
         // Discount modifier of item

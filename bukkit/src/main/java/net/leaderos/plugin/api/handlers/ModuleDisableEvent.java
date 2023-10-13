@@ -12,7 +12,7 @@ import org.bukkit.event.HandlerList;
 public class ModuleDisableEvent extends Event {
 
     /**
-     * Bought farmer object
+     * Disabled module object
      * @see Modulable
      */
     @Getter

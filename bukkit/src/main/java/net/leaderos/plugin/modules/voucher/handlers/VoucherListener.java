@@ -3,13 +3,17 @@ package net.leaderos.plugin.modules.voucher.handlers;
 import com.cryptomorin.xseries.XMaterial;
 import de.tr7zw.nbtapi.NBTItem;
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.api.handlers.ModuleEnableEvent;
+import net.leaderos.plugin.api.handlers.UpdateCacheEvent;
+import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.credit.Credit;
 import net.leaderos.plugin.modules.voucher.Voucher;
 import net.leaderos.shared.Shared;
-import net.leaderos.shared.helpers.ChatUtil;
 import net.leaderos.shared.helpers.MoneyUtils;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
+import net.leaderos.shared.module.credit.CreditHelper;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -55,36 +59,33 @@ public class VoucherListener implements Listener {
         double amount = MoneyUtils.parseDouble(nbtItem.getDouble("voucher:amount"));
         // Checks amount just in case
         if (amount <= 0) {
-            ChatUtil.sendMessage(player, Shared.getInstance().getLangFile().getMessages().getVouchers().getCannotCreateNegative());
+            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getVouchers().getCannotCreateNegative());
             return;
         }
         // Checks is voucher has been used before
         List<Integer> list = Voucher.getVoucherData().getIntegerList("used");
         if (list.contains(id)) {
-            ChatUtil.sendMessage(player, Shared.getInstance().getLangFile().getMessages().getVouchers().getAlreadyUsed());
+            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getVouchers().getAlreadyUsed());
             return;
         }
 
-        Response depositResponse = Credit.addCreditRequest(player.getName(), amount);
-        if (Objects.requireNonNull(depositResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
+        Response depositResponse = CreditHelper.addCreditRequest(player.getName(), amount);
+        if (Objects.requireNonNull(depositResponse).getResponseCode() == HttpURLConnection.HTTP_OK
+                && depositResponse.getResponseMessage().getBoolean("status")) {
             remove(player, id);
             list.add(id);
             Voucher.getVoucherData().set("used", list);
             Voucher.getVoucherData().save();
 
-            // TODO update cache event
+            // Calls UpdateCache event for update player's cache
+            Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName()));
             ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                    Main.getShared().getLangFile().getMessages().getVouchers()
+                    Main.getInstance().getLangFile().getMessages().getVouchers()
                             .getSuccessfullyUsed(), new Placeholder("{amount}", MoneyUtils.format(amount) + "")
             ));
         }
-        /* TODO else
-        long userId = plugin.getPluginDatabase().getUserId(player.getName());
-        if (userId == 0) {
-            ChatUtils.sendMessage(player, Shared.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
-            return;
-        }
-         */
+        else
+            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
     }
 
     /**

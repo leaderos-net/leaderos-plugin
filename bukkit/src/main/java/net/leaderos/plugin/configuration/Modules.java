@@ -1,4 +1,4 @@
-package net.leaderos.shared.configuration;
+package net.leaderos.plugin.configuration;
 
 
 import eu.okaeri.configs.OkaeriConfig;

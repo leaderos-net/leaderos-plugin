@@ -59,8 +59,8 @@ public abstract class Request {
      */
     public Request(String api, Map<String, String> body, @NotNull RequestType type) throws IOException {
         this.body = encodeFormData(body);
-        this.url = new URL( Shared.getInstance().getConfigFile().getSettings().getUrl()+ "/api/" + api);
-        this.apiKey = Shared.getInstance().getConfigFile().getSettings().getApiKey();
+        this.url = new URL( Shared.getLink()+ "/api/" + api);
+        this.apiKey = Shared.getApiKey();
         this.connection = (HttpURLConnection) this.url.openConnection();
         // Request type selector
         connection.setRequestMethod(type.name().toUpperCase());

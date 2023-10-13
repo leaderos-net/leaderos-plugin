@@ -7,7 +7,7 @@ import dev.triumphteam.cmd.core.annotation.Default;
 import dev.triumphteam.cmd.core.annotation.SubCommand;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Main;
-import net.leaderos.shared.helpers.ChatUtil;
+import net.leaderos.plugin.helpers.ChatUtil;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -25,7 +25,7 @@ public class LeaderOSCommand extends BaseCommand {
     @Default
     @Permission("leaderos.help")
     public void defaultCommand(CommandSender sender) {
-        for (String message : Main.getShared().getLangFile().getMessages().getHelp()) {
+        for (String message : Main.getInstance().getLangFile().getMessages().getHelp()) {
             ChatUtil.sendMessage(sender, message);
         }
     }
@@ -37,7 +37,7 @@ public class LeaderOSCommand extends BaseCommand {
     @Permission("leaderos.reload")
     @SubCommand("reload")
     public void reloadCommand(CommandSender sender) {
-        Main.getShared().getConfigFile().load(true);
+        Main.getInstance().getConfigFile().load(true);
         // TODO Reload
         ChatUtil.sendMessage(sender, "{prefix} &aPlugin reloaded successfully.");
     }

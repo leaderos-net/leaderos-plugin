@@ -1,4 +1,4 @@
-package net.leaderos.shared.configuration.lang;
+package net.leaderos.plugin.configuration.lang;
 
 import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.annotation.NameModifier;
@@ -6,14 +6,14 @@ import eu.okaeri.configs.annotation.NameStrategy;
 import eu.okaeri.configs.annotation.Names;
 import lombok.Getter;
 import lombok.Setter;
-import net.leaderos.shared.configuration.Language;
+import net.leaderos.plugin.configuration.Language;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Getter @Setter
 @Names(strategy = NameStrategy.HYPHEN_CASE, modifier = NameModifier.TO_LOWER_CASE)
-public class en extends Language {
+public class tr extends Language {
 
     /**
      * Settings menu of config
@@ -33,7 +33,7 @@ public class en extends Language {
         /**
          * Prefix of plugin
          */
-        private String prefix = "&3ingilizce &8»";
+        private String prefix = "&3turkce &8»";
 
         /**
          * Help commands message

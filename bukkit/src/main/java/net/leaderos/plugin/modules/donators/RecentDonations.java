@@ -3,14 +3,14 @@ package net.leaderos.plugin.modules.donators;
 import com.cryptomorin.xseries.SkullUtils;
 import com.cryptomorin.xseries.XMaterial;
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.helpers.ChatUtil;
+import net.leaderos.plugin.modules.donators.commands.Commands;
 import net.leaderos.plugin.modules.donators.model.RecentDonationData;
 import net.leaderos.plugin.modules.donators.timer.Timer;
-import net.leaderos.shared.helpers.ChatUtil;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.module.LeaderOSModule;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.command.CommandSender;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
@@ -29,6 +29,7 @@ public class RecentDonations extends LeaderOSModule {
      * onEnable method of module
      */
     public void onEnable() {
+        Main.getCommandManager().registerCommand(new Commands());
         Timer.run();
         if( Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             new Placeholders().register();
@@ -38,6 +39,7 @@ public class RecentDonations extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
+        Main.getCommandManager().unregisterCommand(new Commands());
         Timer.taskid.cancel();
         if( Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             new Placeholders().unregister();
@@ -62,14 +64,16 @@ public class RecentDonations extends LeaderOSModule {
         UUID playerUUID = player.getUniqueId();
         SkullMeta meta = SkullUtils.applySkin(Objects.requireNonNull(item.getItemMeta()), playerUUID);
         meta.setDisplayName(ChatUtil.replacePlaceholders(
-                Main.getShared().getLangFile().getGui().getDonationsGui().getDisplayName(),
+                Main.getInstance().getLangFile().getGui().getDonationsGui().getDisplayName(),
                 new Placeholder("%player%", donationData.getUserName()),
-                new Placeholder("%credit%", donationData.getCredit()+"")
+                new Placeholder("%credit%", donationData.getCredit()+""),
+                new Placeholder("%symbol%", donationData.getSymbol())
         ));
         meta.setLore(ChatUtil.replacePlaceholders(
-                Main.getShared().getLangFile().getGui().getDonationsGui().getLore(),
+                Main.getInstance().getLangFile().getGui().getDonationsGui().getLore(),
                 new Placeholder("%player%", donationData.getUserName()),
-                new Placeholder("%credit%", donationData.getCredit()+"")
+                new Placeholder("%credit%", donationData.getCredit()+""),
+                new Placeholder("%symbol%", donationData.getSymbol())
         ));
         item.setItemMeta(meta);
         return item;

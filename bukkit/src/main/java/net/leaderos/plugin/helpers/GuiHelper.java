@@ -3,11 +3,10 @@ package net.leaderos.plugin.helpers;
 import com.cryptomorin.xseries.XMaterial;
 import de.themoep.inventorygui.GuiElement;
 import de.themoep.inventorygui.GuiPageElement;
+import net.leaderos.plugin.Main;
 import net.leaderos.shared.Shared;
-import net.leaderos.shared.helpers.ChatUtil;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,8 +34,8 @@ public class GuiHelper {
     public static ItemStack getFiller() {
         ItemStack item;
         // If enabled
-        if (Shared.getInstance().getLangFile().getGui().getDefaultGui().getFillerItem().isUseFiller())
-            item = XMaterial.matchXMaterial(Shared.getInstance().getLangFile().getGui().getDefaultGui().getFillerItem().getMaterial()).get().parseItem();
+        if (Main.getInstance().getLangFile().getGui().getDefaultGui().getFillerItem().isUseFiller())
+            item = XMaterial.matchXMaterial(Main.getInstance().getLangFile().getGui().getDefaultGui().getFillerItem().getMaterial()).get().parseItem();
         else
             item = new ItemStack(Material.AIR);
         return item;
@@ -52,7 +51,7 @@ public class GuiHelper {
         return new GuiPageElement('b',
                 new ItemStack(Material.ARROW),
                 GuiPageElement.PageAction.PREVIOUS,
-                Shared.getInstance().getLangFile().getGui().getDefaultGui().getPreviousPage().getName()
+                Main.getInstance().getLangFile().getGui().getDefaultGui().getPreviousPage().getName()
         );
     }
 
@@ -66,7 +65,7 @@ public class GuiHelper {
         return new GuiPageElement('n',
                 new ItemStack(Material.ARROW),
                 GuiPageElement.PageAction.NEXT,
-                Shared.getInstance().getLangFile().getGui().getDefaultGui().getPreviousPage().getName()
+                Main.getInstance().getLangFile().getGui().getDefaultGui().getPreviousPage().getName()
         );
     }
 
@@ -77,9 +76,9 @@ public class GuiHelper {
      * @return add item icon
      */
     public static ItemStack addItemIcon() {
-        String displayName = ChatUtil.color(Shared.getInstance().getLangFile().getGui().getBazaarGui().getAddItemName());
-        XMaterial material = XMaterial.matchXMaterial(Shared.getInstance().getLangFile().getGui().getBazaarGui().getMaterial()).orElse(XMaterial.GREEN_WOOL);
-        List<String> lore = ChatUtil.color(Shared.getInstance().getLangFile().getGui().getBazaarGui().getAddItemLore());
+        String displayName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemName());
+        XMaterial material = XMaterial.matchXMaterial(Main.getInstance().getLangFile().getGui().getBazaarGui().getMaterial()).orElse(XMaterial.GREEN_WOOL);
+        List<String> lore = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemLore());
         return ItemUtils.getItem(material, displayName, lore);
     }
 }

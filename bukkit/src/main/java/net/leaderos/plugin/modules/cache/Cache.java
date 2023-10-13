@@ -35,7 +35,7 @@ public class Cache extends LeaderOSModule {
         Bukkit.getPluginManager().registerEvents(loginListener, Main.getInstance());
         Bukkit.getPluginManager().registerEvents(quitListener, Main.getInstance());
         // Loads all player data
-        User.loginAllOnlinePlayers();
+        User.loadAllPlayers();
         // Placeholder loader
         if( Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             new Placeholders().register();

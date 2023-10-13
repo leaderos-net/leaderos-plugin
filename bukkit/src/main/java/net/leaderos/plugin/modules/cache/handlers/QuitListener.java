@@ -26,9 +26,7 @@ public class QuitListener implements Listener {
      */
     @EventHandler
     public void quitListener(PlayerQuitEvent event) {
-        Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
-            User.unloadPlayerCache(event.getPlayer().getName());
-        });
+        Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> User.unloadPlayerCache(event.getPlayer().getName()));
     }
 
 }

@@ -1,12 +1,14 @@
 package net.leaderos.plugin.modules.bazaar.model;
 
+import dev.s7a.base64.Base64ItemStack;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.bazaar.Bazaar;
-import net.leaderos.shared.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.ItemUtils;
+import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.DeleteRequest;
 import net.leaderos.shared.model.request.GetRequest;
 import org.bukkit.Bukkit;
@@ -59,12 +61,12 @@ public class PlayerBazaar {
      * @return ItemStack of bazaar item
      */
     public ItemStack getItem() {
-        ItemStack item = ItemUtils.fromBase64(getBase64());
+        ItemStack item = Base64ItemStack.decode(getBase64());
         ItemMeta meta = item.getItemMeta();
         List<String> lore = new ArrayList<>();
         if (meta != null && meta.getLore() != null)
             lore = meta.getLore();
-        lore.add(ChatUtil.color(Main.getShared().getLangFile().getGui().getBazaarGui().getClickLore()));
+        lore.add(ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getClickLore()));
         meta.setLore(lore);
         item.setItemMeta(meta);
         return item;
@@ -77,10 +79,9 @@ public class PlayerBazaar {
      */
     @SneakyThrows
     public boolean withdrawItem(Player player) {
-        DeleteRequest deleteRequest = new DeleteRequest("bazaar/storage/" + getUserId() + "/items/" + getId());
-        // TODO Remove
-        Bukkit.broadcastMessage(deleteRequest.getResponse().getResponseCode() + "");
-        if (deleteRequest.getResponse().getResponseCode() == HttpURLConnection.HTTP_OK) {
+        Response deleteRequest = new DeleteRequest("bazaar/storages/" + getUserId() + "/items/" + getId()).getResponse();
+        if (deleteRequest.getResponseCode() == HttpURLConnection.HTTP_OK
+                && deleteRequest.getResponseMessage().getBoolean("status")) {
             ItemStack item = ItemUtils.fromBase64(getBase64());
             player.getInventory().addItem(item);
             return true;

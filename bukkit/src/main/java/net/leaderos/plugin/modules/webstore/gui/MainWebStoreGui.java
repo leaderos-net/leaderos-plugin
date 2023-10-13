@@ -4,9 +4,9 @@ import de.themoep.inventorygui.DynamicGuiElement;
 import de.themoep.inventorygui.GuiElementGroup;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
+import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.webstore.model.Category;
 import net.leaderos.plugin.Main;
-import net.leaderos.shared.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.GuiHelper;
 import org.bukkit.entity.Player;
 
@@ -32,9 +32,9 @@ public class MainWebStoreGui {
      */
     public static void showGui(Player player) {
         // Gui template as array
-        String[] layout = Main.getShared().getLangFile().getGui().getWebStoreGui().getLandingGuiLayout().toArray(new String[0]);
+        String[] layout = Main.getInstance().getLangFile().getGui().getWebStoreGui().getLandingGuiLayout().toArray(new String[0]);
         // Inventory object
-        String guiName = ChatUtil.color(Main.getShared().getLangFile().getGui().getWebStoreGui().getGuiName());
+        String guiName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getWebStoreGui().getGuiName());
         InventoryGui gui = new InventoryGui(Main.getInstance(), null, guiName, layout);
         // Filler item for empty slots
         gui.setFiller(GuiHelper.getFiller());

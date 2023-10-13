@@ -108,7 +108,7 @@ public class User {
     /**
      * loads all player data
      */
-    public static void loginAllOnlinePlayers() {
+    public static void loadAllPlayers() {
         Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () ->
                 Bukkit.getOnlinePlayers().forEach(User::loadPlayerCache));
     }
@@ -122,10 +122,7 @@ public class User {
             GetRequest getRequest = new GetRequest("users/" + player.getName());
             new User(getRequest.getResponse().getResponseMessage());
         }
-        catch (Exception e) {
-            // TODO No user exception
-            e.printStackTrace();
-        }
+        catch (Exception ignored) {}
     }
 
     /**
