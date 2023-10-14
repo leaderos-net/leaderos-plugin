@@ -48,11 +48,14 @@ public class ModuleManager {
      */
     @SneakyThrows
     public static boolean getModuleStatus(String moduleName) {
-        return switch (moduleName) {
-            case "AuthLogin" -> Velocity.getInstance().getModulesFile().getAuthLogin().isStatus();
-            case "Credit" -> Velocity.getInstance().getModulesFile().getCredit().isStatus();
-            default -> false;
-        };
+        switch (moduleName) {
+            case "AuthLogin":
+                return Velocity.getInstance().getModulesFile().getAuthLogin().isStatus();
+            case "Credit":
+                return Velocity.getInstance().getModulesFile().getCredit().isStatus();
+            default:
+                return false;
+        }
     }
 
     /**
