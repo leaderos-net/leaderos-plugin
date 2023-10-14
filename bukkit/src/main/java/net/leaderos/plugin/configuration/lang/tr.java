@@ -82,6 +82,23 @@ public class tr extends Language {
         }
 
         /**
+         * Discord messages
+         */
+        private Discord discord = new Discord();
+
+        /**
+         * Discord messages of plugin
+         */
+        @Getter @Setter
+        public static class Discord extends Language.Messages.Discord {
+
+            /**
+             * Command Message
+             */
+            private String commandMessage = "<&aHesabınızı Discord ile eşlemek için buraya tıklayın!{&5Tıkla!}(open_url:%link%)>";
+        }
+
+        /**
          * Info messages
          */
         private Info info = new Info();

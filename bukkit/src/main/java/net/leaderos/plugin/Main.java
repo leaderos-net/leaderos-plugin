@@ -12,6 +12,7 @@ import net.leaderos.plugin.configuration.Language;
 import net.leaderos.plugin.configuration.Modules;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.credit.Credit;
+import net.leaderos.plugin.modules.discord.Discord;
 import net.leaderos.plugin.modules.donators.RecentDonations;
 import net.leaderos.plugin.modules.voucher.Voucher;
 import net.leaderos.shared.Shared;
@@ -88,6 +89,7 @@ public class Main extends JavaPlugin {
         setupCommands();
         // Loads modules
         LeaderOSAPI.getModuleManager().registerModule(new AuthLogin());
+        LeaderOSAPI.getModuleManager().registerModule(new Discord());
         LeaderOSAPI.getModuleManager().registerModule(new Cache());
         LeaderOSAPI.getModuleManager().registerModule(new Credit());
         LeaderOSAPI.getModuleManager().registerModule(new WebStore());

@@ -157,6 +157,28 @@ public class Language  extends OkaeriConfig {
         }
 
         /**
+         * Discord messages
+         */
+        private Discord discord = new Discord();
+
+        /**
+         * Discord messages of plugin
+         */
+        @Getter @Setter
+        public static class Discord extends OkaeriConfig {
+
+            /**
+             * Command Message
+             */
+            private String commandMessage = "{prefix} <&aTo sync your account with Discord, click here!{&5Click Me!}(open_url:%link%)>";
+
+            /**
+             * error on DiscordSync link
+             */
+            private String noLink = "{prefix} An error occured while connecting web-server. Please visit our website.";
+        }
+
+        /**
          * Info messages
          */
         private Info info = new Info();

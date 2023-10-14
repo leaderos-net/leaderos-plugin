@@ -18,6 +18,7 @@ import net.leaderos.velocity.configuration.Language;
 import net.leaderos.velocity.configuration.Modules;
 import net.leaderos.velocity.modules.auth.AuthLogin;
 import net.leaderos.velocity.modules.credits.Credit;
+import net.leaderos.velocity.modules.discord.Discord;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -111,6 +112,7 @@ public class Velocity {
         this.moduleManager = new ModuleManager();
         getModuleManager().registerModule(new Credit());
         getModuleManager().registerModule(new AuthLogin());
+        getModuleManager().registerModule(new Discord());
         getModuleManager().enableModules();
     }
 

@@ -82,6 +82,23 @@ public class en extends Language {
         }
 
         /**
+         * Discord messages
+         */
+        private Discord discord = new Discord();
+
+        /**
+         * Discord messages of plugin
+         */
+        @Getter @Setter
+        public static class Discord extends Language.Messages.Discord {
+
+            /**
+             * Command Message
+             */
+            private String commandMessage = "<&aTo sync your account with Discord, click here!{&5Click Me!}(open_url:%link%)>";
+        }
+
+        /**
          * Info messages
          */
         private Info info = new Info();

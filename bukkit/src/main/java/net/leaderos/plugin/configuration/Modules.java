@@ -58,6 +58,26 @@ public class Modules extends OkaeriConfig {
     }
 
     /**
+     * Discord module
+     */
+    private Discord Discord = new Discord();
+
+    /**
+     * Discord module settings
+     *
+     * @since 1.0
+     * @author rafaelflromao
+     */
+    @Getter
+    @Setter
+    public static class Discord extends OkaeriConfig {
+        /**
+         * Status of Discord mode
+         */
+        private boolean status = true;
+    }
+
+    /**
      * Cache module
      */
     private Cache Cache = new Cache();
