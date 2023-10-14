@@ -138,10 +138,6 @@
                             <pattern>eu.okaeri</pattern>
                             <shadedPattern>net.leaderos.shades.okaeri</shadedPattern>
                         </relocation>
-                        <relocation>
-                            <pattern>dev.s7a</pattern>
-                            <shadedPattern>net.leaderos.shades.s7a</shadedPattern>
-                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>

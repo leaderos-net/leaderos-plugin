@@ -1,6 +1,5 @@
 package net.leaderos.plugin.modules.bazaar.model;
 
-import dev.s7a.base64.Base64ItemStack;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
@@ -11,7 +10,6 @@ import net.leaderos.plugin.helpers.ItemUtils;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.DeleteRequest;
 import net.leaderos.shared.model.request.GetRequest;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -61,7 +59,7 @@ public class PlayerBazaar {
      * @return ItemStack of bazaar item
      */
     public ItemStack getItem() {
-        ItemStack item = Base64ItemStack.decode(getBase64());
+        ItemStack item = ItemUtils.fromBase64(getBase64());
         ItemMeta meta = item.getItemMeta();
         List<String> lore = new ArrayList<>();
         if (meta != null && meta.getLore() != null)

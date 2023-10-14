@@ -79,11 +79,6 @@
             <version>2.11.1</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>dev.s7a</groupId>
-            <artifactId>base64-itemstack</artifactId>
-            <version>1.0.0</version>
-        </dependency>
         <!-- Spigot -->
         <dependency>
             <groupId>org.spigotmc</groupId>

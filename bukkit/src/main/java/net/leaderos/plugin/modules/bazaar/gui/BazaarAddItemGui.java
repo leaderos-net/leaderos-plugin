@@ -2,7 +2,6 @@ package net.leaderos.plugin.modules.bazaar.gui;
 
 import com.cryptomorin.xseries.XMaterial;
 import de.themoep.inventorygui.*;
-import dev.s7a.base64.Base64ItemStack;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.helpers.ChatUtil;
@@ -102,7 +101,7 @@ public class BazaarAddItemGui {
                 int amount = item.getAmount();
                 int maxDurability = item.getType().getMaxDurability();
                 int durability = ItemUtils.getDurability(item, maxDurability);
-                String base64 = Base64ItemStack.encode(item);
+                String base64 = ItemUtils.toBase64(item);
                 double price = 0.0;
                 String creationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                 String modelId = ItemUtils.getModelId(item);
