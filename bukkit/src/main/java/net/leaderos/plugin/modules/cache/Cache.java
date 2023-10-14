@@ -1,6 +1,7 @@
 package net.leaderos.plugin.modules.cache;
 
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.modules.cache.handlers.CacheUpdateEvent;
 import net.leaderos.plugin.modules.cache.handlers.LoginListener;
 import net.leaderos.plugin.modules.cache.handlers.QuitListener;
 import net.leaderos.plugin.modules.cache.model.User;
@@ -27,13 +28,20 @@ public class Cache extends LeaderOSModule {
     private static QuitListener quitListener;
 
     /**
+     * Update cache event
+     */
+    private static CacheUpdateEvent cacheUpdateEvent;
+
+    /**
      * onEnable method of module
      */
     public void onEnable() {
         loginListener = new LoginListener();
         quitListener = new QuitListener();
+        cacheUpdateEvent = new CacheUpdateEvent();
         Bukkit.getPluginManager().registerEvents(loginListener, Main.getInstance());
         Bukkit.getPluginManager().registerEvents(quitListener, Main.getInstance());
+        Bukkit.getPluginManager().registerEvents(cacheUpdateEvent, Main.getInstance());
         // Loads all player data
         User.loadAllPlayers();
         // Placeholder loader
@@ -47,6 +55,7 @@ public class Cache extends LeaderOSModule {
     public void onDisable() {
         HandlerList.unregisterAll(loginListener);
         HandlerList.unregisterAll(quitListener);
+        HandlerList.unregisterAll(cacheUpdateEvent);
         // Removes cache
         User.getUserList().clear();
         // Placeholder unloader

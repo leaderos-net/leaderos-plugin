@@ -16,6 +16,7 @@ import net.leaderos.plugin.helpers.MDChat.MDChatAPI;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.PostRequest;
 import net.leaderos.shared.module.auth.AuthHelper;
+import net.leaderos.shared.module.credit.helper.UpdateType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -126,7 +127,7 @@ public class WebStoreGui {
                             Response buyRequest = new PostRequest("store/buy", body).getResponse();
                             if (buyRequest.getResponseCode() == HttpURLConnection.HTTP_OK) {
                                 // Calls UpdateCache event for update player's cache
-                                Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName()));
+                                Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), product.getPrice(), UpdateType.REMOVE));
                                 player.sendTitle(title, subtitleSuccess);
                             }
                             else if (buyRequest.getResponseCode() == HttpURLConnection.HTTP_BAD_REQUEST)

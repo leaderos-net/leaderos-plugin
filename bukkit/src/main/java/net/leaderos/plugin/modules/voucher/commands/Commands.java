@@ -19,6 +19,7 @@ import net.leaderos.shared.helpers.MoneyUtils;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.module.credit.CreditHelper;
+import net.leaderos.shared.module.credit.helper.UpdateType;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -97,7 +98,7 @@ public class Commands extends BaseCommand {
             if (Objects.requireNonNull(removeCreditRequest).getResponseCode() == HttpURLConnection.HTTP_OK
                     && removeCreditRequest.getResponseMessage().getBoolean("status")) {
                 // Calls UpdateCache event for update player's cache
-                Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName()));
+                Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.REMOVE));
                 ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
                         Main.getInstance().getLangFile().getMessages().getVouchers().getSuccessfullyCreated(),
                         new Placeholder("{amount}", MoneyUtils.format(amount))

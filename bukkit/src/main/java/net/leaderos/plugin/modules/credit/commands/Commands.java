@@ -13,6 +13,7 @@ import net.leaderos.shared.helpers.MoneyUtils;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.module.credit.CreditHelper;
+import net.leaderos.shared.module.credit.helper.UpdateType;
 import org.bukkit.command.CommandSender;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -92,7 +93,7 @@ public class Commands extends BaseCommand {
         if (Objects.requireNonNull(sendCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK
                 && sendCreditResponse.getResponseMessage().getBoolean("status")) {
             // Calls UpdateCache event for update player's cache
-            Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName()));
+            Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.REMOVE));
             ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
                     Main.getInstance().getLangFile().getMessages().getSuccessfullySentCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),
@@ -101,7 +102,7 @@ public class Commands extends BaseCommand {
 
             if (targetPlayer != null) {
                 // Calls UpdateCache event for update player's cache
-                Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target));
+                Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.ADD));
                 ChatUtil.sendMessage(Objects.requireNonNull(targetPlayer), ChatUtil.replacePlaceholders(
                         Main.getInstance().getLangFile().getMessages().getReceivedCredit(),
                         new Placeholder("{amount}", MoneyUtils.format(amount)),
@@ -158,7 +159,7 @@ public class Commands extends BaseCommand {
         if (Objects.requireNonNull(addCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
             if (Bukkit.getPlayerExact(target) != null)
                 // Calls UpdateCache event for update player's cache
-                Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target));
+                Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.ADD));
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                     Main.getInstance().getLangFile().getMessages().getSuccessfullyAddedCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),
@@ -186,7 +187,7 @@ public class Commands extends BaseCommand {
         if (Objects.requireNonNull(removeCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
             if (Bukkit.getPlayerExact(target) != null)
                 // Calls UpdateCache event for update player's cache
-                Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target));
+                Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.REMOVE));
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                     Main.getInstance().getLangFile().getMessages().getSuccessfullyRemovedCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),
@@ -212,7 +213,7 @@ public class Commands extends BaseCommand {
         if (Objects.requireNonNull(setCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
             if (Bukkit.getPlayerExact(target) != null)
                 // Calls UpdateCache event for update player's cache
-                Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target));
+                Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.SET));
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                     Main.getInstance().getLangFile().getMessages().getSuccessfullySetCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),

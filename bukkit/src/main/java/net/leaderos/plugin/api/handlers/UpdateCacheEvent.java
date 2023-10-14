@@ -2,6 +2,7 @@ package net.leaderos.plugin.api.handlers;
 
 
 import lombok.Getter;
+import net.leaderos.shared.module.credit.helper.UpdateType;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
@@ -9,21 +10,35 @@ import org.bukkit.event.HandlerList;
  * @author poyrazinan
  * @since 1.0
  */
+@Getter
 public class UpdateCacheEvent extends Event {
 
     /**
      * Player who made action to be updated
      */
-    @Getter
     private final String playerName;
+
+    /**
+     * Amount of credit changed
+     */
+    private final double amount;
+
+    /**
+     * Type of cache update
+     */
+    private final UpdateType updateType;
 
     /**
      * UpdateCacheEvent constructor
      *
      * @param playerName who required to update
+     * @param amount changed credit amount
+     * @param updateType update type
      */
-    public UpdateCacheEvent(String playerName) {
+    public UpdateCacheEvent(String playerName, double amount, UpdateType updateType) {
         this.playerName = playerName;
+        this.amount = amount;
+        this.updateType = updateType;
     }
 
     /**

@@ -96,6 +96,39 @@ public class User {
     }
 
     /**
+     * Adds credit of player
+     * @param player target
+     * @param amount credit
+     */
+    public static void addCreditCache(String player, double amount) {
+        User user = getUser(player);
+        if (user != null)
+            user.setCredit(user.getCredit()+amount);
+    }
+
+    /**
+     * Removes credit of player
+     * @param player target
+     * @param amount credit
+     */
+    public static void removeCreditCache(String player, double amount) {
+        User user = getUser(player);
+        if (user != null)
+            user.setCredit(user.getCredit()-amount);
+    }
+
+    /**
+     * Sets credit of player
+     * @param player target
+     * @param amount credit
+     */
+    public static void setCreditCache(String player, double amount) {
+        User user = getUser(player);
+        if (user != null)
+            user.setCredit(amount);
+    }
+
+    /**
      * is player authorized or not
      *
      * @param player user
