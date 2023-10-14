@@ -51,6 +51,8 @@ public class ModuleManager {
         switch (moduleName) {
             case "AuthLogin":
                 return Velocity.getInstance().getModulesFile().getAuthLogin().isStatus();
+            case "Discord":
+                return Velocity.getInstance().getModulesFile().getDiscord().isStatus();
             case "Credit":
                 return Velocity.getInstance().getModulesFile().getCredit().isStatus();
             default:
