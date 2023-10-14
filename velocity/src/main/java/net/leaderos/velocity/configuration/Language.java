@@ -104,7 +104,7 @@ public class Language  extends OkaeriConfig {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&aFor authentication click here!{&5Click Me!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} &aFor authentication click here!";
 
             /**
              * Module error message
@@ -114,7 +114,7 @@ public class Language  extends OkaeriConfig {
             /**
              * error on auth link
              */
-            private String noLink = "{prefix} An error occured while connecting web-server. Please visit our website.";
+            private String noLink = "{prefix} &cAn error occured while connecting web-server. Please visit our website.";
         }
 
         /**

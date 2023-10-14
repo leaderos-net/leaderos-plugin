@@ -3,6 +3,12 @@ package net.leaderos.velocity.modules.auth;
 import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.leaderos.shared.module.LeaderOSModule;
 import net.leaderos.shared.module.auth.AuthHelper;
 import net.leaderos.velocity.Velocity;
@@ -54,9 +60,16 @@ public class AuthLogin extends LeaderOSModule {
     public static void sendAuthCommandMessage(Player player) {
         try {
             String link = AuthHelper.getAuthLink(player.getUsername(), player.getUniqueId());
-            if (link != null)
+            if (link != null) {
+                TextComponent component = Component.text(
+                        Velocity.getInstance().getLangFile().getMessages().getAuth().getCommandMessage()
+                                .replace("{prefix}", Velocity.getInstance().getLangFile().getMessages().getPrefix())
+                ).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, link));
+                //component = component;
+                player.sendMessage(component);
+            }
                 // TODO Link
-                ChatUtil.sendMessage(player, link);
+                //ChatUtil.sendMessage(player, link);
             else
                 ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getAuth().getNoLink());
         } catch (Exception ignored) {

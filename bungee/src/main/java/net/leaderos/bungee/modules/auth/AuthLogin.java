@@ -2,6 +2,7 @@ package net.leaderos.bungee.modules.auth;
 
 import net.leaderos.bungee.Bungee;
 import net.leaderos.bungee.helper.ChatUtil;
+import net.leaderos.bungee.helper.MDChat.MDChatAPI;
 import net.leaderos.bungee.modules.auth.commands.AuthCommand;
 import net.leaderos.shared.module.LeaderOSModule;
 import net.leaderos.shared.module.auth.AuthHelper;
@@ -45,9 +46,11 @@ public class AuthLogin extends LeaderOSModule {
         try {
             String link = AuthHelper.getAuthLink(player.getName(), player.getUniqueId());
             if (link != null)
-                player.sendMessage(new TextComponent(TextComponent.fromLegacyText(ChatUtil.color(Bungee.getInstance()
+                player.sendMessage(MDChatAPI.getFormattedMessage(ChatUtil.color(Bungee.getInstance()
                         .getLangFile().getMessages()
-                        .getAuth().getCommandMessage().replace("%link%", link)))));
+                        .getAuth().getCommandMessage()
+                        .replace("%link%", link)
+                        .replace("{prefix}", Bungee.getInstance().getLangFile().getMessages().getPrefix()))));
             else
                 ChatUtil.sendMessage(player, Bungee.getInstance().getLangFile().getMessages().getAuth().getNoLink());
         } catch (Exception ignored) {
@@ -64,9 +67,11 @@ public class AuthLogin extends LeaderOSModule {
         try {
             String link = AuthHelper.getAuthLink(player.getName(), player.getUniqueId());
             if (link != null)
-                player.sendMessage(new TextComponent(TextComponent.fromLegacyText(ChatUtil.color(Bungee.getInstance()
+                player.sendMessage(MDChatAPI.getFormattedMessage(ChatUtil.color(Bungee.getInstance()
                         .getLangFile().getMessages()
-                        .getAuth().getModuleError().replace("%link%", link)))));
+                        .getAuth().getModuleError()
+                        .replace("%link%", link)
+                        .replace("{prefix}", Bungee.getInstance().getLangFile().getMessages().getPrefix()))));
             else
                 ChatUtil.sendMessage(player, Bungee.getInstance().getLangFile().getMessages().getAuth().getNoLink());
         } catch (Exception ignored) {

@@ -33,17 +33,20 @@ public class CreditCommand implements SimpleCommand {
             Player player = (Player) source;
 
             if (args.length == 0) {
-                Response targetCurrency = CreditHelper.currencyRequest(player.getUsername());
-                if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    ChatUtil.sendMessage(player,
-                            ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getCreditInfo(),
-                                    new Placeholder("{amount}", MoneyUtils.format(targetCurrency.getResponseMessage().getDouble("raw_credits")
-                            )
-                    )));
+                if (player.hasPermission("leaderos.credit.see")) {
+                    Response targetCurrency = CreditHelper.currencyRequest(player.getUsername());
+                    if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
+                        ChatUtil.sendMessage(player,
+                                ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getCreditInfo(),
+                                        new Placeholder("{amount}", MoneyUtils.format(targetCurrency.getResponseMessage().getDouble("raw_credits")))));
+                    }
+                }
+                else {
+                    ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
                 }
             } else if (args.length == 2) {
                 if (args[0].equalsIgnoreCase("see")) {
-                    if (player.hasPermission("leaderos.see")) {
+                    if (player.hasPermission("leaderos.credit.see.other")) {
                         showCommand(player, args[1]);
                     } else {
                         ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());

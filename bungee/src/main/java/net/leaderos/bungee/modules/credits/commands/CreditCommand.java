@@ -38,18 +38,22 @@ public class CreditCommand extends Command {
     public void execute(CommandSender sender, String[] args) {
         // See player credit
         if (args.length == 0) {
-            Response targetCurrency = CreditHelper.currencyRequest(sender.getName());
-            if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
-                ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                        Bungee.getInstance().getLangFile().getMessages().getCreditInfo(),
-                        new Placeholder("{amount}", MoneyUtils.format(targetCurrency.getResponseMessage().getDouble("raw_credits")))
-                ));
+            if (sender.hasPermission("leaderos.credit.see")) {
+                Response targetCurrency = CreditHelper.currencyRequest(sender.getName());
+                if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
+                            Bungee.getInstance().getLangFile().getMessages().getCreditInfo(),
+                            new Placeholder("{amount}", MoneyUtils.format(targetCurrency.getResponseMessage().getDouble("raw_credits")))
+                    ));
+                }
             }
+            else
+                ChatUtil.sendMessage(sender, Bungee.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
         }
         // See other player credits (Admin Command)
         else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("see")) {
-                if (sender.hasPermission("leaderos.see"))
+                if (sender.hasPermission("leaderos.credit.see.other"))
                     showCommand(sender, args[1]);
                 else
                     ChatUtil.sendMessage(sender, Bungee.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
