@@ -6,6 +6,7 @@ import com.velocitypowered.api.proxy.Player;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.event.HoverEvent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -61,15 +62,18 @@ public class AuthLogin extends LeaderOSModule {
         try {
             String link = AuthHelper.getAuthLink(player.getUsername(), player.getUniqueId());
             if (link != null) {
-                TextComponent component = Component.text(
+                // Hover message
+                Component hoverMsg = ChatUtil.color(Velocity.getInstance().getLangFile().getMessages().getAuth().getHoverMessage());
+                // Main message of auth
+                Component commandMessage = ChatUtil.color(
                         Velocity.getInstance().getLangFile().getMessages().getAuth().getCommandMessage()
-                                .replace("{prefix}", Velocity.getInstance().getLangFile().getMessages().getPrefix())
-                ).clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, link));
-                //component = component;
+                                .replace("{prefix}", Velocity.getInstance().getLangFile().getMessages().getPrefix()));
+                // Finalized msg
+                Component component = commandMessage
+                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, link))
+                        .hoverEvent(HoverEvent.showText(hoverMsg));
                 player.sendMessage(component);
             }
-                // TODO Link
-                //ChatUtil.sendMessage(player, link);
             else
                 ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getAuth().getNoLink());
         } catch (Exception ignored) {
@@ -85,9 +89,19 @@ public class AuthLogin extends LeaderOSModule {
     public static void sendAuthModuleError(Player player) {
         try {
             String link = AuthHelper.getAuthLink(player.getUsername(), player.getUniqueId());
-            if (link != null)
-                // TODO Link
-                ChatUtil.sendMessage(player, link);
+            if (link != null) {
+                // Hover message
+                Component hoverMsg = ChatUtil.color(Velocity.getInstance().getLangFile().getMessages().getAuth().getModuleError());
+                // Main message of auth
+                Component commandMessage = ChatUtil.color(
+                        Velocity.getInstance().getLangFile().getMessages().getAuth().getCommandMessage()
+                                .replace("{prefix}", Velocity.getInstance().getLangFile().getMessages().getPrefix()));
+                // Finalized msg
+                Component component = commandMessage
+                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, link))
+                        .hoverEvent(HoverEvent.showText(hoverMsg));
+                player.sendMessage(component);
+            }
             else
                 ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getAuth().getNoLink());
         } catch (Exception ignored) {

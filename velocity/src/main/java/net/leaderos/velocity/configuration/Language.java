@@ -109,12 +109,14 @@ public class Language  extends OkaeriConfig {
             /**
              * Module error message
              */
-            private String moduleError = "{prefix} <&cThis system require you to login website, click here!{&5Click Me!}(open_url:%link%)>";
+            private String moduleError = "{prefix} &cThis system require you to login website, click here!";
 
             /**
              * error on auth link
              */
             private String noLink = "{prefix} &cAn error occured while connecting web-server. Please visit our website.";
+
+            private String hoverMessage = "&aClick here for open url!";
         }
 
         /**
