@@ -7,6 +7,8 @@ net.leaderos.bungee.modules.auth
 net.leaderos.bungee.modules.auth.commands
 net.leaderos.bungee.modules.credits
 net.leaderos.bungee.modules.credits.commands
+net.leaderos.bungee.modules.discord
+net.leaderos.bungee.modules.discord.commands
 net.leaderos.plugin
 net.leaderos.plugin.api
 net.leaderos.plugin.api.handlers
@@ -27,6 +29,8 @@ net.leaderos.plugin.modules.cache.handlers
 net.leaderos.plugin.modules.cache.model
 net.leaderos.plugin.modules.credit
 net.leaderos.plugin.modules.credit.commands
+net.leaderos.plugin.modules.discord
+net.leaderos.plugin.modules.discord.commands
 net.leaderos.plugin.modules.donators
 net.leaderos.plugin.modules.donators.commands
 net.leaderos.plugin.modules.donators.gui
@@ -49,6 +53,7 @@ net.leaderos.shared.module
 net.leaderos.shared.module.auth
 net.leaderos.shared.module.credit
 net.leaderos.shared.module.credit.helper
+net.leaderos.shared.module.discord
 net.leaderos.velocity
 net.leaderos.velocity.api
 net.leaderos.velocity.configuration
@@ -57,3 +62,5 @@ net.leaderos.velocity.modules.auth
 net.leaderos.velocity.modules.auth.commands
 net.leaderos.velocity.modules.credits
 net.leaderos.velocity.modules.credits.commands
+net.leaderos.velocity.modules.discord
+net.leaderos.velocity.modules.discord.commands
