@@ -14,5 +14,5 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           javadoc-branch: javadoc
-          java-version: 8
+          java-version: 12
           project: maven # or gradle
