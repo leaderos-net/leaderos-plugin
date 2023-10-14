@@ -12,6 +12,7 @@
         <module>shared</module>
         <module>bukkit</module>
         <module>bungee</module>
+        <module>velocity</module>
     </modules>
 
     <properties>
@@ -82,6 +83,11 @@
         <repository>
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <!-- Velocity -->
+        <repository>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
     </repositories>
 
