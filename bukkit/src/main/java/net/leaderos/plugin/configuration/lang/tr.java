@@ -96,6 +96,11 @@ public class tr extends Language {
              * Command Message
              */
             private String commandMessage = "<&aHesabınızı Discord ile eşlemek için buraya tıklayın!{&5Tıkla!}(open_url:%link%)>";
+
+            /**
+             * error on DiscordSync link
+             */
+            private String noLink = "{prefix} An error occured while connecting web-server. Please visit our website.";
         }
 
         /**

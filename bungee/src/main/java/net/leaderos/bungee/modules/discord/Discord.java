@@ -3,7 +3,7 @@ package net.leaderos.bungee.modules.discord;
 import net.leaderos.bungee.Bungee;
 import net.leaderos.bungee.helper.ChatUtil;
 import net.leaderos.bungee.helper.MDChat.MDChatAPI;
-import net.leaderos.bungee.modules.discord.commands.DiscordSyncCommand;
+import net.leaderos.bungee.modules.discord.commands.SyncCommand;
 import net.leaderos.shared.module.LeaderOSModule;
 import net.leaderos.shared.module.discord.DiscordHelper;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
@@ -19,13 +19,13 @@ public class Discord extends LeaderOSModule {
     /**
      * Commands of module
      */
-    private DiscordSyncCommand command;
+    private SyncCommand command;
 
     /**
      * onEnable method of module
      */
     public void onEnable() {
-        this.command = new DiscordSyncCommand("discord-sync");
+        this.command = new SyncCommand("discord-sync");
         Bungee.getInstance().getProxy().getPluginManager().registerCommand(Bungee.getInstance(), command);
     }
 

@@ -18,14 +18,14 @@ import org.bukkit.entity.Player;
  */
 @RequiredArgsConstructor
 @Command(value = "discord-sync", alias = {"discord-link"})
-public class Commands extends BaseCommand {
+public class SyncCommand extends BaseCommand {
 
     /**
      * Default command of discord-sync
      * @param player executor
      */
     @Default
-    @Permission("leaderos.discordsync")
+    @Permission("leaderos.discord.sync")
     public void defaultCommand(Player player) {
         String link = DiscordHelper.getSyncLink(player.getName());
         if (link != null)
@@ -36,6 +36,6 @@ public class Commands extends BaseCommand {
                         .replace("%link%", link)
                         .replace("{prefix}", Main.getInstance().getLangFile().getMessages().getPrefix()))));
         else
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getAuth().getNoLink());
+            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getDiscord().getNoLink());
     }
 }

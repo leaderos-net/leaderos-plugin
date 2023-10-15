@@ -15,7 +15,7 @@ commands:
         description: bazaar default command
     auth:
         description: Connects your ingame account with website
-    discord-link:
-        description: Links your account with discord
+    discord-sync:
+        description: Sync your account with discord
     donations:
         description: Shows who donated server recently with

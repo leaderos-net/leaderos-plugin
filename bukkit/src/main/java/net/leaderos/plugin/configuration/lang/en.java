@@ -96,6 +96,11 @@ public class en extends Language {
              * Command Message
              */
             private String commandMessage = "<&aTo sync your account with Discord, click here!{&5Click Me!}(open_url:%link%)>";
+
+            /**
+             * error on DiscordSync link
+             */
+            private String noLink = "{prefix} An error occured while connecting web-server. Please visit our website.";
         }
 
         /**

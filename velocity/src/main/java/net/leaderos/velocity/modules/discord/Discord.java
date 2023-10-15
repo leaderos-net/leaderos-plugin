@@ -10,7 +10,7 @@ import net.leaderos.shared.module.LeaderOSModule;
 import net.leaderos.shared.module.discord.DiscordHelper;
 import net.leaderos.velocity.Velocity;
 import net.leaderos.velocity.helper.ChatUtil;
-import net.leaderos.velocity.modules.discord.commands.DiscordSyncCommand;
+import net.leaderos.velocity.modules.discord.commands.SyncCommand;
 
 /**
  * Discord module of leaderos-plugin
@@ -38,7 +38,7 @@ public class Discord extends LeaderOSModule {
                 .aliases("discord-link")
                 .plugin(Velocity.getInstance())
                 .build();
-        discordSyncCommand = new DiscordSyncCommand();
+        discordSyncCommand = new SyncCommand();
         Velocity.getInstance().getCommandManager().register(commandMeta, discordSyncCommand);
     }
 

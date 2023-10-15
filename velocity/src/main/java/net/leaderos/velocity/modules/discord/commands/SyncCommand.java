@@ -3,6 +3,8 @@ package net.leaderos.velocity.modules.discord.commands;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
+import net.leaderos.velocity.Velocity;
+import net.leaderos.velocity.helper.ChatUtil;
 import net.leaderos.velocity.modules.discord.Discord;
 
 /**
@@ -10,7 +12,7 @@ import net.leaderos.velocity.modules.discord.Discord;
  * @author poyrazinan
  * @since 1.0
  */
-public class DiscordSyncCommand implements SimpleCommand {
+public class SyncCommand implements SimpleCommand {
 
     /**
      * Executes command method
@@ -19,8 +21,14 @@ public class DiscordSyncCommand implements SimpleCommand {
     @Override
     public void execute(Invocation invocation) {
         CommandSource source = invocation.source();
-        String[] args = invocation.arguments();
-        if (source instanceof Player)
-            Discord.sendSyncCommandMessage((Player) source);
+
+        if (source instanceof Player) {
+            Player player = (Player) source;
+            if (player.hasPermission("leaderos.discord.sync"))
+                Discord.sendSyncCommandMessage(player);
+            else
+                ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
+        }
+
     }
 }
