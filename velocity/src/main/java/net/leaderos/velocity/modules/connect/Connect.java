@@ -2,9 +2,12 @@ package net.leaderos.velocity.modules.connect;
 
 
 import lombok.Getter;
+import net.kyori.adventure.text.Component;
+import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.module.LeaderOSModule;
 import net.leaderos.shared.socket.SocketClient;
 import net.leaderos.velocity.Velocity;
+import net.leaderos.velocity.helper.ChatUtil;
 
 import java.net.URISyntaxException;
 
@@ -34,6 +37,9 @@ public class Connect extends LeaderOSModule {
                 public void executeCommands(String command) {
                     Velocity.getInstance().getCommandManager()
                             .executeImmediatelyAsync(Velocity.getInstance().getServer().getConsoleCommandSource(), command);
+                    Component msg = ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getConnectExecutedCommand(),
+                            new Placeholder("%command%", command));
+                    ChatUtil.sendMessage(Velocity.getInstance().getServer().getConsoleCommandSource(), msg);
 
                 }
             };

@@ -105,6 +105,8 @@ public class Language  extends OkaeriConfig {
 
         private String cannotCreateFull = "{prefix} &cPlease create some space in your inventory and try again.";
 
+        private String connectExecutedCommand = "{prefix} &aConnect module executed &b%command%";
+
         /**
          * Help commands message
          */

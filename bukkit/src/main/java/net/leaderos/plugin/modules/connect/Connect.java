@@ -2,6 +2,8 @@ package net.leaderos.plugin.modules.connect;
 
 import lombok.Getter;
 import net.leaderos.plugin.Main;
+import net.leaderos.plugin.helpers.ChatUtil;
+import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.module.LeaderOSModule;
 import net.leaderos.shared.socket.SocketClient;
 import org.bukkit.Bukkit;
@@ -32,7 +34,12 @@ public class Connect extends LeaderOSModule {
                  */
                 @Override
                 public void executeCommands(String command) {
-                    Bukkit.getScheduler().runTask(Main.getInstance(), () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command));
+                    Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+                        String msg = ChatUtil.replacePlaceholders(Main.getInstance().getLangFile().getMessages().getConnectExecutedCommand(),
+                                new Placeholder("%command%", command));
+                        ChatUtil.sendMessage(Bukkit.getConsoleSender(), msg);
+                    });
                 }
             };
         } catch (URISyntaxException e) {

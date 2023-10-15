@@ -3,6 +3,8 @@ package net.leaderos.bungee.modules.connect;
 
 import lombok.Getter;
 import net.leaderos.bungee.Bungee;
+import net.leaderos.bungee.helper.ChatUtil;
+import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.module.LeaderOSModule;
 import net.leaderos.shared.socket.SocketClient;
 
@@ -34,6 +36,9 @@ public class Connect extends LeaderOSModule {
                 public void executeCommands(String command) {
                     Bungee.getInstance().getProxy().getPluginManager().dispatchCommand(
                             Bungee.getInstance().getProxy().getConsole(), command);
+                    String msg = ChatUtil.replacePlaceholders(Bungee.getInstance().getLangFile().getMessages().getConnectExecutedCommand(),
+                            new Placeholder("%command%", command));
+                    ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), msg);
                 }
             };
         } catch (URISyntaxException e) {
