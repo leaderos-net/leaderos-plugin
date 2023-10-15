@@ -70,8 +70,9 @@ public class Discord extends LeaderOSModule {
                         .hoverEvent(HoverEvent.showText(hoverMsg));
                 player.sendMessage(component);
             }
-            else
+            else {
                 ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getDiscord().getNoLink());
+            }
         } catch (Exception ignored) {
             ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getDiscord().getNoLink());
         }

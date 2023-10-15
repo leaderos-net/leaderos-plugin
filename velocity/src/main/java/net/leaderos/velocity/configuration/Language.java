@@ -116,7 +116,10 @@ public class Language  extends OkaeriConfig {
              */
             private String noLink = "{prefix} &cAn error occured while connecting web-server. Please visit our website.";
 
-            private String hoverMessage = "&aClick here for open url!";
+            /**
+             * Hover message
+             */
+            private String hoverMessage = "&aClick here to open url!";
         }
 
         /**
@@ -133,12 +136,17 @@ public class Language  extends OkaeriConfig {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&aTo sync your account with Discord, click here!{&5Click Me!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} &aTo sync your account with Discord, click here!";
 
             /**
              * error on DiscordSync link
              */
-            private String noLink = "{prefix} An error occured while connecting web-server. Please visit our website.";
+            private String noLink = "{prefix} &cAn error occured while connecting web-server. Please visit our website.";
+
+            /**
+             * Hover message
+             */
+            private String hoverMessage = "&aClick here to open url!";
         }
 
         /**

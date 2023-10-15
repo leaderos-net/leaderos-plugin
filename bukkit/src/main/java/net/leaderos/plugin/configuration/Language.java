@@ -153,7 +153,7 @@ public class Language  extends OkaeriConfig {
             /**
              * error on auth link
              */
-            private String noLink = "{prefix} An error occured while connecting web-server. Please visit our website.";
+            private String noLink = "{prefix} &cAn error occured while connecting web-server. Please visit our website.";
         }
 
         /**
@@ -175,7 +175,7 @@ public class Language  extends OkaeriConfig {
             /**
              * error on DiscordSync link
              */
-            private String noLink = "{prefix} An error occured while connecting web-server. Please visit our website.";
+            private String noLink = "{prefix} &cAn error occured while connecting web-server. Please visit our website.";
         }
 
         /**
