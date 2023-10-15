@@ -1,5 +1,6 @@
 net.leaderos.bungee
 net.leaderos.bungee.api
+net.leaderos.bungee.commands
 net.leaderos.bungee.configuration
 net.leaderos.bungee.helper
 net.leaderos.bungee.helper.MDChat
@@ -59,6 +60,7 @@ net.leaderos.shared.module.discord
 net.leaderos.shared.socket
 net.leaderos.velocity
 net.leaderos.velocity.api
+net.leaderos.velocity.commands
 net.leaderos.velocity.configuration
 net.leaderos.velocity.helper
 net.leaderos.velocity.modules.auth
