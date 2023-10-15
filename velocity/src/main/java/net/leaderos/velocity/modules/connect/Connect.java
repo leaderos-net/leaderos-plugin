@@ -3,10 +3,8 @@ package net.leaderos.velocity.modules.connect;
 
 import lombok.Getter;
 import net.leaderos.shared.module.LeaderOSModule;
-import net.leaderos.shared.socket.Client;
+import net.leaderos.shared.socket.SocketClient;
 import net.leaderos.velocity.Velocity;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 
@@ -19,14 +17,14 @@ import java.net.URISyntaxException;
 @Getter
 public class Connect extends LeaderOSModule {
 
-    private Client client;
+    private SocketClient socket;
 
     /**
      * onEnable method of module
      */
     public void onEnable() {
         try {
-            client = new Client(Velocity.getInstance().getConfigFile().getSettings().getApiKey(),
+            socket = new SocketClient(Velocity.getInstance().getConfigFile().getSettings().getApiKey(),
                     Velocity.getInstance().getModulesFile().getConnect().getServerToken()) {
                 /**
                  * Executes console command
@@ -48,7 +46,7 @@ public class Connect extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
-        client.getSocket().close();
+        socket.getSocket().close();
     }
 
     /**

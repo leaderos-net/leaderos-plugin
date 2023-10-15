@@ -4,6 +4,8 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import lombok.Getter;
 import lombok.Setter;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 import java.util.Arrays;
@@ -15,13 +17,13 @@ import java.util.HashMap;
  */
 @Getter
 @Setter
-public abstract class Client {
+public abstract class SocketClient {
 
     // TODO THIS IS TEST METHOD FIRAT
     public static void main(String[] args) {
         try {
             // TODO THIS IS SERVER TOKEN FIRAT
-            new Client("abc", "abc") {
+            new SocketClient("2d8676260ffc79145cfb0ea736ac6a27", "abc") {
                 @Override
                 public void executeCommands(String command) {
                     // TODO TEST HERE FIRAT
@@ -43,29 +45,50 @@ public abstract class Client {
      * @param serverToken room of socket
      * @throws URISyntaxException exception
      */
-    public Client(String apiToken, String serverToken) throws URISyntaxException {
+    public SocketClient(String apiToken, String serverToken) throws URISyntaxException {
         this.apiToken = apiToken;
         this.serverToken = serverToken;
+
         HashMap<String, String> auth = new HashMap<>();
-        // TODO Token
         auth.put("token", apiToken);
         opts.auth = auth;
+
         this.socket = IO.socket("http://localhost:3000", opts);
+
+        // Connect to socket
         socket.on(Socket.EVENT_CONNECT, args -> {
-            // Joins room
+            // Join room
             socket.emit("joinRoom", serverToken);
 
-        }).on("commands", args -> {
-            System.out.println(Arrays.toString(args));
-            //System.out.println(new JSONObject(new JSONArray(Arrays.toString(args)).get(0)).toString());
-            //JSONArray commands = new JSONObject(new JSONArray(Arrays.toString(args)).get(0)).getJSONArray("commands");
-            //sendCommands(commands);
-            // TODO HERE
-            Arrays.asList(args).forEach(key -> {
-                executeCommands((String) key);
-            });
+        });
+
+        // Listen for commands
+        socket.on("commands", commands -> {
+            // Convert to JSON string
+            String jsonString = Arrays.toString(commands);
+
+            // Convert to JSON array
+            JSONArray jsonArray = new JSONArray(jsonString);
+
+            // Get the first inner array
+            JSONArray innerArray = jsonArray.getJSONArray(0);
+
+            // Loop through the inner array
+            for (Object item : innerArray) {
+                if (item instanceof JSONObject) {
+                    // Cast object to JSONObject
+                    JSONObject jsonItem = (JSONObject) item;
+
+                    // Get the command
+                    String command = jsonItem.getString("command");
+
+                    // Execute the command
+                    executeCommands(command);
+                }
+            }
+
             // Sends commands back if everything is ok
-            socket.emit("commands", args);
+            socket.emit("commands", commands);
         });
         socket.connect();
     }

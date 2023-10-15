@@ -3,10 +3,8 @@ package net.leaderos.plugin.modules.connect;
 import lombok.Getter;
 import net.leaderos.plugin.Main;
 import net.leaderos.shared.module.LeaderOSModule;
-import net.leaderos.shared.socket.Client;
+import net.leaderos.shared.socket.SocketClient;
 import org.bukkit.Bukkit;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 
@@ -19,14 +17,14 @@ import java.net.URISyntaxException;
 @Getter
 public class Connect extends LeaderOSModule {
 
-    private Client client;
+    private SocketClient socket;
 
     /**
      * onEnable method of module
      */
     public void onEnable() {
         try {
-            client = new Client(Main.getInstance().getConfigFile().getSettings().getApiKey(),
+            socket = new SocketClient(Main.getInstance().getConfigFile().getSettings().getApiKey(),
                     Main.getInstance().getModulesFile().getConnect().getServerToken()) {
                 /**
                  * Executes console command
@@ -46,7 +44,7 @@ public class Connect extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
-        client.getSocket().close();
+        socket.getSocket().close();
     }
 
     /**

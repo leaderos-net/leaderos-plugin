@@ -4,7 +4,7 @@ package net.leaderos.bungee.modules.connect;
 import lombok.Getter;
 import net.leaderos.bungee.Bungee;
 import net.leaderos.shared.module.LeaderOSModule;
-import net.leaderos.shared.socket.Client;
+import net.leaderos.shared.socket.SocketClient;
 
 import java.net.URISyntaxException;
 
@@ -17,14 +17,14 @@ import java.net.URISyntaxException;
 @Getter
 public class Connect extends LeaderOSModule {
 
-    private Client client;
+    private SocketClient socket;
 
     /**
      * onEnable method of module
      */
     public void onEnable() {
         try {
-            client = new Client(Bungee.getInstance().getConfigFile().getSettings().getApiKey(),
+            socket = new SocketClient(Bungee.getInstance().getConfigFile().getSettings().getApiKey(),
                     Bungee.getInstance().getModulesFile().getConnect().getServerToken()) {
                 /**
                  * Executes console command
@@ -45,7 +45,7 @@ public class Connect extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
-        client.getSocket().close();
+        socket.getSocket().close();
     }
 
     /**
