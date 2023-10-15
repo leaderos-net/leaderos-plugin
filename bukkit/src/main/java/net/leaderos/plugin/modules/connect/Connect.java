@@ -41,6 +41,11 @@ public class Connect extends LeaderOSModule {
                         ChatUtil.sendMessage(Bukkit.getConsoleSender(), msg);
                     });
                 }
+
+                @Override
+                public void joinedRoom() {
+                    ChatUtil.sendMessage(Bukkit.getConsoleSender(), Main.getInstance().getLangFile().getMessages().getJoinedSocketRoom());
+                }
             };
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);

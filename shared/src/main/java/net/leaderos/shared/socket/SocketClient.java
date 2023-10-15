@@ -59,7 +59,7 @@ public abstract class SocketClient {
         socket.on(Socket.EVENT_CONNECT, args -> {
             // Join room
             socket.emit("joinRoom", serverToken);
-
+            joinedRoom();
         });
 
         // Listen for commands
@@ -98,4 +98,9 @@ public abstract class SocketClient {
      * @param command command to execute
      */
     public abstract void executeCommands(String command);
+
+    /**
+     * Joined room abstracted method for debug
+     */
+    public abstract void joinedRoom();
 }

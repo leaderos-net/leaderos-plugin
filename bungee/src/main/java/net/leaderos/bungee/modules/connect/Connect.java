@@ -40,6 +40,12 @@ public class Connect extends LeaderOSModule {
                             new Placeholder("%command%", command));
                     ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), msg);
                 }
+
+                @Override
+                public void joinedRoom() {
+                    ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(),
+                            Bungee.getInstance().getLangFile().getMessages().getJoinedSocketRoom());
+                }
             };
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);

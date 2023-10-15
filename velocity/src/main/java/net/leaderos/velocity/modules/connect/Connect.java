@@ -42,6 +42,12 @@ public class Connect extends LeaderOSModule {
                     ChatUtil.sendMessage(Velocity.getInstance().getServer().getConsoleCommandSource(), msg);
 
                 }
+
+                @Override
+                public void joinedRoom() {
+                    ChatUtil.sendMessage(Velocity.getInstance().getServer().getConsoleCommandSource(),
+                            Velocity.getInstance().getLangFile().getMessages().getJoinedSocketRoom());
+                }
             };
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);

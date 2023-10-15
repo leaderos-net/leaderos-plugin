@@ -107,6 +107,8 @@ public class Language  extends OkaeriConfig {
 
         private String connectExecutedCommand = "{prefix} &aConnect module executed &b%command%";
 
+        private String joinedSocketRoom = "{prefix} &aConnect module connected room successfully.";
+
         /**
          * Help commands message
          */
