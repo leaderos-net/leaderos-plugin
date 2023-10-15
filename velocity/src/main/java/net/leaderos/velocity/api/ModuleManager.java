@@ -116,6 +116,14 @@ public class ModuleManager {
     }
 
     /**
+     * Reload modules
+     */
+    public void reloadModules() {
+        disableModules();
+        enableModules();
+    }
+
+    /**
      * Constructor of ModuleManager
      */
     public ModuleManager() {

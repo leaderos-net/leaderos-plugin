@@ -2,8 +2,10 @@ package net.leaderos.velocity;
 
 import com.google.inject.Inject;
 import com.velocitypowered.api.command.CommandManager;
+import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
+import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
@@ -13,10 +15,12 @@ import lombok.Getter;
 import lombok.Setter;
 import net.leaderos.shared.Shared;
 import net.leaderos.velocity.api.ModuleManager;
+import net.leaderos.velocity.commands.LeaderOSCommand;
 import net.leaderos.velocity.configuration.Config;
 import net.leaderos.velocity.configuration.Language;
 import net.leaderos.velocity.configuration.Modules;
 import net.leaderos.velocity.modules.auth.AuthLogin;
+import net.leaderos.velocity.modules.auth.commands.AuthCommand;
 import net.leaderos.velocity.modules.connect.Connect;
 import net.leaderos.velocity.modules.credits.Credit;
 import net.leaderos.velocity.modules.discord.Discord;
@@ -116,6 +120,19 @@ public class Velocity {
         getModuleManager().registerModule(new Discord());
         getModuleManager().registerModule(new Connect());
         getModuleManager().enableModules();
+        CommandMeta commandMeta = Velocity.getInstance().getCommandManager().metaBuilder("leaderos")
+                .plugin(Velocity.getInstance())
+                .build();
+        Velocity.getInstance().getCommandManager().register(commandMeta, new LeaderOSCommand());
+    }
+
+    /**
+     * onDisable event of velocity
+     * @param event of disable
+     */
+    @Subscribe
+    public void onProxyShutdown(ProxyShutdownEvent event) {
+        getModuleManager().disableModules();
     }
 
 

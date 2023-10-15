@@ -4,6 +4,7 @@ import eu.okaeri.configs.ConfigManager;
 import eu.okaeri.configs.yaml.bungee.YamlBungeeConfigurer;
 import lombok.Getter;
 import net.leaderos.bungee.api.ModuleManager;
+import net.leaderos.bungee.commands.LeaderOSCommand;
 import net.leaderos.bungee.configuration.Config;
 import net.leaderos.bungee.configuration.Language;
 import net.leaderos.bungee.configuration.Modules;
@@ -68,6 +69,7 @@ public class Bungee extends Plugin {
         setupFiles();
         shared = new Shared(getConfigFile().getSettings().getUrl(),
                 getConfigFile().getSettings().getApiKey());
+        Bungee.getInstance().getProxy().getPluginManager().registerCommand(Bungee.getInstance(), new LeaderOSCommand("leaderos"));
         getModuleManager().registerModule(new AuthLogin());
         getModuleManager().registerModule(new Discord());
         getModuleManager().registerModule(new Credit());
@@ -79,6 +81,7 @@ public class Bungee extends Plugin {
      * onDisable method of bungeecord
      */
     public void onDisable() {
+        getModuleManager().disableModules();
     }
 
     /**
