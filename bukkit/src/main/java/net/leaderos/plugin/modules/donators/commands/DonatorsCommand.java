@@ -21,7 +21,7 @@ import org.bukkit.entity.Player;
  */
 @RequiredArgsConstructor
 @Command(value = "donations", alias = {"recentdonations", "krediyukleyenler"})
-public class Commands extends BaseCommand {
+public class DonatorsCommand extends BaseCommand {
 
     /**
      * Default command of recent donations

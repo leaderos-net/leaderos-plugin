@@ -17,7 +17,7 @@ import org.bukkit.entity.Player;
  */
 @RequiredArgsConstructor
 @Command(value = "bazaar", alias = {"webbazaar", "pazar"})
-public class Commands extends BaseCommand {
+public class BazaarCommand extends BaseCommand {
 
     /**
      * Default command of bazaar

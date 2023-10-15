@@ -12,9 +12,7 @@ import net.leaderos.plugin.Main;
 import net.leaderos.plugin.api.handlers.UpdateCacheEvent;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.ItemUtils;
-import net.leaderos.plugin.modules.credit.Credit;
 import net.leaderos.plugin.modules.voucher.Voucher;
-import net.leaderos.shared.Shared;
 import net.leaderos.shared.helpers.MoneyUtils;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
@@ -37,7 +35,7 @@ import java.util.Objects;
  */
 @RequiredArgsConstructor
 @Command(value = "creditvoucher", alias = {"creditsvoucher", "creditsvouchers","kredikagidi"})
-public class Commands extends BaseCommand {
+public class VoucherCommand extends BaseCommand {
 
     /**
      * Default command of module

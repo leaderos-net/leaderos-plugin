@@ -27,7 +27,7 @@ import java.util.Objects;
  */
 @RequiredArgsConstructor
 @Command(value = "credits", alias = {"credit", "kredi"})
-public class Commands extends BaseCommand {
+public class CreditCommand extends BaseCommand {
 
     /**
      * Base command

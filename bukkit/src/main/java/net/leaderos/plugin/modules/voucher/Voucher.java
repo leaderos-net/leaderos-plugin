@@ -2,7 +2,7 @@ package net.leaderos.plugin.modules.voucher;
 
 import lombok.Getter;
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.modules.voucher.commands.Commands;
+import net.leaderos.plugin.modules.voucher.commands.VoucherCommand;
 import net.leaderos.plugin.modules.voucher.handlers.VoucherListener;
 import net.leaderos.plugin.modules.voucher.data.Data;
 import net.leaderos.shared.module.LeaderOSModule;
@@ -34,7 +34,7 @@ public class Voucher extends LeaderOSModule {
         (voucherData = new Data("voucher_data.yml")).create();
         voucherListener = new VoucherListener();
         Bukkit.getPluginManager().registerEvents(voucherListener, Main.getInstance());
-        Main.getCommandManager().registerCommand(new Commands());
+        Main.getCommandManager().registerCommand(new VoucherCommand());
     }
 
     /**
@@ -42,7 +42,7 @@ public class Voucher extends LeaderOSModule {
      */
     public void onDisable() {
         HandlerList.unregisterAll(voucherListener);
-        Main.getCommandManager().unregisterCommand(new Commands());
+        Main.getCommandManager().unregisterCommand(new VoucherCommand());
     }
 
     /**

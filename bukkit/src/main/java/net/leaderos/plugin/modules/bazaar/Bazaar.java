@@ -2,7 +2,7 @@ package net.leaderos.plugin.modules.bazaar;
 
 import lombok.Getter;
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.modules.bazaar.command.Commands;
+import net.leaderos.plugin.modules.bazaar.command.BazaarCommand;
 import net.leaderos.shared.module.LeaderOSModule;
 
 /**
@@ -25,14 +25,14 @@ public class Bazaar extends LeaderOSModule {
     public void onEnable() {
         // TODO check dependency
         serverId = Main.getInstance().getModulesFile().getBazaar().getServerId();
-        Main.getCommandManager().registerCommand(new Commands());
+        Main.getCommandManager().registerCommand(new BazaarCommand());
     }
 
     /**
      * onDisable method of module
      */
     public void onDisable() {
-        Main.getCommandManager().unregisterCommand(new Commands());
+        Main.getCommandManager().unregisterCommand(new BazaarCommand());
     }
 
     /**

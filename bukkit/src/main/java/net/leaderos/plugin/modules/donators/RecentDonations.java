@@ -4,7 +4,7 @@ import com.cryptomorin.xseries.SkullUtils;
 import com.cryptomorin.xseries.XMaterial;
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.plugin.modules.donators.commands.Commands;
+import net.leaderos.plugin.modules.donators.commands.DonatorsCommand;
 import net.leaderos.plugin.modules.donators.model.RecentDonationData;
 import net.leaderos.plugin.modules.donators.timer.Timer;
 import net.leaderos.shared.helpers.Placeholder;
@@ -29,7 +29,7 @@ public class RecentDonations extends LeaderOSModule {
      * onEnable method of module
      */
     public void onEnable() {
-        Main.getCommandManager().registerCommand(new Commands());
+        Main.getCommandManager().registerCommand(new DonatorsCommand());
         Timer.run();
         if( Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             new Placeholders().register();
@@ -39,7 +39,7 @@ public class RecentDonations extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
-        Main.getCommandManager().unregisterCommand(new Commands());
+        Main.getCommandManager().unregisterCommand(new DonatorsCommand());
         Timer.taskid.cancel();
         if( Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             new Placeholders().unregister();
