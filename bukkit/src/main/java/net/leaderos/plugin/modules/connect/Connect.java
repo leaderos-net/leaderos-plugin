@@ -32,7 +32,7 @@ public class Connect extends LeaderOSModule {
                  */
                 @Override
                 public void executeCommands(String command) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
+                    Bukkit.getScheduler().runTask(Main.getInstance(), () -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command));
                 }
             };
         } catch (URISyntaxException e) {
