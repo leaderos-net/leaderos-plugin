@@ -55,6 +55,8 @@ public class ModuleManager {
                 return Velocity.getInstance().getModulesFile().getDiscord().isStatus();
             case "Credit":
                 return Velocity.getInstance().getModulesFile().getCredit().isStatus();
+            case "Connect":
+                return Velocity.getInstance().getModulesFile().getConnect().isStatus();
             default:
                 return false;
         }
