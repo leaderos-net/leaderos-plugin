@@ -8,6 +8,7 @@ import net.leaderos.bungee.configuration.Config;
 import net.leaderos.bungee.configuration.Language;
 import net.leaderos.bungee.configuration.Modules;
 import net.leaderos.bungee.modules.auth.AuthLogin;
+import net.leaderos.bungee.modules.connect.Connect;
 import net.leaderos.bungee.modules.credits.Credit;
 import net.leaderos.bungee.modules.discord.Discord;
 import net.leaderos.shared.Shared;
@@ -70,6 +71,7 @@ public class Bungee extends Plugin {
         getModuleManager().registerModule(new AuthLogin());
         getModuleManager().registerModule(new Discord());
         getModuleManager().registerModule(new Credit());
+        getModuleManager().registerModule(new Connect());
         getModuleManager().enableModules();
     }
 

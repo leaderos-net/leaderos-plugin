@@ -76,4 +76,29 @@ public class Modules extends OkaeriConfig {
          */
         private boolean status = true;
     }
+
+    /**
+     * Connect module setting
+     */
+    private Connect Connect = new Connect();
+
+    /**
+     * Connect module settings
+     *
+     * @since 1.0
+     * @author poyrazinan
+     */
+    @Getter
+    @Setter
+    public static class Connect extends OkaeriConfig {
+        /**
+         * Status of Connect mode
+         */
+        private boolean status = false;
+
+        /**
+         * Server token name
+         */
+        private String serverToken = "abc";
+    }
 }

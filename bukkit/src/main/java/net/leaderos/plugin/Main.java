@@ -11,6 +11,7 @@ import net.leaderos.plugin.configuration.Config;
 import net.leaderos.plugin.configuration.Language;
 import net.leaderos.plugin.configuration.Modules;
 import net.leaderos.plugin.helpers.ChatUtil;
+import net.leaderos.plugin.modules.connect.Connect;
 import net.leaderos.plugin.modules.credit.Credit;
 import net.leaderos.plugin.modules.discord.Discord;
 import net.leaderos.plugin.modules.donators.RecentDonations;
@@ -96,6 +97,7 @@ public class Main extends JavaPlugin {
         LeaderOSAPI.getModuleManager().registerModule(new Bazaar());
         LeaderOSAPI.getModuleManager().registerModule(new Voucher());
         LeaderOSAPI.getModuleManager().registerModule(new RecentDonations());
+        LeaderOSAPI.getModuleManager().registerModule(new Connect());
         LeaderOSAPI.getModuleManager().enableModules();
     }
 
