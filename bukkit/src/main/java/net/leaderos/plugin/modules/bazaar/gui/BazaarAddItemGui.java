@@ -10,6 +10,7 @@ import net.leaderos.plugin.helpers.GuiHelper;
 import net.leaderos.plugin.modules.cache.model.User;
 import net.leaderos.plugin.modules.bazaar.Bazaar;
 import net.leaderos.plugin.helpers.ItemUtils;
+import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.PostRequest;
 import org.bukkit.Bukkit;
@@ -119,7 +120,6 @@ public class BazaarAddItemGui {
                 body.put("base64", base64);
                 body.put("price", price+"");
                 body.put("creationDate", creationDate);
-                // TODO Check
                 if (modelId != null)
                     body.put("modelID", modelId);
                 if (enchantment != null)
@@ -132,11 +132,12 @@ public class BazaarAddItemGui {
                     Response postBazaarItem = new PostRequest("bazaar/storages/" + userId + "/items", body).getResponse();
                     if (postBazaarItem.getResponseCode() == HttpURLConnection.HTTP_OK
                             && postBazaarItem.getResponseMessage().getBoolean("status")) {
-                        // TODO Success
-
+                        ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
+                                Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemMessage(),
+                                new Placeholder("%item_name%", name)
+                        ));
                     }
                     else throw new Exception();
-                    // TODO Else
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

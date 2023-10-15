@@ -26,7 +26,6 @@ public class WebStoreCommand extends BaseCommand {
     @Default
     @Permission("webshop.open")
     public void defaultCommand(Player player) {
-        // TODO Open gui
         LeaderOSAPI.getModuleManager();
         if (ModuleManager.getModule("WebStore").isEnabled())
             MainWebStoreGui.showGui(player);

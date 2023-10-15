@@ -126,8 +126,6 @@ public abstract class Request {
         }
         // BufferedReader for read dat
         connection.disconnect();
-        // TODO REmove
-        System.out.println(response);
         return response;
     }
 

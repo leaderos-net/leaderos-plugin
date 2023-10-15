@@ -557,6 +557,8 @@ public class Language  extends OkaeriConfig {
                     "iiiiiiiii",
                     "iiiiiiiii"
             );
+
+            private String addItemMessage = "{prefix} &aAdded %item_name% to bazaar storage.";
         }
 
         /**

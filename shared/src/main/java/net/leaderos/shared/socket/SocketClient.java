@@ -19,22 +19,6 @@ import java.util.HashMap;
 @Setter
 public abstract class SocketClient {
 
-    // TODO THIS IS TEST METHOD FIRAT
-    public static void main(String[] args) {
-        try {
-            // TODO THIS IS SERVER TOKEN FIRAT
-            new SocketClient("2d8676260ffc79145cfb0ea736ac6a27", "abc") {
-                @Override
-                public void executeCommands(String command) {
-                    // TODO TEST HERE FIRAT
-                    System.out.println(command);
-                }
-            };
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private IO.Options opts = new IO.Options();
     private Socket socket;
     private String serverToken;

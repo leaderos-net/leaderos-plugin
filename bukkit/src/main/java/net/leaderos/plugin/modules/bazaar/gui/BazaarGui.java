@@ -81,7 +81,6 @@ public class BazaarGui {
                             String subtitleProgress = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawProgressSubtitle());
                             player.sendTitle(title, subtitleProgress);
                             boolean withdrawStatus = playerBazaarItem.withdrawItem(player);
-                            // TODO Title edit
                             if (withdrawStatus)
                                 player.sendTitle(title, subtitleSuccess);
                             else

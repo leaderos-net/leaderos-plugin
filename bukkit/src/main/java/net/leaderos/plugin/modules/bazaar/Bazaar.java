@@ -23,7 +23,6 @@ public class Bazaar extends LeaderOSModule {
      * onEnable method of module
      */
     public void onEnable() {
-        // TODO check dependency
         serverId = Main.getInstance().getModulesFile().getBazaar().getServerId();
         Main.getCommandManager().registerCommand(new BazaarCommand());
     }
