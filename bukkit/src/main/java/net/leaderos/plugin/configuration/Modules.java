@@ -24,6 +24,131 @@ public class Modules extends OkaeriConfig {
     /**
      *
      */
+    private AuthLogin AuthLogin = new AuthLogin();
+
+    /**
+     * AuthLogin module settings
+     *
+     * @since 1.0
+     * @author poyrazinan
+     */
+    @Getter
+    @Setter
+    public static class AuthLogin extends OkaeriConfig {
+        /**
+         * Status of AuthLogin mode
+         */
+        private boolean status = true;
+    }
+
+    /**
+     * Discord module
+     */
+    private Discord Discord = new Discord();
+
+    /**
+     * Discord module settings
+     *
+     * @since 1.0
+     * @author rafaelflromao
+     */
+    @Getter
+    @Setter
+    public static class Discord extends OkaeriConfig {
+        /**
+         * Status of Discord mode
+         */
+        private boolean status = true;
+    }
+
+    /**
+     * Cache module
+     */
+    private Cache Cache = new Cache();
+
+    /**
+     * Cache module settings
+     *
+     * @since 1.0
+     * @author poyrazinan
+     */
+    @Getter
+    @Setter
+    public static class Cache extends OkaeriConfig {
+        /**
+         * Status of Cache mode
+         */
+        private boolean status = true;
+    }
+
+    /**
+     * Credit module
+     */
+    private Credit Credit = new Credit();
+
+    /**
+     * Credit module settings
+     *
+     * @since 1.0
+     * @author poyrazinan
+     */
+    @Getter
+    @Setter
+    public static class Credit extends OkaeriConfig {
+        /**
+         * Status of Cache mode
+         */
+        private boolean status = true;
+    }
+
+    /**
+     * Voucher module
+     */
+    private Voucher Voucher = new Voucher();
+
+    /**
+     * Voucher module settings
+     *
+     * @since 1.0
+     * @author poyrazinan
+     */
+    @Getter
+    @Setter
+    public static class Voucher extends OkaeriConfig {
+        /**
+         * Status of Cache mode
+         */
+        private boolean status = false;
+    }
+
+    /**
+     * Connect module setting
+     */
+    private Connect Connect = new Connect();
+
+    /**
+     * Connect module settings
+     *
+     * @since 1.0
+     * @author poyrazinan
+     */
+    @Getter
+    @Setter
+    public static class Connect extends OkaeriConfig {
+        /**
+         * Status of Connect mode
+         */
+        private boolean status = false;
+
+        /**
+         * Server token name
+         */
+        private String serverToken = "abc";
+    }
+
+    /**
+     *
+     */
     private WebStore WebStore = new WebStore();
 
     /**
@@ -164,106 +289,6 @@ public class Modules extends OkaeriConfig {
                 private String material = "DIAMOND";
             }
         }
-    }
-
-    /**
-     *
-     */
-    private AuthLogin AuthLogin = new AuthLogin();
-
-    /**
-     * AuthLogin module settings
-     *
-     * @since 1.0
-     * @author poyrazinan
-     */
-    @Getter
-    @Setter
-    public static class AuthLogin extends OkaeriConfig {
-        /**
-         * Status of AuthLogin mode
-         */
-        private boolean status = true;
-    }
-
-    /**
-     * Discord module
-     */
-    private Discord Discord = new Discord();
-
-    /**
-     * Discord module settings
-     *
-     * @since 1.0
-     * @author rafaelflromao
-     */
-    @Getter
-    @Setter
-    public static class Discord extends OkaeriConfig {
-        /**
-         * Status of Discord mode
-         */
-        private boolean status = true;
-    }
-
-    /**
-     * Cache module
-     */
-    private Cache Cache = new Cache();
-
-    /**
-     * Cache module settings
-     *
-     * @since 1.0
-     * @author poyrazinan
-     */
-    @Getter
-    @Setter
-    public static class Cache extends OkaeriConfig {
-        /**
-         * Status of Cache mode
-         */
-        private boolean status = true;
-    }
-
-    /**
-     * Credit module
-     */
-    private Credit Credit = new Credit();
-
-    /**
-     * Credit module settings
-     *
-     * @since 1.0
-     * @author poyrazinan
-     */
-    @Getter
-    @Setter
-    public static class Credit extends OkaeriConfig {
-        /**
-         * Status of Cache mode
-         */
-        private boolean status = true;
-    }
-
-    /**
-     * Voucher module
-     */
-    private Voucher Voucher = new Voucher();
-
-    /**
-     * Voucher module settings
-     *
-     * @since 1.0
-     * @author poyrazinan
-     */
-    @Getter
-    @Setter
-    public static class Voucher extends OkaeriConfig {
-        /**
-         * Status of Cache mode
-         */
-        private boolean status = false;
     }
 
 
@@ -492,30 +517,5 @@ public class Modules extends OkaeriConfig {
                 private String item = "ARROW";
             }
         }
-    }
-
-    /**
-     * Connect module setting
-     */
-    private Connect Connect = new Connect();
-
-    /**
-     * Connect module settings
-     *
-     * @since 1.0
-     * @author poyrazinan
-     */
-    @Getter
-    @Setter
-    public static class Connect extends OkaeriConfig {
-        /**
-         * Status of Connect mode
-         */
-        private boolean status = false;
-
-        /**
-         * Server token name
-         */
-        private String serverToken = "abc";
     }
 }
