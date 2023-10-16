@@ -2,10 +2,14 @@ package net.leaderos.plugin.configuration;
 
 
 import eu.okaeri.configs.OkaeriConfig;
+import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.annotation.NameStrategy;
 import eu.okaeri.configs.annotation.Names;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Modules config file
@@ -35,6 +39,131 @@ public class Modules extends OkaeriConfig {
          * Status of webstore mode
          */
         private boolean status = true;
+
+        /**
+         * Gui object
+         */
+        private Gui gui = new Gui();
+
+        /**
+         * Gui arguments class
+         */
+        @Getter
+        @Setter
+        public static class Gui extends OkaeriConfig {
+
+            /**
+             * landing layout of gui
+             */
+            @Comment("Layout of gui")
+            private List<String> landingGuiLayout = Arrays.asList(
+                    "         ",
+                    "   ccc   ",
+                    "b       n"
+            );
+
+            /**
+             * layout of gui
+             */
+            @Comment("Layout of gui")
+            private List<String> layout = Arrays.asList(
+                    "         ",
+                    "   ccc   ",
+                    "         ",
+                    "  ppppp  ",
+                    "         ",
+                    "b       n"
+            );
+
+            /**
+             * Filler item object
+             */
+            private Gui.FillerItem fillerItem = new Gui.FillerItem();
+
+            /**
+             * Filler item arguments class
+             */
+            @Getter @Setter
+            public static class FillerItem extends OkaeriConfig {
+
+                /**
+                 * status of filler
+                 */
+                @Comment("Fills empty areas")
+                private boolean useFiller = true;
+
+                /**
+                 * material of item
+                 */
+                private String material = "GRAY_STAINED_GLASS_PANE";
+            }
+
+            /**
+             * PreviousPage item object
+             */
+            private Gui.PreviousPage previousPage = new Gui.PreviousPage();
+
+            /**
+             * PreviousPage item arguments class
+             */
+            @Getter @Setter
+            public static class PreviousPage extends OkaeriConfig {
+                /**
+                 * material of item
+                 */
+                private String item = "ARROW";
+            }
+
+            /**
+             * PreviousPage item object
+             */
+            private Gui.NextPage nextPage = new Gui.NextPage();
+
+            /**
+             * PreviousPage item arguments class
+             */
+            @Getter @Setter
+            public static class NextPage extends OkaeriConfig {
+                /**
+                 * material of item
+                 */
+                private String item = "ARROW";
+            }
+
+            /**
+             * Default Category attributes
+             */
+            private Gui.DefaultCategory defaultCategory = new Gui.DefaultCategory();
+
+            /**
+             * Default Category arguments class
+             */
+            @Getter @Setter
+            public static class DefaultCategory extends OkaeriConfig {
+
+                /**
+                 * Default material
+                 */
+                private String material = "CHEST";
+            }
+
+            /**
+             * DefaultProduct attributes
+             */
+            private Gui.DefaultProduct defaultProduct = new Gui.DefaultProduct();
+
+            /**
+             * DefaultProduct arguments class
+             */
+            @Getter @Setter
+            public static class DefaultProduct extends OkaeriConfig {
+
+                /**
+                 * Default material
+                 */
+                private String material = "DIAMOND";
+            }
+        }
     }
 
     /**
@@ -165,12 +294,103 @@ public class Modules extends OkaeriConfig {
          * default storage size
          */
         private int defaultStorageSize = 5;
+
+        /**
+         * Gui object
+         */
+        private Modules.Bazaar.Gui gui = new Bazaar.Gui();
+
+        /**
+         * Gui arguments class
+         */
+        @Getter
+        @Setter
+        public static class Gui extends OkaeriConfig {
+
+            /**
+             * layout of gui
+             */
+            @Comment("Layout of gui")
+            private List<String> layout = Arrays.asList(
+                    "    a    ",
+                    " iiiiiii ",
+                    "b       n"
+            );
+
+            /**
+             * Add item material
+             */
+            private String addItemMaterial = "GREEN_WOOL";
+
+            /**
+             * layout of gui
+             */
+            @Comment("Layout of gui")
+            private List<String> addItemLayout = Arrays.asList(
+                    "iiiiiiiii",
+                    "iiiiiiiii"
+            );
+
+            /**
+             * Filler item object
+             */
+            private Modules.Bazaar.Gui.FillerItem fillerItem = new Modules.Bazaar.Gui.FillerItem();
+
+            /**
+             * Filler item arguments class
+             */
+            @Getter @Setter
+            public static class FillerItem extends OkaeriConfig {
+                /**
+                 * status of filler
+                 */
+                @Comment("Fills empty areas")
+                private boolean useFiller = true;
+
+                /**
+                 * material of item
+                 */
+                private String material = "GRAY_STAINED_GLASS_PANE";
+            }
+
+            /**
+             * PreviousPage item object
+             */
+            private Modules.Bazaar.Gui.PreviousPage previousPage = new Modules.Bazaar.Gui.PreviousPage();
+
+            /**
+             * PreviousPage item arguments class
+             */
+            @Getter @Setter
+            public static class PreviousPage extends OkaeriConfig {
+                /**
+                 * material of item
+                 */
+                private String item = "ARROW";
+            }
+
+            /**
+             * PreviousPage item object
+             */
+            private Modules.Bazaar.Gui.NextPage nextPage = new Modules.Bazaar.Gui.NextPage();
+
+            /**
+             * PreviousPage item arguments class
+             */
+            @Getter @Setter
+            public static class NextPage extends OkaeriConfig {
+                /**
+                 * material of item
+                 */
+                private String item = "ARROW";
+            }
+        }
     }
 
     /**
      * Donators module setting
      */
-    private RecentDonations RecentDonations = new RecentDonations();
+    private Donations Donations = new Donations();
 
     /**
      * Donators module settings
@@ -180,7 +400,7 @@ public class Modules extends OkaeriConfig {
      */
     @Getter
     @Setter
-    public static class RecentDonations extends OkaeriConfig {
+    public static class Donations extends OkaeriConfig {
         /**
          * Status of Donators mode
          */
@@ -194,6 +414,84 @@ public class Modules extends OkaeriConfig {
          * Limit of recent donations
          */
         private int recentDonationLimit = 5;
+
+        /**
+         * Gui object
+         */
+        private Modules.Donations.Gui gui = new Donations.Gui();
+
+        /**
+         * Gui arguments class
+         */
+        @Getter
+        @Setter
+        public static class Gui extends OkaeriConfig {
+
+            /**
+             * donations gui layout
+             */
+            @Comment("Layout of gui")
+            private List<String> layout = Arrays.asList(
+                    "         ",
+                    "  ddddd  ",
+                    "b       n"
+            );
+
+            /**
+             * Filler item object
+             */
+            private Modules.Donations.Gui.FillerItem fillerItem = new Modules.Donations.Gui.FillerItem();
+
+            /**
+             * Filler item arguments class
+             */
+            @Getter @Setter
+            public static class FillerItem extends OkaeriConfig {
+
+                /**
+                 * status of filler
+                 */
+                @Comment("Fills empty areas")
+                private boolean useFiller = true;
+
+                /**
+                 * material of item
+                 */
+                private String material = "GRAY_STAINED_GLASS_PANE";
+            }
+
+            /**
+             * PreviousPage item object
+             */
+            private Modules.Donations.Gui.PreviousPage previousPage = new Modules.Donations.Gui.PreviousPage();
+
+            /**
+             * PreviousPage item arguments class
+             */
+            @Getter @Setter
+            public static class PreviousPage extends OkaeriConfig {
+                /**
+                 * material of item
+                 */
+                private String item = "ARROW";
+            }
+
+            /**
+             * PreviousPage item object
+             */
+            private Modules.Donations.Gui.NextPage nextPage = new Modules.Donations.Gui.NextPage();
+
+            /**
+             * PreviousPage item arguments class
+             */
+            @Getter @Setter
+            public static class NextPage extends OkaeriConfig {
+                /**
+                 * material of item
+                 */
+                private String item = "ARROW";
+            }
+        }
     }
 
     /**

@@ -17,7 +17,7 @@ import java.util.List;
  */
 @Getter @Setter
 @Names(strategy = NameStrategy.HYPHEN_CASE, modifier = NameModifier.TO_LOWER_CASE)
-public class Language  extends OkaeriConfig {
+public class Language extends OkaeriConfig {
 
     /**
      * Settings menu of config
@@ -33,20 +33,9 @@ public class Language  extends OkaeriConfig {
     @Getter
     @Setter
     public static class Messages extends OkaeriConfig {
-        /**
-         * Prefix of plugin TODO Explain
-         */
+
+        @Comment("Prefix of messages")
         private String prefix = "&3LeaderOS &8»";
-
-        private String creditInfo = "{prefix} &aYou have &e{amount} &acredit(s)";
-
-        private String creditInfoOther = "{prefix} &b{target} &ahas &e{amount} &acredit(s)";
-
-        private String cannotSendCreditYourself = "{prefix} &cYou can not send credit(s) to yourself.";
-
-        private String cannotSendCreditNegative = "{prefix} &cPlease enter a valid amount. The amount must be higher than 0.";
-
-        private String cannotSendCreditNotEnough = "{prefix} &cYou do not have enough credit(s).";
 
         private String playerNotOnline = "{prefix} &cTarget player is not online.";
 
@@ -54,21 +43,7 @@ public class Language  extends OkaeriConfig {
 
         private String targetPlayerNotAvailable = "{prefix} &cTarget player is not available.";
 
-        private String successfullySentCredit = "{prefix} &aSuccessfully sent &e{amount} credit(s) &ato &b{target}&a.";
-
-        private String successfullySetCredit = "{prefix} &aSuccessfully set credits to &e{amount} &afor &b{target}&a.";
-
-        private String successfullyAddedCredit = "{prefix} &aSuccessfully added &e{amount} credit &ato &b{target}&a.";
-
-        private String successfullyRemovedCredit = "{prefix} &aSuccessfully removed &e{amount} credit &afrom &b{target}&a.";
-
-        private String receivedCredit = "{prefix} &aYou just received &e{amount} credit(s) &afrom &e{player}.";
-
         private String cannotCreateFull = "{prefix} &cPlease create some space in your inventory and try again.";
-
-        private String connectExecutedCommand = "{prefix} &aConnect module executed &b%command%";
-
-        private String joinedSocketRoom = "{prefix} &aConnect module connected room successfully.";
 
         /**
          * Help commands message
@@ -77,12 +52,8 @@ public class Language  extends OkaeriConfig {
         private List<String> help = Arrays.asList(
                 "&6&l  LEADEROS PLUGIN'S COMMANDS",
                 "",
-                "&8 ▪ &e/webshop &8» &fOpens the WebShop menu.",
-                "&8 ▪ &e/webshop server <serverName> &8» &fShows the server in the Webshop menu.",
-                "&8 ▪ &e/webshop servers &8» &fShows all servers in the Webshop menu.",
-                "",
-                "&8 ▪ &e/creditsvoucher give <player> <amount> &8» &fGives the player a credit voucher.",
-                "&8 ▪ &e/creditsvoucher create <amount> &8» &fCreates a credit voucher.",
+                "&8 ▪ &e/auth &8» &fGives you the auth link.",
+                "&8 ▪ &e/discord-sync &8» &fGives you the Discord sync link.",
                 "",
                 "&8 ▪ &e/credits &8» &fShows your credit amount.",
                 "&8 ▪ &e/credits see <target> &8» &fShows the player credit amount.",
@@ -93,55 +64,6 @@ public class Language  extends OkaeriConfig {
                 "",
                 "&8 ▪ &e/leaderos reload &8» &fReloads the config."
         );
-
-        /**
-         * Auth messages
-         */
-        private Auth auth = new Auth();
-
-        /**
-         * Auth messages of plugin
-         */
-        @Getter @Setter
-        public static class Auth extends OkaeriConfig {
-
-            /**
-             * Command Message
-             */
-            private String commandMessage = "{prefix} <&aFor authentication click here!{&5Click Me!}(open_url:%link%)>";
-
-            /**
-             * Module error message
-             */
-            private String moduleError = "{prefix} <&cThis system require you to login website, click here!{&5Click Me!}(open_url:%link%)>";
-
-            /**
-             * error on auth link
-             */
-            private String noLink = "{prefix} &cAn error occured while connecting web-server. Please visit our website.";
-        }
-
-        /**
-         * Discord messages
-         */
-        private Discord discord = new Discord();
-
-        /**
-         * Discord messages of plugin
-         */
-        @Getter @Setter
-        public static class Discord extends OkaeriConfig {
-
-            /**
-             * Command Message
-             */
-            private String commandMessage = "{prefix} <&aTo sync your account with Discord, click here!{&5Click Me!}(open_url:%link%)>";
-
-            /**
-             * error on DiscordSync link
-             */
-            private String noLink = "{prefix} &cAn error occured while connecting web-server. Please visit our website.";
-        }
 
         /**
          * Info messages
@@ -215,6 +137,103 @@ public class Language  extends OkaeriConfig {
              */
             private String noPerm = "{prefix} &cYou do not have permission to do this action!";
 
+        }
+
+        /**
+         * Auth messages
+         */
+        private Auth auth = new Auth();
+
+        /**
+         * Auth messages of plugin
+         */
+        @Getter @Setter
+        public static class Auth extends OkaeriConfig {
+
+            /**
+             * Command Message
+             */
+            private String commandMessage = "{prefix} <&aFor authentication click here!{&5Click Me!}(open_url:%link%)>";
+
+            /**
+             * Module error message
+             */
+            private String moduleError = "{prefix} <&cThis system require you to login website, click here!{&5Click Me!}(open_url:%link%)>";
+
+            /**
+             * error on auth link
+             */
+            private String noLink = "{prefix} &cAn error occurred while connecting web-server. Please visit our website.";
+        }
+
+        /**
+         * Discord messages
+         */
+        private Discord discord = new Discord();
+
+        /**
+         * Discord messages of plugin
+         */
+        @Getter @Setter
+        public static class Discord extends OkaeriConfig {
+
+            /**
+             * Command Message
+             */
+            private String commandMessage = "{prefix} <&aTo sync your account with Discord, click here!{&5Click Me!}(open_url:%link%)>";
+
+            /**
+             * error on DiscordSync link
+             */
+            private String noLink = "{prefix} &cAn error occurred while connecting web-server. Please visit our website.";
+        }
+
+        /**
+         * Credit messages
+         */
+        private Credit credit = new Credit();
+
+        /**
+         * Credit messages of plugin
+         */
+        @Getter @Setter
+        public static class Credit extends OkaeriConfig {
+
+            private String creditInfo = "{prefix} &aYou have &e{amount} &acredit(s)";
+
+            private String creditInfoOther = "{prefix} &b{target} &ahas &e{amount} &acredit(s)";
+
+            private String cannotSendCreditYourself = "{prefix} &cYou can not send credit(s) to yourself.";
+
+            private String cannotSendCreditNegative = "{prefix} &cPlease enter a valid amount. The amount must be higher than 0.";
+
+            private String cannotSendCreditNotEnough = "{prefix} &cYou do not have enough credit(s).";
+
+            private String successfullySentCredit = "{prefix} &aSuccessfully sent &e{amount} credit(s) &ato &b{target}&a.";
+
+            private String successfullySetCredit = "{prefix} &aSuccessfully set credits to &e{amount} &afor &b{target}&a.";
+
+            private String successfullyAddedCredit = "{prefix} &aSuccessfully added &e{amount} credit &ato &b{target}&a.";
+
+            private String successfullyRemovedCredit = "{prefix} &aSuccessfully removed &e{amount} credit &afrom &b{target}&a.";
+
+            private String receivedCredit = "{prefix} &aYou just received &e{amount} credit(s) &afrom &e{player}.";
+        }
+
+        /**
+         * Connect messages
+         */
+        private Connect connect = new Connect();
+
+        /**
+         * Connect messages of plugin
+         */
+        @Getter @Setter
+        public static class Connect extends OkaeriConfig {
+
+            private String connectExecutedCommand = "{prefix} &aConnect module executed &b%command%";
+
+            private String joinedSocketRoom = "{prefix} &aConnect module connected room successfully.";
         }
     }
 }

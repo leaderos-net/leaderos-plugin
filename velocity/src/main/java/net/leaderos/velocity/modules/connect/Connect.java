@@ -37,7 +37,7 @@ public class Connect extends LeaderOSModule {
                 public void executeCommands(String command) {
                     Velocity.getInstance().getCommandManager()
                             .executeImmediatelyAsync(Velocity.getInstance().getServer().getConsoleCommandSource(), command);
-                    Component msg = ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getConnectExecutedCommand(),
+                    Component msg = ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),
                             new Placeholder("%command%", command));
                     ChatUtil.sendMessage(Velocity.getInstance().getServer().getConsoleCommandSource(), msg);
 
@@ -46,7 +46,7 @@ public class Connect extends LeaderOSModule {
                 @Override
                 public void joinedRoom() {
                     ChatUtil.sendMessage(Velocity.getInstance().getServer().getConsoleCommandSource(),
-                            Velocity.getInstance().getLangFile().getMessages().getJoinedSocketRoom());
+                            Velocity.getInstance().getLangFile().getMessages().getConnect().getJoinedSocketRoom());
                 }
             };
         } catch (URISyntaxException e) {

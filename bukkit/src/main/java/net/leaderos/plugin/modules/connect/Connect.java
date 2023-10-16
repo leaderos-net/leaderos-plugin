@@ -36,7 +36,7 @@ public class Connect extends LeaderOSModule {
                 public void executeCommands(String command) {
                     Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
-                        String msg = ChatUtil.replacePlaceholders(Main.getInstance().getLangFile().getMessages().getConnectExecutedCommand(),
+                        String msg = ChatUtil.replacePlaceholders(Main.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),
                                 new Placeholder("%command%", command));
                         ChatUtil.sendMessage(Bukkit.getConsoleSender(), msg);
                     });
@@ -44,7 +44,7 @@ public class Connect extends LeaderOSModule {
 
                 @Override
                 public void joinedRoom() {
-                    ChatUtil.sendMessage(Bukkit.getConsoleSender(), Main.getInstance().getLangFile().getMessages().getJoinedSocketRoom());
+                    ChatUtil.sendMessage(Bukkit.getConsoleSender(), Main.getInstance().getLangFile().getMessages().getConnect().getJoinedSocketRoom());
                 }
             };
         } catch (URISyntaxException e) {

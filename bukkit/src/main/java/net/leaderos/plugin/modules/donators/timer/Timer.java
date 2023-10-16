@@ -34,7 +34,7 @@ public class Timer {
         };
         taskid.runTaskTimerAsynchronously(Main.getInstance(),
                 1L,
-                20*Main.getInstance().getModulesFile().getRecentDonations().getUpdateSecond());
+                20*Main.getInstance().getModulesFile().getDonations().getUpdateSecond());
 
     }
 }

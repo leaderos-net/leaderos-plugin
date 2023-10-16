@@ -39,7 +39,7 @@ public class CreditCommand extends BaseCommand {
         Response targetCurrency = CreditHelper.currencyRequest(player.getName());
         if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
             ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                    Main.getInstance().getLangFile().getMessages().getCreditInfo(),
+                    Main.getInstance().getLangFile().getMessages().getCredit().getCreditInfo(),
                     new Placeholder("{amount}", MoneyUtils.format(targetCurrency.getResponseMessage().getDouble("raw_credits")))
             ));
         }
@@ -58,12 +58,12 @@ public class CreditCommand extends BaseCommand {
         Player targetPlayer = Bukkit.getPlayerExact(target);
 
         if (player.getName().equalsIgnoreCase(target)) {
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getCannotSendCreditYourself());
+            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditYourself());
             return;
         }
 
         if (amount <= 0) {
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getCannotSendCreditNegative());
+            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNegative());
             return;
         }
 
@@ -95,7 +95,7 @@ public class CreditCommand extends BaseCommand {
             // Calls UpdateCache event for update player's cache
             Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.REMOVE));
             ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                    Main.getInstance().getLangFile().getMessages().getSuccessfullySentCredit(),
+                    Main.getInstance().getLangFile().getMessages().getCredit().getSuccessfullySentCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),
                     new Placeholder("{target}", target)
             ));
@@ -104,7 +104,7 @@ public class CreditCommand extends BaseCommand {
                 // Calls UpdateCache event for update player's cache
                 Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.ADD));
                 ChatUtil.sendMessage(Objects.requireNonNull(targetPlayer), ChatUtil.replacePlaceholders(
-                        Main.getInstance().getLangFile().getMessages().getReceivedCredit(),
+                        Main.getInstance().getLangFile().getMessages().getCredit().getReceivedCredit(),
                         new Placeholder("{amount}", MoneyUtils.format(amount)),
                         new Placeholder("{player}", player.getName())
                 ));
@@ -112,7 +112,7 @@ public class CreditCommand extends BaseCommand {
         }
         else
             // TODO Make else
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getCannotSendCreditNotEnough());
+            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
     }
 
     /**
@@ -126,7 +126,7 @@ public class CreditCommand extends BaseCommand {
         Response targetCurrency = CreditHelper.currencyRequest(target);
         if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Main.getInstance().getLangFile().getMessages().getCreditInfoOther(),
+                    Main.getInstance().getLangFile().getMessages().getCredit().getCreditInfoOther(),
                     new Placeholder("{amount}", MoneyUtils.format(targetCurrency.getResponseMessage().getDouble("raw_credits"))),
                     new Placeholder("{target}", target)
             ));
@@ -150,7 +150,7 @@ public class CreditCommand extends BaseCommand {
         amount = MoneyUtils.parseDouble(amount);
 
         if (amount <= 0) {
-            ChatUtil.sendMessage(sender, Main.getInstance().getLangFile().getMessages().getCannotSendCreditNegative());
+            ChatUtil.sendMessage(sender, Main.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNegative());
             return;
         }
 
@@ -161,7 +161,7 @@ public class CreditCommand extends BaseCommand {
                 // Calls UpdateCache event for update player's cache
                 Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.ADD));
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Main.getInstance().getLangFile().getMessages().getSuccessfullyAddedCredit(),
+                    Main.getInstance().getLangFile().getMessages().getCredit().getSuccessfullyAddedCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),
                     new Placeholder("{target}", target)
             ));
@@ -180,7 +180,7 @@ public class CreditCommand extends BaseCommand {
         amount = MoneyUtils.parseDouble(amount);
 
         if (amount <= 0) {
-            ChatUtil.sendMessage(sender, Main.getInstance().getLangFile().getMessages().getCannotSendCreditNotEnough());
+            ChatUtil.sendMessage(sender, Main.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
             return;
         }
         Response removeCreditResponse = CreditHelper.removeCreditRequest(target, amount);
@@ -189,7 +189,7 @@ public class CreditCommand extends BaseCommand {
                 // Calls UpdateCache event for update player's cache
                 Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.REMOVE));
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Main.getInstance().getLangFile().getMessages().getSuccessfullyRemovedCredit(),
+                    Main.getInstance().getLangFile().getMessages().getCredit().getSuccessfullyRemovedCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),
                     new Placeholder("{target}", target)
             ));
@@ -215,7 +215,7 @@ public class CreditCommand extends BaseCommand {
                 // Calls UpdateCache event for update player's cache
                 Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.SET));
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Main.getInstance().getLangFile().getMessages().getSuccessfullySetCredit(),
+                    Main.getInstance().getLangFile().getMessages().getCredit().getSuccessfullySetCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),
                     new Placeholder("{target}", target)
             ));

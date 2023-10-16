@@ -36,7 +36,7 @@ public class Connect extends LeaderOSModule {
                 public void executeCommands(String command) {
                     Bungee.getInstance().getProxy().getPluginManager().dispatchCommand(
                             Bungee.getInstance().getProxy().getConsole(), command);
-                    String msg = ChatUtil.replacePlaceholders(Bungee.getInstance().getLangFile().getMessages().getConnectExecutedCommand(),
+                    String msg = ChatUtil.replacePlaceholders(Bungee.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),
                             new Placeholder("%command%", command));
                     ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), msg);
                 }
@@ -44,7 +44,7 @@ public class Connect extends LeaderOSModule {
                 @Override
                 public void joinedRoom() {
                     ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(),
-                            Bungee.getInstance().getLangFile().getMessages().getJoinedSocketRoom());
+                            Bungee.getInstance().getLangFile().getMessages().getConnect().getJoinedSocketRoom());
                 }
             };
         } catch (URISyntaxException e) {

@@ -56,7 +56,7 @@ public class Placeholders extends PlaceholderExpansion {
         else if (identifier.startsWith("credit_")) {
             RecentDonationData donationData = getDonationData(identifier);
             if (donationData != null)
-                return donationData.getCredit()+"";
+                return donationData.getCredit() + "";
         }
 
         return "";
@@ -72,7 +72,7 @@ public class Placeholders extends PlaceholderExpansion {
             String[] parts = identifier.split("_");
             String lastPart = parts[parts.length - 1];
             int donatorLine =  Integer.parseInt(lastPart);
-            if (donatorLine > Main.getInstance().getModulesFile().getRecentDonations().getRecentDonationLimit())
+            if (donatorLine > Main.getInstance().getModulesFile().getDonations().getRecentDonationLimit())
                 return null;
             return RecentDonationData.getRecentDonation(donatorLine-1);
 

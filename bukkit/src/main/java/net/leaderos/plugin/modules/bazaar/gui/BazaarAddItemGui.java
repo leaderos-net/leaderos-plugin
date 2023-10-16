@@ -45,12 +45,12 @@ public class BazaarAddItemGui {
     @SneakyThrows
     public static void showGui(Player player, int itemAmount) {
         // Gui template as array
-        String[] layout = Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemLayout().toArray(new String[0]);
+        String[] layout = Main.getInstance().getModulesFile().getBazaar().getGui().getAddItemLayout().toArray(new String[0]);
         // Inventory object
         String guiName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getGuiName());
         InventoryGui gui = new InventoryGui(Main.getInstance(), null, guiName, layout);
         // Filler item for empty slots
-        ItemStack fillerItem = GuiHelper.getFiller();
+        ItemStack fillerItem = GuiHelper.getFiller(Main.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().getMaterial());
         gui.setFiller(fillerItem);
 
         // With a virtual inventory to access items later on

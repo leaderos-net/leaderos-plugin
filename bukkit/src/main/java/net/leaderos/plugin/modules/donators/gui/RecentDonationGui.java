@@ -35,18 +35,18 @@ public class RecentDonationGui {
     @SneakyThrows
     public static void showGui(Player player) {
         // Gui template as array
-        String[] layout = Main.getInstance().getLangFile().getGui().getDonationsGui().getLayout().toArray(new String[0]);
+        String[] layout = Main.getInstance().getModulesFile().getDonations().getGui().getLayout().toArray(new String[0]);
         // Inventory object
         String guiName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getDonationsGui().getGuiName());
         InventoryGui gui = new InventoryGui(Main.getInstance(), null, guiName, layout);
         // Filler item for empty slots
-        gui.setFiller(GuiHelper.getFiller());
+        gui.setFiller(GuiHelper.getFiller(Main.getInstance().getModulesFile().getDonations().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getDonations().getGui().getFillerItem().getMaterial()));
 
         GuiElementGroup donationItems = getGuiElementGroup();
         gui.addElement(donationItems);
         // Next and previous page icons
-        gui.addElement(GuiHelper.createNextPage());
-        gui.addElement(GuiHelper.createPreviousPage());
+        gui.addElement(GuiHelper.createNextPage(Main.getInstance().getModulesFile().getDonations().getGui().getNextPage().getItem()));
+        gui.addElement(GuiHelper.createPreviousPage(Main.getInstance().getModulesFile().getDonations().getGui().getPreviousPage().getItem()));
         gui.show(player);
     }
 

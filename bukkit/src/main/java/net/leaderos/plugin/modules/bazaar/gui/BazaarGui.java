@@ -36,12 +36,12 @@ public class BazaarGui {
     @SneakyThrows
     public static void showGui(Player player) {
         // Gui template as array
-        String[] layout = Main.getInstance().getLangFile().getGui().getBazaarGui().getLayout().toArray(new String[0]);
+        String[] layout = Main.getInstance().getModulesFile().getBazaar().getGui().getLayout().toArray(new String[0]);
         // Inventory object
         String guiName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getGuiName());
         InventoryGui gui = new InventoryGui(Main.getInstance(), null, guiName, layout);
         // Filler item for empty slots
-        gui.setFiller(GuiHelper.getFiller());
+        gui.setFiller(GuiHelper.getFiller(Main.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().getMaterial()));
 
         // List creator
         List<PlayerBazaar> playerBazaarList;
@@ -91,9 +91,9 @@ public class BazaarGui {
             );
         gui.addElement(bazaarGui);
 
-        // Next and previos page icons
-        gui.addElement(GuiHelper.createNextPage());
-        gui.addElement(GuiHelper.createPreviousPage());
+        // Next and previous page icons
+        gui.addElement(GuiHelper.createNextPage(Main.getInstance().getModulesFile().getBazaar().getGui().getNextPage().getItem()));
+        gui.addElement(GuiHelper.createPreviousPage(Main.getInstance().getModulesFile().getBazaar().getGui().getPreviousPage().getItem()));
         gui.show(player);
     }
 }

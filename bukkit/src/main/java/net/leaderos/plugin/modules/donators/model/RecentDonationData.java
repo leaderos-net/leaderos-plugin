@@ -51,7 +51,7 @@ public class RecentDonationData {
     public static void updateAllRecentDonationsData() {
         List<RecentDonationData> donationDataList = new ArrayList<>();
         try {
-            Response recentDonationResponse = new GetRequest("store/donates/?type=latest&limit=" + Main.getInstance().getModulesFile().getRecentDonations().getRecentDonationLimit()).getResponse();
+            Response recentDonationResponse = new GetRequest("store/donates/?type=latest&limit=" + Main.getInstance().getModulesFile().getDonations().getRecentDonationLimit()).getResponse();
             if (recentDonationResponse.getResponseCode() == HttpURLConnection.HTTP_OK)
                 recentDonationResponse.getResponseMessage().getJSONArray("array").forEach(recentDonation -> {
                     JSONObject donation = (JSONObject) recentDonation;

@@ -31,11 +31,11 @@ public class GuiHelper {
      *
      * @return ItemStack of filler
      */
-    public static ItemStack getFiller() {
+    public static ItemStack getFiller(boolean status, String materialName) {
         ItemStack item;
         // If enabled
-        if (Main.getInstance().getLangFile().getGui().getDefaultGui().getFillerItem().isUseFiller())
-            item = XMaterial.matchXMaterial(Main.getInstance().getLangFile().getGui().getDefaultGui().getFillerItem().getMaterial()).get().parseItem();
+        if (status)
+            item = XMaterial.matchXMaterial(materialName).orElse(XMaterial.GRAY_STAINED_GLASS_PANE).parseItem();
         else
             item = new ItemStack(Material.AIR);
         return item;
@@ -47,9 +47,9 @@ public class GuiHelper {
      * @return GuiElement of previous menu icon
      */
     @Contract(" -> new")
-    public static @NotNull GuiElement createPreviousPage() {
+    public static @NotNull GuiElement createPreviousPage(String materialName) {
         return new GuiPageElement('b',
-                new ItemStack(Material.ARROW),
+                XMaterial.matchXMaterial(materialName).orElse(XMaterial.ARROW).parseItem(),
                 GuiPageElement.PageAction.PREVIOUS,
                 Main.getInstance().getLangFile().getGui().getDefaultGui().getPreviousPage().getName()
         );
@@ -61,9 +61,9 @@ public class GuiHelper {
      * @return GuiElement of next menu icon
      */
     @Contract(" -> new")
-    public static @NotNull GuiElement createNextPage() {
+    public static @NotNull GuiElement createNextPage(String materialName) {
         return new GuiPageElement('n',
-                new ItemStack(Material.ARROW),
+                XMaterial.matchXMaterial(materialName).orElse(XMaterial.ARROW).parseItem(),
                 GuiPageElement.PageAction.NEXT,
                 Main.getInstance().getLangFile().getGui().getDefaultGui().getPreviousPage().getName()
         );
@@ -77,7 +77,7 @@ public class GuiHelper {
      */
     public static ItemStack addItemIcon() {
         String displayName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemName());
-        XMaterial material = XMaterial.matchXMaterial(Main.getInstance().getLangFile().getGui().getBazaarGui().getMaterial()).orElse(XMaterial.GREEN_WOOL);
+        XMaterial material = XMaterial.matchXMaterial(Main.getInstance().getModulesFile().getBazaar().getGui().getAddItemMaterial()).orElse(XMaterial.GREEN_WOOL);
         List<String> lore = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemLore());
         return ItemUtils.getItem(material, displayName, lore);
     }

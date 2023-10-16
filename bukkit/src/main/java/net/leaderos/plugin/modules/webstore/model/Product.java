@@ -104,7 +104,7 @@ public class Product {
                 throw new Exception();
         }
         catch (Exception e) {
-            this.productLore = Main.getInstance().getLangFile().getGui().getDefaultGui().getDefaultProduct().getLore();
+            this.productLore = Main.getInstance().getLangFile().getGui().getWebStoreGui().getDefaultProduct().getLore();
         }
 
         // price, discountedPrice, stock data
@@ -128,8 +128,7 @@ public class Product {
             this.material = XMaterial.matchXMaterial(product.getString("minecraftItem")).get();
 
         if (material == null || !material.isSupported())
-            this.material = XMaterial.matchXMaterial(Main.getInstance().getLangFile().getGui()
-                    .getDefaultGui().getDefaultProduct().getMaterial()).get();
+            this.material = XMaterial.matchXMaterial(Main.getInstance().getModulesFile().getWebStore().getGui().getDefaultProduct().getMaterial()).orElse(XMaterial.DIAMOND);
     }
 
     /**

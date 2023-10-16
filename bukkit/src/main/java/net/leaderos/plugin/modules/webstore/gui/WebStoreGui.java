@@ -43,12 +43,12 @@ public class WebStoreGui {
      */
     public static void showGui(Player player, Category categoryObj) {
         // Gui template as array
-        String[] layout = Main.getInstance().getLangFile().getGui().getWebStoreGui().getLayout().toArray(new String[0]);
+        String[] layout = Main.getInstance().getModulesFile().getWebStore().getGui().getLayout().toArray(new String[0]);
         // Inventory object
         String guiName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getWebStoreGui().getGuiName());
         InventoryGui gui = new InventoryGui(Main.getInstance(), null, guiName, layout);
         // Filler item for empty slots
-        gui.setFiller(GuiHelper.getFiller());
+        gui.setFiller(GuiHelper.getFiller(Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));
 
         // List creator
         List<Category> categoryList;
@@ -70,7 +70,7 @@ public class WebStoreGui {
 
             // Category group
             addCategoriesToGroup(categoryList, categoryGroup, player);
-            categoryGroup.setFiller(GuiHelper.getFiller());
+            categoryGroup.setFiller(GuiHelper.getFiller(Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));
             gui.addElement(categoryGroup);
         }
         // Product group creator
@@ -81,16 +81,16 @@ public class WebStoreGui {
 
             // Product Group
             addProductsToGroup(productList, productGroup, player, gui);
-            productGroup.setFiller(GuiHelper.getFiller());
+            productGroup.setFiller(GuiHelper.getFiller(Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));
             gui.addElement(productGroup);
         }
-        elementGroup.setFiller(GuiHelper.getFiller());
+        elementGroup.setFiller(GuiHelper.getFiller(Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));
         gui.addElement(elementGroup);
 
 
-        // Next and previos page icons
-        gui.addElement(GuiHelper.createNextPage());
-        gui.addElement(GuiHelper.createPreviousPage());
+        // Next and previous page icons
+        gui.addElement(GuiHelper.createNextPage(Main.getInstance().getModulesFile().getWebStore().getGui().getNextPage().getItem()));
+        gui.addElement(GuiHelper.createPreviousPage(Main.getInstance().getModulesFile().getWebStore().getGui().getPreviousPage().getItem()));
         gui.show(player);
     }
 

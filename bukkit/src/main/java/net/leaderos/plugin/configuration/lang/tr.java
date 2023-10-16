@@ -9,6 +9,7 @@ import lombok.Setter;
 import net.leaderos.plugin.configuration.Language;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Getter @Setter
@@ -30,10 +31,16 @@ public class tr extends Language {
     @Setter
     public static class Messages extends Language.Messages {
 
-        /**
-         * Prefix of plugin
-         */
-        private String prefix = "&3turkce &8»";
+        @Comment("Prefix of messages")
+        private String prefix = "&3LeaderOS &8»";
+
+        private String playerNotOnline = "{prefix} &cTarget player is not online.";
+
+        private String playerNotAvailable = "{prefix} &cPlayer is not available.";
+
+        private String targetPlayerNotAvailable = "{prefix} &cTarget player is not available.";
+
+        private String cannotCreateFull = "{prefix} &cPlease create some space in your inventory and try again.";
 
         /**
          * Help commands message
@@ -42,9 +49,12 @@ public class tr extends Language {
         private List<String> help = Arrays.asList(
                 "&6&l  LEADEROS PLUGIN'S COMMANDS",
                 "",
-                "&8 ▪ &e/webshop &8» &fOpens the WebShop menu.",
-                "&8 ▪ &e/webshop server <serverName> &8» &fShows the server in the Webshop menu.",
-                "&8 ▪ &e/webshop servers &8» &fShows all servers in the Webshop menu.",
+                "&8 ▪ &e/auth &8» &fGives you the auth link.",
+                "&8 ▪ &e/discord-sync &8» &fGives you the Discord sync link.",
+                "",
+                "&8 ▪ &e/webbazaar &8» &fOpens the Bazaar Storage menu.",
+                "&8 ▪ &e/webbazaar &8» &fOpens the Bazaar Storage menu.",
+                "&8 ▪ &e/donations &8» &fOpens the Donations menu.",
                 "",
                 "&8 ▪ &e/creditsvoucher give <player> <amount> &8» &fGives the player a credit voucher.",
                 "&8 ▪ &e/creditsvoucher create <amount> &8» &fCreates a credit voucher.",
@@ -58,50 +68,6 @@ public class tr extends Language {
                 "",
                 "&8 ▪ &e/leaderos reload &8» &fReloads the config."
         );
-
-        /**
-         * Auth messages
-         */
-        private Auth auth = new Auth();
-
-        /**
-         * Auth messages of plugin
-         */
-        @Getter @Setter
-        public static class Auth extends Language.Messages.Auth {
-
-            /**
-             * Command Message
-             */
-            private String commandMessage = "<&aFor authentication click here!{&5Click Me!}(open_url:%link%)>";
-
-            /**
-             * Module error message
-             */
-            private String moduleError = "<&cThis system require you to login website, click here!{&5Click Me!}(open_url:%link%)>";
-        }
-
-        /**
-         * Discord messages
-         */
-        private Discord discord = new Discord();
-
-        /**
-         * Discord messages of plugin
-         */
-        @Getter @Setter
-        public static class Discord extends Language.Messages.Discord {
-
-            /**
-             * Command Message
-             */
-            private String commandMessage = "<&aHesabınızı Discord ile eşlemek için buraya tıklayın!{&5Tıkla!}(open_url:%link%)>";
-
-            /**
-             * error on DiscordSync link
-             */
-            private String noLink = "{prefix} &cAn error occured while connecting web-server. Please visit our website.";
-        }
 
         /**
          * Info messages
@@ -132,6 +98,11 @@ public class tr extends Language {
              * Module disabled message
              */
             private String moduleDisabled = "{prefix} &4%module_name% disabled.";
+
+            /**
+             * Missing dependency message
+             */
+            private String missingDependency = "{prefix} &4%module_name% has not started due missing dependency. &c[%dependencies%]";
         }
 
         /**
@@ -171,6 +142,145 @@ public class tr extends Language {
             private String noPerm = "{prefix} &cYou do not have permission to do this action!";
 
         }
+
+        /**
+         * Auth messages
+         */
+        private Auth auth = new Auth();
+
+        /**
+         * Auth messages of plugin
+         */
+        @Getter @Setter
+        public static class Auth extends Language.Messages.Auth {
+
+            /**
+             * Command Message
+             */
+            private String commandMessage = "{prefix} <&aFor authentication click here!{&5Click Me!}(open_url:%link%)>";
+
+            /**
+             * Module error message
+             */
+            private String moduleError = "{prefix} <&cThis system require you to login website, click here!{&5Click Me!}(open_url:%link%)>";
+
+            /**
+             * error on auth link
+             */
+            private String noLink = "{prefix} &cAn error occured while connecting web-server. Please visit our website.";
+        }
+
+        /**
+         * Discord messages
+         */
+        private Discord discord = new Discord();
+
+        /**
+         * Discord messages of plugin
+         */
+        @Getter @Setter
+        public static class Discord extends Language.Messages.Discord {
+
+            /**
+             * Command Message
+             */
+            private String commandMessage = "{prefix} <&aTo sync your account with Discord, click here!{&5Click Me!}(open_url:%link%)>";
+
+            /**
+             * error on DiscordSync link
+             */
+            private String noLink = "{prefix} &cAn error occured while connecting web-server. Please visit our website.";
+        }
+
+        /**
+         * Vouchers messages
+         */
+        private Vouchers vouchers = new Vouchers();
+
+        /**
+         * Voucher messages
+         */
+        @Getter @Setter
+        public static class Vouchers extends Language.Messages.Vouchers {
+
+            @Comment({
+                    "Voucher item name",
+                    "You can use {amount} for amount of voucher"
+            })
+            private String itemDisplayName = "&8[&a{amount} credit(s)&8] &7#{id}";
+
+            @Comment("Voucher item lore")
+            private List<String> itemLore = Collections.singletonList("&7Right click to use this voucher.");
+
+            @Comment({
+                    "Players should not have the vouchers anyway, they get deleted after used once.",
+                    "This is a thing only if there is a dupe bug."
+            })
+            private String alreadyUsed = "{prefix} &cThis voucher already used.";
+
+            private String successfullyUsed = "{prefix} &aSuccessfully used a voucher that worth &e{amount} credit(s)&a.";
+
+            private String successfullyCreated = "{prefix} &aSuccessfully created a voucher that worth &e{amount} credit(s)&a.";
+
+            private String cannotCreateNegative = "{prefix} &cPlease enter a valid amount. The amount must be higher than 0.";
+
+            private String cannotCreateNotEnough = "{prefix} &cYou do not have enough credit(s). Required: &e{amount} credits(s)";
+
+            private String successfullyGave = "{prefix} &aSuccessfully gave an voucher to &b{target} &afor amount &e{amount} credits(s)";
+
+            private String helpStaff = "{prefix} &7/vouchers give <player> <amount>";
+
+            private String help = "{prefix} &7/vouchers create <amount>";
+
+        }
+
+        /**
+         * Credit messages
+         */
+        private Credit credit = new Credit();
+
+        /**
+         * Credit messages of plugin
+         */
+        @Getter @Setter
+        public static class Credit extends Language.Messages.Credit {
+
+            private String creditInfo = "{prefix} &aYou have &e{amount} &acredit(s)";
+
+            private String creditInfoOther = "{prefix} &b{target} &ahas &e{amount} &acredit(s)";
+
+            private String cannotSendCreditYourself = "{prefix} &cYou can not send credit(s) to yourself.";
+
+            private String cannotSendCreditNegative = "{prefix} &cPlease enter a valid amount. The amount must be higher than 0.";
+
+            private String cannotSendCreditNotEnough = "{prefix} &cYou do not have enough credit(s).";
+
+            private String successfullySentCredit = "{prefix} &aSuccessfully sent &e{amount} credit(s) &ato &b{target}&a.";
+
+            private String successfullySetCredit = "{prefix} &aSuccessfully set credits to &e{amount} &afor &b{target}&a.";
+
+            private String successfullyAddedCredit = "{prefix} &aSuccessfully added &e{amount} credit &ato &b{target}&a.";
+
+            private String successfullyRemovedCredit = "{prefix} &aSuccessfully removed &e{amount} credit &afrom &b{target}&a.";
+
+            private String receivedCredit = "{prefix} &aYou just received &e{amount} credit(s) &afrom &e{player}.";
+        }
+
+        /**
+         * Connect messages
+         */
+        private Connect connect = new Connect();
+
+        /**
+         * Connect messages of plugin
+         */
+        @Getter @Setter
+        public static class Connect extends Language.Messages.Connect {
+
+            private String connectExecutedCommand = "{prefix} &aConnect module executed &b%command%";
+
+            private String joinedSocketRoom = "{prefix} &aConnect module connected room successfully.";
+        }
     }
 
 
@@ -196,27 +306,6 @@ public class tr extends Language {
          */
         @Getter @Setter
         public static class DefaultGui extends Language.Gui.DefaultGui {
-
-            /**
-             * Filler item object
-             */
-            private FillerItem fillerItem = new FillerItem();
-
-            /**
-             * Filler item arguments class
-             */
-            @Getter @Setter
-            public static class FillerItem extends Language.Gui.DefaultGui.FillerItem {
-                /**
-                 * material of item
-                 */
-                private String material = "GRAY_STAINED_GLASS_PANE";
-                /**
-                 * status of filler
-                 */
-                @Comment("Fills empty areas")
-                private boolean useFiller = true;
-            }
 
             /**
              * PreviousPage item object
@@ -250,6 +339,69 @@ public class tr extends Language {
                 private String name = "&aNext Page";
             }
 
+        }
+
+        /**
+         * WebStore gui object
+         */
+        private WebStoreGui webStoreGui = new WebStoreGui();
+
+        /**
+         * WebStore gui arguments class
+         */
+        @Getter @Setter
+        public static class WebStoreGui extends Language.Gui.WebStoreGui {
+
+            /**
+             * name of gui
+             */
+            private String guiName = "&8WebStore";
+
+            /**
+             * Discounted price format
+             */
+            private String discountedPriceFormat = "&c&m{price}&r &a{discountedPrice}";
+
+            /**
+             * Discount amount format
+             */
+            private String discountAmountFormat = "&8[&a%{discount}&8]";
+
+            /**
+             * Stock unlimited format
+             */
+            private String stockUnlimited = "&6&lUNLIMITED";
+
+            /**
+             * withdraw item title
+             */
+            private String buyWebStoreTitle = "&6&lBuy Product";
+
+            /**
+             * withdraw item subtitle progress
+             */
+            private String buyWebStoreProgress = "&7Buy in progress...";
+
+            /**
+             * withdraw item subtitle success
+             */
+            private String buyWebStoreSuccess = "&aBuy success.";
+
+            /**
+             * withdraw item subtitle success
+             */
+            private String buyWebStoreNotEnoughCredit = "&cNot enough credits.";
+
+            /**
+             * withdraw item subtitle error
+             */
+            private String buyWebStoreError = "&cBuy error.";
+
+            /**
+             * register website for this action
+             */
+            private String buyWebStoreNoAuthLinkError = "{prefix} &cYou must register website for this action!";
+
             /**
              * Default Category attributes
              */
@@ -259,12 +411,7 @@ public class tr extends Language {
              * Default Category arguments class
              */
             @Getter @Setter
-            public static class DefaultCategory extends Language.Gui.DefaultGui.DefaultCategory {
-
-                /**
-                 * Default material
-                 */
-                private String material = "DIAMOND_BLOCK";
+            public static class DefaultCategory extends Language.Gui.WebStoreGui.DefaultCategory {
 
                 /**
                  * Default Lore
@@ -284,12 +431,7 @@ public class tr extends Language {
              * DefaultProduct arguments class
              */
             @Getter @Setter
-            public static class DefaultProduct extends Language.Gui.DefaultGui.DefaultProduct {
-
-                /**
-                 * Default material
-                 */
-                private String material = "DIAMOND";
+            public static class DefaultProduct extends Language.Gui.WebStoreGui.DefaultProduct {
 
                 /**
                  * Default Lore
@@ -302,44 +444,106 @@ public class tr extends Language {
                         "&aClick for buy!"
                 );
             }
-
         }
 
         /**
-         * WebStore gui object
+         * Bazaar gui object
          */
-        private WebStoreGui webStoreGui = new WebStoreGui();
+        private Bazaar bazaarGui = new Bazaar();
 
         /**
-         * WebStore gui arguments class
+         * Bazaar gui arguments class
          */
         @Getter @Setter
-        public static class WebStoreGui extends Language.Gui.WebStoreGui {
-
-            /**
-             * layout of gui
-             */
-            @Comment("Layout of gui")
-            private List<String> layout = Arrays.asList(
-                    "         ",
-                    "   ccc   ",
-                    "         ",
-                    "  ppppp  ",
-                    "         ",
-                    "b       n"
-            );
+        public static class Bazaar extends Language.Gui.Bazaar {
 
             /**
              * name of gui
              */
-            private String guiName = "&8WebStore";
+            private String guiName = "&8Bazaar";
 
-            private String discountedPriceFormat = "&c&m{price}&r &a{discountedPrice}";
+            /**
+             * lore modifier
+             */
+            private String clickLore = "&aClick this for re-take!";
 
-            private String discountAmountFormat = "&8[&a%{discount}&8]";
+            /**
+             * withdraw item title
+             */
+            private String withdrawTitle = "&6&lWithdraw";
 
-            private String stockUnlimited = "&6&lUNLIMITED";
+            /**
+             * withdraw item subtitle progress
+             */
+            private String withdrawProgressSubtitle = "&7Withraw in progress...";
+
+            /**
+             * withdraw item subtitle success
+             */
+            private String withdrawSuccessSubtitle = "&aWithdraw success.";
+
+            /**
+             * withdraw item subtitle error
+             */
+            private String withdrawErrorSubtitle = "&cWithdraw error.";
+
+            /**
+             * Add item title
+             */
+            private String addItemName = "&eAdd item to bazaar";
+
+            /**
+             * Add item lore
+             */
+            private List<String> addItemLore = Arrays.asList("", "&aClick for add item");
+
+            /**
+             * Add item gui name
+             */
+            private String addItemGuiName = "&8Bazaar » Add item";
+
+            private String addItemMessage = "{prefix} &aAdded %item_name% to bazaar storage.";
+
+            /**
+             * return item message
+             */
+            private String returnItemMessage = "{prefix} &cYou have reached max storage amount &4(%max_amount%) &creturned &4%amount% &citem.";
         }
 
+        /**
+         * Bazaar gui object
+         */
+        private DonationsGUI donationsGui = new DonationsGUI();
+
+        /**
+         * Bazaar gui arguments class
+         */
+        @Getter @Setter
+        public static class DonationsGUI extends Language.Gui.DonationsGUI {
+
+            /**
+             * name of gui
+             */
+            private String guiName = "&8Recent Donators";
+
+            /**
+             * name of donator item
+             */
+            private String displayName = "&a%player%";
+
+            /**
+             * updates donation data
+             */
+            private String updatedDonationDataMessage = "{prefix} &aUpdated donations data.";
+
+            /**
+             * lore of donator item
+             */
+            private List<String> lore = Arrays.asList(
+                    "",
+                    "&7Donation: &e%credit% %symbol%",
+                    ""
+            );
+        }
     }
 }

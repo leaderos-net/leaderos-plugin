@@ -99,7 +99,7 @@ public class Category {
                 throw new Exception();
         }
         catch (Exception e) {
-            this.categoryLore = Main.getInstance().getLangFile().getGui().getDefaultGui().getDefaultCategory().getLore();
+            this.categoryLore = Main.getInstance().getLangFile().getGui().getWebStoreGui().getDefaultCategory().getLore();
         }
 
         String materialName = category.getString("minecraftItem");
@@ -107,8 +107,7 @@ public class Category {
             this.material = XMaterial.matchXMaterial(category.getString("minecraftItem")).get();
 
         if (material == null || !material.isSupported())
-            this.material = XMaterial.matchXMaterial(Main.getInstance().getLangFile().getGui()
-                    .getDefaultGui().getDefaultCategory().getMaterial()).get();
+            this.material = XMaterial.matchXMaterial(Main.getInstance().getModulesFile().getWebStore().getGui().getDefaultCategory().getMaterial()).orElse(XMaterial.CHEST);
 
         // products
         JSONArray products = category.getJSONArray("products");

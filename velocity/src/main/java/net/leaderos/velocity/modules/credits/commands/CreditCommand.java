@@ -37,7 +37,7 @@ public class CreditCommand implements SimpleCommand {
                     Response targetCurrency = CreditHelper.currencyRequest(player.getUsername());
                     if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
                         ChatUtil.sendMessage(player,
-                                ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getCreditInfo(),
+                                ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getCredit().getCreditInfo(),
                                         new Placeholder("{amount}", MoneyUtils.format(targetCurrency.getResponseMessage().getDouble("raw_credits")))));
                     }
                 }
@@ -99,7 +99,7 @@ public class CreditCommand implements SimpleCommand {
         amount = MoneyUtils.parseDouble(amount);
 
         if (amount <= 0) {
-            ChatUtil.sendMessage(sender, Velocity.getInstance().getLangFile().getMessages().getCannotSendCreditNegative());
+            ChatUtil.sendMessage(sender, Velocity.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNegative());
             return;
         }
 
@@ -108,7 +108,7 @@ public class CreditCommand implements SimpleCommand {
         if (Objects.requireNonNull(addCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
             // Calls UpdateCache event for update player's cache
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Velocity.getInstance().getLangFile().getMessages().getSuccessfullyAddedCredit(),
+                    Velocity.getInstance().getLangFile().getMessages().getCredit().getSuccessfullyAddedCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),
                     new Placeholder("{target}", target)
             ));
@@ -125,7 +125,7 @@ public class CreditCommand implements SimpleCommand {
         Response targetCurrency = CreditHelper.currencyRequest(target);
         if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Velocity.getInstance().getLangFile().getMessages().getCreditInfoOther(),
+                    Velocity.getInstance().getLangFile().getMessages().getCredit().getCreditInfoOther(),
                     new Placeholder("{amount}", MoneyUtils.format(targetCurrency.getResponseMessage().getDouble("raw_credits"))),
                     new Placeholder("{target}", target)
             ));
@@ -148,12 +148,12 @@ public class CreditCommand implements SimpleCommand {
         Player player = (Player) sender;
 
         if (player.getUsername().equalsIgnoreCase(target)) {
-            ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCannotSendCreditYourself());
+            ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditYourself());
             return;
         }
 
         if (amount <= 0) {
-            ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCannotSendCreditNegative());
+            ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNegative());
             return;
         }
 
@@ -183,14 +183,14 @@ public class CreditCommand implements SimpleCommand {
         if (Objects.requireNonNull(sendCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK
                 && sendCreditResponse.getResponseMessage().getBoolean("status")) {
             ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                    Velocity.getInstance().getLangFile().getMessages().getSuccessfullySentCredit(),
+                    Velocity.getInstance().getLangFile().getMessages().getCredit().getSuccessfullySentCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),
                     new Placeholder("{target}", target)
             ));
 
             if (targetPlayer.isPresent())
                 ChatUtil.sendMessage(player,
-                        ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getReceivedCredit(),
+                        ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getCredit().getReceivedCredit(),
                                 new Placeholder("{amount}", MoneyUtils.format(amount)),
                                 new Placeholder("{player}", player.getUsername())
                         ));
@@ -199,7 +199,7 @@ public class CreditCommand implements SimpleCommand {
         }
         else
             // TODO Make else
-            ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCannotSendCreditNotEnough());
+            ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
     }
 
 
@@ -213,13 +213,13 @@ public class CreditCommand implements SimpleCommand {
         amount = MoneyUtils.parseDouble(amount);
 
         if (amount <= 0) {
-            ChatUtil.sendMessage(sender, Velocity.getInstance().getLangFile().getMessages().getCannotSendCreditNotEnough());
+            ChatUtil.sendMessage(sender, Velocity.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
             return;
         }
         Response removeCreditResponse = CreditHelper.removeCreditRequest(target, amount);
         if (Objects.requireNonNull(removeCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Velocity.getInstance().getLangFile().getMessages().getSuccessfullyRemovedCredit(),
+                    Velocity.getInstance().getLangFile().getMessages().getCredit().getSuccessfullyRemovedCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),
                     new Placeholder("{target}", target)
             ));
@@ -240,7 +240,7 @@ public class CreditCommand implements SimpleCommand {
 
         if (Objects.requireNonNull(setCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Velocity.getInstance().getLangFile().getMessages().getSuccessfullySetCredit(),
+                    Velocity.getInstance().getLangFile().getMessages().getCredit().getSuccessfullySetCredit(),
                     new Placeholder("{amount}", MoneyUtils.format(amount)),
                     new Placeholder("{target}", target)
             ));
