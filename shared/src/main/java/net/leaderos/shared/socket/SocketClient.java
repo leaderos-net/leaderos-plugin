@@ -21,23 +21,25 @@ public abstract class SocketClient {
 
     private IO.Options opts = new IO.Options();
     private Socket socket;
+    private String url = "http://localhost:3000";
+    private String apiKey;
     private String serverToken;
-    private String apiToken;
 
     /**
      * Constructor of Client also a socket listener
      * @param serverToken room of socket
      * @throws URISyntaxException exception
      */
-    public SocketClient(String apiToken, String serverToken) throws URISyntaxException {
-        this.apiToken = apiToken;
+    public SocketClient(String apiKey, String serverToken) throws URISyntaxException {
+        this.apiKey = apiKey;
         this.serverToken = serverToken;
 
         HashMap<String, String> auth = new HashMap<>();
-        auth.put("token", apiToken);
+        auth.put("apiKey", apiKey);
+        auth.put("token", serverToken);
         opts.auth = auth;
 
-        this.socket = IO.socket("http://localhost:3000", opts);
+        this.socket = IO.socket(url, opts);
 
         // Connect to socket
         socket.on(Socket.EVENT_CONNECT, args -> {
