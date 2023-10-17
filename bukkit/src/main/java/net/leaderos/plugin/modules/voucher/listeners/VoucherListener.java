@@ -21,6 +21,7 @@ import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -31,6 +32,8 @@ import java.util.Objects;
  * @since 1.0
  */
 public class VoucherListener implements Listener {
+
+    private List<String> awaitingVouchers = new ArrayList<>();
 
     /**
      * Right-Click event for voucher
@@ -54,6 +57,9 @@ public class VoucherListener implements Listener {
         // not actually necessary but just in case
         event.setCancelled(true);
         int id = nbtItem.getInteger("voucher:id");
+        // Cache check
+        if (awaitingVouchers.contains(String.valueOf(id)))
+            return;
         double amount = MoneyUtils.parseDouble(nbtItem.getDouble("voucher:amount"));
         // Checks amount just in case
         if (amount <= 0) {
@@ -74,6 +80,7 @@ public class VoucherListener implements Listener {
             list.add(id);
             Voucher.getVoucherData().set("used", list);
             Voucher.getVoucherData().save();
+            awaitingVouchers.remove(String.valueOf(id));
 
             // Calls UpdateCache event for update player's cache
             Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.ADD));
@@ -82,8 +89,10 @@ public class VoucherListener implements Listener {
                             .getSuccessfullyUsed(), new Placeholder("{amount}", MoneyUtils.format(amount))
             ));
         }
-        else
+        else {
             ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
+            awaitingVouchers.remove(String.valueOf(id));
+        }
     }
 
     /**
