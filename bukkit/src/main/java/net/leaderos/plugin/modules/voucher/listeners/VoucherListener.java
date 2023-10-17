@@ -60,6 +60,8 @@ public class VoucherListener implements Listener {
         // Cache check
         if (awaitingVouchers.contains(String.valueOf(id)))
             return;
+        else
+            awaitingVouchers.add(String.valueOf(id));
         double amount = MoneyUtils.parseDouble(nbtItem.getDouble("voucher:amount"));
         // Checks amount just in case
         if (amount <= 0) {
