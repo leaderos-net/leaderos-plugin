@@ -1,4 +1,4 @@
-package net.leaderos.velocity.configuration;
+package net.leaderos.velocity.configuration.lang;
 
 import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
@@ -7,6 +7,7 @@ import eu.okaeri.configs.annotation.NameStrategy;
 import eu.okaeri.configs.annotation.Names;
 import lombok.Getter;
 import lombok.Setter;
+import net.leaderos.velocity.configuration.Language;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 @Getter @Setter
 @Names(strategy = NameStrategy.HYPHEN_CASE, modifier = NameModifier.TO_LOWER_CASE)
-public class Language extends OkaeriConfig {
+public class en extends Language {
 
     /**
      * Settings menu of config
@@ -32,7 +33,7 @@ public class Language extends OkaeriConfig {
      */
     @Getter
     @Setter
-    public static class Messages extends OkaeriConfig {
+    public static class Messages extends Language.Messages {
 
         @Comment("Prefix of messages")
         private String prefix = "&3LeaderOS &8»";
@@ -76,7 +77,7 @@ public class Language extends OkaeriConfig {
          */
         @Getter
         @Setter
-        public static class Info extends OkaeriConfig {
+        public static class Info extends Language.Messages.Info {
 
             /**
              * Module enabled message
@@ -108,7 +109,7 @@ public class Language extends OkaeriConfig {
          * Command arguments class
          */
         @Getter @Setter
-        public static class Command extends OkaeriConfig {
+        public static class Command extends Language.Messages.Command {
 
             /**
              * Invalid argument message
@@ -146,7 +147,7 @@ public class Language extends OkaeriConfig {
          * Auth messages of plugin
          */
         @Getter @Setter
-        public static class Auth extends OkaeriConfig {
+        public static class Auth extends Language.Messages.Auth {
 
             /**
              * Command Message
@@ -178,7 +179,7 @@ public class Language extends OkaeriConfig {
          * Discord messages of plugin
          */
         @Getter @Setter
-        public static class Discord extends OkaeriConfig {
+        public static class Discord extends Language.Messages.Discord {
 
             /**
              * Command Message
@@ -205,7 +206,7 @@ public class Language extends OkaeriConfig {
          * Credit messages of plugin
          */
         @Getter @Setter
-        public static class Credit extends OkaeriConfig {
+        public static class Credit extends Language.Messages.Credit {
 
             private String creditInfo = "{prefix} &aYou have &e{amount} &acredit(s)";
 
@@ -237,7 +238,7 @@ public class Language extends OkaeriConfig {
          * Connect messages of plugin
          */
         @Getter @Setter
-        public static class Connect extends OkaeriConfig {
+        public static class Connect extends Language.Messages.Connect {
 
             private String connectExecutedCommand = "{prefix} &aConnect module executed the command: &e%command%";
 

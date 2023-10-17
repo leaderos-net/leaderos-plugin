@@ -43,8 +43,6 @@ public class Language extends OkaeriConfig {
 
         private String targetPlayerNotAvailable = "{prefix} &cTarget player is not available.";
 
-        private String cannotCreateFull = "{prefix} &cPlease create some space in your inventory and try again.";
-
         /**
          * Help commands message
          */
@@ -153,12 +151,12 @@ public class Language extends OkaeriConfig {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&aFor authentication &e&nclick here!{&eClick Me!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&e&nClick here&r &afor authentication!{&eClick Me!}(open_url:%link%)>";
 
             /**
              * Module error message
              */
-            private String moduleError = "{prefix} <&cThis system require you to login website, &e&nlick here!{&eClick Me!}(open_url:%link%)>";
+            private String moduleError = "{prefix} <&cThis system require you to login website, &e&nclick here!&r{&eClick Me!}(open_url:%link%)>";
 
             /**
              * error on auth link
@@ -180,7 +178,7 @@ public class Language extends OkaeriConfig {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&aTo sync your account with Discord, &e&nclick here!{&eClick Me!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&e&nClick here&r &ato sync your account with Discord!{&eClick Me!}(open_url:%link%)>";
 
             /**
              * error on DiscordSync link
@@ -231,9 +229,9 @@ public class Language extends OkaeriConfig {
         @Getter @Setter
         public static class Connect extends OkaeriConfig {
 
-            private String connectExecutedCommand = "{prefix} &aConnect module executed &e%command%";
+            private String connectExecutedCommand = "{prefix} &aConnect module executed the command: &e%command%";
 
-            private String joinedSocketRoom = "{prefix} &aConnect module connected room successfully.";
+            private String joinedSocketRoom = "{prefix} &aConnect module has been successfully connected to the room.";
         }
     }
 }

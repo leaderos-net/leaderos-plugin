@@ -157,12 +157,12 @@ public class tr extends Language {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&aHesabını eşlemek için  &e&nburaya tıkla!{&eTıkla!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&aHesabını eşlemek için &e&ntıkla!&r{&eTıkla!}(open_url:%link%)>";
 
             /**
              * Module error message
              */
-            private String moduleError = "{prefix} <&cSistem siteye girişi gerektirmektedir. Giriş yapmak için  &e&nburaya tıkla!{&eTıkla!}(open_url:%link%)>";
+            private String moduleError = "{prefix} <&cBu sistem siteye girişi gerektirmektedir. Giriş yapmak için &e&ntıkla!&r{&eTıkla!}(open_url:%link%)>";
 
             /**
              * error on auth link
@@ -184,7 +184,7 @@ public class tr extends Language {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&aHesabını discord ile eşlemek için  &e&nburaya tıkla!{&eTıkla!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&aHesabını Discord ile eşlemek için &e&ntıkla!&r{&eTıkla!}(open_url:%link%)>";
 
             /**
              * error on DiscordSync link
@@ -279,7 +279,7 @@ public class tr extends Language {
 
             private String connectExecutedCommand = "{prefix} &aConnect modülü tarafından komut çalıştırıldı: &e%command%";
 
-            private String joinedSocketRoom = "{prefix} &aConnect modülü başarıyla bağlandı.";
+            private String joinedSocketRoom = "{prefix} &aConnect modülü başarıyla odaya bağlandı.";
         }
     }
 
@@ -373,27 +373,27 @@ public class tr extends Language {
             private String stockUnlimited = "&6&lLIMITSIZ";
 
             /**
-             * withdraw item title
+             * purchase title
              */
             private String buyWebStoreTitle = "&6&lSATIN AL";
 
             /**
-             * withdraw item subtitle progress
+             * purchase subtitle progress
              */
             private String buyWebStoreProgress = "&7Satın alım devam ediyor...";
 
             /**
-             * withdraw item subtitle success
+             * purchase subtitle success
              */
             private String buyWebStoreSuccess = "&aSatın alım başarılı.";
 
             /**
-             * withdraw item subtitle success
+             * purchase subtitle success
              */
             private String buyWebStoreNotEnoughCredit = "&cYetersiz kredi.";
 
             /**
-             * withdraw item subtitle error
+             * purchase subtitle error
              */
             private String buyWebStoreError = "&cSatın alım hatası.";
 
@@ -525,7 +525,7 @@ public class tr extends Language {
             /**
              * name of gui
              */
-            private String guiName = "&8Son Bağışçılar";
+            private String guiName = "&8Bağışlar";
 
             /**
              * name of donator item

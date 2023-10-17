@@ -57,7 +57,7 @@ public class Language extends OkaeriConfig {
                 "&8 ▪ &e/discord-sync &8» &fGives you the Discord sync link.",
                 "",
                 "&8 ▪ &e/webbazaar &8» &fOpens the Bazaar Storage menu.",
-                "&8 ▪ &e/webbazaar &8» &fOpens the Bazaar Storage menu.",
+                "&8 ▪ &e/webstore &8» &fOpens the Web Store menu.",
                 "&8 ▪ &e/donations &8» &fOpens the Donations menu.",
                 "",
                 "&8 ▪ &e/creditsvoucher give <player> <amount> &8» &fGives the player a credit voucher.",
@@ -161,12 +161,12 @@ public class Language extends OkaeriConfig {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&aFor authentication &e&nclick here!{&eClick Me!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&e&nClick here&r &afor authentication!{&eClick Me!}(open_url:%link%)>";
 
             /**
              * Module error message
              */
-            private String moduleError = "{prefix} <&cThis system require you to login website, &e&nlick here!{&eClick Me!}(open_url:%link%)>";
+            private String moduleError = "{prefix} <&cThis system require you to login website, &e&nclick here!&r{&eClick Me!}(open_url:%link%)>";
 
             /**
              * error on auth link
@@ -188,7 +188,7 @@ public class Language extends OkaeriConfig {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&aTo sync your account with Discord, &e&nclick here!{&eClick Me!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&e&nClick here&r &ato sync your account with Discord!{&eClick Me!}(open_url:%link%)>";
 
             /**
              * error on DiscordSync link
@@ -281,9 +281,9 @@ public class Language extends OkaeriConfig {
         @Getter @Setter
         public static class Connect extends OkaeriConfig {
 
-            private String connectExecutedCommand = "{prefix} &aConnect module executed &e%command%";
+            private String connectExecutedCommand = "{prefix} &aConnect module executed the command: &e%command%";
 
-            private String joinedSocketRoom = "{prefix} &aConnect module connected room successfully.";
+            private String joinedSocketRoom = "{prefix} &aConnect module has been successfully connected to the room.";
         }
     }
 
@@ -377,34 +377,34 @@ public class Language extends OkaeriConfig {
             private String stockUnlimited = "&6&lUNLIMITED";
 
             /**
-             * withdraw item title
+             * purchase title
              */
-            private String buyWebStoreTitle = "&6&lBUY PRODUCT";
+            private String buyWebStoreTitle = "&6&lPURCHASE";
 
             /**
-             * withdraw item subtitle progress
+             * purchase subtitle progress
              */
-            private String buyWebStoreProgress = "&7Buy in progress...";
+            private String buyWebStoreProgress = "&7Purchasing in progress...";
 
             /**
-             * withdraw item subtitle success
+             * purchase subtitle success
              */
-            private String buyWebStoreSuccess = "&aBuy success.";
+            private String buyWebStoreSuccess = "&aPurchase successful!";
 
             /**
-             * withdraw item subtitle success
+             * purchase subtitle success
              */
             private String buyWebStoreNotEnoughCredit = "&cNot enough credits.";
 
             /**
              * withdraw item subtitle error
              */
-            private String buyWebStoreError = "&cBuy error.";
+            private String buyWebStoreError = "&cAn error occurred during the purchase process!";
 
             /**
              * register website for this action
              */
-            private String buyWebStoreNoAuthLinkError = "{prefix} &cYou must register website for this action!";
+            private String buyWebStoreNoAuthLinkError = "{prefix} &cYou must register on the website for this action!";
 
             /**
              * Default Category attributes
@@ -422,7 +422,7 @@ public class Language extends OkaeriConfig {
                  */
                 private List<String> lore = Arrays.asList(
                         "&r",
-                        "&aClick for open category!"
+                        "&aClick to open category!"
                 );
             }
 
@@ -446,7 +446,7 @@ public class Language extends OkaeriConfig {
                         "&8 ▪ &7Price &8» &e%price%",
                         "&8 ▪ &7Stock &8» &e%stock%",
                         "",
-                        "&aClick for buy!"
+                        "&aClick to buy!"
                 );
             }
         }
@@ -470,7 +470,7 @@ public class Language extends OkaeriConfig {
             /**
              * lore modifier
              */
-            private String clickLore = "&aClick this for re-take!";
+            private String clickLore = "&aClick this to re-take!";
 
             /**
              * withdraw item title
@@ -480,7 +480,7 @@ public class Language extends OkaeriConfig {
             /**
              * withdraw item subtitle progress
              */
-            private String withdrawProgressSubtitle = "&7Withraw in progress...";
+            private String withdrawProgressSubtitle = "&7Withdraw in progress...";
 
             /**
              * withdraw item subtitle success
@@ -500,12 +500,12 @@ public class Language extends OkaeriConfig {
             /**
              * Add item lore
              */
-            private List<String> addItemLore = Arrays.asList("", "&aClick for add item!");
+            private List<String> addItemLore = Arrays.asList("", "&aClick to add item!");
 
             /**
              * Add item gui name
              */
-            private String addItemGuiName = "&8Bazaar » Add item";
+            private String addItemGuiName = "&8Bazaar » Add Item";
 
             private String addItemMessage = "{prefix} &aAdded &e%item_name% &ato bazaar storage.";
 
@@ -529,7 +529,7 @@ public class Language extends OkaeriConfig {
             /**
              * name of gui
              */
-            private String guiName = "&8Recent Donations";
+            private String guiName = "&8Donations";
 
             /**
              * name of donator item

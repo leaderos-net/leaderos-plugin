@@ -47,7 +47,7 @@ public class BazaarAddItemGui {
         // Gui template as array
         String[] layout = Main.getInstance().getModulesFile().getBazaar().getGui().getAddItemLayout().toArray(new String[0]);
         // Inventory object
-        String guiName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getGuiName());
+        String guiName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemGuiName());
         InventoryGui gui = new InventoryGui(Main.getInstance(), null, guiName, layout);
         // Filler item for empty slots
         ItemStack fillerItem = GuiHelper.getFiller(Main.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().getMaterial());
