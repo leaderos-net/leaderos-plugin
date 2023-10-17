@@ -79,22 +79,22 @@ public class tr extends Language {
             /**
              * Module enabled message
              */
-            private String moduleEnabled = "{prefix} &e%module_name% &amodülü aktif edildi.";
+            private String moduleEnabled = "{prefix} &a%module_name% modülü aktif edildi.";
 
             /**
              * Module closed message
              */
-            private String moduleClosed = "{prefix} &e%module_name% &cmodülü kapandı.";
+            private String moduleClosed = "{prefix} &c%module_name% modülü kapandı.";
 
             /**
              * Module disabled message
              */
-            private String moduleDisabled = "{prefix} &e%module_name% &cmodülü devre dışı bırakıldı.";
+            private String moduleDisabled = "{prefix} &c%module_name% modülü devre dışı bırakıldı.";
 
             /**
              * Missing dependency message
              */
-            private String missingDependency = "{prefix} &e%module_name% &cmodülü gereksinimleri karşılayamadığı için başlatılamadı. Gereksinim: &8[&c%dependencies%&8]";
+            private String missingDependency = "{prefix} &c%module_name% modülü gereksinimleri karşılayamadığı için başlatılamadı. Gereksinim: &8[&c%dependencies%&8]";
         }
 
         /**

@@ -36,8 +36,8 @@ import java.nio.file.Path;
  */
 @Getter
 @Setter
-@Plugin(id = "leaderos-velocity", name = "LeaderOS Velocity", version = "1.0.0-SNAPSHOT",
-        url = "https://leaderos.net", description = "Best minecraft e-commerce website!", authors = {"leaderos"})
+@Plugin(id = "leaderos", name = "LeaderOS", version = "1.0.0-SNAPSHOT",
+        url = "https://leaderos.net", description = "LeaderOS Plugin for Velocity", authors = {"leaderos"})
 public class Velocity {
 
     /**

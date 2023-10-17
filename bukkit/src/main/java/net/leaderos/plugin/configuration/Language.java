@@ -91,22 +91,22 @@ public class Language extends OkaeriConfig {
             /**
              * Module enabled message
              */
-            private String moduleEnabled = "{prefix} &e%module_name% &aenabled.";
+            private String moduleEnabled = "{prefix} &a%module_name% enabled.";
 
             /**
              * Module closed message
              */
-            private String moduleClosed = "{prefix} &e%module_name% &cclosed.";
+            private String moduleClosed = "{prefix} &c%module_name% closed.";
 
             /**
              * Module disabled message
              */
-            private String moduleDisabled = "{prefix} &e%module_name% &cdisabled.";
+            private String moduleDisabled = "{prefix} &c%module_name% disabled.";
 
             /**
              * Missing dependency message
              */
-            private String missingDependency = "{prefix} &e%module_name% &chas not started due missing dependency. &8[&e%dependencies%&8]";
+            private String missingDependency = "{prefix} &c%module_name% has not started due missing dependency. &8[&e%dependencies%&8]";
         }
 
         /**
