@@ -59,9 +59,19 @@ public class Product {
     private double price;
 
     /**
+     * Product price text with currency
+     */
+    private String priceText;
+
+    /**
      * Product discount price
      */
     private double discountedPrice;
+
+    /**
+     * Product discounted price text with currency
+     */
+    private String discountedPriceText;
 
     /**
      * Discount expiry date
@@ -109,7 +119,9 @@ public class Product {
 
         // price, discountedPrice, stock data
         this.price = product.getDouble("price");
+        this.priceText = product.getString("priceText");
         this.discountedPrice = product.getDouble("discountedPrice");
+        this.discountedPriceText = product.getString("discountedPriceText");
         this.stock = product.getInt("stock");
 
         // expire date data
@@ -151,8 +163,8 @@ public class Product {
         int discountAmount = (int) (((getPrice() - getDiscountedPrice()) / getPrice()) * 100);
         // Formatters of discount
         String discountedPriceFormat = Main.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountedPriceFormat()
-                .replace("{price}", String.valueOf(price))
-                .replace("{discountedPrice}", String.valueOf(discountedPrice));
+                .replace("{price}", String.valueOf(priceText))
+                .replace("{discountedPrice}", String.valueOf(discountedPriceText));
         String discountAmountFormat = Main.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountAmountFormat()
                 .replace("{discount}", String.valueOf(discountAmount));
         String stockUnlimited = Main.getInstance().getLangFile().getGui().getWebStoreGui().getStockUnlimited();
@@ -167,7 +179,7 @@ public class Product {
         else {
             displayName = displayName.replace("%discount_amount%", "");
             lore = getProductLore().stream().map(key -> key.replace("%discount_amount%" , "")
-                    .replace("%price%", String.valueOf(price))).collect(Collectors.toList());
+                    .replace("%price%", String.valueOf(priceText))).collect(Collectors.toList());
         }
 
         // Stock calculation for gui item
