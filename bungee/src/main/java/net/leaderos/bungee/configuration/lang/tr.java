@@ -151,12 +151,12 @@ public class tr extends Language {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&aHesabını eşlemek için &e&ntıkla!&r{&eTıkla!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&aHesabını eşlemek için tıkla!{&eTıkla!}(open_url:%link%)>";
 
             /**
              * Module error message
              */
-            private String moduleError = "{prefix} <&cSistem siteye girişi gerektirmektedir. Giriş yapmak için &e&ntıkla!&r{&eTıkla!}(open_url:%link%)>";
+            private String moduleError = "{prefix} <&cSistem siteye girişi gerektirmektedir. Giriş yapmak için tıkla!{&eTıkla!}(open_url:%link%)>";
 
             /**
              * error on auth link
@@ -178,7 +178,7 @@ public class tr extends Language {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&aHesabını Discord ile eşlemek için &e&ntıkla!&r{&eTıkla!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&aHesabını Discord ile eşlemek için tıkla!{&eTıkla!}(open_url:%link%)>";
 
             /**
              * error on DiscordSync link

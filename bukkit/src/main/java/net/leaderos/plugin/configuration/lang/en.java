@@ -157,12 +157,12 @@ public class en extends Language {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&e&nClick here&r &afor authentication!{&eClick Me!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&aClick here for authentication!{&eClick Me!}(open_url:%link%)>";
 
             /**
              * Module error message
              */
-            private String moduleError = "{prefix} <&cThis system require you to login website, &e&nclick here!&r{&eClick Me!}(open_url:%link%)>";
+            private String moduleError = "{prefix} <&cThis system require you to login website, click here!{&eClick Me!}(open_url:%link%)>";
 
             /**
              * error on auth link
@@ -184,7 +184,7 @@ public class en extends Language {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&e&nClick here&r &ato sync your account with Discord!{&eClick Me!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&aClick here to sync your account with Discord!{&eClick Me!}(open_url:%link%)>";
 
             /**
              * error on DiscordSync link
