@@ -528,7 +528,7 @@ public class Language extends OkaeriConfig {
             /**
              * name of gui
              */
-            private String guiName = "&8Recent Donators";
+            private String guiName = "&8Recent Donations";
 
             /**
              * name of donator item

@@ -3,7 +3,7 @@ package net.leaderos.plugin.modules.voucher;
 import lombok.Getter;
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.modules.voucher.commands.VoucherCommand;
-import net.leaderos.plugin.modules.voucher.handlers.VoucherListener;
+import net.leaderos.plugin.modules.voucher.listeners.VoucherListener;
 import net.leaderos.plugin.modules.voucher.data.Data;
 import net.leaderos.shared.module.LeaderOSModule;
 import org.bukkit.Bukkit;

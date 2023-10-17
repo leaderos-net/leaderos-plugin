@@ -1,8 +1,8 @@
-package net.leaderos.plugin.modules.donators;
+package net.leaderos.plugin.modules.donations;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.modules.donators.model.RecentDonationData;
+import net.leaderos.plugin.modules.donations.model.RecentDonationData;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
@@ -18,7 +18,7 @@ public class Placeholders extends PlaceholderExpansion {
      * @return identifier
      */
     public String getIdentifier() {
-        return "leaderos-donator";
+        return "leaderos-donations";
     }
 
     /**
@@ -27,7 +27,7 @@ public class Placeholders extends PlaceholderExpansion {
      * @return author name
      */
     public String getAuthor() {
-        return "Geik";
+        return "leaderos";
     }
 
     /**
@@ -56,7 +56,7 @@ public class Placeholders extends PlaceholderExpansion {
         else if (identifier.startsWith("credit_")) {
             RecentDonationData donationData = getDonationData(identifier);
             if (donationData != null)
-                return donationData.getCredit() + "";
+                return String.valueOf(donationData.getCredit());
         }
 
         return "";

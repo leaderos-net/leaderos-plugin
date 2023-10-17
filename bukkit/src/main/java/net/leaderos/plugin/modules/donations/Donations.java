@@ -1,12 +1,12 @@
-package net.leaderos.plugin.modules.donators;
+package net.leaderos.plugin.modules.donations;
 
 import com.cryptomorin.xseries.SkullUtils;
 import com.cryptomorin.xseries.XMaterial;
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.plugin.modules.donators.commands.DonatorsCommand;
-import net.leaderos.plugin.modules.donators.model.RecentDonationData;
-import net.leaderos.plugin.modules.donators.timer.Timer;
+import net.leaderos.plugin.modules.donations.commands.DonationsCommand;
+import net.leaderos.plugin.modules.donations.model.RecentDonationData;
+import net.leaderos.plugin.modules.donations.timer.Timer;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.module.LeaderOSModule;
 import org.bukkit.Bukkit;
@@ -19,17 +19,17 @@ import java.util.Objects;
 import java.util.UUID;
 
 /**
- * RecentDonations module main class
+ * Donations module main class
  * @author poyrazinan
  * @since 1.0
  */
-public class RecentDonations extends LeaderOSModule {
+public class Donations extends LeaderOSModule {
 
     /**
      * onEnable method of module
      */
     public void onEnable() {
-        Main.getCommandManager().registerCommand(new DonatorsCommand());
+        Main.getCommandManager().registerCommand(new DonationsCommand());
         Timer.run();
         if( Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             new Placeholders().register();
@@ -39,7 +39,7 @@ public class RecentDonations extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
-        Main.getCommandManager().unregisterCommand(new DonatorsCommand());
+        Main.getCommandManager().unregisterCommand(new DonationsCommand());
         Timer.taskid.cancel();
         if( Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             new Placeholders().unregister();
@@ -48,7 +48,7 @@ public class RecentDonations extends LeaderOSModule {
     /**
      * Constructor of RecentDonation
      */
-    public RecentDonations() {}
+    public Donations() {}
 
     /**
      * Recent donation gui item
@@ -66,13 +66,13 @@ public class RecentDonations extends LeaderOSModule {
         meta.setDisplayName(ChatUtil.replacePlaceholders(
                 Main.getInstance().getLangFile().getGui().getDonationsGui().getDisplayName(),
                 new Placeholder("%player%", donationData.getUserName()),
-                new Placeholder("%credit%", donationData.getCredit()+""),
+                new Placeholder("%credit%", String.valueOf(donationData.getCredit())),
                 new Placeholder("%symbol%", donationData.getSymbol())
         ));
         meta.setLore(ChatUtil.replacePlaceholders(
                 Main.getInstance().getLangFile().getGui().getDonationsGui().getLore(),
                 new Placeholder("%player%", donationData.getUserName()),
-                new Placeholder("%credit%", donationData.getCredit()+""),
+                new Placeholder("%credit%", String.valueOf(donationData.getCredit())),
                 new Placeholder("%symbol%", donationData.getSymbol())
         ));
         item.setItemMeta(meta);

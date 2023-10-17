@@ -1,14 +1,11 @@
-package net.leaderos.plugin.modules.voucher.handlers;
+package net.leaderos.plugin.modules.voucher.listeners;
 
 import com.cryptomorin.xseries.XMaterial;
 import de.tr7zw.nbtapi.NBTItem;
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.api.handlers.ModuleEnableEvent;
 import net.leaderos.plugin.api.handlers.UpdateCacheEvent;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.plugin.modules.credit.Credit;
 import net.leaderos.plugin.modules.voucher.Voucher;
-import net.leaderos.shared.Shared;
 import net.leaderos.shared.helpers.MoneyUtils;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
@@ -82,7 +79,7 @@ public class VoucherListener implements Listener {
             Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.ADD));
             ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
                     Main.getInstance().getLangFile().getMessages().getVouchers()
-                            .getSuccessfullyUsed(), new Placeholder("{amount}", MoneyUtils.format(amount) + "")
+                            .getSuccessfullyUsed(), new Placeholder("{amount}", MoneyUtils.format(amount))
             ));
         }
         else

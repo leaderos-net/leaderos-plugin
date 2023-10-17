@@ -524,7 +524,7 @@ public class en extends Language {
             /**
              * name of gui
              */
-            private String guiName = "&8Recent Donators";
+            private String guiName = "&8Recent Donations";
 
             /**
              * name of donator item

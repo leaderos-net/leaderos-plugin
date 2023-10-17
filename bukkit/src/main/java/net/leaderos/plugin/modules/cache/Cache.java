@@ -1,9 +1,9 @@
 package net.leaderos.plugin.modules.cache;
 
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.modules.cache.handlers.CacheUpdateEvent;
-import net.leaderos.plugin.modules.cache.handlers.LoginListener;
-import net.leaderos.plugin.modules.cache.handlers.QuitListener;
+import net.leaderos.plugin.modules.cache.listeners.CacheUpdateEvent;
+import net.leaderos.plugin.modules.cache.listeners.LoginListener;
+import net.leaderos.plugin.modules.cache.listeners.QuitListener;
 import net.leaderos.plugin.modules.cache.model.User;
 import net.leaderos.shared.module.LeaderOSModule;
 import org.bukkit.Bukkit;

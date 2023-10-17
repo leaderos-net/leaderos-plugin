@@ -151,10 +151,10 @@ public class Product {
         int discountAmount = (int) (((getPrice() - getDiscountedPrice()) / getPrice()) * 100);
         // Formatters of discount
         String discountedPriceFormat = Main.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountedPriceFormat()
-                .replace("{price}", price+"")
-                .replace("{discountedPrice}", discountedPrice+"");
+                .replace("{price}", String.valueOf(price))
+                .replace("{discountedPrice}", String.valueOf(discountedPrice));
         String discountAmountFormat = Main.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountAmountFormat()
-                .replace("{discount}", discountAmount+"");
+                .replace("{discount}", String.valueOf(discountAmount));
         String stockUnlimited = Main.getInstance().getLangFile().getGui().getWebStoreGui().getStockUnlimited();
 
 
@@ -167,7 +167,7 @@ public class Product {
         else {
             displayName = displayName.replace("%discount_amount%", "");
             lore = getProductLore().stream().map(key -> key.replace("%discount_amount%" , "")
-                    .replace("%price%", price+"")).collect(Collectors.toList());
+                    .replace("%price%", String.valueOf(price))).collect(Collectors.toList());
         }
 
         // Stock calculation for gui item
@@ -175,7 +175,7 @@ public class Product {
             lore = lore.stream().map(key -> key.replace("%stock%" , stockUnlimited))
                     .collect(Collectors.toList());
         else
-            lore = lore.stream().map(key -> key.replace("%stock%" , getStock()+""))
+            lore = lore.stream().map(key -> key.replace("%stock%" , String.valueOf(getStock())))
                     .collect(Collectors.toList());
 
         // Color utils

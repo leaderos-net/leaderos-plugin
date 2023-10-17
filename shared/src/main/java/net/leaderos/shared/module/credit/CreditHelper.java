@@ -27,7 +27,7 @@ public class CreditHelper {
         try {
             Map<String, String> list = new HashMap<>();
             list.put("target", target);
-            list.put("amount", amount+"");
+            list.put("amount", String.valueOf(amount));
             PostRequest postSendCredit = new PostRequest("credits/" + sender + "/send", list);
             return postSendCredit.getResponse();
         }
@@ -60,7 +60,7 @@ public class CreditHelper {
     public static @Nullable Response addCreditRequest(String target, double amount) {
         try {
             Map<String, String> list = new HashMap<>();
-            list.put("amount", amount+"");
+            list.put("amount", String.valueOf(amount));
             PostRequest postAddCredit = new PostRequest("credits/" + target + "/add", list);
             return postAddCredit.getResponse();
         }
@@ -78,7 +78,7 @@ public class CreditHelper {
     public static @Nullable Response removeCreditRequest(String target, double amount) {
         try {
             Map<String, String> list = new HashMap<>();
-            list.put("amount", amount+"");
+            list.put("amount", String.valueOf(amount));
             PostRequest postRemoveCredit = new PostRequest("credits/" + target + "/remove", list);
             return postRemoveCredit.getResponse();
         }
@@ -96,7 +96,7 @@ public class CreditHelper {
     public static @Nullable Response setCreditRequest(String target, double amount) {
         try {
             Map<String, String> list = new HashMap<>();
-            list.put("amount", amount+"");
+            list.put("amount", String.valueOf(amount));
             PostRequest postSetCredit = new PostRequest("credits/" + target + "/set", list);
             return postSetCredit.getResponse();
         }

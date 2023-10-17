@@ -94,7 +94,7 @@ public class ItemUtils {
     public static String getModelId(ItemStack itemStack) {
         String modelId = null;
         if (XMaterial.supports(14) && itemStack.hasItemMeta() && itemStack.getItemMeta().hasCustomModelData())
-            modelId = itemStack.getItemMeta().getCustomModelData()+"";
+            modelId = String.valueOf(itemStack.getItemMeta().getCustomModelData());
         return modelId;
     }
 

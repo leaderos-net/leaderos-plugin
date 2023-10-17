@@ -133,9 +133,9 @@ public class VoucherCommand extends BaseCommand {
         Voucher.getVoucherData().save();
 
         String name = ChatUtil.replacePlaceholders(Main.getInstance().getLangFile().getMessages().getVouchers().getItemDisplayName(),
-                new Placeholder("{id}", id + ""), new Placeholder("{amount}", MoneyUtils.format(amount)));
+                new Placeholder("{id}", String.valueOf(id)), new Placeholder("{amount}", MoneyUtils.format(amount)));
         List<String> lore = ChatUtil.replacePlaceholders(Main.getInstance().getLangFile().getMessages().getVouchers().getItemLore(),
-                new Placeholder("{id}", id + ""), new Placeholder("{amount}", MoneyUtils.format(amount)));
+                new Placeholder("{id}", String.valueOf(id)), new Placeholder("{amount}", MoneyUtils.format(amount)));
         ItemStack item = ItemUtils.getItem(XMaterial.PAPER, name, lore, true);
         NBTItem nbtItem = new NBTItem(item);
 

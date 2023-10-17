@@ -1,4 +1,4 @@
-package net.leaderos.plugin.modules.donators.model;
+package net.leaderos.plugin.modules.donations.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

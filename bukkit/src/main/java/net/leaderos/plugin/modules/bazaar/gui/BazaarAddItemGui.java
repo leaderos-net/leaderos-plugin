@@ -113,18 +113,18 @@ public class BazaarAddItemGui {
                 body.put("name", name);
                 if (lore != null)
                     body.put("lore", lore);
-                body.put("amount", amount+"");
-                body.put("maxDurability", maxDurability+"");
-                body.put("durability", durability+"");
+                body.put("amount", String.valueOf(amount));
+                body.put("maxDurability", String.valueOf(maxDurability));
+                body.put("durability", String.valueOf(durability));
 
                 body.put("base64", base64);
-                body.put("price", price+"");
+                body.put("price", String.valueOf(price));
                 body.put("creationDate", creationDate);
                 if (modelId != null)
                     body.put("modelID", modelId);
                 if (enchantment != null)
                     body.put("enchantment", enchantment);
-                body.put("serverID", serverId+"");
+                body.put("serverID", String.valueOf(serverId));
                 body.put("itemID", material.name());
 
                 // Sends response
@@ -148,8 +148,8 @@ public class BazaarAddItemGui {
                 PlayerInventory playerInventory = player.getInventory();
                 returnItems.forEach(playerInventory::addItem);
                 String returnMessage = Main.getInstance().getLangFile().getGui().getBazaarGui().getReturnItemMessage();
-                returnMessage = returnMessage.replace("%max_amount%", maxStorageAmount+"")
-                                .replace("%amount%", returnItems.size()+"");
+                returnMessage = returnMessage.replace("%max_amount%", String.valueOf(maxStorageAmount))
+                                .replace("%amount%", String.valueOf(returnItems.size()));
                 ChatUtil.sendMessage(player, returnMessage);
             }
             return false; // Don't go back to the previous GUI (true would automatically go back to the previously opened one)

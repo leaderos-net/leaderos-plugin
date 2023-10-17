@@ -1,4 +1,4 @@
-package net.leaderos.plugin.modules.donators.commands;
+package net.leaderos.plugin.modules.donations.commands;
 
 import dev.triumphteam.cmd.bukkit.annotation.Permission;
 import dev.triumphteam.cmd.core.BaseCommand;
@@ -9,8 +9,8 @@ import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.api.managers.ModuleManager;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.plugin.modules.donators.gui.RecentDonationGui;
-import net.leaderos.plugin.modules.donators.timer.Timer;
+import net.leaderos.plugin.modules.donations.gui.RecentDonationGui;
+import net.leaderos.plugin.modules.donations.timer.Timer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -21,7 +21,7 @@ import org.bukkit.entity.Player;
  */
 @RequiredArgsConstructor
 @Command(value = "donations", alias = {"recentdonations", "krediyukleyenler"})
-public class DonatorsCommand extends BaseCommand {
+public class DonationsCommand extends BaseCommand {
 
     /**
      * Default command of recent donations
@@ -30,7 +30,7 @@ public class DonatorsCommand extends BaseCommand {
     @Default
     @Permission("donations.open")
     public void defaultCommand(Player player) {
-        if (ModuleManager.getModule("RecentDonations").isEnabled())
+        if (ModuleManager.getModule("Donations").isEnabled())
             RecentDonationGui.showGui(player);
     }
 

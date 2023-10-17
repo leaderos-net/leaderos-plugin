@@ -1,8 +1,7 @@
-package net.leaderos.plugin.modules.donators.timer;
+package net.leaderos.plugin.modules.donations.timer;
 
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.modules.donators.model.RecentDonationData;
-import org.bukkit.Bukkit;
+import net.leaderos.plugin.modules.donations.model.RecentDonationData;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**

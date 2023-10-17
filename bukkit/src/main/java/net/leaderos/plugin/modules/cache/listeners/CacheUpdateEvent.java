@@ -1,4 +1,4 @@
-package net.leaderos.plugin.modules.cache.handlers;
+package net.leaderos.plugin.modules.cache.listeners;
 
 import lombok.AllArgsConstructor;
 import net.leaderos.plugin.api.handlers.UpdateCacheEvent;

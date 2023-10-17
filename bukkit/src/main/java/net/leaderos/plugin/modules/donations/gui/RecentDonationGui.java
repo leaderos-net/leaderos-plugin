@@ -1,4 +1,4 @@
-package net.leaderos.plugin.modules.donators.gui;
+package net.leaderos.plugin.modules.donations.gui;
 
 import de.themoep.inventorygui.DynamicGuiElement;
 import de.themoep.inventorygui.GuiElementGroup;
@@ -8,8 +8,8 @@ import lombok.SneakyThrows;
 import net.leaderos.plugin.Main;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.GuiHelper;
-import net.leaderos.plugin.modules.donators.RecentDonations;
-import net.leaderos.plugin.modules.donators.model.RecentDonationData;
+import net.leaderos.plugin.modules.donations.Donations;
+import net.leaderos.plugin.modules.donations.model.RecentDonationData;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -62,7 +62,7 @@ public class RecentDonationGui {
         if (!recentDonationData.isEmpty())
             recentDonationData.forEach(donationData -> donationItems.addElement(new DynamicGuiElement('s', (viewer)
                     -> new StaticGuiElement('s',
-                    RecentDonations.getDonationHead(donationData),
+                    Donations.getDonationHead(donationData),
                     1,
                     click ->  {
                         click.getEvent().setCancelled(true);
