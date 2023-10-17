@@ -178,7 +178,7 @@ public class Language extends OkaeriConfig {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&e&nClick here&r &ato sync your account with Discord!{&eClick Me!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&aClick here to sync your account with Discord!{&eClick Me!}(open_url:%link%)>";
 
             /**
              * error on DiscordSync link
