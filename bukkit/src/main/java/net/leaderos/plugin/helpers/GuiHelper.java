@@ -65,7 +65,7 @@ public class GuiHelper {
         return new GuiPageElement('n',
                 XMaterial.matchXMaterial(materialName).orElse(XMaterial.ARROW).parseItem(),
                 GuiPageElement.PageAction.NEXT,
-                Main.getInstance().getLangFile().getGui().getDefaultGui().getPreviousPage().getName()
+                Main.getInstance().getLangFile().getGui().getDefaultGui().getNextPage().getName()
         );
     }
 
