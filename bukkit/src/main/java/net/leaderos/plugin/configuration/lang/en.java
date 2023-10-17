@@ -87,22 +87,22 @@ public class en extends Language {
             /**
              * Module enabled message
              */
-            private String moduleEnabled = "{prefix} &a%module_name% enabled.";
+            private String moduleEnabled = "{prefix} &e%module_name% &aenabled.";
 
             /**
              * Module closed message
              */
-            private String moduleClosed = "{prefix} &c%module_name% closed.";
+            private String moduleClosed = "{prefix} &e%module_name% &cclosed.";
 
             /**
              * Module disabled message
              */
-            private String moduleDisabled = "{prefix} &4%module_name% disabled.";
+            private String moduleDisabled = "{prefix} &e%module_name% &cdisabled.";
 
             /**
              * Missing dependency message
              */
-            private String missingDependency = "{prefix} &4%module_name% has not started due missing dependency. &c[%dependencies%]";
+            private String missingDependency = "{prefix} &e%module_name% &chas not started due missing dependency. &8[&e%dependencies%&8]";
         }
 
         /**
@@ -157,17 +157,17 @@ public class en extends Language {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&aFor authentication click here!{&5Click Me!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&aFor authentication &e&nclick here!{&eClick Me!}(open_url:%link%)>";
 
             /**
              * Module error message
              */
-            private String moduleError = "{prefix} <&cThis system require you to login website, click here!{&5Click Me!}(open_url:%link%)>";
+            private String moduleError = "{prefix} <&cThis system require you to login website, &e&nlick here!{&eClick Me!}(open_url:%link%)>";
 
             /**
              * error on auth link
              */
-            private String noLink = "{prefix} &cAn error occured while connecting web-server. Please visit our website.";
+            private String noLink = "{prefix} &cAn error occurred while connecting web-server. Please visit our website.";
         }
 
         /**
@@ -184,12 +184,12 @@ public class en extends Language {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&aTo sync your account with Discord, click here!{&5Click Me!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&aTo sync your account with Discord, &e&nclick here!{&eClick Me!}(open_url:%link%)>";
 
             /**
              * error on DiscordSync link
              */
-            private String noLink = "{prefix} &cAn error occured while connecting web-server. Please visit our website.";
+            private String noLink = "{prefix} &cAn error occurred while connecting web-server. Please visit our website.";
         }
 
         /**
@@ -228,10 +228,10 @@ public class en extends Language {
 
             private String successfullyGave = "{prefix} &aSuccessfully gave an voucher to &b{target} &afor amount &e{amount} credits(s)";
 
-            private String helpStaff = "{prefix} &7/vouchers give <player> <amount>";
+            private String helpStaff = "{prefix} &fUsage: &e/vouchers give <player> <amount>";
 
-            private String help = "{prefix} &7/vouchers create <amount>";
-
+            private String help = "{prefix} &fUsage: &e/vouchers create <amount>";
+            
         }
 
         /**
@@ -263,7 +263,7 @@ public class en extends Language {
 
             private String successfullyRemovedCredit = "{prefix} &aSuccessfully removed &e{amount} credit &afrom &b{target}&a.";
 
-            private String receivedCredit = "{prefix} &aYou just received &e{amount} credit(s) &afrom &e{player}.";
+            private String receivedCredit = "{prefix} &aYou just received &e{amount} credit(s) &afrom &b{player}&a.";
         }
 
         /**
@@ -277,7 +277,7 @@ public class en extends Language {
         @Getter @Setter
         public static class Connect extends Language.Messages.Connect {
 
-            private String connectExecutedCommand = "{prefix} &aConnect module executed &b%command%";
+            private String connectExecutedCommand = "{prefix} &aConnect module executed &e%command%";
 
             private String joinedSocketRoom = "{prefix} &aConnect module connected room successfully.";
         }
@@ -320,7 +320,7 @@ public class en extends Language {
                 /**
                  * material of item
                  */
-                private String name = "&aPrevious Page";
+                private String name = "&ePrevious Page";
             }
 
             /**
@@ -336,7 +336,7 @@ public class en extends Language {
                 /**
                  * material of item
                  */
-                private String name = "&aNext Page";
+                private String name = "&eNext Page";
             }
 
         }
@@ -375,7 +375,7 @@ public class en extends Language {
             /**
              * withdraw item title
              */
-            private String buyWebStoreTitle = "&6&lBuy Product";
+            private String buyWebStoreTitle = "&6&lBUY PRODUCT";
 
             /**
              * withdraw item subtitle progress
@@ -438,8 +438,9 @@ public class en extends Language {
                  */
                 private List<String> lore = Arrays.asList(
                         "&r",
-                        "&7Price &8» &e%price%",
-                        "&7Stock &8» &e%stock%",
+                        "&dProduct Details:",
+                        "&8 ▪ &7Price &8» &e%price%",
+                        "&8 ▪ &7Stock &8» &e%stock%",
                         "",
                         "&aClick for buy!"
                 );
@@ -470,7 +471,7 @@ public class en extends Language {
             /**
              * withdraw item title
              */
-            private String withdrawTitle = "&6&lWithdraw";
+            private String withdrawTitle = "&6&lWITHDRAW";
 
             /**
              * withdraw item subtitle progress
@@ -490,24 +491,24 @@ public class en extends Language {
             /**
              * Add item title
              */
-            private String addItemName = "&eAdd item to bazaar";
+            private String addItemName = "&eAdd Item";
 
             /**
              * Add item lore
              */
-            private List<String> addItemLore = Arrays.asList("", "&aClick for add item");
+            private List<String> addItemLore = Arrays.asList("", "&aClick for add item!");
 
             /**
              * Add item gui name
              */
             private String addItemGuiName = "&8Bazaar » Add item";
 
-            private String addItemMessage = "{prefix} &aAdded %item_name% to bazaar storage.";
+            private String addItemMessage = "{prefix} &aAdded &e%item_name% &ato bazaar storage.";
 
             /**
              * return item message
              */
-            private String returnItemMessage = "{prefix} &cYou have reached max storage amount &4(%max_amount%) &creturned &4%amount% &citem.";
+            private String returnItemMessage = "{prefix} &cYou have reached max storage amount &8(&4%max_amount%&8) &creturned &e%amount% &citem.";
         }
 
         /**
@@ -529,7 +530,7 @@ public class en extends Language {
             /**
              * name of donator item
              */
-            private String displayName = "&a%player%";
+            private String displayName = "&6%player%";
 
             /**
              * updates donation data
