@@ -34,39 +34,39 @@ public class tr extends Language {
         @Comment("Prefix of messages")
         private String prefix = "&3LeaderOS &8»";
 
-        private String playerNotOnline = "{prefix} &cTarget player is not online.";
+        private String playerNotOnline = "{prefix} &cOyuncu çevrimiçi değil.";
 
-        private String playerNotAvailable = "{prefix} &cPlayer is not available.";
+        private String playerNotAvailable = "{prefix} &cOyuncu mevcut değil.";
 
-        private String targetPlayerNotAvailable = "{prefix} &cTarget player is not available.";
+        private String targetPlayerNotAvailable = "{prefix} &cBu oyuncu mevcut değil.";
 
-        private String cannotCreateFull = "{prefix} &cPlease create some space in your inventory and try again.";
+        private String cannotCreateFull = "{prefix} &cEnvanterinde yeterli boşluk bulunmamakta, lütfen envanterini boşalt ve tekrar dene.";
 
         /**
          * Help commands message
          */
         @Comment("Help commands message")
         private List<String> help = Arrays.asList(
-                "&6&l  LEADEROS PLUGIN'S COMMANDS",
+                "&6&l  LEADEROS EKLENTI KOMUTLARI",
                 "",
-                "&8 ▪ &e/auth &8» &fGives you the auth link.",
-                "&8 ▪ &e/discord-sync &8» &fGives you the Discord sync link.",
+                "&8 ▪ &e/auth &8» &fHesap eşleme bağlantısı verir.",
+                "&8 ▪ &e/discord-sync &8» &fDiscord eşleme bağlantısı verir.",
                 "",
-                "&8 ▪ &e/webbazaar &8» &fOpens the Bazaar Storage menu.",
-                "&8 ▪ &e/webbazaar &8» &fOpens the Bazaar Storage menu.",
-                "&8 ▪ &e/donations &8» &fOpens the Donations menu.",
+                "&8 ▪ &e/webbazaar &8» &fPazar depo menüsünü açar.",
+                "&8 ▪ &e/webstore &8» &fMağaza menüsünü açar.",
+                "&8 ▪ &e/donations &8» &fBağışlar menüsünü açar.",
                 "",
-                "&8 ▪ &e/creditsvoucher give <player> <amount> &8» &fGives the player a credit voucher.",
-                "&8 ▪ &e/creditsvoucher create <amount> &8» &fCreates a credit voucher.",
+                "&8 ▪ &e/creditsvoucher give <oyuncu> <miktar> &8» &fKredi kağıdı verir.",
+                "&8 ▪ &e/creditsvoucher create <miktar> &8» &fKredi kağıdı oluşturur.",
                 "",
-                "&8 ▪ &e/credits &8» &fShows your credit amount.",
-                "&8 ▪ &e/credits see <target> &8» &fShows the player credit amount.",
-                "&8 ▪ &e/credits send <target> <amount> &8» &fSends credits to the player.",
-                "&8 ▪ &e/credits set <target> <amount> &8» &fSets the player's credits.",
-                "&8 ▪ &e/credits remove <target> <amount> &8» &fRemoves credits from the player.",
-                "&8 ▪ &e/credits add <target> <amount> &8» &fAdds credits to the player.",
+                "&8 ▪ &e/credits &8» &fKredi miktarını görüntüler.",
+                "&8 ▪ &e/credits see <oyuncu> &8» &fOyuncunun kredi miktarını görüntüler.",
+                "&8 ▪ &e/credits send <oyuncu> <miktar> &8» &fOyuncuya kredi gönderir.",
+                "&8 ▪ &e/credits set <oyuncu> <miktar> &8» &fOyuncunun kredisini ayarlar.",
+                "&8 ▪ &e/credits remove <oyuncu> <miktar> &8» &fOyuncunun kredisini siler.",
+                "&8 ▪ &e/credits add <oyuncu> <miktar> &8» &fOyuncuya kredi ekler.",
                 "",
-                "&8 ▪ &e/leaderos reload &8» &fReloads the config."
+                "&8 ▪ &e/leaderos reload &8» &fEklenti dosyalarını yeniler."
         );
 
         /**
@@ -87,22 +87,22 @@ public class tr extends Language {
             /**
              * Module enabled message
              */
-            private String moduleEnabled = "{prefix} &a%module_name% enabled.";
+            private String moduleEnabled = "{prefix} &e%module_name% &amodülü aktif edildi.";
 
             /**
              * Module closed message
              */
-            private String moduleClosed = "{prefix} &c%module_name% closed.";
+            private String moduleClosed = "{prefix} &e%module_name% &cmodülü kapandı.";
 
             /**
              * Module disabled message
              */
-            private String moduleDisabled = "{prefix} &4%module_name% disabled.";
+            private String moduleDisabled = "{prefix} &e%module_name% &cmodülü devre dışı bırakıldı.";
 
             /**
              * Missing dependency message
              */
-            private String missingDependency = "{prefix} &4%module_name% has not started due missing dependency. &c[%dependencies%]";
+            private String missingDependency = "{prefix} &e%module_name% &cmodülü gereksinimleri karşılayamadığı için başlatılamadı. Gereksinim: &8[&c%dependencies%&8]";
         }
 
         /**
@@ -119,27 +119,27 @@ public class tr extends Language {
             /**
              * Invalid argument message
              */
-            private String invalidArgument = "{prefix} &cInvalid argument!";
+            private String invalidArgument = "{prefix} &cBilinmeyen argüman girdiniz!";
 
             /**
              * Unknown command message
              */
-            private String unknownCommand = "{prefix} &cUnknown command!";
+            private String unknownCommand = "{prefix} &cBilinmeyen komut girdiniz!";
 
             /**
              * Not enough arguments message
              */
-            private String notEnoughArguments = "{prefix} &cNot enough arguments!";
+            private String notEnoughArguments = "{prefix} &cYetersiz argüman girdiniz!";
 
             /**
              * too many arguments message
              */
-            private String tooManyArguments = "{prefix} &cToo many arguments!";
+            private String tooManyArguments = "{prefix} &cÇok fazla argüman girdiniz!";
 
             /**
              * no perm message
              */
-            private String noPerm = "{prefix} &cYou do not have permission to do this action!";
+            private String noPerm = "{prefix} &cBu işlemi yapabilmek için yeterli yetkiye sahip değilsin!";
 
         }
 
@@ -157,17 +157,17 @@ public class tr extends Language {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&aFor authentication click here!{&5Click Me!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&aHesabını eşlemek için  &e&nburaya tıkla!{&eTıkla!}(open_url:%link%)>";
 
             /**
              * Module error message
              */
-            private String moduleError = "{prefix} <&cThis system require you to login website, click here!{&5Click Me!}(open_url:%link%)>";
+            private String moduleError = "{prefix} <&cSistem siteye girişi gerektirmektedir. Giriş yapmak için  &e&nburaya tıkla!{&eTıkla!}(open_url:%link%)>";
 
             /**
              * error on auth link
              */
-            private String noLink = "{prefix} &cAn error occured while connecting web-server. Please visit our website.";
+            private String noLink = "{prefix} &cSunucuya bağlanırken hata oluştu.";
         }
 
         /**
@@ -184,12 +184,12 @@ public class tr extends Language {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} <&aTo sync your account with Discord, click here!{&5Click Me!}(open_url:%link%)>";
+            private String commandMessage = "{prefix} <&aHesabını discord ile eşlemek için  &e&nburaya tıkla!{&eTıkla!}(open_url:%link%)>";
 
             /**
              * error on DiscordSync link
              */
-            private String noLink = "{prefix} &cAn error occured while connecting web-server. Please visit our website.";
+            private String noLink = "{prefix} &cSunucuya bağlanırken hata oluştu.";
         }
 
         /**
@@ -204,33 +204,33 @@ public class tr extends Language {
         public static class Vouchers extends Language.Messages.Vouchers {
 
             @Comment({
-                    "Voucher item name",
-                    "You can use {amount} for amount of voucher"
+                    "Kredi kağıdı eşya ismi",
+                    "Kredi kağıdı tutarı için {amount} kullanabilirsiniz"
             })
-            private String itemDisplayName = "&8[&a{amount} credit(s)&8] &7#{id}";
+            private String itemDisplayName = "&8[&a{amount} kredi&8] &7#{id}";
 
-            @Comment("Voucher item lore")
-            private List<String> itemLore = Collections.singletonList("&7Right click to use this voucher.");
+            @Comment("Kredi kağıdı eşya açıklaması")
+            private List<String> itemLore = Collections.singletonList("&7Kağıdı kullanmak için sağ tıklayın.");
 
             @Comment({
-                    "Players should not have the vouchers anyway, they get deleted after used once.",
-                    "This is a thing only if there is a dupe bug."
+                    "Kullanıcı kredi kağıdını tekrar kullanmaya çalıştığındaki hata mesajı.",
+                    "Bu kopyalama açığını engeller."
             })
-            private String alreadyUsed = "{prefix} &cThis voucher already used.";
+            private String alreadyUsed = "{prefix} &cBu kredi kağıdı zaten kullanılmış.";
 
-            private String successfullyUsed = "{prefix} &aSuccessfully used a voucher that worth &e{amount} credit(s)&a.";
+            private String successfullyUsed = "{prefix} &aKredi kağıdı başarıyla kullanıldı. &e{amount} kredi &ahesabına eklendi.";
 
-            private String successfullyCreated = "{prefix} &aSuccessfully created a voucher that worth &e{amount} credit(s)&a.";
+            private String successfullyCreated = "{prefix} &e{amount} kredi &adeğerindeki kredi kağıdı başarıyla oluşturuldu.";
 
-            private String cannotCreateNegative = "{prefix} &cPlease enter a valid amount. The amount must be higher than 0.";
+            private String cannotCreateNegative = "{prefix} &cLütfen geçerli bir miktar giriniz.";
 
-            private String cannotCreateNotEnough = "{prefix} &cYou do not have enough credit(s). Required: &e{amount} credits(s)";
+            private String cannotCreateNotEnough = "{prefix} &cYeterli miktarda krediye sahip değilsin. Gereken: &e{amount} kredi";
 
-            private String successfullyGave = "{prefix} &aSuccessfully gave an voucher to &b{target} &afor amount &e{amount} credits(s)";
+            private String successfullyGave = "{prefix} &b{target} &aadlı oyuncuya &e{amount} kredi &adeğerindeki kredi kağıdı verildi.";
 
-            private String helpStaff = "{prefix} &7/vouchers give <player> <amount>";
+            private String helpStaff = "{prefix} &7/vouchers give <oyuncu> <miktar>";
 
-            private String help = "{prefix} &7/vouchers create <amount>";
+            private String help = "{prefix} &7/vouchers create <miktar>";
 
         }
 
@@ -245,25 +245,25 @@ public class tr extends Language {
         @Getter @Setter
         public static class Credit extends Language.Messages.Credit {
 
-            private String creditInfo = "{prefix} &aYou have &e{amount} &acredit(s)";
+            private String creditInfo = "{prefix} &e{amount} &akrediye sahipsin.";
 
-            private String creditInfoOther = "{prefix} &b{target} &ahas &e{amount} &acredit(s)";
+            private String creditInfoOther = "{prefix} &b{target} &aadlı oyuncunun &e{amount} &akredisi bulunuyor.";
 
-            private String cannotSendCreditYourself = "{prefix} &cYou can not send credit(s) to yourself.";
+            private String cannotSendCreditYourself = "{prefix} &cKendine kredi gönderemezsin.";
 
-            private String cannotSendCreditNegative = "{prefix} &cPlease enter a valid amount. The amount must be higher than 0.";
+            private String cannotSendCreditNegative = "{prefix} &cLütfen geçerli bir miktar giriniz.";
 
-            private String cannotSendCreditNotEnough = "{prefix} &cYou do not have enough credit(s).";
+            private String cannotSendCreditNotEnough = "{prefix} &cYeterli miktarda krediye sahip değilsin. Gereken: &e{amount} kredi";
 
-            private String successfullySentCredit = "{prefix} &aSuccessfully sent &e{amount} credit(s) &ato &b{target}&a.";
+            private String successfullySentCredit = "{prefix} &b{target} &aadlı oyuncuya başarıyla &e{amount} kredi &agönderildi.";
 
-            private String successfullySetCredit = "{prefix} &aSuccessfully set credits to &e{amount} &afor &b{target}&a.";
+            private String successfullySetCredit = "{prefix} &b{target} &aadlı oyuncunun kredisi başarıyla &e{amount} olarak ayarlandı.";
 
-            private String successfullyAddedCredit = "{prefix} &aSuccessfully added &e{amount} credit &ato &b{target}&a.";
+            private String successfullyAddedCredit = "{prefix} &b{target} &aadlı oyuncuya başarıyla &e{amount} kredi &aeklendi.";
 
-            private String successfullyRemovedCredit = "{prefix} &aSuccessfully removed &e{amount} credit &afrom &b{target}&a.";
+            private String successfullyRemovedCredit = "{prefix} &b{target} adlı oyuncunun &e{amount} kredisi &abaşarıyla silindi.";
 
-            private String receivedCredit = "{prefix} &aYou just received &e{amount} credit(s) &afrom &e{player}.";
+            private String receivedCredit = "{prefix} &b{player} &aadlı oyuncudan &e{amount} kredi &aaldın.";
         }
 
         /**
@@ -277,9 +277,9 @@ public class tr extends Language {
         @Getter @Setter
         public static class Connect extends Language.Messages.Connect {
 
-            private String connectExecutedCommand = "{prefix} &aConnect module executed &b%command%";
+            private String connectExecutedCommand = "{prefix} &aConnect modülü tarafından komut çalıştırıldı: &e%command%";
 
-            private String joinedSocketRoom = "{prefix} &aConnect module connected room successfully.";
+            private String joinedSocketRoom = "{prefix} &aConnect modülü başarıyla bağlandı.";
         }
     }
 
@@ -320,7 +320,7 @@ public class tr extends Language {
                 /**
                  * material of item
                  */
-                private String name = "&aPrevious Page";
+                private String name = "&eÖnceki Sayfa";
             }
 
             /**
@@ -336,7 +336,7 @@ public class tr extends Language {
                 /**
                  * material of item
                  */
-                private String name = "&aNext Page";
+                private String name = "&eSonraki Sayfa";
             }
 
         }
@@ -355,7 +355,7 @@ public class tr extends Language {
             /**
              * name of gui
              */
-            private String guiName = "&8WebStore";
+            private String guiName = "&8Site Market";
 
             /**
              * Discounted price format
@@ -370,37 +370,37 @@ public class tr extends Language {
             /**
              * Stock unlimited format
              */
-            private String stockUnlimited = "&6&lUNLIMITED";
+            private String stockUnlimited = "&6&lLIMITSIZ";
 
             /**
              * withdraw item title
              */
-            private String buyWebStoreTitle = "&6&lBuy Product";
+            private String buyWebStoreTitle = "&6&lSATIN AL";
 
             /**
              * withdraw item subtitle progress
              */
-            private String buyWebStoreProgress = "&7Buy in progress...";
+            private String buyWebStoreProgress = "&7Satın alım devam ediyor...";
 
             /**
              * withdraw item subtitle success
              */
-            private String buyWebStoreSuccess = "&aBuy success.";
+            private String buyWebStoreSuccess = "&aSatın alım başarılı.";
 
             /**
              * withdraw item subtitle success
              */
-            private String buyWebStoreNotEnoughCredit = "&cNot enough credits.";
+            private String buyWebStoreNotEnoughCredit = "&cYetersiz kredi.";
 
             /**
              * withdraw item subtitle error
              */
-            private String buyWebStoreError = "&cBuy error.";
+            private String buyWebStoreError = "&cSatın alım hatası.";
 
             /**
              * register website for this action
              */
-            private String buyWebStoreNoAuthLinkError = "{prefix} &cYou must register website for this action!";
+            private String buyWebStoreNoAuthLinkError = "{prefix} &cBu işlemi yapabilmek için siteye kayıt olmalısın.";
 
             /**
              * Default Category attributes
@@ -418,7 +418,7 @@ public class tr extends Language {
                  */
                 private List<String> lore = Arrays.asList(
                         "&r",
-                        "&aClick for open category!"
+                        "&aTıkla ve kategoriyi aç!"
                 );
             }
 
@@ -438,10 +438,11 @@ public class tr extends Language {
                  */
                 private List<String> lore = Arrays.asList(
                         "&r",
-                        "&7Price &8» &e%price%",
-                        "&7Stock &8» &e%stock%",
+                        "&dÜrün Detayları:",
+                        "&8 ▪ &7Fiyat &8» &e%price%",
+                        "&8 ▪ &7Stok &8» &e%stock%",
                         "",
-                        "&aClick for buy!"
+                        "&aTıkla ve satın al!"
                 );
             }
         }
@@ -460,54 +461,54 @@ public class tr extends Language {
             /**
              * name of gui
              */
-            private String guiName = "&8Bazaar";
+            private String guiName = "&8Pazar";
 
             /**
              * lore modifier
              */
-            private String clickLore = "&aClick this for re-take!";
+            private String clickLore = "&aTıkla ve geri al!";
 
             /**
              * withdraw item title
              */
-            private String withdrawTitle = "&6&lWithdraw";
+            private String withdrawTitle = "&6&lGERI ALIM";
 
             /**
              * withdraw item subtitle progress
              */
-            private String withdrawProgressSubtitle = "&7Withraw in progress...";
+            private String withdrawProgressSubtitle = "&7Geri alım devam ediyor...";
 
             /**
              * withdraw item subtitle success
              */
-            private String withdrawSuccessSubtitle = "&aWithdraw success.";
+            private String withdrawSuccessSubtitle = "&aGeri alım başarılı.";
 
             /**
              * withdraw item subtitle error
              */
-            private String withdrawErrorSubtitle = "&cWithdraw error.";
+            private String withdrawErrorSubtitle = "&cGeri alım hatası.";
 
             /**
              * Add item title
              */
-            private String addItemName = "&eAdd item to bazaar";
+            private String addItemName = "&eEşya Ekle";
 
             /**
              * Add item lore
              */
-            private List<String> addItemLore = Arrays.asList("", "&aClick for add item");
+            private List<String> addItemLore = Arrays.asList("", "&aTıkla ve eşya ekle!");
 
             /**
              * Add item gui name
              */
-            private String addItemGuiName = "&8Bazaar » Add item";
+            private String addItemGuiName = "&8Pazar » Eşya Ekle";
 
-            private String addItemMessage = "{prefix} &aAdded %item_name% to bazaar storage.";
+            private String addItemMessage = "{prefix} &e%item_name% &aeşyası pazar deposuna eklendi.";
 
             /**
              * return item message
              */
-            private String returnItemMessage = "{prefix} &cYou have reached max storage amount &4(%max_amount%) &creturned &4%amount% &citem.";
+            private String returnItemMessage = "{prefix} &cDepo sınırına ulaştın, en fazla &8(&4%max_amount%&8) &ceşya ekleyebilirsin. &e%amount% &cadet eşya iade edildi.";
         }
 
         /**
@@ -524,24 +525,24 @@ public class tr extends Language {
             /**
              * name of gui
              */
-            private String guiName = "&8Recent Donations";
+            private String guiName = "&8Son Bağışçılar";
 
             /**
              * name of donator item
              */
-            private String displayName = "&a%player%";
+            private String displayName = "&6%player%";
 
             /**
              * updates donation data
              */
-            private String updatedDonationDataMessage = "{prefix} &aUpdated donations data.";
+            private String updatedDonationDataMessage = "{prefix} &aBağışçı verileri güncellendi.";
 
             /**
              * lore of donator item
              */
             private List<String> lore = Arrays.asList(
                     "",
-                    "&7Donation: &e%credit% %symbol%",
+                    "&7Bağış: &e%credit% %symbol%",
                     ""
             );
         }
