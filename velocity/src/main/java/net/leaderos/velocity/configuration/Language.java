@@ -83,22 +83,22 @@ public class Language extends OkaeriConfig {
             /**
              * Module enabled message
              */
-            private String moduleEnabled = "{prefix} &a%module_name% enabled.";
+            private String moduleEnabled = "{prefix} &e%module_name% &aenabled.";
 
             /**
              * Module closed message
              */
-            private String moduleClosed = "{prefix} &c%module_name% closed.";
+            private String moduleClosed = "{prefix} &e%module_name% &cclosed.";
 
             /**
              * Module disabled message
              */
-            private String moduleDisabled = "{prefix} &4%module_name% disabled.";
+            private String moduleDisabled = "{prefix} &e%module_name% &cdisabled.";
 
             /**
              * Missing dependency message
              */
-            private String missingDependency = "{prefix} &4%module_name% has not started due missing dependency. &c[%dependencies%]";
+            private String missingDependency = "{prefix} &e%module_name% &chas not started due missing dependency. &8[&e%dependencies%&8]";
         }
 
         /**
@@ -153,12 +153,12 @@ public class Language extends OkaeriConfig {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} &aFor authentication click here!";
+            private String commandMessage = "{prefix} &aFor authentication &e&nclick here!";
 
             /**
              * Module error message
              */
-            private String moduleError = "{prefix} &cThis system require you to login website, click here!";
+            private String moduleError = "{prefix} &cThis system require you to login website, &e&nlick here!";
 
             /**
              * error on auth link
@@ -168,7 +168,7 @@ public class Language extends OkaeriConfig {
             /**
              * Hover message
              */
-            private String hoverMessage = "&aClick here to open url!";
+            private String hoverMessage = "&eClick here to open url!";
         }
 
         /**
@@ -185,7 +185,7 @@ public class Language extends OkaeriConfig {
             /**
              * Command Message
              */
-            private String commandMessage = "{prefix} &aTo sync your account with Discord, click here!";
+            private String commandMessage = "{prefix} &aTo sync your account with Discord, &e&nlick here!";
 
             /**
              * error on DiscordSync link
@@ -195,7 +195,7 @@ public class Language extends OkaeriConfig {
             /**
              * Hover message
              */
-            private String hoverMessage = "&aClick here to open url!";
+            private String hoverMessage = "&eClick here to open url!";
         }
 
         /**
@@ -227,7 +227,7 @@ public class Language extends OkaeriConfig {
 
             private String successfullyRemovedCredit = "{prefix} &aSuccessfully removed &e{amount} credit &afrom &b{target}&a.";
 
-            private String receivedCredit = "{prefix} &aYou just received &e{amount} credit(s) &afrom &e{player}.";
+            private String receivedCredit = "{prefix} &aYou just received &e{amount} credit(s) &afrom &b{player}&a.";
         }
 
         /**
@@ -241,7 +241,7 @@ public class Language extends OkaeriConfig {
         @Getter @Setter
         public static class Connect extends OkaeriConfig {
 
-            private String connectExecutedCommand = "{prefix} &aConnect module executed &b%command%";
+            private String connectExecutedCommand = "{prefix} &aConnect module executed &e%command%";
 
             private String joinedSocketRoom = "{prefix} &aConnect module connected room successfully.";
         }
