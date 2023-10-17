@@ -2,6 +2,7 @@ net.leaderos.bungee
 net.leaderos.bungee.api
 net.leaderos.bungee.commands
 net.leaderos.bungee.configuration
+net.leaderos.bungee.configuration.lang
 net.leaderos.bungee.helper
 net.leaderos.bungee.helper.MDChat
 net.leaderos.bungee.modules.auth
@@ -62,6 +63,7 @@ net.leaderos.velocity
 net.leaderos.velocity.api
 net.leaderos.velocity.commands
 net.leaderos.velocity.configuration
+net.leaderos.velocity.configuration.lang
 net.leaderos.velocity.helper
 net.leaderos.velocity.modules.auth
 net.leaderos.velocity.modules.auth.commands
