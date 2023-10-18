@@ -31,7 +31,7 @@
         <dependency>
             <groupId>net.leaderos</groupId>
             <artifactId>shared</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>1.0</version>
             <scope>compile</scope>
         </dependency>
         <!-- Mojang Dep -->
