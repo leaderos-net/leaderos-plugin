@@ -21,7 +21,7 @@ import net.leaderos.velocity.configuration.Language;
 import net.leaderos.velocity.configuration.Modules;
 import net.leaderos.velocity.modules.auth.AuthModule;
 import net.leaderos.velocity.modules.connect.ConnectModule;
-import net.leaderos.velocity.modules.credits.CreditModule;
+import net.leaderos.velocity.modules.credit.CreditModule;
 import net.leaderos.velocity.modules.discord.DiscordModule;
 import org.slf4j.Logger;
 

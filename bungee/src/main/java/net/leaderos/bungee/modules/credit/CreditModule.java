@@ -1,7 +1,7 @@
-package net.leaderos.bungee.modules.credits;
+package net.leaderos.bungee.modules.credit;
 
 import net.leaderos.bungee.Bungee;
-import net.leaderos.bungee.modules.credits.commands.CreditCommand;
+import net.leaderos.bungee.modules.credit.commands.CreditCommand;
 import net.leaderos.shared.modules.LeaderOSModule;
 
 /**

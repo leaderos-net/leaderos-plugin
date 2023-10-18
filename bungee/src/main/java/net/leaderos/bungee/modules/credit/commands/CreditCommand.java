@@ -1,4 +1,4 @@
-package net.leaderos.bungee.modules.credits.commands;
+package net.leaderos.bungee.modules.credit.commands;
 
 import net.leaderos.bungee.Bungee;
 import net.leaderos.bungee.helpers.ChatUtil;

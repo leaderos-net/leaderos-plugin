@@ -10,7 +10,7 @@ import net.leaderos.bungee.configuration.Language;
 import net.leaderos.bungee.configuration.Modules;
 import net.leaderos.bungee.modules.auth.AuthModule;
 import net.leaderos.bungee.modules.connect.ConnectModule;
-import net.leaderos.bungee.modules.credits.CreditModule;
+import net.leaderos.bungee.modules.credit.CreditModule;
 import net.leaderos.bungee.modules.discord.DiscordModule;
 import net.leaderos.shared.Shared;
 import net.md_5.bungee.api.plugin.Plugin;

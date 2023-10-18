@@ -1,10 +1,10 @@
-package net.leaderos.velocity.modules.credits;
+package net.leaderos.velocity.modules.credit;
 
 import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.command.SimpleCommand;
 import net.leaderos.shared.modules.LeaderOSModule;
 import net.leaderos.velocity.Velocity;
-import net.leaderos.velocity.modules.credits.commands.CreditCommand;
+import net.leaderos.velocity.modules.credit.commands.CreditCommand;
 
 
 /**

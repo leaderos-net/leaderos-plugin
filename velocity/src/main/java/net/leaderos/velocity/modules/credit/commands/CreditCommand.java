@@ -1,4 +1,4 @@
-package net.leaderos.velocity.modules.credits.commands;
+package net.leaderos.velocity.modules.credit.commands;
 
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
