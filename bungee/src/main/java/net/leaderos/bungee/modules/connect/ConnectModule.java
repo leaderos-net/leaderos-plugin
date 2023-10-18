@@ -6,7 +6,7 @@ import net.leaderos.bungee.Bungee;
 import net.leaderos.bungee.helper.ChatUtil;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.module.LeaderOSModule;
-import net.leaderos.shared.socket.SocketClient;
+import net.leaderos.shared.module.connect.socket.SocketClient;
 
 import java.net.URISyntaxException;
 

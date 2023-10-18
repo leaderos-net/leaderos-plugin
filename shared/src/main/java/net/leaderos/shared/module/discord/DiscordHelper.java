@@ -32,6 +32,7 @@ public class DiscordHelper {
     /**
      * Generates discord sync link
      * @param username username of executor
+     * @return String of url
      */
     public static String getSyncLink(String username) {
         try {

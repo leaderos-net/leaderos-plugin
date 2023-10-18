@@ -1,4 +1,4 @@
-package net.leaderos.shared.socket;
+package net.leaderos.shared.module.connect.socket;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
@@ -27,6 +27,7 @@ public abstract class SocketClient {
 
     /**
      * Constructor of Client also a socket listener
+     * @param apiKey api key of socket
      * @param serverToken room of socket
      * @throws URISyntaxException exception
      */

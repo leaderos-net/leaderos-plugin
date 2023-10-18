@@ -5,7 +5,7 @@ import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.module.LeaderOSModule;
-import net.leaderos.shared.socket.SocketClient;
+import net.leaderos.shared.module.connect.socket.SocketClient;
 import net.leaderos.velocity.Velocity;
 import net.leaderos.velocity.helper.ChatUtil;
 

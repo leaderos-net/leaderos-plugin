@@ -157,7 +157,6 @@ public class ItemUtils {
      * get item with a material.
      * @param material of item
      * @param name of item
-     * @param lore of item
      * @return ItemStack of destination item
      */
     public static @NotNull ItemStack getItem(XMaterial material, String name) {
@@ -173,6 +172,7 @@ public class ItemUtils {
     /**
      * converts xmaterial to string
      * @param item Item
+     * @return String of item
      */
     public static String getName(ItemStack item) {
         XMaterial material = XMaterial.matchXMaterial(item);

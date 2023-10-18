@@ -36,6 +36,7 @@ public class AuthHelper {
      * sends auth command message
      * @param playerName name of executor
      * @param playerUUID uuid of executor
+     * @return String of url
      */
     public static String getAuthLink(String playerName, UUID playerUUID) {
         try {

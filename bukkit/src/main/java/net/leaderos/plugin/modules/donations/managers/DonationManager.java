@@ -51,8 +51,9 @@ public class DonationManager {
 
     /**
      * Gets donation data by index id
-     * @param index of list
-     * @return RecentDonationData
+     * @param type of donation
+     * @param index of donation
+     * @return Donation
      */
     public static Donation getDonation(DonationType type, int index) {
         try {

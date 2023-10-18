@@ -33,6 +33,7 @@ public enum DonationType {
 
     /**
      * Gets gui char
+     * @return char of gui
      */
     public char getGuiChar() {
         switch (this) {
@@ -52,6 +53,7 @@ public enum DonationType {
 
     /**
      * Gets gui info char
+     * @return char of gui info
      */
     public char getGuiInfoChar() {
         switch (this) {

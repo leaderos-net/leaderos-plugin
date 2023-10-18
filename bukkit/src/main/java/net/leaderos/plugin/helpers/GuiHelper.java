@@ -27,6 +27,8 @@ public class GuiHelper {
     /**
      * Filler item of guis.
      * Filler item basically fills empty slots of gui
+     * @param status status of filler
+     * @param materialName material name of filler
      *
      * @return ItemStack of filler
      */
@@ -42,6 +44,7 @@ public class GuiHelper {
 
     /**
      * Previous page item creator
+     * @param materialName material name of previous page item
      *
      * @return GuiElement of previous menu icon
      */
@@ -56,6 +59,7 @@ public class GuiHelper {
 
     /**
      * Next page item creator
+     * @param materialName material name of next page item
      *
      * @return GuiElement of next menu icon
      */
