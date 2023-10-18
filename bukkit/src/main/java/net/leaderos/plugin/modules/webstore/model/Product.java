@@ -110,11 +110,11 @@ public class Product {
 
         try {
             this.productLore = Arrays.asList(product.getString("minecraftDescription").split("\r\n"));
-            if (productLore.isEmpty())
-                throw new Exception();
         }
-        catch (Exception e) {
-            this.productLore = Main.getInstance().getLangFile().getGui().getWebStoreGui().getDefaultProduct().getLore();
+        catch (Exception ignored) {}
+        finally {
+            this.productLore.addAll(
+                    Main.getInstance().getLangFile().getGui().getWebStoreGui().getDefaultProduct().getLore());
         }
 
         // price, discountedPrice, stock data
