@@ -38,6 +38,7 @@ net.leaderos.plugin.modules.discord.commands
 net.leaderos.plugin.modules.donations
 net.leaderos.plugin.modules.donations.commands
 net.leaderos.plugin.modules.donations.gui
+net.leaderos.plugin.modules.donations.managers
 net.leaderos.plugin.modules.donations.model
 net.leaderos.plugin.modules.donations.timer
 net.leaderos.plugin.modules.voucher
@@ -55,10 +56,10 @@ net.leaderos.shared.model
 net.leaderos.shared.model.request
 net.leaderos.shared.module
 net.leaderos.shared.module.auth
+net.leaderos.shared.module.connect.socket
 net.leaderos.shared.module.credit
 net.leaderos.shared.module.credit.helper
 net.leaderos.shared.module.discord
-net.leaderos.shared.socket
 net.leaderos.velocity
 net.leaderos.velocity.api
 net.leaderos.velocity.commands
