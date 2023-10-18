@@ -1,6 +1,6 @@
 name: LeaderOS
 authors: [leaderos, geik]
-main: net.leaderos.plugin.Main
+main: net.leaderos.plugin.Bukkit
 version: 1.0
 api-version: 1.13
 softdepend: [PlaceholderAPI]
