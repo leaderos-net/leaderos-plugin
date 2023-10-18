@@ -8,8 +8,8 @@ net.leaderos.bungee.helpers.MDChat
 net.leaderos.bungee.modules.auth
 net.leaderos.bungee.modules.auth.commands
 net.leaderos.bungee.modules.connect
-net.leaderos.bungee.modules.credits
-net.leaderos.bungee.modules.credits.commands
+net.leaderos.bungee.modules.credit
+net.leaderos.bungee.modules.credit.commands
 net.leaderos.bungee.modules.discord
 net.leaderos.bungee.modules.discord.commands
 net.leaderos.plugin
@@ -69,7 +69,7 @@ net.leaderos.velocity.helpers
 net.leaderos.velocity.modules.auth
 net.leaderos.velocity.modules.auth.commands
 net.leaderos.velocity.modules.connect
-net.leaderos.velocity.modules.credits
-net.leaderos.velocity.modules.credits.commands
+net.leaderos.velocity.modules.credit
+net.leaderos.velocity.modules.credit.commands
 net.leaderos.velocity.modules.discord
 net.leaderos.velocity.modules.discord.commands
