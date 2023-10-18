@@ -6,10 +6,10 @@
     <parent>
         <groupId>net.leaderos</groupId>
         <artifactId>leaderos</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
 
-    <artifactId>velocity</artifactId>
+    <artifactId>leaderos-velocity</artifactId>
     <packaging>jar</packaging>
 
     <properties>
