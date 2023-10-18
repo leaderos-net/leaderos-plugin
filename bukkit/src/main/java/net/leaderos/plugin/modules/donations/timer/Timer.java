@@ -1,7 +1,7 @@
 package net.leaderos.plugin.modules.donations.timer;
 
 import net.leaderos.plugin.Main;
-import net.leaderos.plugin.modules.donations.model.RecentDonationData;
+import net.leaderos.plugin.modules.donations.model.Donation;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
@@ -27,7 +27,7 @@ public class Timer {
                 super.cancel();
             }
             public void run() {
-                RecentDonationData.updateAllRecentDonationsData();
+                Donation.updateAllData();
             }
 
         };

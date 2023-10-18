@@ -9,7 +9,9 @@ import net.leaderos.plugin.Main;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.GuiHelper;
 import net.leaderos.plugin.modules.donations.Donations;
-import net.leaderos.plugin.modules.donations.model.RecentDonationData;
+import net.leaderos.plugin.modules.donations.model.Donation;
+import net.leaderos.plugin.modules.donations.model.DonationType;
+import net.leaderos.plugin.modules.donations.model.DonatorData;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
@@ -42,8 +44,20 @@ public class RecentDonationGui {
         // Filler item for empty slots
         gui.setFiller(GuiHelper.getFiller(Main.getInstance().getModulesFile().getDonations().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getDonations().getGui().getFillerItem().getMaterial()));
 
-        GuiElementGroup donationItems = getGuiElementGroup();
-        gui.addElement(donationItems);
+        GuiElementGroup allTimeGroup = getGuiElementGroup(DonationType.ALLTIME);
+        gui.addElement(allTimeGroup);
+
+        GuiElementGroup annualGroup = getGuiElementGroup(DonationType.ANNUAL);
+        gui.addElement(annualGroup);
+
+        GuiElementGroup dailyGroup = getGuiElementGroup(DonationType.DAILY);
+        gui.addElement(dailyGroup);
+
+        GuiElementGroup latestGroup = getGuiElementGroup(DonationType.LATEST);
+        gui.addElement(latestGroup);
+
+        GuiElementGroup monthlyGroup = getGuiElementGroup(DonationType.MONTHLY);
+        gui.addElement(monthlyGroup);
         // Next and previous page icons
         gui.addElement(GuiHelper.createNextPage(Main.getInstance().getModulesFile().getDonations().getGui().getNextPage().getItem()));
         gui.addElement(GuiHelper.createPreviousPage(Main.getInstance().getModulesFile().getDonations().getGui().getPreviousPage().getItem()));
@@ -55,12 +69,12 @@ public class RecentDonationGui {
      * @return GuiElementGroup of donation data
      */
     @NotNull
-    private static GuiElementGroup getGuiElementGroup() {
-        List<RecentDonationData> recentDonationData = RecentDonationData.getRecentDonationDataList();
+    private static GuiElementGroup getGuiElementGroup(DonationType type) {
+        List<DonatorData> donatorData = Donation.getDonationData().get(type).getDonatorDataList();
         // donation items group creator
-        GuiElementGroup donationItems = new GuiElementGroup('d');
-        if (!recentDonationData.isEmpty())
-            recentDonationData.forEach(donationData -> donationItems.addElement(new DynamicGuiElement('s', (viewer)
+        GuiElementGroup donationItems = new GuiElementGroup(type.getGuiChar());
+        if (!donatorData.isEmpty())
+            donatorData.forEach(donationData -> donationItems.addElement(new DynamicGuiElement('s', (viewer)
                     -> new StaticGuiElement('s',
                     Donations.getDonationHead(donationData),
                     1,

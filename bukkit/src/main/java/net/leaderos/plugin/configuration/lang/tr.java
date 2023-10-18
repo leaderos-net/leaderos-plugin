@@ -12,6 +12,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author poyrazinan
+ * @since 1.0
+ */
 @Getter @Setter
 @Names(strategy = NameStrategy.HYPHEN_CASE, modifier = NameModifier.TO_LOWER_CASE)
 public class tr extends Language {

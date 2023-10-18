@@ -436,11 +436,6 @@ public class Modules extends OkaeriConfig {
         private long updateSecond = 900;
 
         /**
-         * Limit of recent donations
-         */
-        private int recentDonationLimit = 5;
-
-        /**
          * Gui object
          */
         private Modules.Donations.Gui gui = new Donations.Gui();
@@ -457,8 +452,8 @@ public class Modules extends OkaeriConfig {
              */
             @Comment("Layout of gui")
             private List<String> layout = Arrays.asList(
-                    "         ",
-                    "  ddddd  ",
+                    " a y d m ",
+                    "  lllll  ",
                     "b       n"
             );
 
