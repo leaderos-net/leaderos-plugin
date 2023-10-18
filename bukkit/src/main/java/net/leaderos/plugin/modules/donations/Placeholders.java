@@ -1,9 +1,9 @@
 package net.leaderos.plugin.modules.donations;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import net.leaderos.plugin.modules.donations.model.Donation;
+import net.leaderos.plugin.modules.donations.managers.DonationManager;
 import net.leaderos.plugin.modules.donations.model.DonationType;
-import net.leaderos.plugin.modules.donations.model.DonatorData;
+import net.leaderos.plugin.modules.donations.model.Donation;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
@@ -51,21 +51,21 @@ public class Placeholders extends PlaceholderExpansion {
      */
     @Override
     public String onPlaceholderRequest(Player p, String identifier) {
-        if (identifier.startsWith("name_")) {
+        if (identifier.startsWith("username_")) {
             DonationType type = getDonationType(identifier);
             if (type == null)
                 return "";
-            DonatorData donation = getDonatorLine(type, identifier);
+            Donation donation = getDonationLine(type, identifier);
             if (donation != null)
-                return donation.getUserName();
+                return donation.getUsername();
         }
-        else if (identifier.startsWith("credit_")) {
+        else if (identifier.startsWith("amount_")) {
             DonationType type = getDonationType(identifier);
             if (type == null)
                 return "";
-            DonatorData donation = getDonatorLine(type, identifier);
+            Donation donation = getDonationLine(type, identifier);
             if (donation != null)
-                return String.valueOf(donation.getCredit());
+                return String.valueOf(donation.getAmount());
         }
 
         return "";
@@ -74,16 +74,17 @@ public class Placeholders extends PlaceholderExpansion {
     /**
      * Gets donation data for placeholder
      * @param identifier placeholder data
-     * @return RecentDonationData of index
+     * @return DonationData of index
      */
-    private @Nullable DonatorData getDonatorLine(DonationType type, String identifier) {
+    private @Nullable Donation getDonationLine(DonationType type, String identifier) {
         try {
             String[] parts = identifier.split("_");
             String lastPart = parts[parts.length - 1];
-            int donatorLine =  Integer.parseInt(lastPart);
-            if (donatorLine > 10)
+            int donationLine =  Integer.parseInt(lastPart);
+            if (donationLine > 10)
                 return null;
-            return Donation.getDonationData(type, donatorLine-1);
+
+            return DonationManager.getDonation(type, donationLine - 1);
 
         }
         catch (Exception e) { return null; }
@@ -97,9 +98,11 @@ public class Placeholders extends PlaceholderExpansion {
     private @Nullable DonationType getDonationType(String identifier) {
         try {
             String[] parts = identifier.split("_");
-            String part = parts[parts.length - 2].toUpperCase(Locale.ENGLISH);
-            DonationType type = DonationType.valueOf(part);
-            return type;
+            String part = parts[parts.length - 2]
+                    .toUpperCase(Locale.ENGLISH)
+                    .replace("-", "_");
+
+            return DonationType.valueOf(part);
         }
         catch (Exception e) { return null; }
     }

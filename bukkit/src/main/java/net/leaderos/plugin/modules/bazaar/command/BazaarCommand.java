@@ -24,7 +24,7 @@ public class BazaarCommand extends BaseCommand {
      * @param player executor
      */
     @Default
-    @Permission("bazaar.open")
+    @Permission("leaderos.bazaar.open")
     public void defaultCommand(Player player) {
         if (ModuleManager.getModule("Bazaar").isEnabled() && User.isPlayerAuthed(player))
             BazaarGui.showGui(player);

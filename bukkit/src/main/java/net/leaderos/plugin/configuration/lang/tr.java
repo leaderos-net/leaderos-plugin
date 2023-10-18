@@ -534,7 +534,7 @@ public class tr extends Language {
             /**
              * name of donator item
              */
-            private String displayName = "&6%player%";
+            private String displayName = "&e#%i% &6%player%";
 
             /**
              * updates donation data
@@ -546,9 +546,106 @@ public class tr extends Language {
              */
             private List<String> lore = Arrays.asList(
                     "",
-                    "&7Bağış: &e%credit% %symbol%",
+                    "&7Bağış: &e%amount% %symbol%",
                     ""
             );
+
+            /**
+             * Info attributes
+             */
+            private Info info = new Info();
+
+            /**
+             * Donations info
+             */
+            @Getter @Setter
+            public static class Info extends Language.Gui.DonationsGUI.Info {
+
+                /**
+                 * Latest Donations info attributes
+                 */
+                private Latest latest = new Latest();
+
+                /**
+                 * Latest Donations info
+                 */
+                @Getter @Setter
+                public static class Latest extends Language.Gui.DonationsGUI.Info.Latest {
+
+                    /**
+                     * Item name
+                     */
+                    private String displayName = "&eSon Bağışlar";
+                }
+
+                /**
+                 * Top Donations (All Time) info attributes
+                 */
+                private TopAllTime topAllTime = new TopAllTime();
+
+                /**
+                 * Top Donations (All Time) info
+                 */
+                @Getter @Setter
+                public static class TopAllTime extends Language.Gui.DonationsGUI.Info.TopAllTime {
+
+                    /**
+                     * Item name
+                     */
+                    private String displayName = "&eEn Çok Bağış Yapanlar (Tüm Zamanlar)";
+                }
+
+                /**
+                 * Top Donations (Annual) info attributes
+                 */
+                private TopAnnual topAnnual = new TopAnnual();
+
+                /**
+                 * Top Donations (Annual) info
+                 */
+                @Getter @Setter
+                public static class TopAnnual extends Language.Gui.DonationsGUI.Info.TopAnnual {
+
+                    /**
+                     * Item name
+                     */
+                    private String displayName = "&eEn Çok Bağış Yapanlar (Yıllık)";
+                }
+
+                /**
+                 * Top Donations (Monthly) info attributes
+                 */
+                private TopMonthly topMonthly = new TopMonthly();
+
+                /**
+                 * Top Donations (Monthly) info
+                 */
+                @Getter @Setter
+                public static class TopMonthly extends Language.Gui.DonationsGUI.Info.TopMonthly {
+
+                    /**
+                     * Item name
+                     */
+                    private String displayName = "&eEn Çok Bağış Yapanlar (Aylık)";
+                }
+
+                /**
+                 * Top Donations (Daily) info attributes
+                 */
+                private TopDaily topDaily = new TopDaily();
+
+                /**
+                 * Top Donations (Daily) info
+                 */
+                @Getter @Setter
+                public static class TopDaily extends Language.Gui.DonationsGUI.Info.TopDaily {
+
+                    /**
+                     * Item name
+                     */
+                    private String displayName = "&eEn Çok Bağış Yapanlar (Günlük)";
+                }
+            }
         }
     }
 }

@@ -8,8 +8,7 @@ import lombok.SneakyThrows;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.bazaar.model.PlayerBazaar;
 import net.leaderos.plugin.modules.cache.model.User;
-import net.leaderos.plugin.Main;
-import net.leaderos.shared.Shared;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.shared.exceptions.CacheNotFoundException;
 import net.leaderos.plugin.helpers.GuiHelper;
 import org.bukkit.entity.Player;
@@ -36,12 +35,12 @@ public class BazaarGui {
     @SneakyThrows
     public static void showGui(Player player) {
         // Gui template as array
-        String[] layout = Main.getInstance().getModulesFile().getBazaar().getGui().getLayout().toArray(new String[0]);
+        String[] layout = Bukkit.getInstance().getModulesFile().getBazaar().getGui().getLayout().toArray(new String[0]);
         // Inventory object
-        String guiName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getGuiName());
-        InventoryGui gui = new InventoryGui(Main.getInstance(), null, guiName, layout);
+        String guiName = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getGuiName());
+        InventoryGui gui = new InventoryGui(Bukkit.getInstance(), null, guiName, layout);
         // Filler item for empty slots
-        gui.setFiller(GuiHelper.getFiller(Main.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().getMaterial()));
+        gui.setFiller(GuiHelper.getFiller(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().isUseFiller(), Bukkit.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().getMaterial()));
 
         // List creator
         List<PlayerBazaar> playerBazaarList;
@@ -72,13 +71,13 @@ public class BazaarGui {
                             click.getEvent().setCancelled(true);
                             gui.close();
                             if (player.getInventory().firstEmpty() == -1) {
-                                ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getCannotCreateFull());
+                                ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCannotCreateFull());
                                 return false;
                             }
-                            String title = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawTitle());
-                            String subtitleError = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawErrorSubtitle());
-                            String subtitleSuccess = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawSuccessSubtitle());
-                            String subtitleProgress = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawProgressSubtitle());
+                            String title = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawTitle());
+                            String subtitleError = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawErrorSubtitle());
+                            String subtitleSuccess = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawSuccessSubtitle());
+                            String subtitleProgress = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawProgressSubtitle());
                             player.sendTitle(title, subtitleProgress);
                             boolean withdrawStatus = playerBazaarItem.withdrawItem(player);
                             if (withdrawStatus)
@@ -92,8 +91,8 @@ public class BazaarGui {
         gui.addElement(bazaarGui);
 
         // Next and previous page icons
-        gui.addElement(GuiHelper.createNextPage(Main.getInstance().getModulesFile().getBazaar().getGui().getNextPage().getItem()));
-        gui.addElement(GuiHelper.createPreviousPage(Main.getInstance().getModulesFile().getBazaar().getGui().getPreviousPage().getItem()));
+        gui.addElement(GuiHelper.createNextPage(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getNextPage().getItem()));
+        gui.addElement(GuiHelper.createPreviousPage(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getPreviousPage().getItem()));
         gui.show(player);
     }
 }

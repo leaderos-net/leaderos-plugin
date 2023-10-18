@@ -3,9 +3,9 @@ package net.leaderos.plugin.modules.bazaar.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.plugin.modules.bazaar.Bazaar;
+import net.leaderos.plugin.modules.bazaar.BazaarModule;
 import net.leaderos.plugin.helpers.ItemUtils;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.DeleteRequest;
@@ -64,7 +64,7 @@ public class PlayerBazaar {
         List<String> lore = new ArrayList<>();
         if (meta != null && meta.getLore() != null)
             lore = meta.getLore();
-        lore.add(ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getClickLore()));
+        lore.add(ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getClickLore()));
         meta.setLore(lore);
         item.setItemMeta(meta);
         return item;
@@ -96,7 +96,7 @@ public class PlayerBazaar {
      */
     public static List<PlayerBazaar> getBazaarStorage(String userId) {
         try {
-            int serverId = Bazaar.getServerId();
+            int serverId = BazaarModule.getServerId();
             GetRequest getRequest = new GetRequest("bazaar/storages/" + userId + "/items?serverID=" + serverId);
             JSONObject response = getRequest.getResponse().getResponseMessage();
             List<PlayerBazaar> playerBazaarList = new ArrayList<>();

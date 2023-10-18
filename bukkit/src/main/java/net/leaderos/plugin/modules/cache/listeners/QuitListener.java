@@ -1,8 +1,7 @@
 package net.leaderos.plugin.modules.cache.listeners;
 
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.cache.model.User;
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -26,7 +25,7 @@ public class QuitListener implements Listener {
      */
     @EventHandler
     public void quitListener(PlayerQuitEvent event) {
-        Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> User.unloadPlayerCache(event.getPlayer().getName()));
+        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> User.unloadPlayerCache(event.getPlayer().getName()));
     }
 
 }

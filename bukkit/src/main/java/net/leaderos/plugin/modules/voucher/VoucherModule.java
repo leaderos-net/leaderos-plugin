@@ -1,12 +1,11 @@
 package net.leaderos.plugin.modules.voucher;
 
 import lombok.Getter;
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.voucher.commands.VoucherCommand;
 import net.leaderos.plugin.modules.voucher.listeners.VoucherListener;
 import net.leaderos.plugin.modules.voucher.data.Data;
 import net.leaderos.shared.module.LeaderOSModule;
-import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 
 /**
@@ -14,7 +13,7 @@ import org.bukkit.event.HandlerList;
  * @author poyrazinan
  * @since 1.0
  */
-public class Voucher extends LeaderOSModule {
+public class VoucherModule extends LeaderOSModule {
 
     /**
      * Voucher data folder
@@ -33,8 +32,8 @@ public class Voucher extends LeaderOSModule {
     public void onEnable() {
         (voucherData = new Data("voucher_data.yml")).create();
         voucherListener = new VoucherListener();
-        Bukkit.getPluginManager().registerEvents(voucherListener, Main.getInstance());
-        Main.getCommandManager().registerCommand(new VoucherCommand());
+        org.bukkit.Bukkit.getPluginManager().registerEvents(voucherListener, Bukkit.getInstance());
+        Bukkit.getCommandManager().registerCommand(new VoucherCommand());
     }
 
     /**
@@ -42,11 +41,11 @@ public class Voucher extends LeaderOSModule {
      */
     public void onDisable() {
         HandlerList.unregisterAll(voucherListener);
-        Main.getCommandManager().unregisterCommand(new VoucherCommand());
+        Bukkit.getCommandManager().unregisterCommand(new VoucherCommand());
     }
 
     /**
      * Constructor of Voucher class
      */
-    public Voucher() { addDependency("Credit"); }
+    public VoucherModule() { addDependency("Credit"); }
 }

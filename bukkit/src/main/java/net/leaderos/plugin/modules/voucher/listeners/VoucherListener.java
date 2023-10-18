@@ -2,16 +2,15 @@ package net.leaderos.plugin.modules.voucher.listeners;
 
 import com.cryptomorin.xseries.XMaterial;
 import de.tr7zw.nbtapi.NBTItem;
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.handlers.UpdateCacheEvent;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.plugin.modules.voucher.Voucher;
+import net.leaderos.plugin.modules.voucher.VoucherModule;
 import net.leaderos.shared.helpers.MoneyUtils;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.module.credit.CreditHelper;
 import net.leaderos.shared.module.credit.helper.UpdateType;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -45,7 +44,7 @@ public class VoucherListener implements Listener {
 
         Player player = event.getPlayer();
 
-        if (!player.hasPermission("credits.voucher.use")) return;
+        if (!player.hasPermission("leaderos.voucher.use")) return;
 
         ItemStack itemStack = event.getItem();
         if (itemStack.getType() == Material.AIR)
@@ -65,13 +64,13 @@ public class VoucherListener implements Listener {
         double amount = MoneyUtils.parseDouble(nbtItem.getDouble("voucher:amount"));
         // Checks amount just in case
         if (amount <= 0) {
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getVouchers().getCannotCreateNegative());
+            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getVouchers().getCannotCreateNegative());
             return;
         }
         // Checks is voucher has been used before
-        List<Integer> list = Voucher.getVoucherData().getIntegerList("used");
+        List<Integer> list = VoucherModule.getVoucherData().getIntegerList("used");
         if (list.contains(id)) {
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getVouchers().getAlreadyUsed());
+            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getVouchers().getAlreadyUsed());
             return;
         }
 
@@ -80,19 +79,19 @@ public class VoucherListener implements Listener {
                 && depositResponse.getResponseMessage().getBoolean("status")) {
             remove(player, id);
             list.add(id);
-            Voucher.getVoucherData().set("used", list);
-            Voucher.getVoucherData().save();
+            VoucherModule.getVoucherData().set("used", list);
+            VoucherModule.getVoucherData().save();
             awaitingVouchers.remove(String.valueOf(id));
 
             // Calls UpdateCache event for update player's cache
-            Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.ADD));
+            org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.ADD));
             ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                    Main.getInstance().getLangFile().getMessages().getVouchers()
+                    Bukkit.getInstance().getLangFile().getMessages().getVouchers()
                             .getSuccessfullyUsed(), new Placeholder("{amount}", MoneyUtils.format(amount))
             ));
         }
         else {
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
+            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
             awaitingVouchers.remove(String.valueOf(id));
         }
     }

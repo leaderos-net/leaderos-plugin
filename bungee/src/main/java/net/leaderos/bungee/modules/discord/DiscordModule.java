@@ -14,7 +14,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
  * @author rafaelflromao
  * @since 1.0
  */
-public class Discord extends LeaderOSModule {
+public class DiscordModule extends LeaderOSModule {
 
     /**
      * Commands of module
@@ -60,6 +60,6 @@ public class Discord extends LeaderOSModule {
     /**
      * Constructor of Auth
      */
-    public Discord() {
+    public DiscordModule() {
     }
 }

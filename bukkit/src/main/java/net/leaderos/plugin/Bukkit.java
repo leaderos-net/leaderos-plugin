@@ -11,17 +11,17 @@ import net.leaderos.plugin.configuration.Config;
 import net.leaderos.plugin.configuration.Language;
 import net.leaderos.plugin.configuration.Modules;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.plugin.modules.connect.Connect;
-import net.leaderos.plugin.modules.credit.Credit;
-import net.leaderos.plugin.modules.discord.Discord;
-import net.leaderos.plugin.modules.donations.Donations;
-import net.leaderos.plugin.modules.voucher.Voucher;
+import net.leaderos.plugin.modules.connect.ConnectModule;
+import net.leaderos.plugin.modules.credit.CreditModule;
+import net.leaderos.plugin.modules.discord.DiscordModule;
+import net.leaderos.plugin.modules.donations.DonationsModule;
+import net.leaderos.plugin.modules.voucher.VoucherModule;
 import net.leaderos.shared.Shared;
-import net.leaderos.plugin.modules.cache.Cache;
+import net.leaderos.plugin.modules.cache.CacheModule;
 import net.leaderos.plugin.commands.LeaderOSCommand;
-import net.leaderos.plugin.modules.bazaar.Bazaar;
-import net.leaderos.plugin.modules.webstore.WebStore;
-import net.leaderos.plugin.modules.auth.AuthLogin;
+import net.leaderos.plugin.modules.bazaar.BazaarModule;
+import net.leaderos.plugin.modules.webstore.WebStoreModule;
+import net.leaderos.plugin.modules.auth.AuthModule;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -33,13 +33,13 @@ import java.io.File;
  * @since 1.0
  * @author poyrazinan
  */
-public class Main extends JavaPlugin {
+public class Bukkit extends JavaPlugin {
 
     /**
      * Instance of plugin
      */
     @Getter
-    private static Main instance;
+    private static Bukkit instance;
 
     /**
      * Instance of shared;
@@ -78,8 +78,8 @@ public class Main extends JavaPlugin {
     public void onLoad() {
         instance = this;
         setupFiles();
-        shared = new Shared(Main.getInstance().getConfigFile().getSettings().getUrl(),
-                Main.getInstance().getConfigFile().getSettings().getApiKey());
+        shared = new Shared(Bukkit.getInstance().getConfigFile().getSettings().getUrl(),
+                Bukkit.getInstance().getConfigFile().getSettings().getApiKey());
     }
 
     /**
@@ -89,15 +89,15 @@ public class Main extends JavaPlugin {
         commandManager = BukkitCommandManager.create(this);
         setupCommands();
         // Loads modules
-        LeaderOSAPI.getModuleManager().registerModule(new AuthLogin());
-        LeaderOSAPI.getModuleManager().registerModule(new Discord());
-        LeaderOSAPI.getModuleManager().registerModule(new Cache());
-        LeaderOSAPI.getModuleManager().registerModule(new Credit());
-        LeaderOSAPI.getModuleManager().registerModule(new WebStore());
-        LeaderOSAPI.getModuleManager().registerModule(new Bazaar());
-        LeaderOSAPI.getModuleManager().registerModule(new Voucher());
-        LeaderOSAPI.getModuleManager().registerModule(new Donations());
-        LeaderOSAPI.getModuleManager().registerModule(new Connect());
+        LeaderOSAPI.getModuleManager().registerModule(new AuthModule());
+        LeaderOSAPI.getModuleManager().registerModule(new DiscordModule());
+        LeaderOSAPI.getModuleManager().registerModule(new CacheModule());
+        LeaderOSAPI.getModuleManager().registerModule(new CreditModule());
+        LeaderOSAPI.getModuleManager().registerModule(new WebStoreModule());
+        LeaderOSAPI.getModuleManager().registerModule(new BazaarModule());
+        LeaderOSAPI.getModuleManager().registerModule(new VoucherModule());
+        LeaderOSAPI.getModuleManager().registerModule(new DonationsModule());
+        LeaderOSAPI.getModuleManager().registerModule(new ConnectModule());
         LeaderOSAPI.getModuleManager().enableModules();
     }
 
@@ -165,6 +165,6 @@ public class Main extends JavaPlugin {
     /**
      * Constructor of Main class
      */
-    public Main() {}
+    public Bukkit() {}
 
 }

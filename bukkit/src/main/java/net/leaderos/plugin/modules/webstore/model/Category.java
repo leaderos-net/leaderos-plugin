@@ -3,7 +3,7 @@ package net.leaderos.plugin.modules.webstore.model;
 import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
 import lombok.Setter;
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.ItemUtils;
 import net.leaderos.shared.exceptions.RequestException;
@@ -99,7 +99,7 @@ public class Category {
                 throw new Exception();
         }
         catch (Exception e) {
-            this.categoryLore = Main.getInstance().getLangFile().getGui().getWebStoreGui().getDefaultCategory().getLore();
+            this.categoryLore = Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getDefaultCategory().getLore();
         }
 
         String materialName = category.getString("minecraftItem");
@@ -107,7 +107,7 @@ public class Category {
             this.material = XMaterial.matchXMaterial(category.getString("minecraftItem")).get();
 
         if (material == null || !material.isSupported())
-            this.material = XMaterial.matchXMaterial(Main.getInstance().getModulesFile().getWebStore().getGui().getDefaultCategory().getMaterial()).orElse(XMaterial.CHEST);
+            this.material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getDefaultCategory().getMaterial()).orElse(XMaterial.CHEST);
 
         // products
         JSONArray products = category.getJSONArray("products");

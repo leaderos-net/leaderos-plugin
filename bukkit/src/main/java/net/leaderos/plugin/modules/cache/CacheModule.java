@@ -1,12 +1,11 @@
 package net.leaderos.plugin.modules.cache;
 
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.cache.listeners.CacheUpdateEvent;
 import net.leaderos.plugin.modules.cache.listeners.LoginListener;
 import net.leaderos.plugin.modules.cache.listeners.QuitListener;
 import net.leaderos.plugin.modules.cache.model.User;
 import net.leaderos.shared.module.LeaderOSModule;
-import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 
 /**
@@ -15,7 +14,7 @@ import org.bukkit.event.HandlerList;
  * @author poyrazinan
  * @since 1.0
  */
-public class Cache extends LeaderOSModule {
+public class CacheModule extends LeaderOSModule {
 
     /**
      * LoginListener for load cache
@@ -39,13 +38,13 @@ public class Cache extends LeaderOSModule {
         loginListener = new LoginListener();
         quitListener = new QuitListener();
         cacheUpdateEvent = new CacheUpdateEvent();
-        Bukkit.getPluginManager().registerEvents(loginListener, Main.getInstance());
-        Bukkit.getPluginManager().registerEvents(quitListener, Main.getInstance());
-        Bukkit.getPluginManager().registerEvents(cacheUpdateEvent, Main.getInstance());
+        org.bukkit.Bukkit.getPluginManager().registerEvents(loginListener, Bukkit.getInstance());
+        org.bukkit.Bukkit.getPluginManager().registerEvents(quitListener, Bukkit.getInstance());
+        org.bukkit.Bukkit.getPluginManager().registerEvents(cacheUpdateEvent, Bukkit.getInstance());
         // Loads all player data
         User.loadAllPlayers();
         // Placeholder loader
-        if( Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
+        if( org.bukkit.Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             new Placeholders().register();
     }
 
@@ -59,12 +58,12 @@ public class Cache extends LeaderOSModule {
         // Removes cache
         User.getUserList().clear();
         // Placeholder unloader
-        if( Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
+        if( org.bukkit.Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             new Placeholders().unregister();
     }
 
     /**
      * Constructor of Cache
      */
-    public Cache() {}
+    public CacheModule() {}
 }

@@ -2,7 +2,7 @@ package net.leaderos.bungee.modules.auth.commands;
 
 import net.leaderos.bungee.Bungee;
 import net.leaderos.bungee.helper.ChatUtil;
-import net.leaderos.bungee.modules.auth.AuthLogin;
+import net.leaderos.bungee.modules.auth.AuthModule;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
@@ -32,7 +32,7 @@ public class AuthCommand extends Command {
         if (sender instanceof ProxiedPlayer) {
             ProxiedPlayer player = (ProxiedPlayer) sender;
             if (player.hasPermission("leaderos.auth"))
-                AuthLogin.sendAuthCommandMessage((ProxiedPlayer) sender);
+                AuthModule.sendAuthCommandMessage((ProxiedPlayer) sender);
             else
                 ChatUtil.sendMessage(sender, Bungee.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
 

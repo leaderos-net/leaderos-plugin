@@ -3,9 +3,8 @@ package net.leaderos.plugin.modules.cache.model;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.shared.model.request.GetRequest;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -142,8 +141,8 @@ public class User {
      * loads all player data
      */
     public static void loadAllPlayers() {
-        Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () ->
-                Bukkit.getOnlinePlayers().forEach(User::loadPlayerCache));
+        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () ->
+                org.bukkit.Bukkit.getOnlinePlayers().forEach(User::loadPlayerCache));
     }
 
     /**

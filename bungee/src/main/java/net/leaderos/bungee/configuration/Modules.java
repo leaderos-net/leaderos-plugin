@@ -18,21 +18,21 @@ import lombok.Setter;
 public class Modules extends OkaeriConfig {
 
     /**
-     * authlogin system
+     * Auth system
      */
-    private AuthLogin AuthLogin = new AuthLogin();
+    private Auth Auth = new Auth();
 
     /**
-     * AuthLogin module settings
+     * Auth module settings
      *
      * @since 1.0
      * @author poyrazinan
      */
     @Getter
     @Setter
-    public static class AuthLogin extends OkaeriConfig {
+    public static class Auth extends OkaeriConfig {
         /**
-         * Status of AuthLogin mode
+         * Status of Auth mode
          */
         private boolean status = true;
     }
@@ -54,7 +54,7 @@ public class Modules extends OkaeriConfig {
         /**
          * Status of Discord mode
          */
-        private boolean status = true;
+        private boolean status = false;
     }
 
     /**

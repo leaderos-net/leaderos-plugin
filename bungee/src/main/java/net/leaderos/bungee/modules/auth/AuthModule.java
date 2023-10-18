@@ -6,7 +6,6 @@ import net.leaderos.bungee.helper.MDChat.MDChatAPI;
 import net.leaderos.bungee.modules.auth.commands.AuthCommand;
 import net.leaderos.shared.module.LeaderOSModule;
 import net.leaderos.shared.module.auth.AuthHelper;
-import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 /**
@@ -15,7 +14,7 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
  * @author poyrazinan
  * @since 1.0
  */
-public class AuthLogin extends LeaderOSModule {
+public class AuthModule extends LeaderOSModule {
 
     /**
      * Commands of module
@@ -82,6 +81,6 @@ public class AuthLogin extends LeaderOSModule {
     /**
      * Constructor of Auth
      */
-    public AuthLogin() {
+    public AuthModule() {
     }
 }

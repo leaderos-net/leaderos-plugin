@@ -3,17 +3,16 @@ package net.leaderos.plugin.modules.bazaar.gui;
 import com.cryptomorin.xseries.XMaterial;
 import de.themoep.inventorygui.*;
 import lombok.SneakyThrows;
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.GameUtils;
 import net.leaderos.plugin.helpers.GuiHelper;
 import net.leaderos.plugin.modules.cache.model.User;
-import net.leaderos.plugin.modules.bazaar.Bazaar;
+import net.leaderos.plugin.modules.bazaar.BazaarModule;
 import net.leaderos.plugin.helpers.ItemUtils;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.PostRequest;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -45,29 +44,29 @@ public class BazaarAddItemGui {
     @SneakyThrows
     public static void showGui(Player player, int itemAmount) {
         // Gui template as array
-        String[] layout = Main.getInstance().getModulesFile().getBazaar().getGui().getAddItemLayout().toArray(new String[0]);
+        String[] layout = Bukkit.getInstance().getModulesFile().getBazaar().getGui().getAddItemLayout().toArray(new String[0]);
         // Inventory object
-        String guiName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemGuiName());
-        InventoryGui gui = new InventoryGui(Main.getInstance(), null, guiName, layout);
+        String guiName = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getAddItemGuiName());
+        InventoryGui gui = new InventoryGui(Bukkit.getInstance(), null, guiName, layout);
         // Filler item for empty slots
-        ItemStack fillerItem = GuiHelper.getFiller(Main.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().getMaterial());
+        ItemStack fillerItem = GuiHelper.getFiller(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().isUseFiller(), Bukkit.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().getMaterial());
         gui.setFiller(fillerItem);
 
         // With a virtual inventory to access items later on
-        Inventory inv = Bukkit.createInventory(null, InventoryType.CHEST);
+        Inventory inv = org.bukkit.Bukkit.createInventory(null, InventoryType.CHEST);
         gui.addElement(new GuiStorageElement('i', inv));
         // Close action area (event)
         gui.setCloseAction(close -> {
             // Calculating storage amounts
             int maxStorageAmount = GameUtils.getAmountFromPerm(player,
                     "bazaar.maxstorage.",
-                    Main.getInstance().getModulesFile().getBazaar().getDefaultStorageSize());
+                    Bukkit.getInstance().getModulesFile().getBazaar().getDefaultStorageSize());
 
             int canStoreAmount = maxStorageAmount - itemAmount;
             // Items which stored (airs included)
             List<ItemStack> items =  Arrays.stream(inv.getContents()).collect(Collectors.toList());
             String userId = User.getUser(player.getName()).getId();
-            int serverId = Bazaar.getServerId();
+            int serverId = BazaarModule.getServerId();
 
             // If player maxed out storage limit items will be added to
             // this list then gives back to player.
@@ -133,7 +132,7 @@ public class BazaarAddItemGui {
                     if (postBazaarItem.getResponseCode() == HttpURLConnection.HTTP_OK
                             && postBazaarItem.getResponseMessage().getBoolean("status")) {
                         ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                                Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemMessage(),
+                                Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getAddItemMessage(),
                                 new Placeholder("%item_name%", name)
                         ));
                     }
@@ -150,7 +149,7 @@ public class BazaarAddItemGui {
             if (!returnItems.isEmpty()) {
                 PlayerInventory playerInventory = player.getInventory();
                 returnItems.forEach(playerInventory::addItem);
-                String returnMessage = Main.getInstance().getLangFile().getGui().getBazaarGui().getReturnItemMessage();
+                String returnMessage = Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getReturnItemMessage();
                 returnMessage = returnMessage.replace("%max_amount%", String.valueOf(maxStorageAmount))
                                 .replace("%amount%", String.valueOf(returnItems.size()));
                 ChatUtil.sendMessage(player, returnMessage);

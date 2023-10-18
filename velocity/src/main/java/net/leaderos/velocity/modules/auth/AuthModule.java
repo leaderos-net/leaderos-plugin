@@ -4,12 +4,8 @@ import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.format.TextColor;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.leaderos.shared.module.LeaderOSModule;
 import net.leaderos.shared.module.auth.AuthHelper;
 import net.leaderos.velocity.Velocity;
@@ -22,7 +18,7 @@ import net.leaderos.velocity.modules.auth.commands.AuthCommand;
  * @author poyrazinan
  * @since 1.0
  */
-public class AuthLogin extends LeaderOSModule {
+public class AuthModule extends LeaderOSModule {
 
     /**
      * Command meta of module
@@ -112,6 +108,6 @@ public class AuthLogin extends LeaderOSModule {
     /**
      * Constructor of Auth
      */
-    public AuthLogin() {
+    public AuthModule() {
     }
 }

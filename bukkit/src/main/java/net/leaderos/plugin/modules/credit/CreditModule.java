@@ -1,6 +1,6 @@
 package net.leaderos.plugin.modules.credit;
 
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.credit.commands.CreditCommand;
 import net.leaderos.shared.module.LeaderOSModule;
 
@@ -10,24 +10,24 @@ import net.leaderos.shared.module.LeaderOSModule;
  * @author poyrazinan
  * @since 1.0
  */
-public class Credit extends LeaderOSModule {
+public class CreditModule extends LeaderOSModule {
 
     /**
      * onEnable method of module
      */
     public void onEnable() {
-        Main.getCommandManager().registerCommand(new CreditCommand());
+        Bukkit.getCommandManager().registerCommand(new CreditCommand());
     }
 
     /**
      * onDisable method of module
      */
     public void onDisable() {
-        Main.getCommandManager().unregisterCommand(new CreditCommand());
+        Bukkit.getCommandManager().unregisterCommand(new CreditCommand());
     }
 
     /**
      * Constructor of Credit
      */
-    public Credit() {}
+    public CreditModule() {}
 }

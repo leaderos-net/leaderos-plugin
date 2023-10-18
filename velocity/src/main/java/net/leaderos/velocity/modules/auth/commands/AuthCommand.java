@@ -5,7 +5,7 @@ import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
 import net.leaderos.velocity.Velocity;
 import net.leaderos.velocity.helper.ChatUtil;
-import net.leaderos.velocity.modules.auth.AuthLogin;
+import net.leaderos.velocity.modules.auth.AuthModule;
 
 /**
  * AuthCommand of auth module
@@ -24,7 +24,7 @@ public class AuthCommand implements SimpleCommand {
         if (source instanceof Player) {
             Player player = (Player) source;
             if (player.hasPermission("leaderos.auth"))
-                AuthLogin.sendAuthCommandMessage(player);
+                AuthModule.sendAuthCommandMessage(player);
             else
                 ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
 

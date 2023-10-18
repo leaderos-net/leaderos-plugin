@@ -2,7 +2,7 @@ package net.leaderos.bungee.modules.discord.commands;
 
 import net.leaderos.bungee.Bungee;
 import net.leaderos.bungee.helper.ChatUtil;
-import net.leaderos.bungee.modules.discord.Discord;
+import net.leaderos.bungee.modules.discord.DiscordModule;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
@@ -31,7 +31,7 @@ public class SyncCommand extends Command {
     public void execute(CommandSender sender, String[] args) {
         if (sender instanceof ProxiedPlayer)
             if (sender.hasPermission("leaderos.discord.sync"))
-                Discord.sendSyncCommandMessage((ProxiedPlayer) sender);
+                DiscordModule.sendSyncCommandMessage((ProxiedPlayer) sender);
             else
                 ChatUtil.sendMessage(sender, Bungee.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
     }

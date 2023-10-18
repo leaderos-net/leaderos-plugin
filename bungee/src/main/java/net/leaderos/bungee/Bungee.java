@@ -8,10 +8,10 @@ import net.leaderos.bungee.commands.LeaderOSCommand;
 import net.leaderos.bungee.configuration.Config;
 import net.leaderos.bungee.configuration.Language;
 import net.leaderos.bungee.configuration.Modules;
-import net.leaderos.bungee.modules.auth.AuthLogin;
-import net.leaderos.bungee.modules.connect.Connect;
-import net.leaderos.bungee.modules.credits.Credit;
-import net.leaderos.bungee.modules.discord.Discord;
+import net.leaderos.bungee.modules.auth.AuthModule;
+import net.leaderos.bungee.modules.connect.ConnectModule;
+import net.leaderos.bungee.modules.credits.CreditModule;
+import net.leaderos.bungee.modules.discord.DiscordModule;
 import net.leaderos.shared.Shared;
 import net.md_5.bungee.api.plugin.Plugin;
 
@@ -70,10 +70,10 @@ public class Bungee extends Plugin {
         shared = new Shared(getConfigFile().getSettings().getUrl(),
                 getConfigFile().getSettings().getApiKey());
         Bungee.getInstance().getProxy().getPluginManager().registerCommand(Bungee.getInstance(), new LeaderOSCommand("leaderos"));
-        getModuleManager().registerModule(new AuthLogin());
-        getModuleManager().registerModule(new Discord());
-        getModuleManager().registerModule(new Credit());
-        getModuleManager().registerModule(new Connect());
+        getModuleManager().registerModule(new AuthModule());
+        getModuleManager().registerModule(new DiscordModule());
+        getModuleManager().registerModule(new CreditModule());
+        getModuleManager().registerModule(new ConnectModule());
         getModuleManager().enableModules();
     }
 

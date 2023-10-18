@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
  * @since 1.0
  */
 @RequiredArgsConstructor
-@Command(value = "webshop", alias = {"webstore", "store", "sitemarket", "webmarket"})
+@Command(value = "webstore", alias = {"webshop", "sitemarket", "webmarket"})
 public class WebStoreCommand extends BaseCommand {
 
     /**
@@ -24,7 +24,7 @@ public class WebStoreCommand extends BaseCommand {
      * @param player executor
      */
     @Default
-    @Permission("webshop.open")
+    @Permission("leaderos.webstore.open")
     public void defaultCommand(Player player) {
         LeaderOSAPI.getModuleManager();
         if (ModuleManager.getModule("WebStore").isEnabled())

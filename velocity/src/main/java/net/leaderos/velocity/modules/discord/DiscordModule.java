@@ -18,7 +18,7 @@ import net.leaderos.velocity.modules.discord.commands.SyncCommand;
  * @author rafaelflromao
  * @since 1.0
  */
-public class Discord extends LeaderOSModule {
+public class DiscordModule extends LeaderOSModule {
 
     /**
      * Command meta of module
@@ -81,6 +81,6 @@ public class Discord extends LeaderOSModule {
     /**
      * Constructor of Discord
      */
-    public Discord() {
+    public DiscordModule() {
     }
 }

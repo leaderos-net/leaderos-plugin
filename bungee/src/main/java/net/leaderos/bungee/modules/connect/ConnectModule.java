@@ -17,7 +17,7 @@ import java.net.URISyntaxException;
  * @since 1.0
  */
 @Getter
-public class Connect extends LeaderOSModule {
+public class ConnectModule extends LeaderOSModule {
 
     private SocketClient socket;
 
@@ -62,6 +62,6 @@ public class Connect extends LeaderOSModule {
     /**
      * Constructor of connect
      */
-    public Connect() {
+    public ConnectModule() {
     }
 }

@@ -1,7 +1,7 @@
 package net.leaderos.plugin.modules.donations.timer;
 
-import net.leaderos.plugin.Main;
-import net.leaderos.plugin.modules.donations.model.Donation;
+import net.leaderos.plugin.Bukkit;
+import net.leaderos.plugin.modules.donations.managers.DonationManager;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
@@ -27,13 +27,13 @@ public class Timer {
                 super.cancel();
             }
             public void run() {
-                Donation.updateAllData();
+                DonationManager.updateAllData();
             }
 
         };
-        taskid.runTaskTimerAsynchronously(Main.getInstance(),
+        taskid.runTaskTimerAsynchronously(Bukkit.getInstance(),
                 1L,
-                20*Main.getInstance().getModulesFile().getDonations().getUpdateSecond());
+                20* Bukkit.getInstance().getModulesFile().getDonations().getUpdateSecond());
 
     }
 }

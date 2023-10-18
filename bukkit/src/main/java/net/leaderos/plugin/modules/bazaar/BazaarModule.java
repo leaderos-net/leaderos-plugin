@@ -1,7 +1,7 @@
 package net.leaderos.plugin.modules.bazaar;
 
 import lombok.Getter;
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.bazaar.command.BazaarCommand;
 import net.leaderos.shared.module.LeaderOSModule;
 
@@ -11,7 +11,7 @@ import net.leaderos.shared.module.LeaderOSModule;
  * @author poyrazinan
  * @since 1.0
  */
-public class Bazaar extends LeaderOSModule {
+public class BazaarModule extends LeaderOSModule {
 
     /**
      * Server id
@@ -23,21 +23,21 @@ public class Bazaar extends LeaderOSModule {
      * onEnable method of module
      */
     public void onEnable() {
-        serverId = Main.getInstance().getModulesFile().getBazaar().getServerId();
-        Main.getCommandManager().registerCommand(new BazaarCommand());
+        serverId = Bukkit.getInstance().getModulesFile().getBazaar().getServerId();
+        Bukkit.getCommandManager().registerCommand(new BazaarCommand());
     }
 
     /**
      * onDisable method of module
      */
     public void onDisable() {
-        Main.getCommandManager().unregisterCommand(new BazaarCommand());
+        Bukkit.getCommandManager().unregisterCommand(new BazaarCommand());
     }
 
     /**
      * Constructor of WebStore
      */
-    public Bazaar() {
+    public BazaarModule() {
         addDependency("Cache");
     }
 }

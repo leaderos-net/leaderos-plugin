@@ -22,21 +22,21 @@ import java.util.List;
 public class Modules extends OkaeriConfig {
 
     /**
-     *
+     * Auth system
      */
-    private AuthLogin AuthLogin = new AuthLogin();
+    private Auth Auth = new Auth();
 
     /**
-     * AuthLogin module settings
+     * Auth module settings
      *
      * @since 1.0
      * @author poyrazinan
      */
     @Getter
     @Setter
-    public static class AuthLogin extends OkaeriConfig {
+    public static class Auth extends OkaeriConfig {
         /**
-         * Status of AuthLogin mode
+         * Status of Auth mode
          */
         private boolean status = true;
     }
@@ -58,7 +58,7 @@ public class Modules extends OkaeriConfig {
         /**
          * Status of Discord mode
          */
-        private boolean status = true;
+        private boolean status = false;
     }
 
     /**
@@ -180,22 +180,35 @@ public class Modules extends OkaeriConfig {
             /**
              * landing layout of gui
              */
-            @Comment("Layout of gui")
+            @Comment({
+                    "Layout of gui",
+                    "c: Category",
+                    "b: Prev Page",
+                    "n: Next Page"
+            })
             private List<String> landingGuiLayout = Arrays.asList(
                     "         ",
-                    "   ccc   ",
-                    "b       n"
+                    "  ccccc  ",
+                    "b       n",
+                    "b: Prev Page",
+                    "n: Next Page"
             );
 
             /**
              * layout of gui
              */
-            @Comment("Layout of gui")
+            @Comment({
+                    "Layout of gui",
+                    "e: Any Element (Product, Category)",
+                    "c: Category",
+                    "p: Product",
+                    "b: Prev Page",
+                    "n: Next Page"
+            })
             private List<String> layout = Arrays.asList(
                     "         ",
-                    "   ccc   ",
-                    "         ",
-                    "  ppppp  ",
+                    "  eeeee  ",
+                    "  eeeee  ",
                     "         ",
                     "b       n"
             );
@@ -309,7 +322,7 @@ public class Modules extends OkaeriConfig {
         /**
          * Status of Bazaar mode
          */
-        private boolean status = true;
+        private boolean status = false;
         /**
          * Server id of bazaar
          */
@@ -335,7 +348,13 @@ public class Modules extends OkaeriConfig {
             /**
              * layout of gui
              */
-            @Comment("Layout of gui")
+            @Comment({
+                    "Layout of gui",
+                    "a: Add Item Button",
+                    "i: Item",
+                    "b: Prev Page",
+                    "n: Next Page"
+            })
             private List<String> layout = Arrays.asList(
                     "    a    ",
                     " iiiiiii ",
@@ -350,9 +369,11 @@ public class Modules extends OkaeriConfig {
             /**
              * layout of gui
              */
-            @Comment("Layout of gui")
+            @Comment({
+                    "Layout of gui",
+                    "i: Item"
+            })
             private List<String> addItemLayout = Arrays.asList(
-                    "iiiiiiiii",
                     "iiiiiiiii"
             );
 
@@ -429,7 +450,7 @@ public class Modules extends OkaeriConfig {
         /**
          * Status of Donators mode
          */
-        private boolean status = false;
+        private boolean status = true;
         /**
          * Donators scheduler second
          */
@@ -450,12 +471,66 @@ public class Modules extends OkaeriConfig {
             /**
              * donations gui layout
              */
-            @Comment("Layout of gui")
+            @Comment({
+                    "Layout of gui",
+                    "1: Latest Donations Description",
+                    "l: Latest Donations",
+                    "2: Top Donations Info (All Time)",
+                    "a: Top Donations (All Time)",
+                    "3: Top Donations Info (Annual)",
+                    "y: Top Donations (Annual)",
+                    "4: Top Donations Info (Monthly)",
+                    "m: Top Donations (Monthly)",
+                    "5: Top Donations Info (Daily)",
+                    "d: Top Donations (Daily)",
+                    "b: Prev Page",
+                    "n: Next Page"
+            })
             private List<String> layout = Arrays.asList(
-                    " a y d m ",
-                    "  lllll  ",
+                    " 1 lllll ",
+                    " 2 aaaaa ",
+                    " 3 yyyyy ",
+                    " 4 mmmmm ",
+                    " 5 ddddd ",
                     "b       n"
             );
+
+            /**
+             * Info Items
+             */
+            private Modules.Donations.Gui.InfoItems infoItems = new Modules.Donations.Gui.InfoItems();
+
+            /**
+             * Filler item arguments class
+             */
+            @Getter @Setter
+            public static class InfoItems extends OkaeriConfig {
+
+                /**
+                 * Latest Donations Material of item
+                 */
+                private String latestMaterial = "PAPER";
+
+                /**
+                 * Top Donations (All Time) Material of item
+                 */
+                private String topAllTimeMaterial = "PAPER";
+
+                /**
+                 * Top Donations (Annual) Material of item
+                 */
+                private String topAnnualMaterial = "PAPER";
+
+                /**
+                 * Top Donations (Monthly) Material of item
+                 */
+                private String topMonthlyMaterial = "PAPER";
+
+                /**
+                 * Top Donations (Daily) Material of item
+                 */
+                private String topDailyMaterial = "PAPER";
+            }
 
             /**
              * Filler item object

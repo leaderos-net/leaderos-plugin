@@ -153,6 +153,24 @@ public class ItemUtils {
     }
 
     /**
+     * Check for material and
+     * get item with a material.
+     * @param material of item
+     * @param name of item
+     * @param lore of item
+     * @return ItemStack of destination item
+     */
+    public static @NotNull ItemStack getItem(XMaterial material, String name) {
+        ItemStack result;
+        // material based item
+        result = material.parseItem();
+        ItemMeta meta = result.getItemMeta();
+        meta.setDisplayName(name);
+        result.setItemMeta(meta);
+        return result;
+    }
+
+    /**
      * converts xmaterial to string
      * @param item Item
      */

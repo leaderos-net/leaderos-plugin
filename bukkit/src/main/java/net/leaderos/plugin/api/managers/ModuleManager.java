@@ -1,13 +1,11 @@
 package net.leaderos.plugin.api.managers;
 
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.handlers.ModuleDisableEvent;
 import net.leaderos.plugin.api.handlers.ModuleEnableEvent;
 import net.leaderos.plugin.configuration.Language;
-import net.leaderos.plugin.Main;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.shared.Shared;
 import net.leaderos.shared.module.Modulable;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -50,7 +48,7 @@ public class ModuleManager {
      * @return status
      */
     public static boolean getModuleStatus(String moduleName) {
-        File moduleFile = new File("plugins/" + Main.getInstance().getDescription().getName() + "/modules.yml");
+        File moduleFile = new File("plugins/" + Bukkit.getInstance().getDescription().getName() + "/modules.yml");
         FileConfiguration modules = YamlConfiguration.loadConfiguration(moduleFile);
         return modules.getBoolean(moduleName + ".status");
     }
@@ -59,7 +57,7 @@ public class ModuleManager {
      * Enables all modules
      */
     public void enableModules() {
-        Language lang = Main.getInstance().getLangFile();
+        Language lang = Bukkit.getInstance().getLangFile();
         modules.keySet().forEach(moduleName -> {
             Modulable module = getModule(moduleName);
             // Checks if module has dependency
@@ -73,24 +71,24 @@ public class ModuleManager {
                     String message = lang.getMessages().getInfo().getMissingDependency()
                             .replace("%module_name%", module.getName())
                             .replace("%dependencies%", module.getDependencyListAsString());
-                    ChatUtil.sendMessage(Bukkit.getConsoleSender(), message);
+                    ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), message);
                     return;
                 }
             }
             if (getModuleStatus(module.getName())) {
                 module.setEnabled(true);
                 // Enable event
-                Bukkit.getPluginManager().callEvent(new ModuleEnableEvent(module));
+                org.bukkit.Bukkit.getPluginManager().callEvent(new ModuleEnableEvent(module));
                 module.onEnable();
                 String message = lang.getMessages().getInfo().getModuleEnabled()
                         .replace("%module_name%", module.getName());
-                ChatUtil.sendMessage(Bukkit.getConsoleSender(), message);
+                ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), message);
             }
             else {
                 module.setEnabled(false);
                 String message = lang.getMessages().getInfo().getModuleClosed()
                         .replace("%module_name%", module.getName());
-                ChatUtil.sendMessage(Bukkit.getConsoleSender(), message);
+                ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), message);
             }
         });
     }
@@ -104,11 +102,11 @@ public class ModuleManager {
             if (module.isEnabled()) {
                 module.setEnabled(false);
                 // Disable event
-                Bukkit.getPluginManager().callEvent(new ModuleDisableEvent(module));
+                org.bukkit.Bukkit.getPluginManager().callEvent(new ModuleDisableEvent(module));
                 module.onDisable();
-                String message = Main.getInstance().getLangFile().getMessages().getInfo().getModuleDisabled()
+                String message = Bukkit.getInstance().getLangFile().getMessages().getInfo().getModuleDisabled()
                         .replace("%module_name%", module.getName());
-                ChatUtil.sendMessage(Bukkit.getConsoleSender(), message);
+                ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), message);
             }
         });
     }

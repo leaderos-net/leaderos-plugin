@@ -8,17 +8,16 @@ import dev.triumphteam.cmd.core.annotation.Command;
 import dev.triumphteam.cmd.core.annotation.Default;
 import dev.triumphteam.cmd.core.annotation.SubCommand;
 import lombok.RequiredArgsConstructor;
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.handlers.UpdateCacheEvent;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.ItemUtils;
-import net.leaderos.plugin.modules.voucher.Voucher;
+import net.leaderos.plugin.modules.voucher.VoucherModule;
 import net.leaderos.shared.helpers.MoneyUtils;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.module.credit.CreditHelper;
 import net.leaderos.shared.module.credit.helper.UpdateType;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -43,11 +42,11 @@ public class VoucherCommand extends BaseCommand {
      */
     @Default
     public void defaultCommand(CommandSender sender) {
-        if (sender.hasPermission("credits.voucher.give")) {
-            ChatUtil.sendMessage(sender, Main.getInstance().getLangFile().getMessages().getVouchers().getHelpStaff());
+        if (sender.hasPermission("leaderos.voucher.give")) {
+            ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getVouchers().getHelpStaff());
         }
-        if (sender.hasPermission("credits.voucher.create")) {
-            ChatUtil.sendMessage(sender, Main.getInstance().getLangFile().getMessages().getVouchers().getHelp());
+        if (sender.hasPermission("leaderos.voucher.create")) {
+            ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getVouchers().getHelp());
         }
     }
 
@@ -58,13 +57,13 @@ public class VoucherCommand extends BaseCommand {
      * @param amount of credit
      */
     @SubCommand(value = "give", alias = {"ver"})
-    @Permission("credits.voucher.give")
+    @Permission("leaderos.voucher.give")
     public void giveCommand(CommandSender sender, Player player, Double amount) {
         amount = MoneyUtils.parseDouble(amount);
         giveVoucher(player, amount);
 
         ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                Main.getInstance().getLangFile().getMessages().getVouchers().getSuccessfullyGave(),
+                Bukkit.getInstance().getLangFile().getMessages().getVouchers().getSuccessfullyGave(),
                 new Placeholder("{target}", player.getName()),
                 new Placeholder("{amount}", MoneyUtils.format(amount))
         ));
@@ -76,17 +75,17 @@ public class VoucherCommand extends BaseCommand {
      * @param amount of credit
      */
     @SubCommand(value = "create", alias = {"oluştur", "olustur"})
-    @Permission("credits.voucher.create")
+    @Permission("leaderos.voucher.create")
     public void createCommand(Player player, Double amount) {
         amount = MoneyUtils.parseDouble(amount);
 
         if (amount <= 0) {
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getVouchers().getCannotCreateNegative());
+            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getVouchers().getCannotCreateNegative());
             return;
         }
 
         if (player.getInventory().firstEmpty() == -1) {
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getCannotCreateFull());
+            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCannotCreateFull());
             return;
         }
 
@@ -96,9 +95,9 @@ public class VoucherCommand extends BaseCommand {
             if (Objects.requireNonNull(removeCreditRequest).getResponseCode() == HttpURLConnection.HTTP_OK
                     && removeCreditRequest.getResponseMessage().getBoolean("status")) {
                 // Calls UpdateCache event for update player's cache
-                Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.REMOVE));
+                org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.REMOVE));
                 ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                        Main.getInstance().getLangFile().getMessages().getVouchers().getSuccessfullyCreated(),
+                        Bukkit.getInstance().getLangFile().getMessages().getVouchers().getSuccessfullyCreated(),
                         new Placeholder("{amount}", MoneyUtils.format(amount))
                 ));
                 giveVoucher(player, amount);
@@ -106,12 +105,12 @@ public class VoucherCommand extends BaseCommand {
             // TODO if code not afforded or not ok
             else
                 ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                        Main.getInstance().getLangFile().getMessages().getVouchers().getCannotCreateNotEnough(),
+                        Bukkit.getInstance().getLangFile().getMessages().getVouchers().getCannotCreateNotEnough(),
                         new Placeholder("{amount}", MoneyUtils.format(amount))
                 ));
         }
         catch (Exception ignored) {
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
+            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
         }
     }
 
@@ -124,17 +123,17 @@ public class VoucherCommand extends BaseCommand {
         amount = MoneyUtils.parseDouble(amount);
 
         if (amount <= 0) {
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getVouchers().getCannotCreateNegative());
+            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getVouchers().getCannotCreateNegative());
             return;
         }
 
-        int id = Voucher.getVoucherData().getInt("lastCreated") + 1;
-        Voucher.getVoucherData().set("lastCreated", id);
-        Voucher.getVoucherData().save();
+        int id = VoucherModule.getVoucherData().getInt("lastCreated") + 1;
+        VoucherModule.getVoucherData().set("lastCreated", id);
+        VoucherModule.getVoucherData().save();
 
-        String name = ChatUtil.replacePlaceholders(Main.getInstance().getLangFile().getMessages().getVouchers().getItemDisplayName(),
+        String name = ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getMessages().getVouchers().getItemDisplayName(),
                 new Placeholder("{id}", String.valueOf(id)), new Placeholder("{amount}", MoneyUtils.format(amount)));
-        List<String> lore = ChatUtil.replacePlaceholders(Main.getInstance().getLangFile().getMessages().getVouchers().getItemLore(),
+        List<String> lore = ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getMessages().getVouchers().getItemLore(),
                 new Placeholder("{id}", String.valueOf(id)), new Placeholder("{amount}", MoneyUtils.format(amount)));
         ItemStack item = ItemUtils.getItem(XMaterial.PAPER, name, lore, true);
         NBTItem nbtItem = new NBTItem(item);

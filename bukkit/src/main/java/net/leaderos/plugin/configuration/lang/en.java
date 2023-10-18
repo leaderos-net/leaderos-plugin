@@ -1,5 +1,6 @@
 package net.leaderos.plugin.configuration.lang;
 
+import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.annotation.NameModifier;
 import eu.okaeri.configs.annotation.NameStrategy;
@@ -534,7 +535,7 @@ public class en extends Language {
             /**
              * name of donator item
              */
-            private String displayName = "&6%player%";
+            private String displayName = "&e#%i% &6%player%";
 
             /**
              * updates donation data
@@ -546,9 +547,106 @@ public class en extends Language {
              */
             private List<String> lore = Arrays.asList(
                     "",
-                    "&7Donation: &e%credit% %symbol%",
+                    "&7Donation: &e%amount% %symbol%",
                     ""
             );
+
+            /**
+             * Info attributes
+             */
+            private Info info = new Info();
+
+            /**
+             * Donations info
+             */
+            @Getter @Setter
+            public static class Info extends Language.Gui.DonationsGUI.Info {
+
+                /**
+                 * Latest Donations info attributes
+                 */
+                private Latest latest = new Latest();
+
+                /**
+                 * Latest Donations info
+                 */
+                @Getter @Setter
+                public static class Latest extends Language.Gui.DonationsGUI.Info.Latest {
+
+                    /**
+                     * Item name
+                     */
+                    private String displayName = "&eLatest Donations";
+                }
+
+                /**
+                 * Top Donations (All Time) info attributes
+                 */
+                private TopAllTime topAllTime = new TopAllTime();
+
+                /**
+                 * Top Donations (All Time) info
+                 */
+                @Getter @Setter
+                public static class TopAllTime extends Language.Gui.DonationsGUI.Info.TopAllTime {
+
+                    /**
+                     * Item name
+                     */
+                    private String displayName = "&eTop Donations (All Time)";
+                }
+
+                /**
+                 * Top Donations (Annual) info attributes
+                 */
+                private TopAnnual topAnnual = new TopAnnual();
+
+                /**
+                 * Top Donations (Annual) info
+                 */
+                @Getter @Setter
+                public static class TopAnnual extends Language.Gui.DonationsGUI.Info.TopAnnual {
+
+                    /**
+                     * Item name
+                     */
+                    private String displayName = "&eTop Donations (Annual)";
+                }
+
+                /**
+                 * Top Donations (Monthly) info attributes
+                 */
+                private TopMonthly topMonthly = new TopMonthly();
+
+                /**
+                 * Top Donations (Monthly) info
+                 */
+                @Getter @Setter
+                public static class TopMonthly extends Language.Gui.DonationsGUI.Info.TopMonthly {
+
+                    /**
+                     * Item name
+                     */
+                    private String displayName = "&eTop Donations (Monthly)";
+                }
+
+                /**
+                 * Top Donations (Daily) info attributes
+                 */
+                private TopDaily topDaily = new TopDaily();
+
+                /**
+                 * Top Donations (Daily) info
+                 */
+                @Getter @Setter
+                public static class TopDaily extends Language.Gui.DonationsGUI.Info.TopDaily {
+
+                    /**
+                     * Item name
+                     */
+                    private String displayName = "&eTop Donations (Daily)";
+                }
+            }
         }
     }
 }

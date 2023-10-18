@@ -3,8 +3,7 @@ package net.leaderos.plugin.helpers;
 import com.cryptomorin.xseries.XMaterial;
 import de.themoep.inventorygui.GuiElement;
 import de.themoep.inventorygui.GuiPageElement;
-import net.leaderos.plugin.Main;
-import net.leaderos.shared.Shared;
+import net.leaderos.plugin.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.Contract;
@@ -51,7 +50,7 @@ public class GuiHelper {
         return new GuiPageElement('b',
                 XMaterial.matchXMaterial(materialName).orElse(XMaterial.ARROW).parseItem(),
                 GuiPageElement.PageAction.PREVIOUS,
-                Main.getInstance().getLangFile().getGui().getDefaultGui().getPreviousPage().getName()
+                Bukkit.getInstance().getLangFile().getGui().getDefaultGui().getPreviousPage().getName()
         );
     }
 
@@ -65,7 +64,7 @@ public class GuiHelper {
         return new GuiPageElement('n',
                 XMaterial.matchXMaterial(materialName).orElse(XMaterial.ARROW).parseItem(),
                 GuiPageElement.PageAction.NEXT,
-                Main.getInstance().getLangFile().getGui().getDefaultGui().getNextPage().getName()
+                Bukkit.getInstance().getLangFile().getGui().getDefaultGui().getNextPage().getName()
         );
     }
 
@@ -76,9 +75,9 @@ public class GuiHelper {
      * @return add item icon
      */
     public static ItemStack addItemIcon() {
-        String displayName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemName());
-        XMaterial material = XMaterial.matchXMaterial(Main.getInstance().getModulesFile().getBazaar().getGui().getAddItemMaterial()).orElse(XMaterial.GREEN_WOOL);
-        List<String> lore = ChatUtil.color(Main.getInstance().getLangFile().getGui().getBazaarGui().getAddItemLore());
+        String displayName = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getAddItemName());
+        XMaterial material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getAddItemMaterial()).orElse(XMaterial.GREEN_WOOL);
+        List<String> lore = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getAddItemLore());
         return ItemUtils.getItem(material, displayName, lore);
     }
 }

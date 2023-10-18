@@ -49,8 +49,8 @@ public class ModuleManager {
     @SneakyThrows
     public static boolean getModuleStatus(String moduleName) {
         switch (moduleName) {
-            case "AuthLogin":
-                return Velocity.getInstance().getModulesFile().getAuthLogin().isStatus();
+            case "Auth":
+                return Velocity.getInstance().getModulesFile().getAuth().isStatus();
             case "Discord":
                 return Velocity.getInstance().getModulesFile().getDiscord().isStatus();
             case "Credit":

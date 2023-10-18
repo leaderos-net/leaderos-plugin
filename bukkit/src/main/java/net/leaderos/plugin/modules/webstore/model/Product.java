@@ -4,7 +4,7 @@ import com.cryptomorin.xseries.XMaterial;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.SneakyThrows;
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.ItemUtils;
 import org.bukkit.inventory.ItemStack;
@@ -110,12 +110,16 @@ public class Product {
 
         try {
             this.productLore = Arrays.asList(product.getString("minecraftDescription").split("\r\n"));
+            if (productLore.isEmpty())
+                throw new Exception();
         }
-        catch (Exception ignored) {}
-        finally {
+        catch (Exception e) {
+            this.productLore = Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getDefaultProduct().getLore();
+        }
+        /*finally {
             this.productLore.addAll(
                     Main.getInstance().getLangFile().getGui().getWebStoreGui().getDefaultProduct().getLore());
-        }
+        }*/
 
         // price, discountedPrice, stock data
         this.price = product.getDouble("price");
@@ -140,7 +144,7 @@ public class Product {
             this.material = XMaterial.matchXMaterial(product.getString("minecraftItem")).get();
 
         if (material == null || !material.isSupported())
-            this.material = XMaterial.matchXMaterial(Main.getInstance().getModulesFile().getWebStore().getGui().getDefaultProduct().getMaterial()).orElse(XMaterial.DIAMOND);
+            this.material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getDefaultProduct().getMaterial()).orElse(XMaterial.DIAMOND);
     }
 
     /**
@@ -162,12 +166,12 @@ public class Product {
 
         int discountAmount = (int) (((getPrice() - getDiscountedPrice()) / getPrice()) * 100);
         // Formatters of discount
-        String discountedPriceFormat = Main.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountedPriceFormat()
+        String discountedPriceFormat = Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountedPriceFormat()
                 .replace("{price}", String.valueOf(priceText))
                 .replace("{discountedPrice}", String.valueOf(discountedPriceText));
-        String discountAmountFormat = Main.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountAmountFormat()
+        String discountAmountFormat = Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountAmountFormat()
                 .replace("{discount}", String.valueOf(discountAmount));
-        String stockUnlimited = Main.getInstance().getLangFile().getGui().getWebStoreGui().getStockUnlimited();
+        String stockUnlimited = Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getStockUnlimited();
 
 
         // Discount modifier of item

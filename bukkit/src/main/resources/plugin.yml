@@ -7,10 +7,12 @@ softdepend: [PlaceholderAPI]
 commands:
     leaderos:
         description: Default command of leaderos
-    webshop:
-        description: Webshop module default command
+    webstore:
+        description: WebStore module default command
     credits:
         description: Credits module command
+    creditvoucher:
+        description: Voucher module command
     bazaar:
         description: bazaar default command
     auth:

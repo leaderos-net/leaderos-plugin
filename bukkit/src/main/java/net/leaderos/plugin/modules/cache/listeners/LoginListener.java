@@ -1,8 +1,7 @@
 package net.leaderos.plugin.modules.cache.listeners;
 
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.cache.model.User;
-import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
@@ -20,6 +19,6 @@ public class LoginListener implements Listener {
      */
     @EventHandler
     public void playerLoginEvent(PlayerLoginEvent event) {
-        Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> User.loadPlayerCache(event.getPlayer()));
+        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> User.loadPlayerCache(event.getPlayer()));
     }
 }

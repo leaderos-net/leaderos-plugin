@@ -1,7 +1,7 @@
 package net.leaderos.plugin.modules.cache;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.cache.model.User;
 import org.bukkit.entity.Player;
 
@@ -18,7 +18,7 @@ public class Placeholders extends PlaceholderExpansion {
      * Date formatter for placeholders
      */
     private static SimpleDateFormat dateFormat = new SimpleDateFormat(
-            Main.getInstance().getConfigFile().getSettings().getTimeFormat());
+            Bukkit.getInstance().getConfigFile().getSettings().getTimeFormat());
 
     /**
      * identifier of placeholder

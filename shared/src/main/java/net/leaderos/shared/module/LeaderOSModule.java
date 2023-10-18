@@ -52,7 +52,7 @@ public abstract class LeaderOSModule implements Modulable {
      */
     @Override
     public @NotNull String getName() {
-        return getClass().getSimpleName();
+        return getClass().getSimpleName().replace("Module", "");
     }
 
     /**

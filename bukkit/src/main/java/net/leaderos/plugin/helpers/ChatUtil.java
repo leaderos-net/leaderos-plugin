@@ -1,6 +1,6 @@
 package net.leaderos.plugin.helpers;
 
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.shared.helpers.Placeholder;
 import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang3.StringEscapeUtils;
@@ -70,7 +70,7 @@ public class ChatUtil {
      */
     public static void sendMessage(@NotNull CommandSender player, String message) {
         player.sendMessage(ChatUtil.color(replacePlaceholders(message, new Placeholder("{prefix}",
-                Main.getInstance().getLangFile().getMessages().getPrefix()))));
+                Bukkit.getInstance().getLangFile().getMessages().getPrefix()))));
     }
 
     /**

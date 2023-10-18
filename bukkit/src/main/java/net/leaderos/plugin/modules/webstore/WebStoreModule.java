@@ -1,6 +1,6 @@
 package net.leaderos.plugin.modules.webstore;
 
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.webstore.command.WebStoreCommand;
 import net.leaderos.plugin.modules.webstore.model.Category;
 import net.leaderos.shared.exceptions.RequestException;
@@ -14,13 +14,13 @@ import java.io.IOException;
  * @author poyrazinan
  * @since 1.0
  */
-public class WebStore extends LeaderOSModule {
+public class WebStoreModule extends LeaderOSModule {
 
     /**
      * onEnable method of module
      */
     public void onEnable() {
-        Main.getCommandManager().registerCommand(new WebStoreCommand());
+        Bukkit.getCommandManager().registerCommand(new WebStoreCommand());
         try {
             Category.loadAllCategories();
         } catch (IOException | RequestException e) {
@@ -32,13 +32,13 @@ public class WebStore extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
-        Main.getCommandManager().unregisterCommand(new WebStoreCommand());
+        Bukkit.getCommandManager().unregisterCommand(new WebStoreCommand());
     }
 
     /**
      * Constructor of WebStore
      */
-    public WebStore() {
+    public WebStoreModule() {
         addDependency("Cache");
     }
 }

@@ -9,7 +9,7 @@ import net.leaderos.plugin.api.managers.ModuleManager;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.cache.model.User;
 import net.leaderos.plugin.modules.webstore.model.Category;
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.webstore.model.Product;
 import net.leaderos.plugin.helpers.GuiHelper;
 import net.leaderos.plugin.helpers.MDChat.MDChatAPI;
@@ -17,7 +17,6 @@ import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.PostRequest;
 import net.leaderos.shared.module.auth.AuthHelper;
 import net.leaderos.shared.module.credit.helper.UpdateType;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;
@@ -43,12 +42,12 @@ public class WebStoreGui {
      */
     public static void showGui(Player player, Category categoryObj) {
         // Gui template as array
-        String[] layout = Main.getInstance().getModulesFile().getWebStore().getGui().getLayout().toArray(new String[0]);
+        String[] layout = Bukkit.getInstance().getModulesFile().getWebStore().getGui().getLayout().toArray(new String[0]);
         // Inventory object
-        String guiName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getWebStoreGui().getGuiName());
-        InventoryGui gui = new InventoryGui(Main.getInstance(), null, guiName, layout);
+        String guiName = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getGuiName());
+        InventoryGui gui = new InventoryGui(Bukkit.getInstance(), null, guiName, layout);
         // Filler item for empty slots
-        gui.setFiller(GuiHelper.getFiller(Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));
+        gui.setFiller(GuiHelper.getFiller(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Bukkit.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));
 
         // List creator
         List<Category> categoryList;
@@ -70,7 +69,7 @@ public class WebStoreGui {
 
             // Category group
             addCategoriesToGroup(categoryList, categoryGroup, player);
-            categoryGroup.setFiller(GuiHelper.getFiller(Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));
+            categoryGroup.setFiller(GuiHelper.getFiller(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Bukkit.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));
             gui.addElement(categoryGroup);
         }
         // Product group creator
@@ -81,16 +80,16 @@ public class WebStoreGui {
 
             // Product Group
             addProductsToGroup(productList, productGroup, player, gui);
-            productGroup.setFiller(GuiHelper.getFiller(Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));
+            productGroup.setFiller(GuiHelper.getFiller(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Bukkit.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));
             gui.addElement(productGroup);
         }
-        elementGroup.setFiller(GuiHelper.getFiller(Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));
+        elementGroup.setFiller(GuiHelper.getFiller(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Bukkit.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));
         gui.addElement(elementGroup);
 
 
         // Next and previous page icons
-        gui.addElement(GuiHelper.createNextPage(Main.getInstance().getModulesFile().getWebStore().getGui().getNextPage().getItem()));
-        gui.addElement(GuiHelper.createPreviousPage(Main.getInstance().getModulesFile().getWebStore().getGui().getPreviousPage().getItem()));
+        gui.addElement(GuiHelper.createNextPage(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getNextPage().getItem()));
+        gui.addElement(GuiHelper.createPreviousPage(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getPreviousPage().getItem()));
         gui.show(player);
     }
 
@@ -116,18 +115,18 @@ public class WebStoreGui {
                         body.put("products[]", product.getProductId());
 
                         // Titles
-                        String title = ChatUtil.color(Main.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreTitle());
-                        String subtitleError = ChatUtil.color(Main.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreError());
-                        String subtitleProgress = ChatUtil.color(Main.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreProgress());
-                        String subtitleSuccess = ChatUtil.color(Main.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreSuccess());
-                        String subtitleNotEnoughCredit = ChatUtil.color(Main.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreNotEnoughCredit());
+                        String title = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreTitle());
+                        String subtitleError = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreError());
+                        String subtitleProgress = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreProgress());
+                        String subtitleSuccess = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreSuccess());
+                        String subtitleNotEnoughCredit = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreNotEnoughCredit());
                         player.sendTitle(title, subtitleProgress);
                         // Buy progress
                         try {
                             Response buyRequest = new PostRequest("store/buy", body).getResponse();
                             if (buyRequest.getResponseCode() == HttpURLConnection.HTTP_OK) {
                                 // Calls UpdateCache event for update player's cache
-                                Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), product.getPrice(), UpdateType.REMOVE));
+                                org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), product.getPrice(), UpdateType.REMOVE));
                                 player.sendTitle(title, subtitleSuccess);
                             }
                             else if (buyRequest.getResponseCode() == HttpURLConnection.HTTP_BAD_REQUEST)
@@ -139,18 +138,18 @@ public class WebStoreGui {
                     }
                     else {
                         // If auth login is enabled
-                        if (ModuleManager.getModuleStatus("AuthLogin")) {
+                        if (ModuleManager.getModuleStatus("Auth")) {
                             String authLink = AuthHelper.getAuthLink(player.getName(), player.getUniqueId());
                             if (authLink != null)
                                 player.spigot().sendMessage(
                                         MDChatAPI.getFormattedMessage(
-                                                ChatUtil.color(Main.getInstance().getLangFile().getMessages().getAuth().getModuleError()
+                                                ChatUtil.color(Bukkit.getInstance().getLangFile().getMessages().getAuth().getModuleError()
                                                         .replace("%link%", authLink)
-                                                        .replace("{prefix}", Main.getInstance().getLangFile().getMessages().getPrefix()))));
+                                                        .replace("{prefix}", Bukkit.getInstance().getLangFile().getMessages().getPrefix()))));
                         }
-                        // If cache not found and authlogin is disabled situation
+                        // If cache not found and Auth is disabled situation
                         else
-                            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreNoAuthLinkError());
+                            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreNoAuthLinkError());
                     }
                     return false;
                 })))

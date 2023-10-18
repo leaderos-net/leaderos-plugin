@@ -13,7 +13,7 @@ import net.leaderos.velocity.modules.credits.commands.CreditCommand;
  * @author poyrazinan
  * @since 1.0
  */
-public class Credit extends LeaderOSModule {
+public class CreditModule extends LeaderOSModule {
 
     /**
      * Command meta of module
@@ -48,6 +48,6 @@ public class Credit extends LeaderOSModule {
     /**
      * Constructor of Credit
      */
-    public Credit() {
+    public CreditModule() {
     }
 }

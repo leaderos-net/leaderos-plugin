@@ -6,10 +6,10 @@ import dev.triumphteam.cmd.core.annotation.Command;
 import dev.triumphteam.cmd.core.annotation.Default;
 import dev.triumphteam.cmd.core.annotation.SubCommand;
 import lombok.RequiredArgsConstructor;
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.managers.ModuleManager;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.plugin.modules.donations.gui.RecentDonationGui;
+import net.leaderos.plugin.modules.donations.gui.DonationGui;
 import net.leaderos.plugin.modules.donations.timer.Timer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -28,10 +28,10 @@ public class DonationsCommand extends BaseCommand {
      * @param player executor
      */
     @Default
-    @Permission("donations.open")
+    @Permission("leaderos.donations.open")
     public void defaultCommand(Player player) {
         if (ModuleManager.getModule("Donations").isEnabled())
-            RecentDonationGui.showGui(player);
+            DonationGui.showGui(player);
     }
 
     /**
@@ -39,9 +39,9 @@ public class DonationsCommand extends BaseCommand {
      * @param sender executor
      */
     @SubCommand(value = "update", alias = {"güncelle"})
-    @Permission("donations.update")
+    @Permission("leaderos.donations.update")
     public void updateCacheCommand(CommandSender sender) {
-        ChatUtil.sendMessage(sender, Main.getInstance().getLangFile().getGui().getDonationsGui().getUpdatedDonationDataMessage());
+        ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getGui().getDonationsGui().getUpdatedDonationDataMessage());
         Timer.run();
     }
 }

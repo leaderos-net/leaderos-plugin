@@ -6,7 +6,7 @@ import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.webstore.model.Category;
-import net.leaderos.plugin.Main;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.GuiHelper;
 import org.bukkit.entity.Player;
 
@@ -32,12 +32,12 @@ public class MainWebStoreGui {
      */
     public static void showGui(Player player) {
         // Gui template as array
-        String[] layout = Main.getInstance().getModulesFile().getWebStore().getGui().getLandingGuiLayout().toArray(new String[0]);
+        String[] layout = Bukkit.getInstance().getModulesFile().getWebStore().getGui().getLandingGuiLayout().toArray(new String[0]);
         // Inventory object
-        String guiName = ChatUtil.color(Main.getInstance().getLangFile().getGui().getWebStoreGui().getGuiName());
-        InventoryGui gui = new InventoryGui(Main.getInstance(), null, guiName, layout);
+        String guiName = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getGuiName());
+        InventoryGui gui = new InventoryGui(Bukkit.getInstance(), null, guiName, layout);
         // Filler item for empty slots
-        gui.setFiller(GuiHelper.getFiller(Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Main.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));
+        gui.setFiller(GuiHelper.getFiller(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Bukkit.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));
 
         // List creator
         List<Category> categoryList = Category.getCategories();
@@ -58,8 +58,8 @@ public class MainWebStoreGui {
         gui.addElement(categoryGroup);
 
         // Next and previous page icons
-        gui.addElement(GuiHelper.createNextPage(Main.getInstance().getModulesFile().getWebStore().getGui().getNextPage().getItem()));
-        gui.addElement(GuiHelper.createPreviousPage(Main.getInstance().getModulesFile().getWebStore().getGui().getPreviousPage().getItem()));
+        gui.addElement(GuiHelper.createNextPage(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getNextPage().getItem()));
+        gui.addElement(GuiHelper.createPreviousPage(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getPreviousPage().getItem()));
         gui.show(player);
     }
 }

@@ -19,11 +19,10 @@ import net.leaderos.velocity.commands.LeaderOSCommand;
 import net.leaderos.velocity.configuration.Config;
 import net.leaderos.velocity.configuration.Language;
 import net.leaderos.velocity.configuration.Modules;
-import net.leaderos.velocity.modules.auth.AuthLogin;
-import net.leaderos.velocity.modules.auth.commands.AuthCommand;
-import net.leaderos.velocity.modules.connect.Connect;
-import net.leaderos.velocity.modules.credits.Credit;
-import net.leaderos.velocity.modules.discord.Discord;
+import net.leaderos.velocity.modules.auth.AuthModule;
+import net.leaderos.velocity.modules.connect.ConnectModule;
+import net.leaderos.velocity.modules.credits.CreditModule;
+import net.leaderos.velocity.modules.discord.DiscordModule;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -115,10 +114,10 @@ public class Velocity {
         this.shared = new Shared(getConfigFile().getSettings().getUrl(),
                 getConfigFile().getSettings().getApiKey());
         this.moduleManager = new ModuleManager();
-        getModuleManager().registerModule(new Credit());
-        getModuleManager().registerModule(new AuthLogin());
-        getModuleManager().registerModule(new Discord());
-        getModuleManager().registerModule(new Connect());
+        getModuleManager().registerModule(new CreditModule());
+        getModuleManager().registerModule(new AuthModule());
+        getModuleManager().registerModule(new DiscordModule());
+        getModuleManager().registerModule(new ConnectModule());
         getModuleManager().enableModules();
         CommandMeta commandMeta = Velocity.getInstance().getCommandManager().metaBuilder("leaderos")
                 .plugin(Velocity.getInstance())
