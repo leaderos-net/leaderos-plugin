@@ -3,7 +3,7 @@ package net.leaderos.velocity.commands;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import net.leaderos.velocity.Velocity;
-import net.leaderos.velocity.helper.ChatUtil;
+import net.leaderos.velocity.helpers.ChatUtil;
 
 /**
  * @author poyrazinan

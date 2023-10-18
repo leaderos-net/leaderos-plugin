@@ -1,4 +1,4 @@
-package net.leaderos.plugin.modules.webstore.command;
+package net.leaderos.plugin.modules.webstore.commands;
 
 import dev.triumphteam.cmd.bukkit.annotation.Permission;
 import dev.triumphteam.cmd.core.BaseCommand;

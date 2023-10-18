@@ -1,4 +1,4 @@
-package net.leaderos.shared.module.auth;
+package net.leaderos.shared.modules.discord;
 
 import net.leaderos.shared.model.request.PostRequest;
 import org.json.JSONObject;
@@ -6,41 +6,37 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * Auth module helper class, share methods over platforms
  * @author poyrazinan
  * @since 1.0
  */
-public class AuthHelper {
+public class DiscordHelper {
 
     /**
-     * Generates user login link
+     * Generates discord sync link
      *
      * @param username of player
-     * @param uuid of player
      * @return String of url
      * @throws IOException request exception
      */
-    private static String generateLink(String username, String uuid) throws IOException {
+    private static String generateLink(String username) throws IOException {
         Map<String, String> formData = new HashMap<>();
-        formData.put("username", username);
-        formData.put("uuid", uuid);
-        PostRequest postRequest = new PostRequest("auth/generate-link", formData);
+        formData.put("user", username);
+        PostRequest postRequest = new PostRequest("integrations/discord/sync", formData);
         JSONObject response = postRequest.getResponse().getResponseMessage().getJSONObject("data");
         return response.getString("url");
     }
 
     /**
-     * sends auth command message
-     * @param playerName name of executor
-     * @param playerUUID uuid of executor
+     * Generates discord sync link
+     * @param username username of executor
      * @return String of url
      */
-    public static String getAuthLink(String playerName, UUID playerUUID) {
+    public static String getSyncLink(String username) {
         try {
-            return generateLink(playerName, playerUUID.toString());
+            return generateLink(username);
         } catch (Exception e) {
             return null;
         }

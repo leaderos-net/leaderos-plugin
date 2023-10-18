@@ -5,7 +5,7 @@ import net.leaderos.plugin.modules.cache.listeners.CacheUpdateEvent;
 import net.leaderos.plugin.modules.cache.listeners.LoginListener;
 import net.leaderos.plugin.modules.cache.listeners.QuitListener;
 import net.leaderos.plugin.modules.cache.model.User;
-import net.leaderos.shared.module.LeaderOSModule;
+import net.leaderos.shared.modules.LeaderOSModule;
 import org.bukkit.event.HandlerList;
 
 /**

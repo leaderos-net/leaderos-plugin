@@ -15,8 +15,8 @@ import net.leaderos.plugin.helpers.GuiHelper;
 import net.leaderos.plugin.helpers.MDChat.MDChatAPI;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.PostRequest;
-import net.leaderos.shared.module.auth.AuthHelper;
-import net.leaderos.shared.module.credit.helper.UpdateType;
+import net.leaderos.shared.modules.auth.AuthHelper;
+import net.leaderos.shared.modules.credit.enums.UpdateType;
 import org.bukkit.entity.Player;
 
 import java.io.IOException;

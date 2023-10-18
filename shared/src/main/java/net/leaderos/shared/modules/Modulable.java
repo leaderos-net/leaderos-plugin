@@ -1,4 +1,4 @@
-package net.leaderos.shared.module;
+package net.leaderos.shared.modules;
 
 import org.jetbrains.annotations.NotNull;
 

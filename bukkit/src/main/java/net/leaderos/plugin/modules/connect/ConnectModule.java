@@ -4,8 +4,8 @@ import lombok.Getter;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.shared.helpers.Placeholder;
-import net.leaderos.shared.module.LeaderOSModule;
-import net.leaderos.shared.module.connect.socket.SocketClient;
+import net.leaderos.shared.modules.LeaderOSModule;
+import net.leaderos.shared.modules.connect.socket.SocketClient;
 
 import java.net.URISyntaxException;
 

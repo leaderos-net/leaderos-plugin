@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.plugin.helpers.ItemUtils;
+import net.leaderos.plugin.helpers.ItemUtil;
 import net.leaderos.shared.exceptions.RequestException;
 import net.leaderos.shared.model.request.GetRequest;
 import org.bukkit.inventory.ItemStack;
@@ -137,7 +137,7 @@ public class Category {
      * @return category item
      */
     public ItemStack getCategoryIcon() {
-        return ItemUtils.getItem(getMaterial(), ChatUtil.color(getCategoryName()), ChatUtil.color(getCategoryLore()));
+        return ItemUtil.getItem(getMaterial(), ChatUtil.color(getCategoryName()), ChatUtil.color(getCategoryLore()));
     }
 
     public static void loadAllCategories() throws IOException, RequestException {

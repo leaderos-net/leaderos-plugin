@@ -1,11 +1,11 @@
 package net.leaderos.bungee.modules.auth;
 
 import net.leaderos.bungee.Bungee;
-import net.leaderos.bungee.helper.ChatUtil;
-import net.leaderos.bungee.helper.MDChat.MDChatAPI;
+import net.leaderos.bungee.helpers.ChatUtil;
+import net.leaderos.bungee.helpers.MDChat.MDChatAPI;
 import net.leaderos.bungee.modules.auth.commands.AuthCommand;
-import net.leaderos.shared.module.LeaderOSModule;
-import net.leaderos.shared.module.auth.AuthHelper;
+import net.leaderos.shared.modules.LeaderOSModule;
+import net.leaderos.shared.modules.auth.AuthHelper;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 /**

@@ -2,7 +2,7 @@ package net.leaderos.bungee.modules.credits;
 
 import net.leaderos.bungee.Bungee;
 import net.leaderos.bungee.modules.credits.commands.CreditCommand;
-import net.leaderos.shared.module.LeaderOSModule;
+import net.leaderos.shared.modules.LeaderOSModule;
 
 /**
  * Credit module of leaderos-plugin

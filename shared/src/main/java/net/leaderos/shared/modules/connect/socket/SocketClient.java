@@ -1,4 +1,4 @@
-package net.leaderos.shared.module.connect.socket;
+package net.leaderos.shared.modules.connect.socket;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;

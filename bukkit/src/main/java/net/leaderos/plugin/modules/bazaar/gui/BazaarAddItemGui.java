@@ -5,11 +5,11 @@ import de.themoep.inventorygui.*;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.plugin.helpers.GameUtils;
+import net.leaderos.plugin.helpers.GameUtil;
 import net.leaderos.plugin.helpers.GuiHelper;
 import net.leaderos.plugin.modules.cache.model.User;
 import net.leaderos.plugin.modules.bazaar.BazaarModule;
-import net.leaderos.plugin.helpers.ItemUtils;
+import net.leaderos.plugin.helpers.ItemUtil;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.PostRequest;
@@ -59,7 +59,7 @@ public class BazaarAddItemGui {
         // Close action area (event)
         gui.setCloseAction(close -> {
             // Calculating storage amounts
-            int maxStorageAmount = GameUtils.getAmountFromPerm(player,
+            int maxStorageAmount = GameUtil.getAmountFromPerm(player,
                     "bazaar.maxstorage.",
                     Bukkit.getInstance().getModulesFile().getBazaar().getDefaultStorageSize());
 
@@ -96,17 +96,17 @@ public class BazaarAddItemGui {
                 }
                 // Item info
                 XMaterial material = XMaterial.matchXMaterial(item);
-                String name = ItemUtils.getName(item);
+                String name = ItemUtil.getName(item);
                 String lore = (item.hasItemMeta() && item.getItemMeta().hasLore()) ?
                         String.join("\n", item.getItemMeta().getLore()) : null;
                 int amount = item.getAmount();
                 int maxDurability = item.getType().getMaxDurability();
-                int durability = ItemUtils.getDurability(item, maxDurability);
-                String base64 = ItemUtils.toBase64(item);
+                int durability = ItemUtil.getDurability(item, maxDurability);
+                String base64 = ItemUtil.toBase64(item);
                 double price = 0.0;
                 String creationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-                String modelId = ItemUtils.getModelId(item);
-                String enchantment = ItemUtils.getEnchantments(item);
+                String modelId = ItemUtil.getModelId(item);
+                String enchantment = ItemUtil.getEnchantments(item);
 
                 Map<String, String> body = new HashMap<>();
                 body.put("owner", userId);

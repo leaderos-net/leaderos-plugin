@@ -2,8 +2,8 @@ package net.leaderos.plugin.modules.bazaar;
 
 import lombok.Getter;
 import net.leaderos.plugin.Bukkit;
-import net.leaderos.plugin.modules.bazaar.command.BazaarCommand;
-import net.leaderos.shared.module.LeaderOSModule;
+import net.leaderos.plugin.modules.bazaar.commands.BazaarCommand;
+import net.leaderos.shared.modules.LeaderOSModule;
 
 /**
  * Bazaar module of leaderos-plugin

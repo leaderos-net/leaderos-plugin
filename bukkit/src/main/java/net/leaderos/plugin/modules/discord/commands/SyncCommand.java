@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.MDChat.MDChatAPI;
-import net.leaderos.shared.module.discord.DiscordHelper;
+import net.leaderos.shared.modules.discord.DiscordHelper;
 import org.bukkit.entity.Player;
 
 /**

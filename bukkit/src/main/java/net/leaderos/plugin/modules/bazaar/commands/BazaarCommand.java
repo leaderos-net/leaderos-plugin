@@ -1,4 +1,4 @@
-package net.leaderos.plugin.modules.bazaar.command;
+package net.leaderos.plugin.modules.bazaar.commands;
 
 import dev.triumphteam.cmd.bukkit.annotation.Permission;
 import dev.triumphteam.cmd.core.BaseCommand;

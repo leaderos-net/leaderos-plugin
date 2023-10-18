@@ -1,7 +1,7 @@
 package net.leaderos.bungee.modules.auth.commands;
 
 import net.leaderos.bungee.Bungee;
-import net.leaderos.bungee.helper.ChatUtil;
+import net.leaderos.bungee.helpers.ChatUtil;
 import net.leaderos.bungee.modules.auth.AuthModule;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;

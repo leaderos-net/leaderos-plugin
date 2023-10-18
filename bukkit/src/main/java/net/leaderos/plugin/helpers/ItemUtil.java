@@ -25,7 +25,7 @@ import java.util.Set;
  * @author hyperion, poyrazinan
  * @since 1.0
  */
-public class ItemUtils {
+public class ItemUtil {
 
     /**
      * convert item to base64

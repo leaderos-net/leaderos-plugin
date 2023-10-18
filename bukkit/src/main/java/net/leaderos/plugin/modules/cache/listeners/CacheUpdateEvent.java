@@ -3,7 +3,7 @@ package net.leaderos.plugin.modules.cache.listeners;
 import lombok.AllArgsConstructor;
 import net.leaderos.plugin.api.handlers.UpdateCacheEvent;
 import net.leaderos.plugin.modules.cache.model.User;
-import net.leaderos.shared.module.credit.helper.UpdateType;
+import net.leaderos.shared.modules.credit.enums.UpdateType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 

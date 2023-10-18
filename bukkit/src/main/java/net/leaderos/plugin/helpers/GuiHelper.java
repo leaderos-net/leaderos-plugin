@@ -82,6 +82,6 @@ public class GuiHelper {
         String displayName = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getAddItemName());
         XMaterial material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getAddItemMaterial()).orElse(XMaterial.GREEN_WOOL);
         List<String> lore = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getAddItemLore());
-        return ItemUtils.getItem(material, displayName, lore);
+        return ItemUtil.getItem(material, displayName, lore);
     }
 }

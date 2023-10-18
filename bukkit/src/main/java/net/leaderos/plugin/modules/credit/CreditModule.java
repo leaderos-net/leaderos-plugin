@@ -2,7 +2,7 @@ package net.leaderos.plugin.modules.credit;
 
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.credit.commands.CreditCommand;
-import net.leaderos.shared.module.LeaderOSModule;
+import net.leaderos.shared.modules.LeaderOSModule;
 
 /**
  * Credit module of leaderos-plugin

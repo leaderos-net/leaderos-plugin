@@ -4,10 +4,10 @@ package net.leaderos.velocity.modules.connect;
 import lombok.Getter;
 import net.kyori.adventure.text.Component;
 import net.leaderos.shared.helpers.Placeholder;
-import net.leaderos.shared.module.LeaderOSModule;
-import net.leaderos.shared.module.connect.socket.SocketClient;
+import net.leaderos.shared.modules.LeaderOSModule;
+import net.leaderos.shared.modules.connect.socket.SocketClient;
 import net.leaderos.velocity.Velocity;
-import net.leaderos.velocity.helper.ChatUtil;
+import net.leaderos.velocity.helpers.ChatUtil;
 
 import java.net.URISyntaxException;
 

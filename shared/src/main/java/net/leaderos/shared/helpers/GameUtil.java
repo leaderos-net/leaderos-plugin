@@ -4,7 +4,7 @@ package net.leaderos.shared.helpers;
  * @author poyrazinan
  * @since 1.0
  */
-public class GameUtils {
+public class GameUtil {
 
 
     /**

@@ -2,7 +2,7 @@ package net.leaderos.plugin.modules.discord;
 
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.discord.commands.SyncCommand;
-import net.leaderos.shared.module.LeaderOSModule;
+import net.leaderos.shared.modules.LeaderOSModule;
 
 /**
  * Discord module of leaderos-plugin

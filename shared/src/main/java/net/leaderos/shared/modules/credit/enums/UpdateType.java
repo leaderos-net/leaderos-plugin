@@ -1,4 +1,4 @@
-package net.leaderos.shared.module.credit.helper;
+package net.leaderos.shared.modules.credit.enums;
 
 /**
  * Cache update type of player

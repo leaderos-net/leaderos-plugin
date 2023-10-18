@@ -1,10 +1,10 @@
 package net.leaderos.velocity.api;
 
 import lombok.SneakyThrows;
-import net.leaderos.shared.module.Modulable;
+import net.leaderos.shared.modules.Modulable;
 import net.leaderos.velocity.Velocity;
 import net.leaderos.velocity.configuration.Language;
-import net.leaderos.velocity.helper.ChatUtil;
+import net.leaderos.velocity.helpers.ChatUtil;
 
 import java.util.HashMap;
 

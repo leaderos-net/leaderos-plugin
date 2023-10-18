@@ -1,4 +1,4 @@
-package net.leaderos.bungee.helper;
+package net.leaderos.bungee.helpers;
 
 import net.leaderos.bungee.Bungee;
 import net.leaderos.shared.helpers.Placeholder;

@@ -6,11 +6,11 @@ import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.handlers.UpdateCacheEvent;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.voucher.VoucherModule;
-import net.leaderos.shared.helpers.MoneyUtils;
+import net.leaderos.shared.helpers.MoneyUtil;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
-import net.leaderos.shared.module.credit.CreditHelper;
-import net.leaderos.shared.module.credit.helper.UpdateType;
+import net.leaderos.shared.modules.credit.CreditHelper;
+import net.leaderos.shared.modules.credit.enums.UpdateType;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -61,7 +61,7 @@ public class VoucherListener implements Listener {
             return;
         else
             awaitingVouchers.add(String.valueOf(id));
-        double amount = MoneyUtils.parseDouble(nbtItem.getDouble("voucher:amount"));
+        double amount = MoneyUtil.parseDouble(nbtItem.getDouble("voucher:amount"));
         // Checks amount just in case
         if (amount <= 0) {
             ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getVouchers().getCannotCreateNegative());
@@ -87,7 +87,7 @@ public class VoucherListener implements Listener {
             org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.ADD));
             ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
                     Bukkit.getInstance().getLangFile().getMessages().getVouchers()
-                            .getSuccessfullyUsed(), new Placeholder("{amount}", MoneyUtils.format(amount))
+                            .getSuccessfullyUsed(), new Placeholder("{amount}", MoneyUtil.format(amount))
             ));
         }
         else {

@@ -1,4 +1,4 @@
-package net.leaderos.bungee.helper.MDChat;
+package net.leaderos.bungee.helpers.MDChat;
 
 
 import net.md_5.bungee.api.ChatColor;

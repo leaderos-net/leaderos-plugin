@@ -1,4 +1,4 @@
-package net.leaderos.shared.module.credit;
+package net.leaderos.shared.modules.credit;
 
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.GetRequest;

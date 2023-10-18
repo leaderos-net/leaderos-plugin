@@ -8,7 +8,7 @@ import java.util.Locale;
  * @author hyperion
  * @since 1.0
  */
-public class MoneyUtils {
+public class MoneyUtil {
 
 
     /**

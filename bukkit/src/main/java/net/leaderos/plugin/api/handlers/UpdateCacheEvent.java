@@ -2,7 +2,7 @@ package net.leaderos.plugin.api.handlers;
 
 
 import lombok.Getter;
-import net.leaderos.shared.module.credit.helper.UpdateType;
+import net.leaderos.shared.modules.credit.enums.UpdateType;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

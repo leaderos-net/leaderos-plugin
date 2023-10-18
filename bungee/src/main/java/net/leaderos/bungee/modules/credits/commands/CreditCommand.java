@@ -1,11 +1,11 @@
 package net.leaderos.bungee.modules.credits.commands;
 
 import net.leaderos.bungee.Bungee;
-import net.leaderos.bungee.helper.ChatUtil;
-import net.leaderos.shared.helpers.MoneyUtils;
+import net.leaderos.bungee.helpers.ChatUtil;
+import net.leaderos.shared.helpers.MoneyUtil;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
-import net.leaderos.shared.module.credit.CreditHelper;
+import net.leaderos.shared.modules.credit.CreditHelper;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Command;
@@ -43,7 +43,7 @@ public class CreditCommand extends Command {
                 if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
                     ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                             Bungee.getInstance().getLangFile().getMessages().getCredit().getCreditInfo(),
-                            new Placeholder("{amount}", MoneyUtils.format(targetCurrency.getResponseMessage().getDouble("raw_credits")))
+                            new Placeholder("{amount}", MoneyUtil.format(targetCurrency.getResponseMessage().getDouble("raw_credits")))
                     ));
                 }
             }
@@ -103,7 +103,7 @@ public class CreditCommand extends Command {
      * @param amount of credit
      */
     public void addCommand(CommandSender sender, String target, Double amount) {
-        amount = MoneyUtils.parseDouble(amount);
+        amount = MoneyUtil.parseDouble(amount);
 
         if (amount <= 0) {
             ChatUtil.sendMessage(sender, Bungee.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNegative());
@@ -116,7 +116,7 @@ public class CreditCommand extends Command {
             // Calls UpdateCache event for update player's cache
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                 Bungee.getInstance().getLangFile().getMessages().getCredit().getSuccessfullyAddedCredit(),
-                new Placeholder("{amount}", MoneyUtils.format(amount)),
+                new Placeholder("{amount}", MoneyUtil.format(amount)),
                 new Placeholder("{target}", target)
             ));
         }
@@ -133,7 +133,7 @@ public class CreditCommand extends Command {
         if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                     Bungee.getInstance().getLangFile().getMessages().getCredit().getCreditInfoOther(),
-                    new Placeholder("{amount}", MoneyUtils.format(targetCurrency.getResponseMessage().getDouble("raw_credits"))),
+                    new Placeholder("{amount}", MoneyUtil.format(targetCurrency.getResponseMessage().getDouble("raw_credits"))),
                     new Placeholder("{target}", target)
             ));
         }
@@ -148,7 +148,7 @@ public class CreditCommand extends Command {
      * @param amount of credit
      */
     public void sendCommand(CommandSender player, String target, Double amount) {
-        amount = MoneyUtils.parseDouble(amount);
+        amount = MoneyUtil.parseDouble(amount);
         ProxiedPlayer targetPlayer = Bungee.getInstance().getProxy().getPlayer(target);
 
         if (player.getName().equalsIgnoreCase(target)) {
@@ -188,14 +188,14 @@ public class CreditCommand extends Command {
                 && sendCreditResponse.getResponseMessage().getBoolean("status")) {
             ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
                     Bungee.getInstance().getLangFile().getMessages().getCredit().getSuccessfullySentCredit(),
-                    new Placeholder("{amount}", MoneyUtils.format(amount)),
+                    new Placeholder("{amount}", MoneyUtil.format(amount)),
                     new Placeholder("{target}", target)
             ));
 
             if (targetPlayer.isConnected())
                 ChatUtil.sendMessage(Objects.requireNonNull(targetPlayer), ChatUtil.replacePlaceholders(
                         Bungee.getInstance().getLangFile().getMessages().getCredit().getReceivedCredit(),
-                        new Placeholder("{amount}", MoneyUtils.format(amount)),
+                        new Placeholder("{amount}", MoneyUtil.format(amount)),
                         new Placeholder("{player}", player.getName())
                 ));
         }
@@ -212,7 +212,7 @@ public class CreditCommand extends Command {
      * @param amount of currency
      */
     public void removeCommand(CommandSender sender, String target, Double amount) {
-        amount = MoneyUtils.parseDouble(amount);
+        amount = MoneyUtil.parseDouble(amount);
 
         if (amount <= 0) {
             ChatUtil.sendMessage(sender, Bungee.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
@@ -222,7 +222,7 @@ public class CreditCommand extends Command {
         if (Objects.requireNonNull(removeCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                 Bungee.getInstance().getLangFile().getMessages().getCredit().getSuccessfullyRemovedCredit(),
-                new Placeholder("{amount}", MoneyUtils.format(amount)),
+                new Placeholder("{amount}", MoneyUtil.format(amount)),
                 new Placeholder("{target}", target)
             ));
         }
@@ -237,13 +237,13 @@ public class CreditCommand extends Command {
      * @param amount new currency
      */
     public void setCommand(CommandSender sender, String target, Double amount) {
-        amount = MoneyUtils.parseDouble(amount);
+        amount = MoneyUtil.parseDouble(amount);
         Response setCreditResponse = CreditHelper.setCreditRequest(target, amount);
 
         if (Objects.requireNonNull(setCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                     Bungee.getInstance().getLangFile().getMessages().getCredit().getSuccessfullySetCredit(),
-                    new Placeholder("{amount}", MoneyUtils.format(amount)),
+                    new Placeholder("{amount}", MoneyUtil.format(amount)),
                     new Placeholder("{target}", target)
             ));
         }

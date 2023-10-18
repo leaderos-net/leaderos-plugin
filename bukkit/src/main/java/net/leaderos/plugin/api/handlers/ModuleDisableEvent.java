@@ -1,7 +1,7 @@
 package net.leaderos.plugin.api.handlers;
 
 import lombok.Getter;
-import net.leaderos.shared.module.Modulable;
+import net.leaderos.shared.modules.Modulable;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

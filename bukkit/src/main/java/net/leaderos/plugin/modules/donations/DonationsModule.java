@@ -4,12 +4,12 @@ import com.cryptomorin.xseries.SkullUtils;
 import com.cryptomorin.xseries.XMaterial;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.plugin.helpers.ItemUtils;
+import net.leaderos.plugin.helpers.ItemUtil;
 import net.leaderos.plugin.modules.donations.commands.DonationsCommand;
 import net.leaderos.plugin.modules.donations.model.Donation;
 import net.leaderos.plugin.modules.donations.timer.Timer;
 import net.leaderos.shared.helpers.Placeholder;
-import net.leaderos.shared.module.LeaderOSModule;
+import net.leaderos.shared.modules.LeaderOSModule;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
@@ -91,6 +91,6 @@ public class DonationsModule extends LeaderOSModule {
     public static @NotNull ItemStack getDonationInfoItem(String materialName, String displayName) {
         XMaterial material = XMaterial.matchXMaterial(materialName).orElse(XMaterial.PAPER);
 
-        return ItemUtils.getItem(material, displayName);
+        return ItemUtil.getItem(material, displayName);
     }
 }

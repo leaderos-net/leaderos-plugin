@@ -6,7 +6,7 @@ import lombok.SneakyThrows;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.bazaar.BazaarModule;
-import net.leaderos.plugin.helpers.ItemUtils;
+import net.leaderos.plugin.helpers.ItemUtil;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.DeleteRequest;
 import net.leaderos.shared.model.request.GetRequest;
@@ -59,7 +59,7 @@ public class PlayerBazaar {
      * @return ItemStack of bazaar item
      */
     public ItemStack getItem() {
-        ItemStack item = ItemUtils.fromBase64(getBase64());
+        ItemStack item = ItemUtil.fromBase64(getBase64());
         ItemMeta meta = item.getItemMeta();
         List<String> lore = new ArrayList<>();
         if (meta != null && meta.getLore() != null)
@@ -80,7 +80,7 @@ public class PlayerBazaar {
         Response deleteRequest = new DeleteRequest("bazaar/storages/" + getUserId() + "/items/" + getId()).getResponse();
         if (deleteRequest.getResponseCode() == HttpURLConnection.HTTP_OK
                 && deleteRequest.getResponseMessage().getBoolean("status")) {
-            ItemStack item = ItemUtils.fromBase64(getBase64());
+            ItemStack item = ItemUtil.fromBase64(getBase64());
             player.getInventory().addItem(item);
             return true;
         }

@@ -10,7 +10,7 @@ import java.util.List;
  * @author poyrazinan
  * @since 1.0
  */
-public class GameUtils extends net.leaderos.shared.helpers.GameUtils {
+public class GameUtil extends net.leaderos.shared.helpers.GameUtil {
 
     /**
      * Calculates amount according to permission like (bazaar.maxstorage.10) returns 10
@@ -32,7 +32,7 @@ public class GameUtils extends net.leaderos.shared.helpers.GameUtils {
                 }
                 if (!lists.isEmpty())
                     defaultValue = lists.stream()
-                            .filter(net.leaderos.shared.helpers.GameUtils::isInteger)
+                            .filter(net.leaderos.shared.helpers.GameUtil::isInteger)
                             .reduce(1, Integer::max);
             }
             return defaultValue;

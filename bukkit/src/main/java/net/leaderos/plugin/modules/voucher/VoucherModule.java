@@ -5,7 +5,7 @@ import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.voucher.commands.VoucherCommand;
 import net.leaderos.plugin.modules.voucher.listeners.VoucherListener;
 import net.leaderos.plugin.modules.voucher.data.Data;
-import net.leaderos.shared.module.LeaderOSModule;
+import net.leaderos.shared.modules.LeaderOSModule;
 import org.bukkit.event.HandlerList;
 
 /**

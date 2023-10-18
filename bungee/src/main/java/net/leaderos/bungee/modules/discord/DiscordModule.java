@@ -1,11 +1,11 @@
 package net.leaderos.bungee.modules.discord;
 
 import net.leaderos.bungee.Bungee;
-import net.leaderos.bungee.helper.ChatUtil;
-import net.leaderos.bungee.helper.MDChat.MDChatAPI;
+import net.leaderos.bungee.helpers.ChatUtil;
+import net.leaderos.bungee.helpers.MDChat.MDChatAPI;
 import net.leaderos.bungee.modules.discord.commands.SyncCommand;
-import net.leaderos.shared.module.LeaderOSModule;
-import net.leaderos.shared.module.discord.DiscordHelper;
+import net.leaderos.shared.modules.LeaderOSModule;
+import net.leaderos.shared.modules.discord.DiscordHelper;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 /**

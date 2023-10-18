@@ -2,7 +2,7 @@ package net.leaderos.plugin.modules.auth;
 
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.auth.commands.AuthCommand;
-import net.leaderos.shared.module.LeaderOSModule;
+import net.leaderos.shared.modules.LeaderOSModule;
 
 /**
  * Auth module of leaderos-plugin

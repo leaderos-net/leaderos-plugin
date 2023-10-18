@@ -1,10 +1,10 @@
 package net.leaderos.plugin.modules.webstore;
 
 import net.leaderos.plugin.Bukkit;
-import net.leaderos.plugin.modules.webstore.command.WebStoreCommand;
+import net.leaderos.plugin.modules.webstore.commands.WebStoreCommand;
 import net.leaderos.plugin.modules.webstore.model.Category;
 import net.leaderos.shared.exceptions.RequestException;
-import net.leaderos.shared.module.LeaderOSModule;
+import net.leaderos.shared.modules.LeaderOSModule;
 
 import java.io.IOException;
 

@@ -6,10 +6,10 @@ import com.velocitypowered.api.proxy.Player;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
-import net.leaderos.shared.module.LeaderOSModule;
-import net.leaderos.shared.module.auth.AuthHelper;
+import net.leaderos.shared.modules.LeaderOSModule;
+import net.leaderos.shared.modules.auth.AuthHelper;
 import net.leaderos.velocity.Velocity;
-import net.leaderos.velocity.helper.ChatUtil;
+import net.leaderos.velocity.helpers.ChatUtil;
 import net.leaderos.velocity.modules.auth.commands.AuthCommand;
 
 /**

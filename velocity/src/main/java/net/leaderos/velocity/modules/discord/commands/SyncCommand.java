@@ -4,7 +4,7 @@ import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
 import net.leaderos.velocity.Velocity;
-import net.leaderos.velocity.helper.ChatUtil;
+import net.leaderos.velocity.helpers.ChatUtil;
 import net.leaderos.velocity.modules.discord.DiscordModule;
 
 /**

@@ -5,7 +5,7 @@ import net.leaderos.plugin.api.handlers.ModuleDisableEvent;
 import net.leaderos.plugin.api.handlers.ModuleEnableEvent;
 import net.leaderos.plugin.configuration.Language;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.shared.module.Modulable;
+import net.leaderos.shared.modules.Modulable;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
