@@ -42,6 +42,11 @@ public abstract class SocketClient {
 
         this.socket = IO.socket(url, opts);
 
+        // Error listener
+        socket.on(Socket.EVENT_CONNECT_ERROR, args -> {
+            System.out.println("Socket Error: " + Arrays.toString(args));
+        });
+
         // Connect to socket
         socket.on(Socket.EVENT_CONNECT, args -> {
             // Join room
