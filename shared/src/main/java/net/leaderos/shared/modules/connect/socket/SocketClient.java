@@ -50,7 +50,7 @@ public abstract class SocketClient {
         });
 
         // Listen for commands
-        socket.on("commands", commands -> {
+        socket.on("sendCommands", commands -> {
             // Convert to JSON string
             String jsonString = Arrays.toString(commands);
 
@@ -75,7 +75,7 @@ public abstract class SocketClient {
             }
 
             // Sends commands back if everything is ok
-            socket.emit("commands", commands);
+            socket.emit("sent", commands);
         });
         socket.connect();
     }
