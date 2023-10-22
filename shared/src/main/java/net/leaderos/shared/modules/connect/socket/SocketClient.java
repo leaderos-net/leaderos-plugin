@@ -4,12 +4,14 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import lombok.Getter;
 import lombok.Setter;
+import net.leaderos.shared.model.request.PostRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author poyrazinan
@@ -63,24 +65,38 @@ public abstract class SocketClient {
             JSONArray jsonArray = new JSONArray(jsonString);
 
             // Get the first inner array
-            JSONArray innerArray = jsonArray.getJSONArray(0);
+            JSONArray logIDs = jsonArray.getJSONArray(0);
 
-            // Loop through the inner array
-            for (Object item : innerArray) {
-                if (item instanceof JSONObject) {
-                    // Cast object to JSONObject
-                    JSONObject jsonItem = (JSONObject) item;
-
-                    // Get the command
-                    String command = jsonItem.getString("command");
-
-                    // Execute the command
-                    executeCommands(command);
+            try {
+                // Validate commands
+                Map<String, String> formData = new HashMap<>();
+                formData.put("token", serverToken);
+                for (int i = 0; i < logIDs.length(); i++) {
+                    formData.put("commands[" + i + "]", (String) logIDs.get(i));
                 }
-            }
+                PostRequest postRequest = new PostRequest("command-logs/validate", formData);
+                JSONObject response = postRequest.getResponse().getResponseMessage();
+                JSONArray commandsList = response.getJSONArray("commands");
 
-            // Sends commands back if everything is ok
-            socket.emit("sent", commands);
+                // Execute validated commands
+                for (Object item : commandsList) {
+                    if (item instanceof JSONObject) {
+                        // Cast object to JSONObject
+                        JSONObject jsonItem = (JSONObject) item;
+
+                        // Get the command
+                        String command = jsonItem.getString("command");
+
+                        // Execute the command
+                        executeCommands(command);
+                    }
+                }
+
+                // Sends commands back if everything is ok
+                socket.emit("sent", commandsList);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         });
         socket.connect();
     }
