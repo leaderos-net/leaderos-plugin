@@ -143,7 +143,7 @@ public class Modules extends OkaeriConfig {
         /**
          * Server token name
          */
-        private String serverToken = "abc";
+        private String serverToken = "YOUR_SERVER_TOKEN";
     }
 
     /**

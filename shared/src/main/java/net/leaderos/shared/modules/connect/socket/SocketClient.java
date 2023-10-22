@@ -21,7 +21,7 @@ public abstract class SocketClient {
 
     private IO.Options opts = new IO.Options();
     private Socket socket;
-    private String url = "http://localhost:3000";
+    private String url = "https://connect.leaderos.net";
     private String apiKey;
     private String serverToken;
 

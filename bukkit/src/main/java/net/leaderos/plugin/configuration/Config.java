@@ -36,10 +36,10 @@ public class Config extends OkaeriConfig {
         private String lang = "en";
 
         @Comment("Url of your website")
-        private String url = "https://beta.leaderos.net";
+        private String url = "https://yourwebsite.com";
 
         @Comment("API Key for request")
-        private String apiKey = "2d8676260ffc79145cfb0ea736ac6a27";
+        private String apiKey = "YOUR_API_KEY";
 
         @Comment("Time format for plugin")
         private String timeFormat= "yyyy-MM-dd HH:mm:ss";
