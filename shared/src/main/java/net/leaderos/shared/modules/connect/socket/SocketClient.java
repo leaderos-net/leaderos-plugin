@@ -98,6 +98,12 @@ public abstract class SocketClient {
                 e.printStackTrace();
             }
         });
+
+        socket.on("ping", args -> {
+            socket.emit("pong");
+            joinedRoom();
+        });
+
         socket.connect();
     }
 
