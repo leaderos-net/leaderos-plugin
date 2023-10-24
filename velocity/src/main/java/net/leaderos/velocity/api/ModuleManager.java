@@ -116,10 +116,21 @@ public class ModuleManager {
     }
 
     /**
+     * reload modules
+     */
+    private void reload() {
+        modules.keySet().forEach(moduleName -> {
+            Modulable module = modules.get(moduleName);
+            if (module.isEnabled())
+                module.onReload();
+        });
+    }
+
+    /**
      * Reload modules
      */
     public void reloadModules() {
-        reloadModules();
+        reload();
         disableModules();
         enableModules();
     }
