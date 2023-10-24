@@ -83,6 +83,12 @@ public abstract class LeaderOSModule implements Modulable {
     public void onDisable() {}
 
     /**
+     * onReload method of module
+     */
+    @Override
+    public void onReload() {}
+
+    /**
      * Constructor of LeaderOSModule
      */
     public LeaderOSModule() {}

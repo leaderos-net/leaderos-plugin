@@ -55,9 +55,9 @@ public class ConnectModule extends LeaderOSModule {
     }
 
     /**
-     * onDisable method of module
+     * onReload method of module
      */
-    public void onDisable() {
+    public void onReload() {
         socket.getSocket().close();
     }
 

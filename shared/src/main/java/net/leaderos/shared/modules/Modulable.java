@@ -60,12 +60,17 @@ public interface Modulable {
     String getName();
 
     /**
-     * Called when this plugin is enabled
+     * Called when this plugin on enabled
      */
     void onEnable();
 
     /**
-     * Called when this plugin is disabled
+     * Called when this plugin on disabled
      */
     void onDisable();
+
+    /**
+     * Called when this plugin on reloads
+     */
+    void onReload();
 }

@@ -115,6 +115,7 @@ public class ModuleManager {
      * Reload modules
      */
     public void reloadModules() {
+        reloadModules();
         disableModules();
         enableModules();
     }
