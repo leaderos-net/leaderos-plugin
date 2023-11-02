@@ -189,9 +189,7 @@ public class Modules extends OkaeriConfig {
             private List<String> landingGuiLayout = Arrays.asList(
                     "         ",
                     "  ccccc  ",
-                    "b       n",
-                    "b: Prev Page",
-                    "n: Next Page"
+                    "b       n"
             );
 
             /**
@@ -207,6 +205,7 @@ public class Modules extends OkaeriConfig {
             })
             private List<String> layout = Arrays.asList(
                     "         ",
+                    "  eeeee  ",
                     "  eeeee  ",
                     "  eeeee  ",
                     "         ",
