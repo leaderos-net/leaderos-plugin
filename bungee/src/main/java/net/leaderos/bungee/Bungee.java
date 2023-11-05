@@ -102,7 +102,7 @@ public class Bungee extends Plugin {
                 it.load(true);
             });
             String langName = configFile.getSettings().getLang();
-            Class langClass = Class.forName("net.leaderos.plugin.bungee.configuration.lang." + langName);
+            Class langClass = Class.forName("net.leaderos.plugin.configuration.lang." + langName);
             Class<Language> languageClass = langClass;
             this.langFile = ConfigManager.create(languageClass, (it) -> {
                 it.withConfigurer(new YamlBungeeConfigurer());
