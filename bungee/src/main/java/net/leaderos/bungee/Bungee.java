@@ -102,10 +102,9 @@ public class Bungee extends Plugin {
                 it.load(true);
             });
             String langName = configFile.getSettings().getLang();
-            // TODO MULTI LANG
-            //    Class langClass = Class.forName("net.leaderos.plugin.bukkit.configuration.lang." + langName);
-            //    Class<Language> languageClass = langClass;
-            this.langFile = ConfigManager.create(Language.class, (it) -> {
+            Class langClass = Class.forName("net.leaderos.plugin.bukkit.configuration.lang." + langName);
+            Class<Language> languageClass = langClass;
+            this.langFile = ConfigManager.create(languageClass, (it) -> {
                 it.withConfigurer(new YamlBungeeConfigurer());
                 it.withBindFile(new File(getDataFolder() + "/lang", langName + ".yml"));
                 it.saveDefaults();
