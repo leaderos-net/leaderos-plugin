@@ -1,5 +1,6 @@
 package net.leaderos.plugin.helpers;
 
+import me.clip.placeholderapi.PlaceholderAPI;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.shared.helpers.Placeholder;
 import net.md_5.bungee.api.ChatColor;
@@ -85,6 +86,18 @@ public class ChatUtil {
         for (Placeholder placeholder : placeholders) {
             string = string.replace(placeholder.getKey(), placeholder.getValue());
         }
+        return color(string);
+    }
+
+    /**
+     * Replaces placeholders on string
+     * <p><b>also format chat messages too @see ChatUtil#color(String)</b></p>
+     *
+     * @param string to be converted
+     * @return converted string value
+     */
+    public static String replacePlaceholders(String string) {
+        string = PlaceholderAPI.setPlaceholders(null, string);
         return color(string);
     }
 

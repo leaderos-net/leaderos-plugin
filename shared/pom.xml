@@ -29,6 +29,12 @@
             <artifactId>socket.io-client</artifactId>
             <version>2.1.0</version>
         </dependency>
+        <!-- gson -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
     </dependencies>
 
 </project>

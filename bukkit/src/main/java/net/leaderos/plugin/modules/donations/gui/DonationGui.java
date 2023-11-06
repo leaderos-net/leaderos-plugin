@@ -39,7 +39,7 @@ public class DonationGui {
         // Gui template as array
         String[] layout = Bukkit.getInstance().getModulesFile().getDonations().getGui().getLayout().toArray(new String[0]);
         // Inventory object
-        String guiName = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getDonationsGui().getGuiName());
+        String guiName = ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getGui().getDonationsGui().getGuiName());
         InventoryGui gui = new InventoryGui(Bukkit.getInstance(), null, guiName, layout);
         // Filler item for empty slots
         gui.setFiller(GuiHelper.getFiller(Bukkit.getInstance().getModulesFile().getDonations().getGui().getFillerItem().isUseFiller(), Bukkit.getInstance().getModulesFile().getDonations().getGui().getFillerItem().getMaterial()));

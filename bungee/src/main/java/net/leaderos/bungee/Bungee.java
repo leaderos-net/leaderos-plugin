@@ -13,6 +13,7 @@ import net.leaderos.bungee.modules.connect.ConnectModule;
 import net.leaderos.bungee.modules.credit.CreditModule;
 import net.leaderos.bungee.modules.discord.DiscordModule;
 import net.leaderos.shared.Shared;
+import net.leaderos.shared.helpers.UpdateUtil;
 import net.md_5.bungee.api.plugin.Plugin;
 
 import java.io.File;
@@ -67,6 +68,7 @@ public class Bungee extends Plugin {
         instance = this;
         Bungee.moduleManager = new ModuleManager();
         setupFiles();
+        new UpdateUtil(getDescription().getVersion());
         shared = new Shared(getConfigFile().getSettings().getUrl(),
                 getConfigFile().getSettings().getApiKey());
         Bungee.getInstance().getProxy().getPluginManager().registerCommand(Bungee.getInstance(), new LeaderOSCommand("leaderos"));

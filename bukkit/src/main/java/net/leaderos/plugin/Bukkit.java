@@ -22,6 +22,7 @@ import net.leaderos.plugin.commands.LeaderOSCommand;
 import net.leaderos.plugin.modules.bazaar.BazaarModule;
 import net.leaderos.plugin.modules.webstore.WebStoreModule;
 import net.leaderos.plugin.modules.auth.AuthModule;
+import net.leaderos.shared.helpers.UpdateUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -88,6 +89,7 @@ public class Bukkit extends JavaPlugin {
     public void onEnable() {
         commandManager = BukkitCommandManager.create(this);
         setupCommands();
+        new UpdateUtil(getDescription().getVersion());
         // Loads modules
         LeaderOSAPI.getModuleManager().registerModule(new AuthModule());
         LeaderOSAPI.getModuleManager().registerModule(new DiscordModule());

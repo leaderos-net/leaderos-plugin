@@ -37,7 +37,7 @@ public class BazaarGui {
         // Gui template as array
         String[] layout = Bukkit.getInstance().getModulesFile().getBazaar().getGui().getLayout().toArray(new String[0]);
         // Inventory object
-        String guiName = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getGuiName());
+        String guiName = ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getGuiName());
         InventoryGui gui = new InventoryGui(Bukkit.getInstance(), null, guiName, layout);
         // Filler item for empty slots
         gui.setFiller(GuiHelper.getFiller(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().isUseFiller(), Bukkit.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().getMaterial()));

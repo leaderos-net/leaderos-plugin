@@ -44,7 +44,7 @@ public class WebStoreGui {
         // Gui template as array
         String[] layout = Bukkit.getInstance().getModulesFile().getWebStore().getGui().getLayout().toArray(new String[0]);
         // Inventory object
-        String guiName = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getGuiName());
+        String guiName = ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getGuiName());
         InventoryGui gui = new InventoryGui(Bukkit.getInstance(), null, guiName, layout);
         // Filler item for empty slots
         gui.setFiller(GuiHelper.getFiller(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Bukkit.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));

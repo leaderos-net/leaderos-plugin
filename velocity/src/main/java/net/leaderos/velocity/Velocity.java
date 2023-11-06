@@ -14,6 +14,7 @@ import eu.okaeri.configs.yaml.snakeyaml.YamlSnakeYamlConfigurer;
 import lombok.Getter;
 import lombok.Setter;
 import net.leaderos.shared.Shared;
+import net.leaderos.shared.helpers.UpdateUtil;
 import net.leaderos.velocity.api.ModuleManager;
 import net.leaderos.velocity.commands.LeaderOSCommand;
 import net.leaderos.velocity.configuration.Config;
@@ -35,7 +36,7 @@ import java.nio.file.Path;
  */
 @Getter
 @Setter
-@Plugin(id = "leaderos", name = "LeaderOS", version = "1.0.0-SNAPSHOT",
+@Plugin(id = "leaderos", name = "LeaderOS", version = "1.0",
         url = "https://leaderos.net", description = "LeaderOS Plugin for Velocity", authors = {"leaderos"})
 public class Velocity {
 
@@ -111,6 +112,7 @@ public class Velocity {
     public void onProxyInitialize(ProxyInitializeEvent event) {
         commandManager = getServer().getCommandManager();
         setupFiles();
+        new UpdateUtil("1.0");
         this.shared = new Shared(getConfigFile().getSettings().getUrl(),
                 getConfigFile().getSettings().getApiKey());
         this.moduleManager = new ModuleManager();
