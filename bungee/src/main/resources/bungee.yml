@@ -1,4 +1,4 @@
 name: LeaderOS
 main: net.leaderos.bungee.Bungee
-version: 1.0
+version: '${shared.version}'
 author: leaderos, geik

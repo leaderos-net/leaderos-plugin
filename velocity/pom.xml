@@ -10,6 +10,7 @@
     </parent>
 
     <artifactId>leaderos-velocity</artifactId>
+    <version>${shared.version}</version>
     <packaging>jar</packaging>
 
     <properties>
