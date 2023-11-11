@@ -36,8 +36,14 @@ import java.nio.file.Path;
  */
 @Getter
 @Setter
-@Plugin(id = "leaderos", name = "LeaderOS", version = "1.0",
-        url = "https://leaderos.net", description = "LeaderOS Plugin for Velocity", authors = {"leaderos"})
+@Plugin(
+        id = "leaderos",
+        name = "LeaderOS",
+        version = "1.0.1",
+        url = "https://leaderos.net",
+        description = "LeaderOS Plugin for Velocity",
+        authors = {"leaderos"}
+)
 public class Velocity {
 
     /**
@@ -112,7 +118,7 @@ public class Velocity {
     public void onProxyInitialize(ProxyInitializeEvent event) {
         commandManager = getServer().getCommandManager();
         setupFiles();
-        new UpdateUtil("1.0");
+        new UpdateUtil("1.0.1");
         this.shared = new Shared(getConfigFile().getSettings().getUrl(),
                 getConfigFile().getSettings().getApiKey());
         this.moduleManager = new ModuleManager();
