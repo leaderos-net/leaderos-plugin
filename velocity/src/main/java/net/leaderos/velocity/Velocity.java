@@ -155,7 +155,7 @@ public class Velocity {
                 it.load(true);
             });
             String langName = configFile.getSettings().getLang();
-            Class langClass = Class.forName("net.leaderos.plugin.configuration.lang." + langName);
+            Class langClass = Class.forName("net.leaderos.velocity.configuration.lang." + langName);
             Class<Language> languageClass = langClass;
             this.langFile = ConfigManager.create(languageClass, (it) -> {
                 it.withConfigurer(new YamlSnakeYamlConfigurer());
