@@ -98,7 +98,11 @@ public class BazaarAddItemGui {
                 XMaterial material = XMaterial.matchXMaterial(item);
                 String name = ItemUtil.getName(item);
                 String lore = (item.hasItemMeta() && item.getItemMeta().hasLore()) ?
-                        String.join("\n", item.getItemMeta().getLore()) : null;
+                        item.getItemMeta().getLore().toString()
+                                .replace("ı", "i")
+                                .replace("u", "ü")
+                                .replace("ş", "s")
+                                .replace("ö", "o") : null;
                 int amount = item.getAmount();
                 int maxDurability = item.getType().getMaxDurability();
                 int durability = ItemUtil.getDurability(item, maxDurability);
@@ -110,9 +114,9 @@ public class BazaarAddItemGui {
 
                 Map<String, String> body = new HashMap<>();
                 body.put("owner", userId);
-                body.put("name", name);
+                body.put("name", ChatUtil.removeColorCode(name));
                 if (lore != null)
-                    body.put("lore", lore);
+                    body.put("lore", ChatUtil.removeColorCode(lore));
                 body.put("amount", String.valueOf(amount));
                 body.put("maxDurability", String.valueOf(maxDurability));
                 body.put("durability", String.valueOf(durability));

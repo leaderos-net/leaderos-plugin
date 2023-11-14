@@ -56,6 +56,19 @@ public class ChatUtil {
     }
 
     /**
+     * Removes color codes from text
+     * @param text to remove color codes
+     * @return String of removed color codes
+     */
+    public static String removeColorCode(String text) {
+        String regex = "(&[a-zA-Z0-9]|§[a-zA-Z0-9]|#[0-9a-fA-F]{6})";
+
+        text = text.replaceAll(regex, "");
+
+        return text;
+    }
+
+    /**
      * Applies chat color formats to list
      * @param list to convert
      * @return List of converted message

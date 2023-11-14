@@ -1,6 +1,5 @@
 package net.leaderos.shared.model.request;
 
-import net.leaderos.shared.exceptions.RequestException;
 import net.leaderos.shared.model.Request;
 
 import java.io.IOException;
