@@ -87,8 +87,11 @@ public abstract class SocketClient {
                         // Get the command
                         String command = jsonItem.getString("command");
 
+                        // Get the username
+                        String username = jsonItem.getString("username");
+
                         // Execute the command
-                        executeCommands(command);
+                        executeCommands(command, username);
                     }
                 }
 
@@ -110,8 +113,9 @@ public abstract class SocketClient {
     /**
      * Executes commands on proxy and server modules
      * @param command command to execute
+     * @param username of player
      */
-    public abstract void executeCommands(String command);
+    public abstract void executeCommands(String command, String username);
 
     /**
      * Joined room abstracted method for debug

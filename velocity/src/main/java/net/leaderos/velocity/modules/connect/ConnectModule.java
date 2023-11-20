@@ -32,9 +32,10 @@ public class ConnectModule extends LeaderOSModule {
                 /**
                  * Executes console command
                  * @param command command to execute
+                 * @param username username of player
                  */
                 @Override
-                public void executeCommands(String command) {
+                public void executeCommands(String command, String username) {
                     Velocity.getInstance().getCommandManager()
                             .executeImmediatelyAsync(Velocity.getInstance().getServer().getConsoleCommandSource(), command);
                     Component msg = ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),

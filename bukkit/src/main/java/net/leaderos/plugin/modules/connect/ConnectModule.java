@@ -30,9 +30,10 @@ public class ConnectModule extends LeaderOSModule {
                 /**
                  * Executes console command
                  * @param command command to execute
+                 * @param username username of player
                  */
                 @Override
-                public void executeCommands(String command) {
+                public void executeCommands(String command, String username) {
                     org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
                         org.bukkit.Bukkit.dispatchCommand(org.bukkit.Bukkit.getConsoleSender(), command);
                         String msg = ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),

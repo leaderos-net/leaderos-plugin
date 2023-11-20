@@ -31,9 +31,10 @@ public class ConnectModule extends LeaderOSModule {
                 /**
                  * Executes console command
                  * @param command command to execute
+                 * @param username username of player
                  */
                 @Override
-                public void executeCommands(String command) {
+                public void executeCommands(String command, String username) {
                     Bungee.getInstance().getProxy().getPluginManager().dispatchCommand(
                             Bungee.getInstance().getProxy().getConsole(), command);
                     String msg = ChatUtil.replacePlaceholders(Bungee.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),
