@@ -9,32 +9,14 @@
 </p>
 </div>
 
-🧩 The official LeaderOS plugin for Minecraft servers.
+🧩 The official LeaderOS plugin for Minecraft servers. We currently support Bukkit, Spigot, Bungeecord, Velocity. Offer features such as Web Store, Bazaar, Credits, Authentication and ensure product delivery after purchase.
 
-## How it's work?
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum tortor quam, sodales vitae massa in, hendrerit consequat nibh. Nulla pharetra maximus ligula, sed iaculis ligula consectetur nec. Nulla non dapibus urna. Aenean odio enim, commodo aliquet ante vel, imperdiet porta eros. Duis malesuada ornare nisi sit amet auctor. Suspendisse condimentum velit et cursus dapibus. Sed eget ligula ut elit sollicitudin mollis in et nisl. Proin varius quam velit, sit amet bibendum mi fermentum eu. Maecenas elit elit, blandit vel congue a, blandit vel felis. Donec vehicula, magna ac cursus euismod, nunc erat laoreet magna, non aliquam orci mauris quis orci. Aliquam erat volutpat. Cras id metus fermentum, congue mauris eget, maximus turpis. Suspendisse efficitur urna nec nisi consectetur consectetur. Mauris erat nunc, finibus consectetur suscipit quis, facilisis eget ligula. Etiam congue erat ornare erat volutpat ultrices. Nunc gravida sapien at efficitur maximus.
+## Download
+[https://www.spigotmc.org/resources/leaderos-net-official-plugin.105496/](https://www.spigotmc.org/resources/leaderos-net-official-plugin.105496/)
 
-## Configuration and Lang File
-<details>
-  <summary>config.yml</summary>
-
-    TODO
-</details>
-
-<details>
-    <summary>lang.yml</summary>
-
-    TODO
-</details>
-
-## Commands
-+ **/auth** - Lorem
-+ **/webchest** - Lorem
-+ **/webshop** - Lorem
-+ 
-## Images
-
-### TODO
+## Wiki
+🇺🇸 English: [https://help.leaderos.net/free-services/leaderos-plugin](https://help.leaderos.net/free-services/leaderos-plugin)
+🇹🇷 Türkçe: [https://destek.leaderos.com.tr/free-services/leaderos-plugin](https://destek.leaderos.com.tr/free-services/leaderos-plugin)
 
 ## API
 [![Leaderos JavaDoc](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/publish-javadoc-maven.yml/badge.svg)](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/publish-javadoc-maven.yml)
@@ -79,7 +61,7 @@ dependencies {
 
 leaderos-plugin has good javadoc.
 
-You can check it out the farmer javadoc [Java-Doc](https://leaderos-net.github.io/leaderos-plugin)
+You can check it out the plugin javadoc [Java-Doc](https://leaderos-net.github.io/leaderos-plugin)
 
 ```java
 public class Main extends JavaPlugin {
@@ -99,8 +81,9 @@ public class Main extends JavaPlugin {
 * [spigot-api (1.20-R0.1-SNAPSHOT)](https://hub.spigotmc.org/stash/projects/SPIGOT/repos/spigot/browse)
 * [lombok (LATEST)](https://github.com/projectlombok/lombok)
 * [BStats](https://bstats.org)
-* [Vault](https://www.spigotmc.org/resources/vault.34315/)
-* [SimplixStorage](https://www.spigotmc.org/resources/simplixstorage-awesome-library-to-store-data-in-a-better-way.67286/)
+* [triumph-cmds]([https://www.spigotmc.org/resources/vault.34315/](https://github.com/TriumphTeam/triumph-cmds))
+* [okaeri-configs](https://github.com/OkaeriPoland/okaeri-configs)
+* [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)
 * [InventoryGUI](https://github.com/Phoenix616/InventoryGui)
 * [XSeries](https://github.com/CryptoMorin/XSeries)
 * [NBTApi](https://www.spigotmc.org/resources/nbt-api.7939/)
