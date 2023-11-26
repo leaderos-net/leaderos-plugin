@@ -139,6 +139,10 @@
                             <pattern>eu.okaeri</pattern>
                             <shadedPattern>net.leaderos.shades.okaeri</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <shadedPattern>net.leaderos.shades.bstats</shadedPattern>
+                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>

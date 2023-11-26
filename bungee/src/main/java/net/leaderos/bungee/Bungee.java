@@ -15,6 +15,7 @@ import net.leaderos.bungee.modules.discord.DiscordModule;
 import net.leaderos.shared.Shared;
 import net.leaderos.shared.helpers.UpdateUtil;
 import net.md_5.bungee.api.plugin.Plugin;
+import org.bstats.bungeecord.Metrics;
 
 import java.io.File;
 
@@ -77,6 +78,9 @@ public class Bungee extends Plugin {
         getModuleManager().registerModule(new CreditModule());
         getModuleManager().registerModule(new ConnectModule());
         getModuleManager().enableModules();
+
+        // bStats
+        Metrics metrics = new Metrics(this, 20386);
     }
 
     /**

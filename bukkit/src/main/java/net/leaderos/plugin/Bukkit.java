@@ -23,6 +23,7 @@ import net.leaderos.plugin.modules.bazaar.BazaarModule;
 import net.leaderos.plugin.modules.webstore.WebStoreModule;
 import net.leaderos.plugin.modules.auth.AuthModule;
 import net.leaderos.shared.helpers.UpdateUtil;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -101,6 +102,9 @@ public class Bukkit extends JavaPlugin {
         LeaderOSAPI.getModuleManager().registerModule(new DonationsModule());
         LeaderOSAPI.getModuleManager().registerModule(new ConnectModule());
         LeaderOSAPI.getModuleManager().enableModules();
+
+        // bStats
+        Metrics metrics = new Metrics(this, 20385);
     }
 
     /**
