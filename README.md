@@ -16,6 +16,7 @@
 
 ## Wiki
 🇺🇸 English: [https://help.leaderos.net/free-services/leaderos-plugin](https://help.leaderos.net/free-services/leaderos-plugin)
+
 🇹🇷 Türkçe: [https://destek.leaderos.com.tr/free-services/leaderos-plugin](https://destek.leaderos.com.tr/free-services/leaderos-plugin)
 
 ## API
