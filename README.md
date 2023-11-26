@@ -73,16 +73,12 @@ public class Main extends JavaPlugin {
 }
 ```
 
-### Listeners
-
-* TODO
-
 ## Used Libraries
 
 * [spigot-api (1.20-R0.1-SNAPSHOT)](https://hub.spigotmc.org/stash/projects/SPIGOT/repos/spigot/browse)
 * [lombok (LATEST)](https://github.com/projectlombok/lombok)
 * [BStats](https://bstats.org)
-* [triumph-cmds]([https://www.spigotmc.org/resources/vault.34315/](https://github.com/TriumphTeam/triumph-cmds))
+* [triumph-cmds](https://github.com/TriumphTeam/triumph-cmds)
 * [okaeri-configs](https://github.com/OkaeriPoland/okaeri-configs)
 * [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)
 * [InventoryGUI](https://github.com/Phoenix616/InventoryGui)
