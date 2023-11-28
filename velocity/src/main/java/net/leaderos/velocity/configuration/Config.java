@@ -38,6 +38,9 @@ public class Config extends OkaeriConfig {
         @Comment("Url of your website")
         private String url = "https://yourwebsite.com";
 
+        @Comment("Debug mode for API requests")
+        private boolean debug = false;
+
         @Comment("API Key for request")
         private String apiKey = "YOUR_API_KEY";
     }

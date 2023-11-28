@@ -37,6 +37,8 @@ public class tr extends Language {
         @Comment("Prefix of messages")
         private String prefix = "&3LeaderOS &8»";
 
+        private String reload = "{prefix} &aEklenti başarıyla yeniden yüklendi.";
+
         private String playerNotOnline = "{prefix} &cOyuncu çevrimiçi değil.";
 
         private String playerNotAvailable = "{prefix} &cOyuncu mevcut değil.";
@@ -230,6 +232,10 @@ public class tr extends Language {
         public static class Connect extends Language.Messages.Connect {
 
             private String connectExecutedCommand = "{prefix} &aConnect modülü tarafından komut çalıştırıldı: &e%command%";
+
+            private String connectWillExecuteCommand = "{prefix} &aConnect modülü, oyuncu sunucuya katıldıktan sonra komutu çalıştıracak: &e%command%";
+
+            private String connectExecutedCommandFromQueue = "{prefix} &aConnect modülü, oyuncu sunucuya katıldıktan sonra komutu çalıştırdı: &e%command%";
 
             private String joinedSocketRoom = "{prefix} &aConnect modülü başarıyla odaya bağlandı.";
         }

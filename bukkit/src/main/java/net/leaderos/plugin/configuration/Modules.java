@@ -143,7 +143,14 @@ public class Modules extends OkaeriConfig {
         /**
          * Server token name
          */
+        @Comment("You can get your server token from Dashboard > Store > Game Servers")
         private String serverToken = "YOUR_SERVER_TOKEN";
+
+        /**
+         * Executes commands only if player is online
+         */
+        @Comment("Executes commands only if player is online")
+        private boolean onlyOnline = true;
     }
 
     /**

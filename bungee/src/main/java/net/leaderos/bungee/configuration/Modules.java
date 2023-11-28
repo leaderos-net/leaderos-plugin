@@ -2,6 +2,7 @@ package net.leaderos.bungee.configuration;
 
 
 import eu.okaeri.configs.OkaeriConfig;
+import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.annotation.NameStrategy;
 import eu.okaeri.configs.annotation.Names;
 import lombok.Getter;
@@ -99,6 +100,13 @@ public class Modules extends OkaeriConfig {
         /**
          * Server token name
          */
+        @Comment("You can get your server token from Dashboard > Store > Game Servers")
         private String serverToken = "YOUR_SERVER_TOKEN";
+
+        /**
+         * Executes commands only if player is online
+         */
+        @Comment("Executes commands only if player is online")
+        private boolean onlyOnline = true;
     }
 }

@@ -42,7 +42,7 @@ public class LeaderOSCommand extends BaseCommand {
         Bukkit.getInstance().getLangFile().load(true);
         Bukkit.getInstance().getModulesFile().load(true);
         LeaderOSAPI.getModuleManager().reloadModules();
-        ChatUtil.sendMessage(sender, "{prefix} &aPlugin reloaded successfully.");
+        ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getReload());
     }
 
 }

@@ -24,7 +24,7 @@ public class LeaderOSCommand implements SimpleCommand {
                 Velocity.getInstance().getLangFile().load(true);
                 Velocity.getInstance().getModulesFile().load(true);
                 Velocity.getInstance().getModuleManager().reloadModules();
-                ChatUtil.sendMessage(source, "{prefix} &aPlugin reloaded successfully.");
+                ChatUtil.sendMessage(source, Velocity.getInstance().getLangFile().getMessages().getReload());
             }
             else
                 ChatUtil.sendMessage(source, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());

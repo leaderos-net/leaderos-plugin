@@ -32,7 +32,7 @@ public class LeaderOSCommand extends Command {
                 Bungee.getInstance().getLangFile().load(true);
                 Bungee.getInstance().getModulesFile().load(true);
                 Bungee.getModuleManager().reloadModules();
-                ChatUtil.sendMessage(sender, "{prefix} &aPlugin reloaded successfully.");
+                ChatUtil.sendMessage(sender, Bungee.getInstance().getLangFile().getMessages().getReload());
             }
             else
                 ChatUtil.sendMessage(sender, Bungee.getInstance().getLangFile().getMessages().getCommand().getNoPerm());

@@ -38,6 +38,8 @@ public class en extends Language {
         @Comment("Prefix of messages")
         private String prefix = "&3LeaderOS &8»";
 
+        private String reload = "{prefix} &aPlugin reloaded successfully.";
+
         private String playerNotOnline = "{prefix} &cTarget player is not online.";
 
         private String playerNotAvailable = "{prefix} &cPlayer is not available.";
@@ -241,6 +243,10 @@ public class en extends Language {
         public static class Connect extends Language.Messages.Connect {
 
             private String connectExecutedCommand = "{prefix} &aConnect module executed the command: &e%command%";
+
+            private String connectWillExecuteCommand = "{prefix} &aConnect module will execute the command after the player has joined the server: &e%command%";
+
+            private String connectExecutedCommandFromQueue = "{prefix} &aConnect module executed the command from the queue: &e%command%";
 
             private String joinedSocketRoom = "{prefix} &aConnect module has been successfully connected to the room.";
         }

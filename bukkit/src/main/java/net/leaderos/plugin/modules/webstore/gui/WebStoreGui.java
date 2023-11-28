@@ -112,7 +112,8 @@ public class WebStoreGui {
                         User user = User.getUser(player.getName());
                         Map<String, String> body = new HashMap<>();
                         body.put("user", user.getId());
-                        body.put("products[0]", product.getProductId());
+                        body.put("products[0][id]", product.getProductId());
+                        body.put("products[0][quantity]", "1");
                         // Titles
                         String title = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreTitle());
                         String subtitleError = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreError());
