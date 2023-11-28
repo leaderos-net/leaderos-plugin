@@ -8,6 +8,7 @@ net.leaderos.bungee.helpers.MDChat
 net.leaderos.bungee.modules.auth
 net.leaderos.bungee.modules.auth.commands
 net.leaderos.bungee.modules.connect
+net.leaderos.bungee.modules.connect.listeners
 net.leaderos.bungee.modules.credit
 net.leaderos.bungee.modules.credit.commands
 net.leaderos.bungee.modules.discord
@@ -31,6 +32,7 @@ net.leaderos.plugin.modules.cache
 net.leaderos.plugin.modules.cache.listeners
 net.leaderos.plugin.modules.cache.model
 net.leaderos.plugin.modules.connect
+net.leaderos.plugin.modules.connect.listeners
 net.leaderos.plugin.modules.credit
 net.leaderos.plugin.modules.credit.commands
 net.leaderos.plugin.modules.discord
@@ -56,6 +58,7 @@ net.leaderos.shared.model
 net.leaderos.shared.model.request
 net.leaderos.shared.modules
 net.leaderos.shared.modules.auth
+net.leaderos.shared.modules.connect.data
 net.leaderos.shared.modules.connect.socket
 net.leaderos.shared.modules.credit
 net.leaderos.shared.modules.credit.enums
@@ -69,6 +72,7 @@ net.leaderos.velocity.helpers
 net.leaderos.velocity.modules.auth
 net.leaderos.velocity.modules.auth.commands
 net.leaderos.velocity.modules.connect
+net.leaderos.velocity.modules.connect.listeners
 net.leaderos.velocity.modules.credit
 net.leaderos.velocity.modules.credit.commands
 net.leaderos.velocity.modules.discord
