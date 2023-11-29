@@ -41,6 +41,8 @@ public class en extends Language {
 
         private String reload = "{prefix} &aPlugin reloaded successfully.";
 
+        private String update = "{prefix} &eThere is a new update available for LeaderOS Plugin! Please update to &a%version%";
+
         private String playerNotOnline = "{prefix} &cTarget player is not online.";
 
         private String playerNotAvailable = "{prefix} &cPlayer is not available.";

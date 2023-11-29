@@ -8,12 +8,14 @@ import net.leaderos.bungee.commands.LeaderOSCommand;
 import net.leaderos.bungee.configuration.Config;
 import net.leaderos.bungee.configuration.Language;
 import net.leaderos.bungee.configuration.Modules;
+import net.leaderos.bungee.helpers.ChatUtil;
 import net.leaderos.bungee.modules.auth.AuthModule;
 import net.leaderos.bungee.modules.connect.ConnectModule;
 import net.leaderos.bungee.modules.credit.CreditModule;
 import net.leaderos.bungee.modules.discord.DiscordModule;
 import net.leaderos.shared.Shared;
-import net.leaderos.shared.helpers.UpdateUtil;
+import net.leaderos.shared.helpers.Placeholder;
+import net.leaderos.shared.helpers.PluginUpdater;
 import net.md_5.bungee.api.plugin.Plugin;
 import org.bstats.bungeecord.Metrics;
 
@@ -69,7 +71,7 @@ public class Bungee extends Plugin {
         instance = this;
         Bungee.moduleManager = new ModuleManager();
         setupFiles();
-        new UpdateUtil(getDescription().getVersion());
+
         shared = new Shared(getConfigFile().getSettings().getUrl(),
                 getConfigFile().getSettings().getApiKey());
         Bungee.getInstance().getProxy().getPluginManager().registerCommand(Bungee.getInstance(), new LeaderOSCommand("leaderos"));
@@ -81,6 +83,9 @@ public class Bungee extends Plugin {
 
         // bStats
         Metrics metrics = new Metrics(this, 20386);
+
+        // Check updates
+        checkUpdate();
     }
 
     /**
@@ -119,6 +124,21 @@ public class Bungee extends Plugin {
         } catch (Exception exception) {
             throw new RuntimeException("Error loading config.yml");
         }
+    }
+
+    public void checkUpdate() {
+        Bungee.getInstance().getProxy().getScheduler().runAsync(Bungee.getInstance(), () -> {
+            PluginUpdater updater = new PluginUpdater(getDescription().getVersion());
+            try {
+                if (updater.checkForUpdates()) {
+                    String msg = ChatUtil.replacePlaceholders(
+                            Bungee.getInstance().getLangFile().getMessages().getUpdate(),
+                            new Placeholder("%version%", updater.getLatestVersion())
+                    );
+                    ChatUtil.sendMessage(getProxy().getConsole(), msg);
+                }
+            } catch (Exception ignored) {}
+        });
     }
 
 }

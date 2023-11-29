@@ -13,13 +13,16 @@ import eu.okaeri.configs.ConfigManager;
 import eu.okaeri.configs.yaml.snakeyaml.YamlSnakeYamlConfigurer;
 import lombok.Getter;
 import lombok.Setter;
+import net.kyori.adventure.text.Component;
 import net.leaderos.shared.Shared;
-import net.leaderos.shared.helpers.UpdateUtil;
+import net.leaderos.shared.helpers.Placeholder;
+import net.leaderos.shared.helpers.PluginUpdater;
 import net.leaderos.velocity.api.ModuleManager;
 import net.leaderos.velocity.commands.LeaderOSCommand;
 import net.leaderos.velocity.configuration.Config;
 import net.leaderos.velocity.configuration.Language;
 import net.leaderos.velocity.configuration.Modules;
+import net.leaderos.velocity.helpers.ChatUtil;
 import net.leaderos.velocity.modules.auth.AuthModule;
 import net.leaderos.velocity.modules.connect.ConnectModule;
 import net.leaderos.velocity.modules.credit.CreditModule;
@@ -124,7 +127,7 @@ public class Velocity {
     public void onProxyInitialize(ProxyInitializeEvent event) {
         commandManager = getServer().getCommandManager();
         setupFiles();
-        new UpdateUtil("1.0.2");
+
         this.shared = new Shared(getConfigFile().getSettings().getUrl(),
                 getConfigFile().getSettings().getApiKey());
         this.moduleManager = new ModuleManager();
@@ -140,6 +143,9 @@ public class Velocity {
 
         // bStats
         Metrics metrics = metricsFactory.make(this, 20387);
+
+        // Check updates
+        checkUpdate();
     }
 
     /**
@@ -181,5 +187,20 @@ public class Velocity {
         } catch (Exception exception) {
             throw new RuntimeException("Error loading config.yml");
         }
+    }
+
+    public void checkUpdate() {
+        Velocity.getInstance().getServer().getScheduler().buildTask(Velocity.getInstance(), () -> {
+            PluginUpdater updater = new PluginUpdater("1.0.2");
+            try {
+                if (updater.checkForUpdates()) {
+                    Component msg = ChatUtil.replacePlaceholders(
+                            Velocity.getInstance().getLangFile().getMessages().getUpdate(),
+                            new Placeholder("%version%", updater.getLatestVersion())
+                    );
+                    ChatUtil.sendMessage(getServer().getConsoleCommandSource(), msg);
+                }
+            } catch (Exception ignored) {}
+        }).schedule();
     }
 }

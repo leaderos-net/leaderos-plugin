@@ -35,9 +35,13 @@ public class tr extends Language {
     public static class Messages extends Language.Messages {
 
         @Comment("Prefix of messages")
-        private String playerNotOnline = "{prefix} &cOyuncu çevrimiçi değil.";
+        private String prefix = "&3LeaderOS &8»";
 
         private String reload = "{prefix} &aEklenti başarıyla yeniden yüklendi.";
+
+        private String update = "{prefix} &eLeaderOS plugini için yeni bir güncelleme mevcut! Lütfen &a%version% &eversiyonuna güncelleyin!";
+
+        private String playerNotOnline = "{prefix} &cOyuncu çevrimiçi değil.";
 
         private String playerNotAvailable = "{prefix} &cOyuncu mevcut değil.";
 

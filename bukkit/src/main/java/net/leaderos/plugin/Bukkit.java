@@ -7,22 +7,23 @@ import eu.okaeri.configs.ConfigManager;
 import eu.okaeri.configs.yaml.bukkit.YamlBukkitConfigurer;
 import lombok.Getter;
 import net.leaderos.plugin.api.LeaderOSAPI;
+import net.leaderos.plugin.commands.LeaderOSCommand;
 import net.leaderos.plugin.configuration.Config;
 import net.leaderos.plugin.configuration.Language;
 import net.leaderos.plugin.configuration.Modules;
 import net.leaderos.plugin.helpers.ChatUtil;
+import net.leaderos.plugin.modules.auth.AuthModule;
+import net.leaderos.plugin.modules.bazaar.BazaarModule;
+import net.leaderos.plugin.modules.cache.CacheModule;
 import net.leaderos.plugin.modules.connect.ConnectModule;
 import net.leaderos.plugin.modules.credit.CreditModule;
 import net.leaderos.plugin.modules.discord.DiscordModule;
 import net.leaderos.plugin.modules.donations.DonationsModule;
 import net.leaderos.plugin.modules.voucher.VoucherModule;
-import net.leaderos.shared.Shared;
-import net.leaderos.plugin.modules.cache.CacheModule;
-import net.leaderos.plugin.commands.LeaderOSCommand;
-import net.leaderos.plugin.modules.bazaar.BazaarModule;
 import net.leaderos.plugin.modules.webstore.WebStoreModule;
-import net.leaderos.plugin.modules.auth.AuthModule;
-import net.leaderos.shared.helpers.UpdateUtil;
+import net.leaderos.shared.Shared;
+import net.leaderos.shared.helpers.Placeholder;
+import net.leaderos.shared.helpers.PluginUpdater;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -90,7 +91,7 @@ public class Bukkit extends JavaPlugin {
     public void onEnable() {
         commandManager = BukkitCommandManager.create(this);
         setupCommands();
-        new UpdateUtil(getDescription().getVersion());
+
         // Loads modules
         LeaderOSAPI.getModuleManager().registerModule(new AuthModule());
         LeaderOSAPI.getModuleManager().registerModule(new DiscordModule());
@@ -105,6 +106,9 @@ public class Bukkit extends JavaPlugin {
 
         // bStats
         Metrics metrics = new Metrics(this, 20385);
+
+        // Check updates
+        checkUpdate();
     }
 
     /**
@@ -165,6 +169,21 @@ public class Bukkit extends JavaPlugin {
             getPluginLoader().disablePlugin(this);
             throw new RuntimeException("Error loading config.yml");
         }
+    }
+
+    public void checkUpdate() {
+        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+            PluginUpdater updater = new PluginUpdater(getDescription().getVersion());
+            try {
+                if (updater.checkForUpdates()) {
+                    String msg = ChatUtil.replacePlaceholders(
+                            Bukkit.getInstance().getLangFile().getMessages().getUpdate(),
+                            new Placeholder("%version%", updater.getLatestVersion())
+                    );
+                    ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), msg);
+                }
+            } catch (Exception ignored) {}
+        });
     }
 
     /**
