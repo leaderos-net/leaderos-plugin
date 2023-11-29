@@ -143,6 +143,10 @@
                             <pattern>org.bstats</pattern>
                             <shadedPattern>net.leaderos.shades.bstats</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>de.leonhard.storage</pattern>
+                            <shadedPattern>net.leaderos.shades.storage</shadedPattern>
+                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>
