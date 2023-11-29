@@ -64,17 +64,15 @@ public class ConnectModule extends LeaderOSModule {
                 public void executeCommands(String command, String username) {
                     // If player is offline and onlyOnline is true
                     if (Velocity.getInstance().getModulesFile().getConnect().isOnlyOnline() && Velocity.getInstance().getServer().getPlayer(username).isEmpty()) {
-                        Velocity.getInstance().getServer().getScheduler().buildTask(Velocity.getInstance(), () -> {
-                            try {
-                                commandsQueue.addCommand(username, command);
+                        try {
+                            commandsQueue.addCommand(username, command);
 
-                                Component msg = ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
-                                        new Placeholder("%command%", command));
-                                ChatUtil.sendMessage(Velocity.getInstance().getServer().getConsoleCommandSource(), msg);
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }).schedule();
+                            Component msg = ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
+                                    new Placeholder("%command%", command));
+                            ChatUtil.sendMessage(Velocity.getInstance().getServer().getConsoleCommandSource(), msg);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     } else {
                         Velocity.getInstance().getCommandManager().executeImmediatelyAsync(Velocity.getInstance().getServer().getConsoleCommandSource(), command);
                         Component msg = ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),

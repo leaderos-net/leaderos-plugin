@@ -63,13 +63,11 @@ public class ConnectModule extends LeaderOSModule {
                 public void executeCommands(String command, String username) {
                     // If player is offline and onlyOnline is true
                     if (Bungee.getInstance().getModulesFile().getConnect().isOnlyOnline() && Bungee.getInstance().getProxy().getPlayer(username) == null) {
-                        Bungee.getInstance().getProxy().getScheduler().runAsync(Bungee.getInstance(), () -> {
-                            commandsQueue.addCommand(username, command);
+                        commandsQueue.addCommand(username, command);
 
-                            String msg = ChatUtil.replacePlaceholders(Bungee.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
-                                    new Placeholder("%command%", command));
-                            ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), msg);
-                        });
+                        String msg = ChatUtil.replacePlaceholders(Bungee.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
+                                new Placeholder("%command%", command));
+                        ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), msg);
                     } else {
                         Bungee.getInstance().getProxy().getPluginManager().dispatchCommand(Bungee.getInstance().getProxy().getConsole(), command);
                         String msg = ChatUtil.replacePlaceholders(Bungee.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),
