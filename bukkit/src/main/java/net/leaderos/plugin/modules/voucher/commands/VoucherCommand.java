@@ -1,7 +1,7 @@
 package net.leaderos.plugin.modules.voucher.commands;
 
 import com.cryptomorin.xseries.XMaterial;
-import de.tr7zw.nbtapi.NBTItem;
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import dev.triumphteam.cmd.bukkit.annotation.Permission;
 import dev.triumphteam.cmd.core.BaseCommand;
 import dev.triumphteam.cmd.core.annotation.Command;

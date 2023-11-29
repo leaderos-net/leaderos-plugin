@@ -1,7 +1,7 @@
 package net.leaderos.plugin.modules.voucher.listeners;
 
 import com.cryptomorin.xseries.XMaterial;
-import de.tr7zw.nbtapi.NBTItem;
+import de.tr7zw.changeme.nbtapi.NBTItem;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.handlers.UpdateCacheEvent;
 import net.leaderos.plugin.helpers.ChatUtil;
