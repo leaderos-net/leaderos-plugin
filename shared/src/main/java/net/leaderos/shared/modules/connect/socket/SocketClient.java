@@ -76,7 +76,7 @@ public abstract class SocketClient {
                 PostRequest postRequest = new PostRequest("command-logs/validate", formData);
                 JSONObject response = postRequest.getResponse().getResponseMessage();
                 JSONArray commandsJSON = response.getJSONArray("commands");
-                String username = response.getString("username");
+                String username = "";
                 List<String> commandsList = new ArrayList<>();
 
                 for (Object item : commandsJSON) {
@@ -86,6 +86,9 @@ public abstract class SocketClient {
 
                         // Add command to list
                         commandsList.add(jsonItem.getString("command"));
+
+                        // Get username
+                        username = jsonItem.getString("username");
                     }
                 }
 
