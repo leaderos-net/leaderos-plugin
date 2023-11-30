@@ -9,9 +9,8 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author poyrazinan
@@ -76,27 +75,24 @@ public abstract class SocketClient {
                 }
                 PostRequest postRequest = new PostRequest("command-logs/validate", formData);
                 JSONObject response = postRequest.getResponse().getResponseMessage();
-                JSONArray commandsList = response.getJSONArray("commands");
+                JSONArray commandsJSON = response.getJSONArray("commands");
+                String username = response.getString("username");
+                List<String> commandsList = new ArrayList<>();
 
-                // Execute validated commands
-                for (Object item : commandsList) {
+                for (Object item : commandsJSON) {
                     if (item instanceof JSONObject) {
                         // Cast object to JSONObject
                         JSONObject jsonItem = (JSONObject) item;
 
-                        // Get the command
-                        String command = jsonItem.getString("command");
-
-                        // Get the username
-                        String username = jsonItem.getString("username");
-
-                        // Execute the command
-                        executeCommands(command, username);
+                        // Add command to list
+                        commandsList.add(jsonItem.getString("command"));
                     }
                 }
 
+                executeCommands(commandsList, username);
+
                 // Sends commands back if everything is ok
-                socket.emit("sent", commandsList);
+                socket.emit("sent", commandsJSON);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -112,10 +108,10 @@ public abstract class SocketClient {
 
     /**
      * Executes commands on proxy and server modules
-     * @param command command to execute
+     * @param commands command to execute
      * @param username of player
      */
-    public abstract void executeCommands(String command, String username);
+    public abstract void executeCommands(List<String> commands, String username);
 
     /**
      * Joined room abstracted method for debug

@@ -11,6 +11,7 @@ import net.leaderos.shared.modules.connect.socket.SocketClient;
 import net.leaderos.shared.modules.connect.data.CommandsQueue;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Connect module main class
@@ -56,23 +57,32 @@ public class ConnectModule extends LeaderOSModule {
                     Bungee.getInstance().getModulesFile().getConnect().getServerToken()) {
                 /**
                  * Executes console command
-                 * @param command command to execute
+                 * @param commands command list to execute
                  * @param username username of player
                  */
                 @Override
-                public void executeCommands(String command, String username) {
+                public void executeCommands(List<String> commands, String username) {
                     // If player is offline and onlyOnline is true
                     if (Bungee.getInstance().getModulesFile().getConnect().isOnlyOnline() && Bungee.getInstance().getProxy().getPlayer(username) == null) {
-                        commandsQueue.addCommand(username, command);
+                        commandsQueue.addCommands(username, commands);
 
-                        String msg = ChatUtil.replacePlaceholders(Bungee.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
-                                new Placeholder("%command%", command));
-                        ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), msg);
+                        commands.forEach(command -> {
+                            String msg = ChatUtil.replacePlaceholders(
+                                    Bungee.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
+                                    new Placeholder("%command%", command)
+                            );
+                            ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), msg);
+                        });
                     } else {
-                        Bungee.getInstance().getProxy().getPluginManager().dispatchCommand(Bungee.getInstance().getProxy().getConsole(), command);
-                        String msg = ChatUtil.replacePlaceholders(Bungee.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),
-                                new Placeholder("%command%", command));
-                        ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), msg);
+                        // Execute commands
+                        commands.forEach(command -> {
+                            Bungee.getInstance().getProxy().getPluginManager().dispatchCommand(Bungee.getInstance().getProxy().getConsole(), command);
+                            String msg = ChatUtil.replacePlaceholders(
+                                    Bungee.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),
+                                    new Placeholder("%command%", command)
+                            );
+                            ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), msg);
+                        });
                     }
                 }
 

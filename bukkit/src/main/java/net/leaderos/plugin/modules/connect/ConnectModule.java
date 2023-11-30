@@ -11,6 +11,7 @@ import net.leaderos.shared.modules.connect.data.CommandsQueue;
 import org.bukkit.event.HandlerList;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Connect module main class
@@ -56,26 +57,32 @@ public class ConnectModule extends LeaderOSModule {
                     Bukkit.getInstance().getModulesFile().getConnect().getServerToken()) {
                 /**
                  * Executes console command
-                 * @param command command to execute
+                 * @param commands command list to execute
                  * @param username username of player
                  */
                 @Override
-                public void executeCommands(String command, String username) {
+                public void executeCommands(List<String> commands, String username) {
                     // If player is offline and onlyOnline is true
                     if (Bukkit.getInstance().getModulesFile().getConnect().isOnlyOnline() && org.bukkit.Bukkit.getPlayer(username) == null) {
-                        commandsQueue.addCommand(username, command);
+                        commandsQueue.addCommands(username, commands);
 
-                        String msg = ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
-                                new Placeholder("%command%", command));
-                        ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), msg);
-                    } else {
-                        // Execute command
-                        org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
-                            org.bukkit.Bukkit.dispatchCommand(org.bukkit.Bukkit.getConsoleSender(), command);
-
-                            String msg = ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),
-                                    new Placeholder("%command%", command));
+                        commands.forEach(command -> {
+                            String msg = ChatUtil.replacePlaceholders(
+                                    Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
+                                    new Placeholder("%command%", command)
+                            );
                             ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), msg);
+                        });
+                    } else {
+                        // Execute commands
+                        org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+                            commands.forEach(command -> {
+                                org.bukkit.Bukkit.dispatchCommand(org.bukkit.Bukkit.getConsoleSender(), command);
+
+                                String msg = ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),
+                                        new Placeholder("%command%", command));
+                                ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), msg);
+                            });
                         });
                     }
                 }

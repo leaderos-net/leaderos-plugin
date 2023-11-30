@@ -12,6 +12,7 @@ import net.leaderos.velocity.helpers.ChatUtil;
 import net.leaderos.velocity.modules.connect.listeners.LoginListener;
 
 import java.net.URISyntaxException;
+import java.util.List;
 
 /**
  * Connect module main class
@@ -57,27 +58,32 @@ public class ConnectModule extends LeaderOSModule {
                     Velocity.getInstance().getModulesFile().getConnect().getServerToken()) {
                 /**
                  * Executes console command
-                 * @param command command to execute
+                 * @param commands command list to execute
                  * @param username username of player
                  */
                 @Override
-                public void executeCommands(String command, String username) {
+                public void executeCommands(List<String> commands, String username) {
                     // If player is offline and onlyOnline is true
                     if (Velocity.getInstance().getModulesFile().getConnect().isOnlyOnline() && Velocity.getInstance().getServer().getPlayer(username).isEmpty()) {
-                        try {
-                            commandsQueue.addCommand(username, command);
+                        commandsQueue.addCommands(username, commands);
 
-                            Component msg = ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
-                                    new Placeholder("%command%", command));
+                        commands.forEach(command -> {
+                            Component msg = ChatUtil.replacePlaceholders(
+                                    Velocity.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
+                                    new Placeholder("%command%", command)
+                            );
                             ChatUtil.sendMessage(Velocity.getInstance().getServer().getConsoleCommandSource(), msg);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+                        });
                     } else {
-                        Velocity.getInstance().getCommandManager().executeImmediatelyAsync(Velocity.getInstance().getServer().getConsoleCommandSource(), command);
-                        Component msg = ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),
-                                new Placeholder("%command%", command));
-                        ChatUtil.sendMessage(Velocity.getInstance().getServer().getConsoleCommandSource(), msg);
+                        // Execute commands
+                        commands.forEach(command -> {
+                            Velocity.getInstance().getCommandManager().executeImmediatelyAsync(Velocity.getInstance().getServer().getConsoleCommandSource(), command);
+                            Component msg = ChatUtil.replacePlaceholders(
+                                    Velocity.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),
+                                    new Placeholder("%command%", command)
+                            );
+                            ChatUtil.sendMessage(Velocity.getInstance().getServer().getConsoleCommandSource(), msg);
+                        });
                     }
                 }
 

@@ -4,8 +4,8 @@ import de.leonhard.storage.Json;
 import lombok.Getter;
 
 import java.util.List;
-import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class CommandsQueue {
 
@@ -30,12 +30,12 @@ public class CommandsQueue {
     /**
      * Adds command to queue
      * @param username username of player
-     * @param command command to add
+     * @param commands command list to add
      */
-    public void addCommand(String username, String command) {
+    public void addCommands(String username, List<String> commands) {
         executor.execute(() -> {
             List<String> list = getCommands(username);
-            list.add(command);
+            list.addAll(commands);
 
             json.set(username, list);
         });
