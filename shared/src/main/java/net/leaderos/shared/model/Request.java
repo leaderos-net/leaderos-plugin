@@ -3,7 +3,6 @@ package net.leaderos.shared.model;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import net.leaderos.shared.Shared;
-import net.leaderos.shared.exceptions.RequestException;
 import net.leaderos.shared.model.request.RequestType;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -13,6 +12,7 @@ import org.json.JSONObject;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
@@ -72,8 +72,9 @@ public abstract class Request {
         // Writes body if there is any
         if (this.body != null) {
             this.connection.setDoOutput(true); // We will write OutputStream to this request
-            DataOutputStream outStream = new DataOutputStream(this.connection.getOutputStream());
-            outStream.writeBytes(this.body);
+            try (OutputStreamWriter writer = new OutputStreamWriter(this.connection.getOutputStream(), StandardCharsets.UTF_8)) {
+                writer.write(this.body);
+            }
         }
 
         int responseCode = connection.getResponseCode();
