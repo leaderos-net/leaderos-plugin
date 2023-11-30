@@ -1,6 +1,7 @@
 package net.leaderos.shared;
 
 import lombok.Getter;
+import lombok.Setter;
 import net.leaderos.shared.helpers.DebugAPI;
 
 /**
@@ -19,18 +20,21 @@ public class Shared {
     /**
      * Link of request
      */
+    @Setter
     @Getter
     private static String link;
 
     /**
      * ApiKey for request
      */
+    @Setter
     @Getter
     private static String apiKey;
 
     /**
      * DebugAPI for debug requests
      */
+    @Setter
     @Getter
     private static DebugAPI debugAPI;
 

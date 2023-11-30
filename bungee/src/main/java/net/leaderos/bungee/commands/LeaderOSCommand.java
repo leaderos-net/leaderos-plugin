@@ -2,6 +2,7 @@ package net.leaderos.bungee.commands;
 
 import net.leaderos.bungee.Bungee;
 import net.leaderos.bungee.helpers.ChatUtil;
+import net.leaderos.shared.Shared;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.plugin.Command;
 
@@ -31,6 +32,10 @@ public class LeaderOSCommand extends Command {
                 Bungee.getInstance().getConfigFile().load(true);
                 Bungee.getInstance().getLangFile().load(true);
                 Bungee.getInstance().getModulesFile().load(true);
+
+                Shared.setLink(Bungee.getInstance().getConfigFile().getSettings().getUrl());
+                Shared.setApiKey(Bungee.getInstance().getConfigFile().getSettings().getApiKey());
+
                 Bungee.getModuleManager().reloadModules();
                 ChatUtil.sendMessage(sender, Bungee.getInstance().getLangFile().getMessages().getReload());
             }

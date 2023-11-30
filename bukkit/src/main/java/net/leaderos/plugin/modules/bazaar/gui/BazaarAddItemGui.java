@@ -145,7 +145,7 @@ public class BazaarAddItemGui {
                 } catch (Exception e) {
                     // TODO error msg
                     e.printStackTrace();
-                    // If something occure when adding item it will pop item back to player inventory
+                    // If something occur when adding item it will pop item back to player inventory
                     returnItems.add(item);
                 }
             }

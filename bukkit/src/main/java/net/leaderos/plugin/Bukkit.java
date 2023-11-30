@@ -6,6 +6,7 @@ import dev.triumphteam.cmd.core.message.MessageKey;
 import eu.okaeri.configs.ConfigManager;
 import eu.okaeri.configs.yaml.bukkit.YamlBukkitConfigurer;
 import lombok.Getter;
+import lombok.Setter;
 import net.leaderos.plugin.api.LeaderOSAPI;
 import net.leaderos.plugin.commands.LeaderOSCommand;
 import net.leaderos.plugin.configuration.Config;
@@ -48,6 +49,7 @@ public class Bukkit extends JavaPlugin {
     /**
      * Instance of shared;
      */
+    @Setter
     @Getter
     private static Shared shared;
 
@@ -106,7 +108,12 @@ public class Bukkit extends JavaPlugin {
         LeaderOSAPI.getModuleManager().registerModule(new VoucherModule());
         LeaderOSAPI.getModuleManager().registerModule(new DonationsModule());
         LeaderOSAPI.getModuleManager().registerModule(new ConnectModule());
-        LeaderOSAPI.getModuleManager().enableModules();
+
+        if (getConfigFile().getSettings().getUrl().equals("https://yourwebsite.com")) {
+            getLogger().warning(ChatUtil.getMessage(getLangFile().getMessages().getChangeApiUrl()));
+        } else {
+            LeaderOSAPI.getModuleManager().enableModules();
+        }
 
         // bStats
         Metrics metrics = new Metrics(this, 20385);

@@ -100,7 +100,6 @@ public class PlayerBazaar {
             GetRequest getRequest = new GetRequest("bazaar/storages/" + userId + "/items?serverID=" + serverId);
             JSONObject response = getRequest.getResponse().getResponseMessage();
             List<PlayerBazaar> playerBazaarList = new ArrayList<>();
-            // TODO NO ANY TEST HERE FIXXXXX!!
             response.getJSONArray("array").forEach(bazaar -> playerBazaarList.add(new PlayerBazaar((JSONObject) bazaar, userId)));
             return playerBazaarList;
         } catch (Exception e) {

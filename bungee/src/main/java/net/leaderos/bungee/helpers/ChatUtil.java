@@ -64,6 +64,15 @@ public class ChatUtil {
     }
 
     /**
+     * Get colored message with prefix
+     * @param message to send
+     */
+    public static String getMessage(String message) {
+        return ChatUtil.color(replacePlaceholders(message, new Placeholder("{prefix}",
+                Bungee.getInstance().getLangFile().getMessages().getPrefix())));
+    }
+
+    /**
      * Sends message to command sender
      * @param player executor
      * @param message to send

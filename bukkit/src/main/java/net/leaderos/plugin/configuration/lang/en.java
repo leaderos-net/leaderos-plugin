@@ -43,6 +43,8 @@ public class en extends Language {
 
         private String update = "{prefix} &eThere is a new update available for LeaderOS Plugin! Please update to &a%version%";
 
+        private String changeApiUrl = "{prefix} &cPlease change the API URL in the config.";
+
         private String playerNotOnline = "{prefix} &cTarget player is not online.";
 
         private String playerNotAvailable = "{prefix} &cPlayer is not available.";

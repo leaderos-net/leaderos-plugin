@@ -41,6 +41,8 @@ public class tr extends Language {
 
         private String update = "{prefix} &eLeaderOS plugini için yeni bir güncelleme mevcut! Lütfen &a%version% &eversiyonuna güncelleyin!";
 
+        private String changeApiUrl = "{prefix} &cLütfen API URL adresini değiştirin!";
+
         private String playerNotOnline = "{prefix} &cOyuncu çevrimiçi değil.";
 
         private String playerNotAvailable = "{prefix} &cOyuncu mevcut değil.";

@@ -84,7 +84,12 @@ public class Bungee extends Plugin {
         getModuleManager().registerModule(new DiscordModule());
         getModuleManager().registerModule(new CreditModule());
         getModuleManager().registerModule(new ConnectModule());
-        getModuleManager().enableModules();
+
+        if (getConfigFile().getSettings().getUrl().equals("https://yourwebsite.com")) {
+            getLogger().warning(ChatUtil.getMessage(getLangFile().getMessages().getChangeApiUrl()));
+        } else {
+            getModuleManager().enableModules();
+        }
 
         // bStats
         Metrics metrics = new Metrics(this, 20386);

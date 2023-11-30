@@ -139,7 +139,13 @@ public class Velocity {
         getModuleManager().registerModule(new AuthModule());
         getModuleManager().registerModule(new DiscordModule());
         getModuleManager().registerModule(new ConnectModule());
-        getModuleManager().enableModules();
+
+        if (getConfigFile().getSettings().getUrl().equals("https://yourwebsite.com")) {
+            getLogger().warn(ChatUtil.getMessage(getLangFile().getMessages().getChangeApiUrl()));
+        } else {
+            getModuleManager().enableModules();
+        }
+
         CommandMeta commandMeta = Velocity.getInstance().getCommandManager().metaBuilder("leaderos")
                 .plugin(Velocity.getInstance())
                 .build();

@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.LeaderOSAPI;
 import net.leaderos.plugin.helpers.ChatUtil;
+import net.leaderos.plugin.helpers.DebugBukkit;
+import net.leaderos.shared.Shared;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -41,6 +43,10 @@ public class LeaderOSCommand extends BaseCommand {
         Bukkit.getInstance().getConfigFile().load(true);
         Bukkit.getInstance().getLangFile().load(true);
         Bukkit.getInstance().getModulesFile().load(true);
+
+        Shared.setLink(Bukkit.getInstance().getConfigFile().getSettings().getUrl());
+        Shared.setApiKey(Bukkit.getInstance().getConfigFile().getSettings().getApiKey());
+
         LeaderOSAPI.getModuleManager().reloadModules();
         ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getReload());
     }
