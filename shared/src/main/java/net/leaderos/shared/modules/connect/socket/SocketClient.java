@@ -88,7 +88,8 @@ public abstract class SocketClient {
                         commandsList.add(jsonItem.getString("command"));
 
                         // Get username
-                        username = jsonItem.getString("username");
+                        if (username.equals(""))
+                            username = jsonItem.getString("username");
                     }
                 }
 
