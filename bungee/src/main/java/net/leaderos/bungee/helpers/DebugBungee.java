@@ -1,6 +1,6 @@
-package net.leaderos.plugin.helpers;
+package net.leaderos.bungee.helpers;
 
-import net.leaderos.plugin.Bukkit;
+import net.leaderos.bungee.Bungee;
 import net.leaderos.shared.helpers.DebugAPI;
 
 /**
@@ -8,7 +8,7 @@ import net.leaderos.shared.helpers.DebugAPI;
  * @author poyrazinan
  * @since 1.0.2
  */
-public class DebugBukkit implements DebugAPI {
+public class DebugBungee implements DebugAPI {
 
     /**
      * Sends debug to console
@@ -16,8 +16,8 @@ public class DebugBukkit implements DebugAPI {
      */
     @Override
     public void send(String message) {
-        if (Bukkit.getInstance().getConfigFile().getSettings().isDebug()) {
-            Bukkit.getInstance().getLogger().warning(ChatUtil.color(
+        if (Bungee.getInstance().getConfigFile().getSettings().isDebug()) {
+            Bungee.getInstance().getLogger().warning(ChatUtil.color(
                     "&e[DEBUG] &f" + message
             ));
         }
@@ -26,5 +26,5 @@ public class DebugBukkit implements DebugAPI {
     /**
      * Constructor of debug
      */
-    public DebugBukkit() {}
+    public DebugBungee() {}
 }

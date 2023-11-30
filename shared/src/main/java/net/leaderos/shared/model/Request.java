@@ -83,8 +83,7 @@ public abstract class Request {
         this.response = new Response(responseCode, status, getResponseObj());
         connection.disconnect();
 
-        // TODO AYARLA FIRAT
-        Shared.getDebugAPI().sendDebug("Bu bir test mesajıdır!");
+        Shared.getDebugAPI().send(this.response.getResponseMessage().toString());
     }
 
     /**

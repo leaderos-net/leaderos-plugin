@@ -9,8 +9,8 @@ public interface DebugAPI {
 
     /**
      * Sends debug to console
-     * @param msg to debug
+     * @param message to debug
      */
-    void sendDebug(String msg);
+    void send(String message);
 
 }

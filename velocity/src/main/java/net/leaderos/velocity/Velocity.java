@@ -23,6 +23,7 @@ import net.leaderos.velocity.configuration.Config;
 import net.leaderos.velocity.configuration.Language;
 import net.leaderos.velocity.configuration.Modules;
 import net.leaderos.velocity.helpers.ChatUtil;
+import net.leaderos.velocity.helpers.DebugVelocity;
 import net.leaderos.velocity.modules.auth.AuthModule;
 import net.leaderos.velocity.modules.connect.ConnectModule;
 import net.leaderos.velocity.modules.credit.CreditModule;
@@ -128,8 +129,11 @@ public class Velocity {
         commandManager = getServer().getCommandManager();
         setupFiles();
 
-        this.shared = new Shared(getConfigFile().getSettings().getUrl(),
-                getConfigFile().getSettings().getApiKey());
+        this.shared = new Shared(
+                getConfigFile().getSettings().getUrl(),
+                getConfigFile().getSettings().getApiKey(),
+                new DebugVelocity()
+        );
         this.moduleManager = new ModuleManager();
         getModuleManager().registerModule(new CreditModule());
         getModuleManager().registerModule(new AuthModule());

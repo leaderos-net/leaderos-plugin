@@ -82,8 +82,11 @@ public class Bukkit extends JavaPlugin {
     public void onLoad() {
         instance = this;
         setupFiles();
-        shared = new Shared(Bukkit.getInstance().getConfigFile().getSettings().getUrl(),
-                Bukkit.getInstance().getConfigFile().getSettings().getApiKey(), new DebugBukkit());
+        shared = new Shared(
+                Bukkit.getInstance().getConfigFile().getSettings().getUrl(),
+                Bukkit.getInstance().getConfigFile().getSettings().getApiKey(),
+                new DebugBukkit()
+        );
     }
 
     /**
