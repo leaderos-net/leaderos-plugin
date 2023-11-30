@@ -141,7 +141,9 @@ public class Velocity {
         getModuleManager().registerModule(new ConnectModule());
 
         if (getConfigFile().getSettings().getUrl().equals("https://yourwebsite.com")) {
-            getLogger().warn(ChatUtil.getMessage(getLangFile().getMessages().getChangeApiUrl()));
+            getLogger().warn(ChatUtil.componentToString(
+                    ChatUtil.getMessage(getLangFile().getMessages().getChangeApiUrl())
+            ));
         } else {
             getModuleManager().enableModules();
         }

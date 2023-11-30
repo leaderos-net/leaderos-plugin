@@ -69,9 +69,9 @@ public class ChatUtil {
      * Get colored message with prefix
      * @param message to send
      */
-    public static String getMessage(String message) {
+    public static Component getMessage(String message) {
         return replacePlaceholders(message, new Placeholder("{prefix}",
-                Velocity.getInstance().getLangFile().getMessages().getPrefix())).toString();
+                Velocity.getInstance().getLangFile().getMessages().getPrefix()));
     }
 
     /**
