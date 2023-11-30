@@ -12,6 +12,7 @@ import net.leaderos.plugin.configuration.Config;
 import net.leaderos.plugin.configuration.Language;
 import net.leaderos.plugin.configuration.Modules;
 import net.leaderos.plugin.helpers.ChatUtil;
+import net.leaderos.plugin.helpers.DebugBukkit;
 import net.leaderos.plugin.modules.auth.AuthModule;
 import net.leaderos.plugin.modules.bazaar.BazaarModule;
 import net.leaderos.plugin.modules.cache.CacheModule;
@@ -82,7 +83,7 @@ public class Bukkit extends JavaPlugin {
         instance = this;
         setupFiles();
         shared = new Shared(Bukkit.getInstance().getConfigFile().getSettings().getUrl(),
-                Bukkit.getInstance().getConfigFile().getSettings().getApiKey());
+                Bukkit.getInstance().getConfigFile().getSettings().getApiKey(), new DebugBukkit());
     }
 
     /**

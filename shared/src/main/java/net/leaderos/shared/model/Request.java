@@ -82,6 +82,9 @@ public abstract class Request {
                 || responseCode == HttpURLConnection.HTTP_OK);
         this.response = new Response(responseCode, status, getResponseObj());
         connection.disconnect();
+
+        // TODO AYARLA FIRAT
+        Shared.getDebugAPI().sendDebug("Bu bir test mesajıdır!");
     }
 
     /**
