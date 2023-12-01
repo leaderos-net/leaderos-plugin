@@ -39,11 +39,11 @@ public class CreditCommand extends Command {
         // See player credit
         if (args.length == 0) {
             if (sender.hasPermission("leaderos.credit.see")) {
-                Response targetCurrency = CreditHelper.getRequest(sender.getName());
-                if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
+                Response targetCredits = CreditHelper.getRequest(sender.getName());
+                if (Objects.requireNonNull(targetCredits).getResponseCode() == HttpURLConnection.HTTP_OK) {
                     ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                             Bungee.getInstance().getLangFile().getMessages().getCredit().getCreditInfo(),
-                            new Placeholder("{amount}", MoneyUtil.format(targetCurrency.getResponseMessage().getDouble("raw_credits")))
+                            new Placeholder("{amount}", MoneyUtil.format(targetCredits.getResponseMessage().getDouble("raw_credits")))
                     ));
                 }
                 else

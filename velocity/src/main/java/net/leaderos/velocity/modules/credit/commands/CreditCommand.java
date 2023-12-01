@@ -34,11 +34,11 @@ public class CreditCommand implements SimpleCommand {
 
             if (args.length == 0) {
                 if (player.hasPermission("leaderos.credit.see")) {
-                    Response targetCurrency = CreditHelper.getRequest(player.getUsername());
-                    if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    Response targetCredits = CreditHelper.getRequest(player.getUsername());
+                    if (Objects.requireNonNull(targetCredits).getResponseCode() == HttpURLConnection.HTTP_OK) {
                         ChatUtil.sendMessage(player,
                                 ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getCredit().getCreditInfo(),
-                                        new Placeholder("{amount}", MoneyUtil.format(targetCurrency.getResponseMessage().getDouble("raw_credits")))));
+                                        new Placeholder("{amount}", MoneyUtil.format(targetCredits.getResponseMessage().getDouble("raw_credits")))));
                     }
                     else
                         ChatUtil.sendMessage(player,
