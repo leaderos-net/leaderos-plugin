@@ -125,7 +125,8 @@ public class CreditCommand extends Command {
                 new Placeholder("{target}", target)
             ));
         }
-        ChatUtil.sendMessage(sender, Bungee.getInstance().getLangFile().getMessages().getTargetPlayerNotAvailable());
+        else
+            ChatUtil.sendMessage(sender, Bungee.getInstance().getLangFile().getMessages().getTargetPlayerNotAvailable());
     }
 
     /**

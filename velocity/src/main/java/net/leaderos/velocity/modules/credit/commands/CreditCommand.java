@@ -117,7 +117,8 @@ public class CreditCommand implements SimpleCommand {
                     new Placeholder("{target}", target)
             ));
         }
-        ChatUtil.sendMessage(sender, Velocity.getInstance().getLangFile().getMessages().getTargetPlayerNotAvailable());
+        else
+            ChatUtil.sendMessage(sender, Velocity.getInstance().getLangFile().getMessages().getTargetPlayerNotAvailable());
     }
 
     /**

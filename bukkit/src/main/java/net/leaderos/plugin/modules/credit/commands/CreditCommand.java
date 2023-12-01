@@ -144,6 +144,8 @@ public class CreditCommand extends BaseCommand {
                     new Placeholder("{target}", target)
             ));
         }
+        else
+            ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getTargetPlayerNotAvailable());
     }
 
     /**
