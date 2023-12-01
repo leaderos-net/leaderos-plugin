@@ -7,6 +7,7 @@ import dev.triumphteam.cmd.core.annotation.Default;
 import dev.triumphteam.cmd.core.annotation.SubCommand;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
+import net.leaderos.plugin.api.LeaderOSAPI;
 import net.leaderos.plugin.api.handlers.UpdateCacheEvent;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.shared.helpers.MoneyUtil;
@@ -35,13 +36,14 @@ public class CreditCommand extends BaseCommand {
     @Default
     @Permission("leaderos.credit.see")
     public void defaultCommand(Player player) {
-        Response targetCurrency = CreditHelper.currencyRequest(player.getName());
-        if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
-            ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                    Bukkit.getInstance().getLangFile().getMessages().getCredit().getCreditInfo(),
-                    new Placeholder("{amount}", MoneyUtil.format(targetCurrency.getResponseMessage().getDouble("raw_credits")))
-            ));
-        }
+        Double amount = LeaderOSAPI.getCreditManager().get(player.getName());
+        if (amount == null)
+            amount = 0.00;
+
+        ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
+                Bukkit.getInstance().getLangFile().getMessages().getCredit().getCreditInfo(),
+                new Placeholder("{amount}", MoneyUtil.format(amount)
+        )));
     }
 
     /**
@@ -66,31 +68,9 @@ public class CreditCommand extends BaseCommand {
             return;
         }
 
-        /* TODO
-        long userId = plugin.getPluginDatabase().getUserId(player.getName());
-        if (userId == 0) {
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
-            return;
-        }
+        boolean sendCredit = LeaderOSAPI.getCreditManager().send(player.getName(), target, amount);
 
-
-        long otherUserId = plugin.getPluginDatabase().getUserId(target);
-        if (otherUserId == 0) {
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getTargetPlayerNotAvailable());
-            return;
-        }
-
-        double credit = plugin.getPluginDatabase().getCredits(player.getName());
-        if (credit < amount) {
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getCannotSendCreditNotEnough());
-            return;
-        }
-        */
-
-        Response sendCreditResponse = CreditHelper.sendCreditRequest(player.getName(), target, amount);
-
-        if (Objects.requireNonNull(sendCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK
-                && sendCreditResponse.getResponseMessage().getBoolean("status")) {
+        if (sendCredit) {
             // Calls UpdateCache event for update player's cache
             org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.REMOVE));
             ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
@@ -110,7 +90,6 @@ public class CreditCommand extends BaseCommand {
             }
         }
         else
-            // TODO Make else
             ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
     }
 
@@ -122,19 +101,19 @@ public class CreditCommand extends BaseCommand {
     @SubCommand(value = "see", alias = {"göster", "goster", "gör", "gor", "bak"})
     @Permission("leaderos.credit.see.other")
     public void showCommand(CommandSender sender, String target) {
-        Response targetCurrency = CreditHelper.currencyRequest(target);
-        if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
+        Double amount = LeaderOSAPI.getCreditManager().get(target);
+
+        if (amount != null) {
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                     Bukkit.getInstance().getLangFile().getMessages().getCredit().getCreditInfoOther(),
-                    new Placeholder("{amount}", MoneyUtil.format(targetCurrency.getResponseMessage().getDouble("raw_credits"))),
+                    new Placeholder("{amount}", MoneyUtil.format(amount)),
                     new Placeholder("{target}", target)
             ));
         }
         else
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable(),
-                    new Placeholder("{amount}", MoneyUtil.format(targetCurrency.getResponseMessage().getDouble("raw_credits"))),
-                    new Placeholder("{target}", target)));
+                    Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable()
+            ));
     }
 
     /**
@@ -153,12 +132,12 @@ public class CreditCommand extends BaseCommand {
             return;
         }
 
-        Response addCreditResponse = CreditHelper.addCreditRequest(target, amount);
-
-        if (Objects.requireNonNull(addCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
+        boolean addCredit = LeaderOSAPI.getCreditManager().add(target, amount);
+        if (addCredit) {
             if (org.bukkit.Bukkit.getPlayerExact(target) != null)
                 // Calls UpdateCache event for update player's cache
                 org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.ADD));
+
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                     Bukkit.getInstance().getLangFile().getMessages().getCredit().getSuccessfullyAddedCredit(),
                     new Placeholder("{amount}", MoneyUtil.format(amount)),
@@ -182,11 +161,12 @@ public class CreditCommand extends BaseCommand {
             ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
             return;
         }
-        Response removeCreditResponse = CreditHelper.removeCreditRequest(target, amount);
-        if (Objects.requireNonNull(removeCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
+        boolean removeCredit = LeaderOSAPI.getCreditManager().remove(target, amount);
+        if (removeCredit) {
             if (org.bukkit.Bukkit.getPlayerExact(target) != null)
                 // Calls UpdateCache event for update player's cache
                 org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.REMOVE));
+
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                     Bukkit.getInstance().getLangFile().getMessages().getCredit().getSuccessfullyRemovedCredit(),
                     new Placeholder("{amount}", MoneyUtil.format(amount)),
@@ -207,12 +187,13 @@ public class CreditCommand extends BaseCommand {
     @Permission("leaderos.credit.set")
     public void setCommand(CommandSender sender, String target, Double amount) {
         amount = MoneyUtil.parseDouble(amount);
-        Response setCreditResponse = CreditHelper.setCreditRequest(target, amount);
 
-        if (Objects.requireNonNull(setCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK) {
+        boolean setCredit = LeaderOSAPI.getCreditManager().set(target, amount);
+        if (setCredit) {
             if (org.bukkit.Bukkit.getPlayerExact(target) != null)
                 // Calls UpdateCache event for update player's cache
                 org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.SET));
+
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                     Bukkit.getInstance().getLangFile().getMessages().getCredit().getSuccessfullySetCredit(),
                     new Placeholder("{amount}", MoneyUtil.format(amount)),

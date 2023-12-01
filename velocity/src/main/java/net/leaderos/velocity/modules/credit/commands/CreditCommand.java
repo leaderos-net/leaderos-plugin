@@ -34,12 +34,16 @@ public class CreditCommand implements SimpleCommand {
 
             if (args.length == 0) {
                 if (player.hasPermission("leaderos.credit.see")) {
-                    Response targetCurrency = CreditHelper.currencyRequest(player.getUsername());
+                    Response targetCurrency = CreditHelper.getRequest(player.getUsername());
                     if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
                         ChatUtil.sendMessage(player,
                                 ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getCredit().getCreditInfo(),
                                         new Placeholder("{amount}", MoneyUtil.format(targetCurrency.getResponseMessage().getDouble("raw_credits")))));
                     }
+                    else
+                        ChatUtil.sendMessage(player,
+                                ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getCredit().getCreditInfo(),
+                                        new Placeholder("{amount}", MoneyUtil.format(0.00))));
                 }
                 else {
                     ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
@@ -122,11 +126,11 @@ public class CreditCommand implements SimpleCommand {
      * @param target player
      */
     public void showCommand(CommandSource sender, String target) {
-        Response targetCurrency = CreditHelper.currencyRequest(target);
-        if (Objects.requireNonNull(targetCurrency).getResponseCode() == HttpURLConnection.HTTP_OK) {
+        Response targetCredits = CreditHelper.getRequest(target);
+        if (Objects.requireNonNull(targetCredits).getResponseCode() == HttpURLConnection.HTTP_OK) {
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                     Velocity.getInstance().getLangFile().getMessages().getCredit().getCreditInfoOther(),
-                    new Placeholder("{amount}", MoneyUtil.format(targetCurrency.getResponseMessage().getDouble("raw_credits"))),
+                    new Placeholder("{amount}", MoneyUtil.format(targetCredits.getResponseMessage().getDouble("raw_credits"))),
                     new Placeholder("{target}", target)
             ));
         }
@@ -157,27 +161,6 @@ public class CreditCommand implements SimpleCommand {
             return;
         }
 
-        /* TODO
-        long userId = plugin.getPluginDatabase().getUserId(player.getName());
-        if (userId == 0) {
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
-            return;
-        }
-
-
-        long otherUserId = plugin.getPluginDatabase().getUserId(target);
-        if (otherUserId == 0) {
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getTargetPlayerNotAvailable());
-            return;
-        }
-
-        double credit = plugin.getPluginDatabase().getCredits(player.getName());
-        if (credit < amount) {
-            ChatUtil.sendMessage(player, Main.getInstance().getLangFile().getMessages().getCannotSendCreditNotEnough());
-            return;
-        }
-        */
-
         Response sendCreditResponse = CreditHelper.sendCreditRequest(player.getUsername(), target, amount);
 
         if (Objects.requireNonNull(sendCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK
@@ -198,7 +181,6 @@ public class CreditCommand implements SimpleCommand {
 
         }
         else
-            // TODO Make else
             ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
     }
 

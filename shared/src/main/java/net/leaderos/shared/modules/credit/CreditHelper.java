@@ -37,11 +37,11 @@ public class CreditHelper {
     }
 
     /**
-     * Gets currency of player as a response
+     * Gets credits of player as a response
      * @param sender executor
      * @return response of request
      */
-    public static @Nullable Response currencyRequest(String sender) {
+    public static @Nullable Response getRequest(String sender) {
         try {
             GetRequest getCurrency = new GetRequest("credits/" + sender);
             return getCurrency.getResponse();

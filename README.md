@@ -66,10 +66,11 @@ You can check it out the plugin javadoc [Java-Doc](https://leaderos-net.github.i
 
 ```java
 public class Main extends JavaPlugin {
-    // Returns Main class of plugin
-    Main leaderosMain = LeaderOSAPI.getInstance();
-    // Gets storage manager
-    StorageManager storageManager = LeaderOSAPI.getStorageManager();
+    // Gets module manager
+    ModuleManager moduleManager = LeaderOSAPI.getModuleManager();
+    
+    // Gets credit manager
+    CreditManager creditManager = LeaderOSAPI.getCreditManager();
 }
 ```
 

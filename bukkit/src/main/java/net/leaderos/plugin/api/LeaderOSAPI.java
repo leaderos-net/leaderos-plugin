@@ -1,6 +1,7 @@
 package net.leaderos.plugin.api;
 
 import net.leaderos.plugin.api.managers.ModuleManager;
+import net.leaderos.plugin.api.modules.credit.CreditManager;
 
 /**
  * LeaderOS plugins api class
@@ -16,6 +17,11 @@ public class LeaderOSAPI {
     private static ModuleManager moduleManager = new ModuleManager();
 
     /**
+     * ModuleManager instance
+     */
+    private static CreditManager creditManager = new CreditManager();
+
+    /**
      * Gets Module Manager
      * @return ModuleManager
      * @see ModuleManager
@@ -24,6 +30,17 @@ public class LeaderOSAPI {
         if (moduleManager == null)
             moduleManager = new ModuleManager();
         return moduleManager;
+    }
+
+    /**
+     * Gets Credit Manager
+     * @return CreditManager
+     * @see CreditManager
+     */
+    public static CreditManager getCreditManager() {
+        if (creditManager == null)
+            creditManager = new CreditManager();
+        return creditManager;
     }
 
     /**
