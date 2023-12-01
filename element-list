@@ -17,6 +17,7 @@ net.leaderos.plugin
 net.leaderos.plugin.api
 net.leaderos.plugin.api.handlers
 net.leaderos.plugin.api.managers
+net.leaderos.plugin.api.modules.credit
 net.leaderos.plugin.commands
 net.leaderos.plugin.configuration
 net.leaderos.plugin.configuration.lang
