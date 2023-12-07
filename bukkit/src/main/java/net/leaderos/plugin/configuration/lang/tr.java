@@ -459,6 +459,23 @@ public class tr extends Language {
                         "&aTıkla ve satın al!"
                 );
             }
+
+            /**
+             * Credit attributes
+             */
+            private Credit credit = new Credit();
+
+            /**
+             * Credit arguments class
+             */
+            @Getter @Setter
+            public static class Credit extends Language.Gui.WebStoreGui.Credit {
+
+                /**
+                 * Title of credit item
+                 */
+                private String title = "&eKredi: &a%credits%";
+            }
         }
 
         /**

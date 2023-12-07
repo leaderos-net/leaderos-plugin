@@ -460,6 +460,23 @@ public class en extends Language {
                         "&aClick to buy!"
                 );
             }
+
+            /**
+             * Credit attributes
+             */
+            private Credit credit = new Credit();
+
+            /**
+             * Credit arguments class
+             */
+            @Getter @Setter
+            public static class Credit extends Language.Gui.WebStoreGui.Credit {
+
+                /**
+                 * Title of credit item
+                 */
+                private String title = "&eCredits: &a%credits%";
+            }
         }
 
         /**

@@ -3,6 +3,7 @@ package net.leaderos.plugin.helpers;
 import com.cryptomorin.xseries.XMaterial;
 import de.themoep.inventorygui.GuiElement;
 import de.themoep.inventorygui.GuiPageElement;
+import de.themoep.inventorygui.StaticGuiElement;
 import net.leaderos.plugin.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -83,5 +84,22 @@ public class GuiHelper {
         XMaterial material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getAddItemMaterial()).orElse(XMaterial.GREEN_WOOL);
         List<String> lore = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getAddItemLore());
         return ItemUtil.getItem(material, displayName, lore);
+    }
+
+    /**
+     * WebStore GUI add credit icon
+     *
+     * @return add item icon
+     */
+    public static StaticGuiElement addCreditIcon(double credits) {
+        String displayName = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getCredit().getTitle()).replace("%credits%", String.valueOf(credits));
+        XMaterial material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getCredit().getMaterial()).orElse(XMaterial.SUNFLOWER);
+        //List<String> lore = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getCredit().getLore());
+        return new StaticGuiElement(
+                'i',
+                ItemUtil.getItem(material, displayName),
+                1,
+                click -> true
+        );
     }
 }

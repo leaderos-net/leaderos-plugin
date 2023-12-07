@@ -86,6 +86,11 @@ public class WebStoreGui {
         elementGroup.setFiller(GuiHelper.getFiller(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().isUseFiller(), Bukkit.getInstance().getModulesFile().getWebStore().getGui().getFillerItem().getMaterial()));
         gui.addElement(elementGroup);
 
+        // Credits icon
+        User user = User.getUser(player.getName());
+        double credit = user == null ? 0.00 : user.getCredit();
+        gui.addElement(GuiHelper.addCreditIcon(credit));
+
 
         // Next and previous page icons
         gui.addElement(GuiHelper.createNextPage(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getNextPage().getItem()));

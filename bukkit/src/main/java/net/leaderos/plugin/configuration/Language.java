@@ -459,6 +459,23 @@ public class Language extends OkaeriConfig {
                         "&aClick to buy!"
                 );
             }
+
+            /**
+             * Credit attributes
+             */
+            private Credit credit = new Credit();
+
+            /**
+             * Credit arguments class
+             */
+            @Getter @Setter
+            public static class Credit extends OkaeriConfig {
+
+                /**
+                 * Title of credit item
+                 */
+                private String title = "&eCredits: &a%credits%";
+            }
         }
 
         /**
