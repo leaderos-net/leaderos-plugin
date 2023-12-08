@@ -3,6 +3,7 @@ package net.leaderos.velocity.commands;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import net.leaderos.shared.Shared;
+import net.leaderos.shared.helpers.UrlUtil;
 import net.leaderos.velocity.Velocity;
 import net.leaderos.velocity.helpers.ChatUtil;
 
@@ -25,7 +26,7 @@ public class LeaderOSCommand implements SimpleCommand {
                 Velocity.getInstance().getLangFile().load(true);
                 Velocity.getInstance().getModulesFile().load(true);
 
-                Shared.setLink(Velocity.getInstance().getConfigFile().getSettings().getUrl());
+                Shared.setLink(UrlUtil.format(Velocity.getInstance().getConfigFile().getSettings().getUrl()));
                 Shared.setApiKey(Velocity.getInstance().getConfigFile().getSettings().getApiKey());
 
                 Velocity.getInstance().getModuleManager().reloadModules();

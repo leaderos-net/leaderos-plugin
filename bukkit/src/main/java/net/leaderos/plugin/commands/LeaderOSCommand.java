@@ -11,6 +11,7 @@ import net.leaderos.plugin.api.LeaderOSAPI;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.DebugBukkit;
 import net.leaderos.shared.Shared;
+import net.leaderos.shared.helpers.UrlUtil;
 import org.bukkit.command.CommandSender;
 
 /**
@@ -44,7 +45,7 @@ public class LeaderOSCommand extends BaseCommand {
         Bukkit.getInstance().getLangFile().load(true);
         Bukkit.getInstance().getModulesFile().load(true);
 
-        Shared.setLink(Bukkit.getInstance().getConfigFile().getSettings().getUrl());
+        Shared.setLink(UrlUtil.format(Bukkit.getInstance().getConfigFile().getSettings().getUrl()));
         Shared.setApiKey(Bukkit.getInstance().getConfigFile().getSettings().getApiKey());
 
         LeaderOSAPI.getModuleManager().reloadModules();

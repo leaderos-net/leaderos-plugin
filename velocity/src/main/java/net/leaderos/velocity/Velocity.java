@@ -17,6 +17,7 @@ import net.kyori.adventure.text.Component;
 import net.leaderos.shared.Shared;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.helpers.PluginUpdater;
+import net.leaderos.shared.helpers.UrlUtil;
 import net.leaderos.velocity.api.ModuleManager;
 import net.leaderos.velocity.commands.LeaderOSCommand;
 import net.leaderos.velocity.configuration.Config;
@@ -130,7 +131,7 @@ public class Velocity {
         setupFiles();
 
         this.shared = new Shared(
-                getConfigFile().getSettings().getUrl(),
+                UrlUtil.format(getConfigFile().getSettings().getUrl()),
                 getConfigFile().getSettings().getApiKey(),
                 new DebugVelocity()
         );

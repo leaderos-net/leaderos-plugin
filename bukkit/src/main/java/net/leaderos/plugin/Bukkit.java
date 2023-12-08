@@ -26,6 +26,7 @@ import net.leaderos.plugin.modules.webstore.WebStoreModule;
 import net.leaderos.shared.Shared;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.helpers.PluginUpdater;
+import net.leaderos.shared.helpers.UrlUtil;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -85,8 +86,8 @@ public class Bukkit extends JavaPlugin {
         instance = this;
         setupFiles();
         shared = new Shared(
-                Bukkit.getInstance().getConfigFile().getSettings().getUrl(),
-                Bukkit.getInstance().getConfigFile().getSettings().getApiKey(),
+                UrlUtil.format(getConfigFile().getSettings().getUrl()),
+                getConfigFile().getSettings().getApiKey(),
                 new DebugBukkit()
         );
     }

@@ -17,6 +17,7 @@ import net.leaderos.bungee.modules.discord.DiscordModule;
 import net.leaderos.shared.Shared;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.helpers.PluginUpdater;
+import net.leaderos.shared.helpers.UrlUtil;
 import net.md_5.bungee.api.plugin.Plugin;
 import org.bstats.bungeecord.Metrics;
 
@@ -74,7 +75,7 @@ public class Bungee extends Plugin {
         setupFiles();
 
         shared = new Shared(
-                getConfigFile().getSettings().getUrl(),
+                UrlUtil.format(getConfigFile().getSettings().getUrl()),
                 getConfigFile().getSettings().getApiKey(),
                 new DebugBungee()
         )
