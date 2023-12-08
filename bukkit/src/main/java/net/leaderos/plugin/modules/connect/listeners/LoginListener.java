@@ -34,7 +34,9 @@ public class LoginListener implements Listener {
             if (commands == null || commands.isEmpty()) return;
 
             // Execute commands
-            org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+            org.bukkit.Bukkit.getScheduler().runTaskLater(Bukkit.getInstance(), () -> {
+                if (!player.isOnline()) return;
+
                 commands.forEach(command -> {
                     org.bukkit.Bukkit.dispatchCommand(org.bukkit.Bukkit.getConsoleSender(), command);
 
@@ -42,10 +44,12 @@ public class LoginListener implements Listener {
                             new Placeholder("%command%", command));
                     ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), msg);
                 });
-            });
 
-            // Remove commands from queue
-            ConnectModule.getCommandsQueue().removeCommands(player.getName());
+                // Remove commands from queue
+                ConnectModule.getCommandsQueue().getExecutor().execute(() -> {
+                    ConnectModule.getCommandsQueue().removeCommands(player.getName());
+                });
+            }, Bukkit.getInstance().getModulesFile().getConnect().getExecuteDelay() * 20L);
         });
     }
 }

@@ -108,5 +108,10 @@ public class Modules extends OkaeriConfig {
          */
         @Comment("Executes commands only if player is online")
         private boolean onlyOnline = true;
+
+        /**
+         * Executes command with delay when player comes online (in seconds)
+         */
+        private int executeDelay = 5;
     }
 }

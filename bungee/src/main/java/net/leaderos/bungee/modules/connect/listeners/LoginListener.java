@@ -10,6 +10,7 @@ import net.md_5.bungee.api.plugin.Listener;
 import net.md_5.bungee.event.EventHandler;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * LoginListener listens player join event
@@ -30,20 +31,25 @@ public class LoginListener implements Listener {
         ConnectModule.getCommandsQueue().getExecutor().execute(() -> {
             final List<String> commands = ConnectModule.getCommandsQueue().getCommands(player.getName());
 
-            System.out.println(commands);
             if (commands == null || commands.isEmpty()) return;
 
-            // Execute commands
-            commands.forEach(command -> {
-                Bungee.getInstance().getProxy().getPluginManager().dispatchCommand(Bungee.getInstance().getProxy().getConsole(), command);
+            Bungee.getInstance().getProxy().getScheduler().schedule(Bungee.getInstance(), () -> {
+                if (!player.isConnected()) return;
 
-                String msg = ChatUtil.replacePlaceholders(Bungee.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommandFromQueue(),
-                        new Placeholder("%command%", command));
-                ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), msg);
-            });
+                // Execute commands
+                commands.forEach(command -> {
+                    Bungee.getInstance().getProxy().getPluginManager().dispatchCommand(Bungee.getInstance().getProxy().getConsole(), command);
 
-            // Remove commands from queue
-            ConnectModule.getCommandsQueue().removeCommands(player.getName());
+                    String msg = ChatUtil.replacePlaceholders(Bungee.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommandFromQueue(),
+                            new Placeholder("%command%", command));
+                    ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), msg);
+                });
+
+                // Remove commands from queue
+                ConnectModule.getCommandsQueue().getExecutor().execute(() -> {
+                    ConnectModule.getCommandsQueue().removeCommands(player.getName());
+                });
+            }, Bungee.getInstance().getModulesFile().getConnect().getExecuteDelay(), TimeUnit.SECONDS);
         });
     }
 }

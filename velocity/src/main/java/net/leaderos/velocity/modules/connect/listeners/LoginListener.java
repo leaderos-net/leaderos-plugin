@@ -10,6 +10,7 @@ import net.leaderos.velocity.helpers.ChatUtil;
 import net.leaderos.velocity.modules.connect.ConnectModule;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class LoginListener {
     @Subscribe
@@ -22,17 +23,23 @@ public class LoginListener {
 
                 if (commands == null || commands.isEmpty()) return;
 
-                // Execute commands
-                commands.forEach(command -> {
-                    Velocity.getInstance().getCommandManager().executeImmediatelyAsync(Velocity.getInstance().getServer().getConsoleCommandSource(), command);
+                Velocity.getInstance().getServer().getScheduler().buildTask(Velocity.getInstance(), () -> {
+                    if (!player.isActive()) return;
 
-                    Component msg = ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommandFromQueue(),
-                            new Placeholder("%command%", command));
-                    ChatUtil.sendMessage(Velocity.getInstance().getServer().getConsoleCommandSource(), msg);
-                });
+                    // Execute commands
+                    commands.forEach(command -> {
+                        Velocity.getInstance().getCommandManager().executeImmediatelyAsync(Velocity.getInstance().getServer().getConsoleCommandSource(), command);
 
-                // Remove commands from queue
-                ConnectModule.getCommandsQueue().removeCommands(player.getUsername());
+                        Component msg = ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommandFromQueue(),
+                                new Placeholder("%command%", command));
+                        ChatUtil.sendMessage(Velocity.getInstance().getServer().getConsoleCommandSource(), msg);
+                    });
+
+                    // Remove commands from queue
+                    ConnectModule.getCommandsQueue().getExecutor().execute(() -> {
+                        ConnectModule.getCommandsQueue().removeCommands(player.getUsername());
+                    });
+                }).delay(Velocity.getInstance().getModulesFile().getConnect().getExecuteDelay(), TimeUnit.SECONDS).schedule();
             } catch (Exception e) {
                 e.printStackTrace();
             }
