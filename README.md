@@ -17,7 +17,7 @@
 ## Wiki
 🇺🇸 English: [https://help.leaderos.net/free-services/leaderos-plugin](https://help.leaderos.net/free-services/leaderos-plugin)
 
-🇹🇷 Türkçe: [https://destek.leaderos.com.tr/free-services/leaderos-plugin](https://destek.leaderos.com.tr/free-services/leaderos-plugin)
+🇹🇷 Türkçe: [https://destek.leaderos.com.tr/uecretsiz-hizmetler/leaderos-plugin](https://destek.leaderos.com.tr/uecretsiz-hizmetler/leaderos-plugin)
 
 ## API
 [![Leaderos JavaDoc](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/publish-javadoc-maven.yml/badge.svg)](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/publish-javadoc-maven.yml)
