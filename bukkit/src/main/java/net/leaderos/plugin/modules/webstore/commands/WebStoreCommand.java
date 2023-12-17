@@ -4,14 +4,21 @@ import dev.triumphteam.cmd.bukkit.annotation.Permission;
 import dev.triumphteam.cmd.core.BaseCommand;
 import dev.triumphteam.cmd.core.annotation.Command;
 import dev.triumphteam.cmd.core.annotation.Default;
+import dev.triumphteam.cmd.core.annotation.SubCommand;
 import lombok.RequiredArgsConstructor;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.managers.ModuleManager;
+import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.webstore.gui.MainWebStoreGui;
 import net.leaderos.plugin.api.LeaderOSAPI;
+import net.leaderos.plugin.modules.webstore.helpers.WebStoreHelper;
+import net.leaderos.shared.Shared;
+import net.leaderos.shared.helpers.UrlUtil;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * webshop commands
+ * webstore commands
  * @author poyrazinan
  * @since 1.0
  */
@@ -20,7 +27,7 @@ import org.bukkit.entity.Player;
 public class WebStoreCommand extends BaseCommand {
 
     /**
-     * Default command of webshop
+     * Default command of webstore
      * @param player executor
      */
     @Default
@@ -29,5 +36,20 @@ public class WebStoreCommand extends BaseCommand {
         LeaderOSAPI.getModuleManager();
         if (ModuleManager.getModule("WebStore").isEnabled())
             MainWebStoreGui.showGui(player);
+    }
+
+    /**
+     * Buy command of webstore
+     * @param sender commandsender
+     * @param productId product id to buy
+     */
+    @Permission("leaderos.webstore.buy")
+    @SubCommand("buy")
+    public void buyCommand(CommandSender sender, String productId) {
+        if (!(sender instanceof Player)) return;
+        if (!ModuleManager.getModule("WebStore").isEnabled()) return;
+
+        Player player = (Player) sender;
+        WebStoreHelper.buyItem(player, productId);
     }
 }
