@@ -51,6 +51,7 @@ net.leaderos.plugin.modules.voucher.listeners
 net.leaderos.plugin.modules.webstore
 net.leaderos.plugin.modules.webstore.commands
 net.leaderos.plugin.modules.webstore.gui
+net.leaderos.plugin.modules.webstore.helpers
 net.leaderos.plugin.modules.webstore.model
 net.leaderos.shared
 net.leaderos.shared.exceptions
