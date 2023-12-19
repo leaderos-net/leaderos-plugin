@@ -13,10 +13,11 @@ public class DebugBukkit implements DebugAPI {
     /**
      * Sends debug to console
      * @param message to debug
+     * @param strict if true, it will send debug even if debug mode is disabled
      */
     @Override
-    public void send(String message) {
-        if (Bukkit.getInstance().getConfigFile().getSettings().isDebug()) {
+    public void send(String message, boolean strict) {
+        if (Bukkit.getInstance().getConfigFile().getSettings().isDebug() || strict) {
             Bukkit.getInstance().getLogger().warning(ChatUtil.color(
                     "&e[DEBUG] &f" + message
             ));

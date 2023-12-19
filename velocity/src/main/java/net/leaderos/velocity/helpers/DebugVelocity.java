@@ -13,10 +13,11 @@ public class DebugVelocity implements DebugAPI {
     /**
      * Sends debug to console
      * @param message to debug
+     * @param strict if true, it will send debug even if debug mode is disabled
      */
     @Override
-    public void send(String message) {
-        if (Velocity.getInstance().getConfigFile().getSettings().isDebug()) {
+    public void send(String message, boolean strict) {
+        if (Velocity.getInstance().getConfigFile().getSettings().isDebug() || strict) {
             Velocity.getInstance().getLogger().warn(
                     "[DEBUG] " + message
             );

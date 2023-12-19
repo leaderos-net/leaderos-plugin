@@ -11,6 +11,6 @@ public interface DebugAPI {
      * Sends debug to console
      * @param message to debug
      */
-    void send(String message);
+    void send(String message, boolean strict);
 
 }

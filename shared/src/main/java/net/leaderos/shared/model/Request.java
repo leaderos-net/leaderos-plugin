@@ -81,10 +81,17 @@ public abstract class Request {
         boolean status = (responseCode == HttpURLConnection.HTTP_CREATED
                 || responseCode == HttpURLConnection.HTTP_ACCEPTED
                 || responseCode == HttpURLConnection.HTTP_OK);
-        this.response = new Response(responseCode, status, getResponseObj());
-        connection.disconnect();
 
-        Shared.getDebugAPI().send(this.response.getResponseMessage().toString());
+        String responseString = getStream(connection.getInputStream());
+        try {
+            this.response = new Response(responseCode, status, getResponseObj(responseString));
+
+            Shared.getDebugAPI().send(this.response.getResponseMessage().toString(), false);
+        } catch (Exception e) {
+            Shared.getDebugAPI().send(e.getMessage(), true);
+            Shared.getDebugAPI().send(responseString, true);
+        }
+        connection.disconnect();
     }
 
     /**
@@ -112,11 +119,9 @@ public abstract class Request {
      * @return JSONObject of response
      */
     @SneakyThrows
-    private JSONObject getResponseObj() {
+    private JSONObject getResponseObj(String responseString) {
         JSONObject response;
-        String responseString = null;
         try {
-            responseString = getStream(connection.getInputStream());
             response = new JSONObject(responseString);
         }
         catch (JSONException jsonException) {
@@ -124,11 +129,7 @@ public abstract class Request {
             response = new JSONObject();
             response.put("array", jsonArray);
         }
-        catch (IOException e) {
-            response = new JSONObject(getStream(connection.getErrorStream()));
-        }
-        // BufferedReader for read dat
-        connection.disconnect();
+
         return response;
     }
 
