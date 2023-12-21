@@ -332,6 +332,28 @@ public class Modules extends OkaeriConfig {
                 private String material = "SUNFLOWER";
 
             }
+
+            /**
+             * Check Purchase attributes
+             */
+            private Gui.CheckPurchase checkPurchase = new Gui.CheckPurchase();
+
+            /**
+             * CheckPurchase arguments class
+             */
+            @Getter @Setter
+            public static class CheckPurchase extends OkaeriConfig {
+
+                /**
+                 * Confirm material
+                 */
+                private String confirmMaterial = "GREEN_WOOL";
+
+                /**
+                 * Cancel material
+                 */
+                private String cancelMaterial = "RED_WOOL";
+            }
         }
     }
 

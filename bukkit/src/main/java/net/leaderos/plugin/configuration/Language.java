@@ -498,6 +498,40 @@ public class Language extends OkaeriConfig {
                  */
                 private String title = "&eCredits: &a%credits%";
             }
+
+            /**
+             * ConfirmPurchase attributes
+             */
+            private ConfirmPurchase confirmPurchase = new ConfirmPurchase();
+
+            /**
+             * ConfirmPurchase arguments class
+             */
+            @Getter @Setter
+            public static class ConfirmPurchase extends OkaeriConfig {
+
+                /**
+                 * Default Title
+                 */
+                private String title = "&a&lBUY";
+            }
+
+            /**
+             * CancelPurchase attributes
+             */
+            private CancelPurchase cancelPurchase = new CancelPurchase();
+
+            /**
+             * AcceptPurchase arguments class
+             */
+            @Getter @Setter
+            public static class CancelPurchase extends OkaeriConfig {
+
+                /**
+                 * Default Title
+                 */
+                private String title = "&c&lCANCEL";
+            }
         }
 
         /**

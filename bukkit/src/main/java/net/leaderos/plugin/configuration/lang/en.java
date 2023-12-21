@@ -499,6 +499,40 @@ public class en extends Language {
                  */
                 private String title = "&eCredits: &a%credits%";
             }
+
+            /**
+             * ConfirmPurchase attributes
+             */
+            private ConfirmPurchase confirmPurchase = new ConfirmPurchase();
+
+            /**
+             * ConfirmPurchase arguments class
+             */
+            @Getter @Setter
+            public static class ConfirmPurchase extends Language.Gui.WebStoreGui.ConfirmPurchase {
+
+                /**
+                 * Default Title
+                 */
+                private String title = "&a&lBUY";
+            }
+
+            /**
+             * CancelPurchase attributes
+             */
+            private CancelPurchase cancelPurchase = new CancelPurchase();
+
+            /**
+             * AcceptPurchase arguments class
+             */
+            @Getter @Setter
+            public static class CancelPurchase extends Language.Gui.WebStoreGui.CancelPurchase {
+
+                /**
+                 * Default Title
+                 */
+                private String title = "&c&lCANCEL";
+            }
         }
 
         /**

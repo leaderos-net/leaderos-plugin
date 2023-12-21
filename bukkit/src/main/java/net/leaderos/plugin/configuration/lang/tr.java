@@ -1,5 +1,6 @@
 package net.leaderos.plugin.configuration.lang;
 
+import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.annotation.NameModifier;
 import eu.okaeri.configs.annotation.NameStrategy;
@@ -495,6 +496,40 @@ public class tr extends Language {
                  * Title of credit item
                  */
                 private String title = "&eKredi: &a%credits%";
+            }
+
+            /**
+             * ConfirmPurchase attributes
+             */
+            private ConfirmPurchase confirmPurchase = new ConfirmPurchase();
+
+            /**
+             * ConfirmPurchase arguments class
+             */
+            @Getter @Setter
+            public static class ConfirmPurchase extends Language.Gui.WebStoreGui.ConfirmPurchase {
+
+                /**
+                 * Default Title
+                 */
+                private String title = "&a&lSATIN AL";
+            }
+
+            /**
+             * CancelPurchase attributes
+             */
+            private CancelPurchase cancelPurchase = new CancelPurchase();
+
+            /**
+             * AcceptPurchase arguments class
+             */
+            @Getter @Setter
+            public static class CancelPurchase extends Language.Gui.WebStoreGui.CancelPurchase {
+
+                /**
+                 * Default Title
+                 */
+                private String title = "&c&lIPTAL ET";
             }
         }
 
