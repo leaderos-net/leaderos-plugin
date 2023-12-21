@@ -463,6 +463,11 @@ public class tr extends Language {
             public static class DefaultProduct extends Language.Gui.WebStoreGui.DefaultProduct {
 
                 /**
+                 * Default Title
+                 */
+                private String title = "&e%name%";
+
+                /**
                  * Default Lore
                  */
                 private List<String> lore = Arrays.asList(

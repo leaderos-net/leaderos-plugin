@@ -99,27 +99,18 @@ public class Product {
         this.productId = product.getString("id");
 
         // if title is empty removes it.
+        this.productName = Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getDefaultProduct().getTitle().replace("%name%", product.getString("name"));
         try {
-            this.productName = product.getString("minecraftTitle");
-            if (this.productName.isEmpty())
-                throw new Exception();
+            if (product.getString("minecraftTitle") != null && !product.getString("minecraftTitle").isEmpty())
+                this.productName = product.getString("minecraftTitle");
         }
-        catch (Exception e) {
-            this.productName = product.getString("name");
-        }
+        catch (Exception ignored) {}
 
         try {
-            this.productLore = Arrays.asList(product.getString("minecraftDescription").split("\r\n"));
-            if (productLore.isEmpty())
-                throw new Exception();
+            productLore = new ArrayList<>(Arrays.asList(product.getString("minecraftDescription").split("\r\n")));
         }
-        catch (Exception e) {
-            this.productLore = Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getDefaultProduct().getLore();
-        }
-        /*finally {
-            this.productLore.addAll(
-                    Main.getInstance().getLangFile().getGui().getWebStoreGui().getDefaultProduct().getLore());
-        }*/
+        catch (Exception ignored) {}
+        this.productLore.addAll(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getDefaultProduct().getLore());
 
         // price, discountedPrice, stock data
         this.price = product.getDouble("price");

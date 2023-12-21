@@ -465,6 +465,11 @@ public class Language extends OkaeriConfig {
             public static class DefaultProduct extends OkaeriConfig {
 
                 /**
+                 * Default Title
+                 */
+                private String title = "&e%name%";
+
+                /**
                  * Default Lore
                  */
                 private List<String> lore = Arrays.asList(
