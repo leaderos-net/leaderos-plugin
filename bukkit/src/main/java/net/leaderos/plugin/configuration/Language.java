@@ -372,8 +372,25 @@ public class Language extends OkaeriConfig {
             private String guiName = "&8WebStore";
 
             /**
+             * Price format
+             */
+            @Comment({
+                    "Price format",
+                    "{price} for original price (e.g. 10.00 USD)",
+                    "{rawPrice} for raw price (e.g. 10.00)"
+            })
+            private String priceFormat = "{price}";
+
+            /**
              * Discounted price format
              */
+            @Comment({
+                    "Discounted price format",
+                    "{price} for original price (e.g. 10.00 USD)",
+                    "{rawPrice} for raw price (e.g. 10.00)",
+                    "{discountedPrice} for discounted price (e.g. 5.00 USD)",
+                    "{rawDiscountedPrice} for raw discounted price (e.g. 5.00)"
+            })
             private String discountedPriceFormat = "&c&m{price}&r &a{discountedPrice}";
 
             /**

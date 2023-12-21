@@ -372,8 +372,23 @@ public class tr extends Language {
             private String guiName = "&8Site Market";
 
             /**
+             * Price format
+             */
+            @Comment({
+                    "Fiyat: {price} (örn. 10.00 TL)",
+                    "Ham Fiyat: {rawPrice} (örn. 10.00)"
+            })
+            private String priceFormat = "{price}";
+
+            /**
              * Discounted price format
              */
+            @Comment({
+                    "İndirimsiz Fiyat: {price} (örn. 10.00 TL)",
+                    "Ham İndirimsiz Fiyat: {rawPrice} (örn. 10.00)",
+                    "İndirimli Fiyat: {discountedPrice} (örn. 5.00 TL)",
+                    "Ham İndirimli Fiyat: {rawDiscountedPrice} (örn. 5.00)",
+            })
             private String discountedPriceFormat = "&c&m{price}&r &a{discountedPrice}";
 
             /**

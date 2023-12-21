@@ -165,10 +165,16 @@ public class Product {
             hasDiscount = true;
 
         int discountAmount = (int) (((getPrice() - getDiscountedPrice()) / getPrice()) * 100);
+        // Formatters of price
+        String priceFormat = Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getPriceFormat()
+                .replace("{price}", String.valueOf(priceText))
+                .replace("{rawPrice}", String.valueOf(price));
         // Formatters of discount
         String discountedPriceFormat = Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountedPriceFormat()
                 .replace("{price}", String.valueOf(priceText))
-                .replace("{discountedPrice}", String.valueOf(discountedPriceText));
+                .replace("{rawPrice}", String.valueOf(price))
+                .replace("{discountedPrice}", String.valueOf(discountedPriceText))
+                .replace("{rawDiscountedPrice}", String.valueOf(discountedPrice));
         String discountAmountFormat = Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountAmountFormat()
                 .replace("{discount}", String.valueOf(discountAmount));
         String stockUnlimited = Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getStockUnlimited();
@@ -183,7 +189,7 @@ public class Product {
         else {
             displayName = displayName.replace("%discount_amount%", "");
             lore = getProductLore().stream().map(key -> key.replace("%discount_amount%" , "")
-                    .replace("%price%", String.valueOf(priceText))).collect(Collectors.toList());
+                    .replace("%price%", priceFormat)).collect(Collectors.toList());
         }
 
         // Stock calculation for gui item
