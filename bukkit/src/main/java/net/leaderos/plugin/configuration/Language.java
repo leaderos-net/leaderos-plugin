@@ -511,26 +511,19 @@ public class Language extends OkaeriConfig {
             public static class ConfirmPurchase extends OkaeriConfig {
 
                 /**
-                 * Default Title
+                 * GUI Name
                  */
-                private String title = "&a&lBUY";
-            }
-
-            /**
-             * CancelPurchase attributes
-             */
-            private CancelPurchase cancelPurchase = new CancelPurchase();
-
-            /**
-             * AcceptPurchase arguments class
-             */
-            @Getter @Setter
-            public static class CancelPurchase extends OkaeriConfig {
+                private String guiName = "&8Confirm Purchase";
 
                 /**
-                 * Default Title
+                 * Confirm Title
                  */
-                private String title = "&c&lCANCEL";
+                private String confirmTitle = "&a&lBUY";
+
+                /**
+                 * Cancel Title
+                 */
+                private String cancelTitle = "&c&lCANCEL";
             }
         }
 

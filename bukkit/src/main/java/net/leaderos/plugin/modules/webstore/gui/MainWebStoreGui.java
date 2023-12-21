@@ -50,7 +50,6 @@ public class MainWebStoreGui {
                     category.getCategoryIcon(),
                     1,
                     click -> {
-                        click.getEvent().setCancelled(true);
                         WebStoreGui.showGui(player, category);
                         return true;
                     })))

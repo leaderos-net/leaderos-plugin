@@ -510,26 +510,19 @@ public class tr extends Language {
             public static class ConfirmPurchase extends Language.Gui.WebStoreGui.ConfirmPurchase {
 
                 /**
-                 * Default Title
+                 * GUI Name
                  */
-                private String title = "&a&lSATIN AL";
-            }
-
-            /**
-             * CancelPurchase attributes
-             */
-            private CancelPurchase cancelPurchase = new CancelPurchase();
-
-            /**
-             * AcceptPurchase arguments class
-             */
-            @Getter @Setter
-            public static class CancelPurchase extends Language.Gui.WebStoreGui.CancelPurchase {
+                private String guiName = "&8Satın Alımı Onayla";
 
                 /**
-                 * Default Title
+                 * Confirm Title
                  */
-                private String title = "&c&lIPTAL ET";
+                private String confirmTitle = "&a&lSATIN AL";
+
+                /**
+                 * Cancel Title
+                 */
+                private String cancelTitle = "&c&lIPTAL ET";
             }
         }
 

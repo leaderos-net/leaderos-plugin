@@ -334,20 +334,20 @@ public class Modules extends OkaeriConfig {
             }
 
             /**
-             * Check Purchase attributes
+             * Confirm Purchase attributes
              */
-            private Gui.CheckPurchase checkPurchase = new Gui.CheckPurchase();
+            private Gui.ConfirmPurchase confirmPurchase = new Gui.ConfirmPurchase();
 
             /**
-             * CheckPurchase arguments class
+             * ConfirmPurchase arguments class
              */
             @Getter @Setter
-            public static class CheckPurchase extends OkaeriConfig {
+            public static class ConfirmPurchase extends OkaeriConfig {
 
                 /**
                  * Confirm material
                  */
-                private String confirmMaterial = "GREEN_WOOL";
+                private String confirmMaterial = "LIME_WOOL";
 
                 /**
                  * Cancel material

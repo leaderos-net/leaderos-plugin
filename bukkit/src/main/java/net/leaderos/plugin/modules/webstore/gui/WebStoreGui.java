@@ -112,10 +112,8 @@ public class WebStoreGui {
                 product.getProductIcon(),
                 1,
                 click -> {
-                    click.getEvent().setCancelled(true);
-                    gui.close();
-                    WebStoreHelper.buyItem(player, product.getProductId());
-                    return false;
+                    ConfirmPurchaseGui.showGui(player, product);
+                    return true;
                 })))
         );
     }
