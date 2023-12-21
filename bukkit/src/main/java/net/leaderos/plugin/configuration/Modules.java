@@ -353,6 +353,23 @@ public class Modules extends OkaeriConfig {
                  * Cancel material
                  */
                 private String cancelMaterial = "RED_WOOL";
+
+                /**
+                 * layout of gui
+                 */
+                @Comment({
+                        "Layout of confirm purchase gui",
+                        "p: Product",
+                        "n: Cancel Purchase",
+                        "y: Confirm Purchase"
+                })
+                private List<String> layout = Arrays.asList(
+                        "         ",
+                        "    p    ",
+                        "         ",
+                        "   n y   ",
+                        "         "
+                );
             }
         }
     }
