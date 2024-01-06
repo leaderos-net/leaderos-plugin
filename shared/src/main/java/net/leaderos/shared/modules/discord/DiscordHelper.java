@@ -1,11 +1,10 @@
 package net.leaderos.shared.modules.discord;
 
 import net.leaderos.shared.model.request.PostRequest;
+import net.leaderos.shared.model.request.impl.discord.DiscordSyncRequest;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Auth module helper class, share methods over platforms
@@ -22,9 +21,7 @@ public class DiscordHelper {
      * @throws IOException request exception
      */
     private static String generateLink(String username) throws IOException {
-        Map<String, String> formData = new HashMap<>();
-        formData.put("user", username);
-        PostRequest postRequest = new PostRequest("integrations/discord/sync", formData);
+        PostRequest postRequest = new DiscordSyncRequest(username);
         JSONObject response = postRequest.getResponse().getResponseMessage().getJSONObject("data");
         return response.getString("url");
     }

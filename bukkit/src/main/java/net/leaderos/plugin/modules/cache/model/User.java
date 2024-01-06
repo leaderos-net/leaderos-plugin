@@ -5,6 +5,7 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.shared.model.request.GetRequest;
+import net.leaderos.shared.model.request.impl.user.GetUserRequest;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -90,7 +91,7 @@ public class User {
         this.creationDate = format.parse(user.getString("creationDate"));
 
         // Adds data to cache
-        userList.remove(username);
+        userList.remove(username); // why remove? instead, can't we just add the new object? afaik, it replaces the old value
         userList.put(username, this);
     }
 
@@ -151,7 +152,7 @@ public class User {
      */
     public static void loadPlayerCache(Player player) {
         try {
-            GetRequest getRequest = new GetRequest("users/" + player.getName());
+            GetRequest getRequest = new GetUserRequest(player.getName());
             new User(getRequest.getResponse().getResponseMessage());
         }
         catch (Exception ignored) {}

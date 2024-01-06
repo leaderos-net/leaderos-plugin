@@ -8,6 +8,7 @@ import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.ItemUtil;
 import net.leaderos.shared.exceptions.RequestException;
 import net.leaderos.shared.model.request.GetRequest;
+import net.leaderos.shared.model.request.impl.store.ListingRequest;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -144,7 +145,7 @@ public class Category {
         if (!categories.isEmpty())
             categories.clear();
 
-        GetRequest getRequest = new GetRequest("store/listing");
+        GetRequest getRequest = new ListingRequest();
         JSONObject response = getRequest.getResponse().getResponseMessage();
         response.getJSONArray("categories").forEach(jsonObj -> new Category((JSONObject) jsonObj));
     }

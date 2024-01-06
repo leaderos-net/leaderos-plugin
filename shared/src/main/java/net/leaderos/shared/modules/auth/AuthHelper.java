@@ -1,11 +1,9 @@
 package net.leaderos.shared.modules.auth;
 
-import net.leaderos.shared.model.request.PostRequest;
+import net.leaderos.shared.model.request.impl.auth.AuthRequest;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -24,11 +22,8 @@ public class AuthHelper {
      * @throws IOException request exception
      */
     private static String generateLink(String username, String uuid) throws IOException {
-        Map<String, String> formData = new HashMap<>();
-        formData.put("username", username);
-        formData.put("uuid", uuid);
-        PostRequest postRequest = new PostRequest("auth/generate-link", formData);
-        JSONObject response = postRequest.getResponse().getResponseMessage().getJSONObject("data");
+        AuthRequest authRequest = new AuthRequest(username, uuid);
+        JSONObject response = authRequest.getResponse().getResponseMessage().getJSONObject("data");
         return response.getString("url");
     }
 

@@ -1,18 +1,19 @@
 package net.leaderos.plugin.modules.bazaar.gui;
 
 import com.cryptomorin.xseries.XMaterial;
-import de.themoep.inventorygui.*;
+import de.themoep.inventorygui.GuiStorageElement;
+import de.themoep.inventorygui.InventoryGui;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.GameUtil;
 import net.leaderos.plugin.helpers.GuiHelper;
-import net.leaderos.plugin.modules.cache.model.User;
-import net.leaderos.plugin.modules.bazaar.BazaarModule;
 import net.leaderos.plugin.helpers.ItemUtil;
+import net.leaderos.plugin.modules.bazaar.BazaarModule;
+import net.leaderos.plugin.modules.cache.model.User;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
-import net.leaderos.shared.model.request.PostRequest;
+import net.leaderos.shared.model.request.impl.bazaar.AddBazaarItemRequest;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
@@ -22,7 +23,10 @@ import org.bukkit.inventory.PlayerInventory;
 
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -108,28 +112,9 @@ public class BazaarAddItemGui {
                 String modelId = ItemUtil.getModelId(item);
                 String enchantment = ItemUtil.getEnchantments(item);
 
-                Map<String, String> body = new HashMap<>();
-                body.put("owner", userId);
-                body.put("name", name);
-                if (lore != null)
-                    body.put("lore", lore);
-                body.put("amount", String.valueOf(amount));
-                body.put("maxDurability", String.valueOf(maxDurability));
-                body.put("durability", String.valueOf(durability));
-
-                body.put("base64", base64);
-                body.put("price", String.valueOf(price));
-                body.put("creationDate", creationDate);
-                if (modelId != null)
-                    body.put("modelID", modelId);
-                if (enchantment != null)
-                    body.put("enchantment", enchantment);
-                body.put("serverID", String.valueOf(serverId));
-                body.put("itemID", material.name());
-
                 // Sends response
                 try {
-                    Response postBazaarItem = new PostRequest("bazaar/storages/" + userId + "/items", body).getResponse();
+                    Response postBazaarItem = new AddBazaarItemRequest(userId, name, lore, amount, maxDurability, durability, base64, price, creationDate, modelId, enchantment, serverId, material.name()).getResponse();
                     if (postBazaarItem.getResponseCode() == HttpURLConnection.HTTP_OK
                             && postBazaarItem.getResponseMessage().getBoolean("status")) {
                         ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
