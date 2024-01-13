@@ -52,6 +52,8 @@ public class Language extends OkaeriConfig {
 
         private String cannotCreateFull = "{prefix} &cPlease create some space in your inventory and try again.";
 
+        private String haveRequestOngoing = "&cPlease wait for your current request to be done!";
+
         /**
          * Help commands message
          */

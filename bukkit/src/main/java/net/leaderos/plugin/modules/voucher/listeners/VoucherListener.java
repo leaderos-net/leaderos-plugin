@@ -74,26 +74,30 @@ public class VoucherListener implements Listener {
             return;
         }
 
-        Response depositResponse = CreditHelper.addCreditRequest(player.getName(), amount);
-        if (Objects.requireNonNull(depositResponse).getResponseCode() == HttpURLConnection.HTTP_OK
-                && depositResponse.getResponseMessage().getBoolean("status")) {
-            remove(player, id);
-            list.add(id);
-            VoucherModule.getVoucherData().set("used", list);
-            VoucherModule.getVoucherData().save();
-            awaitingVouchers.remove(String.valueOf(id));
+        remove(player, id);
+        list.add(id);
+        VoucherModule.getVoucherData().set("used", list);
+        VoucherModule.getVoucherData().save();
 
-            // Calls UpdateCache event for update player's cache
-            org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.ADD));
-            ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                    Bukkit.getInstance().getLangFile().getMessages().getVouchers()
-                            .getSuccessfullyUsed(), new Placeholder("{amount}", MoneyUtil.format(amount))
-            ));
-        }
-        else {
-            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
-            awaitingVouchers.remove(String.valueOf(id));
-        }
+        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+            Response depositResponse = CreditHelper.addCreditRequest(player.getName(), amount);
+            if (Objects.requireNonNull(depositResponse).getResponseCode() == HttpURLConnection.HTTP_OK
+                    && depositResponse.getResponseMessage().getBoolean("status")) {
+
+                awaitingVouchers.remove(String.valueOf(id));
+
+                // Calls UpdateCache event for update player's cache
+                org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.ADD)));
+                ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
+                        Bukkit.getInstance().getLangFile().getMessages().getVouchers()
+                                .getSuccessfullyUsed(), new Placeholder("{amount}", MoneyUtil.format(amount))
+                ));
+            }
+            else {
+                ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
+                awaitingVouchers.remove(String.valueOf(id));
+            }
+        });
     }
 
     /**

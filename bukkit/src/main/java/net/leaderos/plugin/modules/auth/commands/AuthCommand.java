@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.MDChat.MDChatAPI;
+import net.leaderos.shared.helpers.RequestUtil;
 import net.leaderos.shared.modules.auth.AuthHelper;
 import org.bukkit.entity.Player;
 
@@ -27,6 +28,13 @@ public class AuthCommand extends BaseCommand {
     @Default
     @Permission("leaderos.auth")
     public void defaultCommand(Player player) {
+        if (!RequestUtil.canRequest(player.getUniqueId())) {
+            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getHaveRequestOngoing());
+            return;
+        }
+
+        RequestUtil.addRequest(player.getUniqueId());
+
         String link = AuthHelper.getAuthLink(player.getName(), player.getUniqueId());
         if (link != null)
             player.spigot().sendMessage(
@@ -37,5 +45,7 @@ public class AuthCommand extends BaseCommand {
                         .replace("{prefix}", Bukkit.getInstance().getLangFile().getMessages().getPrefix()))));
         else
             ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getAuth().getNoLink());
+
+        RequestUtil.invalidate(player.getUniqueId());
     }
 }
