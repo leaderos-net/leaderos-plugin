@@ -2,6 +2,7 @@ package net.leaderos.bungee.modules.credit.commands;
 
 import net.leaderos.bungee.Bungee;
 import net.leaderos.bungee.helpers.ChatUtil;
+import net.leaderos.shared.error.Error;
 import net.leaderos.shared.helpers.MoneyUtil;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
@@ -183,9 +184,17 @@ public class CreditCommand extends Command {
                         new Placeholder("{amount}", MoneyUtil.format(amount)),
                         new Placeholder("{player}", player.getName())
                 ));
+        } else {
+            if (sendCreditResponse.getError() == Error.NOT_ENOUGH_CREDITS) {
+                ChatUtil.sendMessage(player, Bungee.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
+            } else if (sendCreditResponse.getError() == Error.INVALID_TARGET
+                    || sendCreditResponse.getError() == Error.TARGET_USER_NOT_FOUND
+                    || sendCreditResponse.getError() == Error.USER_NOT_FOUND) {
+                ChatUtil.sendMessage(player, Bungee.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditsThisUser());
+            } else if (sendCreditResponse.getError() == Error.INVALID_AMOUNT) {
+                ChatUtil.sendMessage(player, Bungee.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNegative());
+            }
         }
-        else
-            ChatUtil.sendMessage(player, Bungee.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
     }
 
 

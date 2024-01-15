@@ -1,6 +1,5 @@
 package net.leaderos.plugin.configuration.lang;
 
-import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.annotation.NameModifier;
 import eu.okaeri.configs.annotation.NameStrategy;
@@ -259,6 +258,8 @@ public class en extends Language {
             private String creditInfo = "{prefix} &aYou have &e{amount} &acredit(s)";
 
             private String creditInfoOther = "{prefix} &b{target} &ahas &e{amount} &acredit(s)";
+
+            private String cannotSendCreditsThisUser = "{prefix} &cCould not send credits to this user.";
 
             private String cannotSendCreditYourself = "{prefix} &cYou can not send credit(s) to yourself.";
 

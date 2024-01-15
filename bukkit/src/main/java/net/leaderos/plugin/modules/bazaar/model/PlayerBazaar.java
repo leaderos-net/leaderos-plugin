@@ -7,6 +7,7 @@ import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.ItemUtil;
 import net.leaderos.plugin.modules.bazaar.BazaarModule;
+import net.leaderos.shared.error.Error;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.GetRequest;
 import net.leaderos.shared.model.request.impl.bazaar.GetBazaarItemsRequest;
@@ -77,17 +78,16 @@ public class PlayerBazaar {
      * @return status of withdraw
      */
     @SneakyThrows
-    public boolean withdrawItem(Player player) {
+    public Error withdrawItem(Player player) {
         Response deleteRequest = new RemoveBazaarItemRequest(getUserId(), getUserId()).getResponse();
         if (deleteRequest.getResponseCode() == HttpURLConnection.HTTP_OK
                 && deleteRequest.getResponseMessage().getBoolean("status")) {
             ItemStack item = ItemUtil.fromBase64(getBase64());
             player.getInventory().addItem(item);
-            return true;
+            return null;
         }
-        else
-            // TODO Throw exception
-            return false;
+
+        return deleteRequest.getError();
     }
 
     /**

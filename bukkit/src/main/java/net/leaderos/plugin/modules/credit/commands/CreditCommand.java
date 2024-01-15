@@ -10,6 +10,7 @@ import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.LeaderOSAPI;
 import net.leaderos.plugin.api.handlers.UpdateCacheEvent;
 import net.leaderos.plugin.helpers.ChatUtil;
+import net.leaderos.shared.error.Error;
 import net.leaderos.shared.helpers.MoneyUtil;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.helpers.RequestUtil;
@@ -59,7 +60,7 @@ public class CreditCommand extends BaseCommand {
      * Send credit command
      * @param player executor
      * @param target player
-     * @param amount of credit
+     * @param a amount of credit
      */
     @SubCommand(value = "send", alias = {"gönder", "gonder"})
     @Permission("leaderos.credit.send")
@@ -72,23 +73,24 @@ public class CreditCommand extends BaseCommand {
         RequestUtil.addRequest(player.getUniqueId());
 
         org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
-
             double amount = MoneyUtil.parseDouble(a);
             Player targetPlayer = org.bukkit.Bukkit.getPlayerExact(target);
 
             if (player.getName().equalsIgnoreCase(target)) {
+                RequestUtil.invalidate(player.getUniqueId());
                 ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditYourself());
                 return;
             }
 
             if (amount <= 0) {
+                RequestUtil.invalidate(player.getUniqueId());
                 ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNegative());
                 return;
             }
 
-            boolean sendCredit = LeaderOSAPI.getCreditManager().send(player.getName(), target, amount);
+            Error error = LeaderOSAPI.getCreditManager().send(player.getName(), target, amount);
 
-            if (sendCredit) {
+            if (error == null) {
                 // Calls UpdateCache event for update player's cache
                 org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.REMOVE));
                 ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
@@ -106,8 +108,16 @@ public class CreditCommand extends BaseCommand {
                             new Placeholder("{player}", player.getName())
                     ));
                 }
-            } else
+            } else if (error == Error.NOT_ENOUGH_CREDITS || error == Error.USER_NOT_FOUND) {
                 ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
+            } else if (error == Error.INVALID_TARGET
+                    || error == Error.TARGET_USER_NOT_FOUND) {
+                ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditsThisUser());
+            } else if (error == Error.INVALID_AMOUNT) {
+                ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNegative());
+            } else {
+                ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
+            }
 
             RequestUtil.invalidate(player.getUniqueId());
         });

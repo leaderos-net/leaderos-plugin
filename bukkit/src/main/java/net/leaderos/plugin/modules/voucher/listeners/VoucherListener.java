@@ -6,8 +6,10 @@ import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.handlers.UpdateCacheEvent;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.voucher.VoucherModule;
+import net.leaderos.shared.error.Error;
 import net.leaderos.shared.helpers.MoneyUtil;
 import net.leaderos.shared.helpers.Placeholder;
+import net.leaderos.shared.helpers.RequestUtil;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.modules.credit.CreditHelper;
 import net.leaderos.shared.modules.credit.enums.UpdateType;
@@ -74,7 +76,12 @@ public class VoucherListener implements Listener {
             return;
         }
 
-        remove(player, id);
+        if (!RequestUtil.canRequest(player.getUniqueId())) {
+            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getHaveRequestOngoing());
+            return;
+        }
+
+        RequestUtil.addRequest(player.getUniqueId());
         list.add(id);
         VoucherModule.getVoucherData().set("used", list);
         VoucherModule.getVoucherData().save();
@@ -84,19 +91,23 @@ public class VoucherListener implements Listener {
             if (Objects.requireNonNull(depositResponse).getResponseCode() == HttpURLConnection.HTTP_OK
                     && depositResponse.getResponseMessage().getBoolean("status")) {
 
-                awaitingVouchers.remove(String.valueOf(id));
-
                 // Calls UpdateCache event for update player's cache
-                org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.ADD)));
+                org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+                    org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.ADD));
+                    awaitingVouchers.remove(String.valueOf(id));
+                    remove(player, id);
+                });
+
                 ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
                         Bukkit.getInstance().getLangFile().getMessages().getVouchers()
                                 .getSuccessfullyUsed(), new Placeholder("{amount}", MoneyUtil.format(amount))
                 ));
-            }
-            else {
+            } else if (depositResponse.getError() == Error.USER_NOT_FOUND) {
                 ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
                 awaitingVouchers.remove(String.valueOf(id));
             }
+
+            RequestUtil.invalidate(player.getUniqueId());
         });
     }
 

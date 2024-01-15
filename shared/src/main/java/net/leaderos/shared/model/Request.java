@@ -3,6 +3,7 @@ package net.leaderos.shared.model;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import net.leaderos.shared.Shared;
+import net.leaderos.shared.error.Error;
 import net.leaderos.shared.model.request.RequestType;
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
@@ -82,9 +83,10 @@ public abstract class Request {
                 || responseCode == HttpURLConnection.HTTP_ACCEPTED
                 || responseCode == HttpURLConnection.HTTP_OK);
 
-        String responseString = getStream(connection.getInputStream());
+        String responseString = status ? getStream(connection.getInputStream()) : getStream(connection.getErrorStream());
         try {
-            this.response = new Response(responseCode, status, getResponseObj(responseString));
+            JSONObject obj = getResponseObj(responseString);
+            this.response = new Response(responseCode, status, obj, obj.has("error") ? obj.getEnum(Error.class, "error") : null);
 
             Shared.getDebugAPI().send(this.response.getResponseMessage().toString(), false);
         } catch (Exception e) {

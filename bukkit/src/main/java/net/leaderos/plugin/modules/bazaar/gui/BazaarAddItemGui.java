@@ -11,6 +11,7 @@ import net.leaderos.plugin.helpers.GuiHelper;
 import net.leaderos.plugin.helpers.ItemUtil;
 import net.leaderos.plugin.modules.bazaar.BazaarModule;
 import net.leaderos.plugin.modules.cache.model.User;
+import net.leaderos.shared.error.Error;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.impl.bazaar.AddBazaarItemRequest;
@@ -122,6 +123,8 @@ public class BazaarAddItemGui {
                                             Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getAddItemMessage(),
                                             new Placeholder("%item_name%", name)
                                     ));
+                                } else if (postBazaarItem.getError() == Error.INSERT_ERROR) {
+                                    returnItems.add(item);
                                 } else throw new Exception();
                             } catch (Exception e) {
                                 // TODO error msg

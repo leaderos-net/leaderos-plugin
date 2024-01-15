@@ -10,6 +10,7 @@ import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.GuiHelper;
 import net.leaderos.plugin.modules.bazaar.model.PlayerBazaar;
 import net.leaderos.plugin.modules.cache.model.User;
+import net.leaderos.shared.error.Error;
 import net.leaderos.shared.helpers.RequestUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -39,9 +40,9 @@ public class BazaarGui {
             return;
         }
 
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
-            RequestUtil.addRequest(player.getUniqueId());
+        RequestUtil.addRequest(player.getUniqueId());
 
+        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
             // Gui template as array
             String[] layout = Bukkit.getInstance().getModulesFile().getBazaar().getGui().getLayout().toArray(new String[0]);
             // Inventory object
@@ -85,11 +86,13 @@ public class BazaarGui {
                                         player.sendTitle(title, subtitleProgress);
 
                                         org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
-                                            boolean withdrawStatus = playerBazaarItem.withdrawItem(player);
-                                            if (withdrawStatus)
+                                            Error error = playerBazaarItem.withdrawItem(player);
+                                            if (error == null)
                                                 player.sendTitle(title, subtitleSuccess);
-                                            else
+                                            else if (error == Error.DELETE_ERROR)
                                                 player.sendTitle(title, subtitleError);
+
+                                            RequestUtil.invalidate(player.getUniqueId());
                                         });
 
                                         return false;
@@ -104,7 +107,6 @@ public class BazaarGui {
 
             org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
                 gui.show(player);
-                RequestUtil.invalidate(player.getUniqueId());
             });
         });
     }

@@ -6,6 +6,7 @@ import net.leaderos.plugin.api.managers.ModuleManager;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.MDChat.MDChatAPI;
 import net.leaderos.plugin.modules.cache.model.User;
+import net.leaderos.shared.error.Error;
 import net.leaderos.shared.helpers.RequestUtil;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.impl.store.BuyRequest;
@@ -41,9 +42,15 @@ public class WebStoreHelper {
                             org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), credits, UpdateType.SET));
                             player.sendTitle(title, subtitleSuccess);
                         }
-                        else if (buyRequest.getResponseCode() == HttpURLConnection.HTTP_BAD_REQUEST)
+                        else if (buyRequest.getError() == Error.INVALID_QUANTITY
+                                || buyRequest.getError() == Error.INSUFFICIENT_BALANCE)
                             player.sendTitle(title, subtitleNotEnoughCredit);
-                        else throw new IOException();
+                        else if (buyRequest.getError() == Error.OUT_OF_STOCK)
+                            player.sendTitle(title, ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreOutOfStock()));
+                        else if (buyRequest.getError() == Error.USER_NOT_FOUND)
+                            player.sendTitle(title, ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreUserNotFound()));
+                        else if (buyRequest.getError() == Error.PRODUCT_NOT_FOUND)
+                            player.sendTitle(title, ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreProductNotFound()));
                     } catch (IOException e) {
                         player.sendTitle(title, subtitleError);
                     }
