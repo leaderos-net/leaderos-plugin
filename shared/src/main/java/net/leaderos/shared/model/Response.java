@@ -3,6 +3,7 @@ package net.leaderos.shared.model;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import net.leaderos.shared.error.Error;
 import org.json.JSONObject;
 
 /**
@@ -30,6 +31,11 @@ public class Response {
      * Response message of request
      */
     private JSONObject responseMessage;
+
+    /**
+     * Error
+     */
+    private Error error;
 
     /**
      * Getter of responseMessage

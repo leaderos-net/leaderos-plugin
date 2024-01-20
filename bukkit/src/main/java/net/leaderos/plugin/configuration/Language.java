@@ -52,6 +52,8 @@ public class Language extends OkaeriConfig {
 
         private String cannotCreateFull = "{prefix} &cPlease create some space in your inventory and try again.";
 
+        private String haveRequestOngoing = "&cPlease wait for your current request to be done!";
+
         /**
          * Help commands message
          */
@@ -259,6 +261,8 @@ public class Language extends OkaeriConfig {
 
             private String creditInfoOther = "{prefix} &b{target} &ahas &e{amount} &acredit(s)";
 
+            private String cannotSendCreditsThisUser = "{prefix} &cCould not send credits to this user.";
+
             private String cannotSendCreditYourself = "{prefix} &cYou can not send credit(s) to yourself.";
 
             private String cannotSendCreditNegative = "{prefix} &cPlease enter a valid amount. The amount must be higher than 0.";
@@ -422,6 +426,12 @@ public class Language extends OkaeriConfig {
              * purchase subtitle success
              */
             private String buyWebStoreNotEnoughCredit = "&cNot enough credits.";
+
+            private String buyWebStoreOutOfStock = "&cOut of stock.";
+
+            private String buyWebStoreProductNotFound = "&cProduct not found.";
+
+            private String buyWebStoreUserNotFound = "&cUser not found.";
 
             /**
              * withdraw item subtitle error

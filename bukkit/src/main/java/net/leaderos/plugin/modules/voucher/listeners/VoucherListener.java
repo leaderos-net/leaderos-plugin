@@ -6,8 +6,10 @@ import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.handlers.UpdateCacheEvent;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.voucher.VoucherModule;
+import net.leaderos.shared.error.Error;
 import net.leaderos.shared.helpers.MoneyUtil;
 import net.leaderos.shared.helpers.Placeholder;
+import net.leaderos.shared.helpers.RequestUtil;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.modules.credit.CreditHelper;
 import net.leaderos.shared.modules.credit.enums.UpdateType;
@@ -74,26 +76,39 @@ public class VoucherListener implements Listener {
             return;
         }
 
-        Response depositResponse = CreditHelper.addCreditRequest(player.getName(), amount);
-        if (Objects.requireNonNull(depositResponse).getResponseCode() == HttpURLConnection.HTTP_OK
-                && depositResponse.getResponseMessage().getBoolean("status")) {
-            remove(player, id);
-            list.add(id);
-            VoucherModule.getVoucherData().set("used", list);
-            VoucherModule.getVoucherData().save();
-            awaitingVouchers.remove(String.valueOf(id));
+        if (!RequestUtil.canRequest(player.getUniqueId())) {
+            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getHaveRequestOngoing());
+            return;
+        }
 
-            // Calls UpdateCache event for update player's cache
-            org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.ADD));
-            ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                    Bukkit.getInstance().getLangFile().getMessages().getVouchers()
-                            .getSuccessfullyUsed(), new Placeholder("{amount}", MoneyUtil.format(amount))
-            ));
-        }
-        else {
-            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
-            awaitingVouchers.remove(String.valueOf(id));
-        }
+        RequestUtil.addRequest(player.getUniqueId());
+        list.add(id);
+        VoucherModule.getVoucherData().set("used", list);
+        VoucherModule.getVoucherData().save();
+
+        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+            Response depositResponse = CreditHelper.addCreditRequest(player.getName(), amount);
+            if (Objects.requireNonNull(depositResponse).getResponseCode() == HttpURLConnection.HTTP_OK
+                    && depositResponse.getResponseMessage().getBoolean("status")) {
+
+                // Calls UpdateCache event for update player's cache
+                org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+                    org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.ADD));
+                    awaitingVouchers.remove(String.valueOf(id));
+                    remove(player, id);
+                });
+
+                ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
+                        Bukkit.getInstance().getLangFile().getMessages().getVouchers()
+                                .getSuccessfullyUsed(), new Placeholder("{amount}", MoneyUtil.format(amount))
+                ));
+            } else if (depositResponse.getError() == Error.USER_NOT_FOUND) {
+                ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
+                awaitingVouchers.remove(String.valueOf(id));
+            }
+
+            RequestUtil.invalidate(player.getUniqueId());
+        });
     }
 
     /**

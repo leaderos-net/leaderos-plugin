@@ -1,5 +1,6 @@
 package net.leaderos.plugin.api.modules.credit;
 
+import net.leaderos.shared.error.Error;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.modules.credit.CreditHelper;
 
@@ -26,7 +27,7 @@ public class CreditManager {
      */
     public Double get(String player) {
         Response amount = CreditHelper.getRequest(player);
-        if (amount == null) return null;
+        if (amount == null || amount.getResponseMessage() == null) return null;
 
         return amount.getResponseMessage().getDouble("raw_credits");
     }
@@ -70,10 +71,14 @@ public class CreditManager {
      * @param target receiver of credit
      * @param amount to send
      */
-    public boolean send(String sender, String target, Double amount) {
+    public Error send(String sender, String target, Double amount) {
         Response sendCreditResponse = CreditHelper.sendCreditRequest(sender, target, amount);
 
-        return (Objects.requireNonNull(sendCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK && sendCreditResponse.getResponseMessage().getBoolean("status"));
+        if ((Objects.requireNonNull(sendCreditResponse).getResponseCode() == HttpURLConnection.HTTP_OK && sendCreditResponse.getResponseMessage().getBoolean("status"))) {
+            return null;
+        }
+
+        return sendCreditResponse.getError();
     }
 
 }

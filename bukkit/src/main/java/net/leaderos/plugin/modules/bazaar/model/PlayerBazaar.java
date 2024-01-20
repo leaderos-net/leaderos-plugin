@@ -5,11 +5,13 @@ import lombok.Setter;
 import lombok.SneakyThrows;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.plugin.modules.bazaar.BazaarModule;
 import net.leaderos.plugin.helpers.ItemUtil;
+import net.leaderos.plugin.modules.bazaar.BazaarModule;
+import net.leaderos.shared.error.Error;
 import net.leaderos.shared.model.Response;
-import net.leaderos.shared.model.request.DeleteRequest;
 import net.leaderos.shared.model.request.GetRequest;
+import net.leaderos.shared.model.request.impl.bazaar.GetBazaarItemsRequest;
+import net.leaderos.shared.model.request.impl.bazaar.RemoveBazaarItemRequest;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -76,17 +78,16 @@ public class PlayerBazaar {
      * @return status of withdraw
      */
     @SneakyThrows
-    public boolean withdrawItem(Player player) {
-        Response deleteRequest = new DeleteRequest("bazaar/storages/" + getUserId() + "/items/" + getId()).getResponse();
+    public Error withdrawItem(Player player) {
+        Response deleteRequest = new RemoveBazaarItemRequest(getUserId(), getUserId()).getResponse();
         if (deleteRequest.getResponseCode() == HttpURLConnection.HTTP_OK
                 && deleteRequest.getResponseMessage().getBoolean("status")) {
             ItemStack item = ItemUtil.fromBase64(getBase64());
             player.getInventory().addItem(item);
-            return true;
+            return null;
         }
-        else
-            // TODO Throw exception
-            return false;
+
+        return deleteRequest.getError();
     }
 
     /**
@@ -97,7 +98,7 @@ public class PlayerBazaar {
     public static List<PlayerBazaar> getBazaarStorage(String userId) {
         try {
             int serverId = BazaarModule.getServerId();
-            GetRequest getRequest = new GetRequest("bazaar/storages/" + userId + "/items?serverID=" + serverId);
+            GetRequest getRequest = new GetBazaarItemsRequest(userId, String.valueOf(serverId));
             JSONObject response = getRequest.getResponse().getResponseMessage();
             List<PlayerBazaar> playerBazaarList = new ArrayList<>();
             response.getJSONArray("array").forEach(bazaar -> playerBazaarList.add(new PlayerBazaar((JSONObject) bazaar, userId)));

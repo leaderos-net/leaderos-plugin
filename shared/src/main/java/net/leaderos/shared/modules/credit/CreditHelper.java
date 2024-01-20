@@ -3,10 +3,8 @@ package net.leaderos.shared.modules.credit;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.GetRequest;
 import net.leaderos.shared.model.request.PostRequest;
+import net.leaderos.shared.model.request.impl.credit.*;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Helper Class for auth module
@@ -25,10 +23,7 @@ public class CreditHelper {
      */
     public static @Nullable Response sendCreditRequest(String sender, String target, Double amount) {
         try {
-            Map<String, String> list = new HashMap<>();
-            list.put("target", target);
-            list.put("amount", String.valueOf(amount));
-            PostRequest postSendCredit = new PostRequest("credits/" + sender + "/send", list);
+            PostRequest postSendCredit = new SendCreditsRequest(sender, target, amount);
             return postSendCredit.getResponse();
         }
         catch (Exception e) {
@@ -43,7 +38,7 @@ public class CreditHelper {
      */
     public static @Nullable Response getRequest(String sender) {
         try {
-            GetRequest getCurrency = new GetRequest("credits/" + sender);
+            GetRequest getCurrency = new GetCreditsRequest(sender);
             return getCurrency.getResponse();
         }
         catch (Exception e) {
@@ -59,9 +54,7 @@ public class CreditHelper {
      */
     public static @Nullable Response addCreditRequest(String target, double amount) {
         try {
-            Map<String, String> list = new HashMap<>();
-            list.put("amount", String.valueOf(amount));
-            PostRequest postAddCredit = new PostRequest("credits/" + target + "/add", list);
+            PostRequest postAddCredit = new AddCreditsRequest(target, amount);
             return postAddCredit.getResponse();
         }
         catch (Exception e) {
@@ -77,9 +70,7 @@ public class CreditHelper {
      */
     public static @Nullable Response removeCreditRequest(String target, double amount) {
         try {
-            Map<String, String> list = new HashMap<>();
-            list.put("amount", String.valueOf(amount));
-            PostRequest postRemoveCredit = new PostRequest("credits/" + target + "/remove", list);
+            PostRequest postRemoveCredit = new RemoveCreditsRequest("credits/" + target + "/remove", amount);
             return postRemoveCredit.getResponse();
         }
         catch (Exception e) {
@@ -95,9 +86,7 @@ public class CreditHelper {
      */
     public static @Nullable Response setCreditRequest(String target, double amount) {
         try {
-            Map<String, String> list = new HashMap<>();
-            list.put("amount", String.valueOf(amount));
-            PostRequest postSetCredit = new PostRequest("credits/" + target + "/set", list);
+            PostRequest postSetCredit = new SetCreditsRequest(target, amount);
             return postSetCredit.getResponse();
         }
         catch (Exception e) {

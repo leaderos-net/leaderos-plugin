@@ -3,10 +3,10 @@ package net.leaderos.plugin.modules.donations.managers;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import net.leaderos.plugin.modules.donations.model.DonationType;
 import net.leaderos.plugin.modules.donations.model.Donation;
+import net.leaderos.plugin.modules.donations.model.DonationType;
 import net.leaderos.shared.model.Response;
-import net.leaderos.shared.model.request.GetRequest;
+import net.leaderos.shared.model.request.impl.donations.GetDonationsRequest;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -105,7 +105,7 @@ public class DonationManager {
         this.donations = new ArrayList<>();
         List<Donation> donations = new ArrayList<>();
         try {
-            Response recentDonationResponse = new GetRequest("store/donations/?type=" + getType().getRequest() + "&limit=10").getResponse();
+            Response recentDonationResponse = new GetDonationsRequest(getType().getRequest()).getResponse();
             if (recentDonationResponse.getResponseCode() == HttpURLConnection.HTTP_OK) {
                 JSONArray data = recentDonationResponse.getResponseMessage().getJSONArray("array");
                 for (int i = 0; i < data.length(); i++) {

@@ -1,6 +1,5 @@
 package net.leaderos.plugin.configuration.lang;
 
-import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.annotation.NameModifier;
 import eu.okaeri.configs.annotation.NameStrategy;
@@ -259,6 +258,8 @@ public class tr extends Language {
             private String creditInfo = "{prefix} &e{amount} &akrediye sahipsin.";
 
             private String creditInfoOther = "{prefix} &b{target} &aadlı oyuncunun &e{amount} &akredisi bulunuyor.";
+
+            private String cannotSendCreditsThisUser = "{prefix} &cBu kullanıcıya kredi gönderemezsin.";
 
             private String cannotSendCreditYourself = "{prefix} &cKendine kredi gönderemezsin.";
 
