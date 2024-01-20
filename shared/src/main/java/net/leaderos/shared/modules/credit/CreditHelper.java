@@ -86,7 +86,7 @@ public class CreditHelper {
      */
     public static @Nullable Response setCreditRequest(String target, double amount) {
         try {
-            PostRequest postSetCredit = new SetCreditsRequest("credits/" + target + "/set", amount);
+            PostRequest postSetCredit = new SetCreditsRequest(target, amount);
             return postSetCredit.getResponse();
         }
         catch (Exception e) {

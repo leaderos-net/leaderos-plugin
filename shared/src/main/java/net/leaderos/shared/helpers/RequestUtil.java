@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class RequestUtil {
 
-    private static final Cache<UUID, Byte> CACHE = CacheBuilder.newBuilder().expireAfterWrite(5, TimeUnit.SECONDS).build();
+    private static final Cache<UUID, Byte> CACHE = CacheBuilder.newBuilder().expireAfterWrite(20, TimeUnit.SECONDS).build();
 
     public static void addRequest(UUID uuid) {
         CACHE.put(uuid, (byte) 1);

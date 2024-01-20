@@ -92,7 +92,8 @@ public class CreditCommand extends BaseCommand {
 
             if (error == null) {
                 // Calls UpdateCache event for update player's cache
-                org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.REMOVE));
+                org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.REMOVE)));
+
                 ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
                         Bukkit.getInstance().getLangFile().getMessages().getCredit().getSuccessfullySentCredit(),
                         new Placeholder("{amount}", MoneyUtil.format(amount)),
@@ -109,14 +110,20 @@ public class CreditCommand extends BaseCommand {
                     ));
                 }
             } else if (error == Error.NOT_ENOUGH_CREDITS || error == Error.USER_NOT_FOUND) {
-                ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
+                ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
+                        Bukkit.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough(),
+                        new Placeholder("{amount}", MoneyUtil.format(amount))
+                ));
             } else if (error == Error.INVALID_TARGET
                     || error == Error.TARGET_USER_NOT_FOUND) {
                 ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditsThisUser());
             } else if (error == Error.INVALID_AMOUNT) {
                 ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNegative());
             } else {
-                ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
+                ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
+                        Bukkit.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough(),
+                        new Placeholder("{amount}", MoneyUtil.format(amount))
+                ));
             }
 
             RequestUtil.invalidate(player.getUniqueId());

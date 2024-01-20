@@ -27,7 +27,7 @@ public class CreditManager {
      */
     public Double get(String player) {
         Response amount = CreditHelper.getRequest(player);
-        if (amount == null) return null;
+        if (amount == null || amount.getResponseMessage() == null) return null;
 
         return amount.getResponseMessage().getDouble("raw_credits");
     }
