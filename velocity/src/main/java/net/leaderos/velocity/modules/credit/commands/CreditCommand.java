@@ -3,6 +3,7 @@ package net.leaderos.velocity.modules.credit.commands;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
+import net.leaderos.shared.error.Error;
 import net.leaderos.shared.helpers.MoneyUtil;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.model.Response;
@@ -180,9 +181,17 @@ public class CreditCommand implements SimpleCommand {
                         ));
 
 
+        } else {
+            if (sendCreditResponse.getError() == Error.NOT_ENOUGH_CREDITS) {
+                ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
+            } else if (sendCreditResponse.getError() == Error.INVALID_TARGET
+                    || sendCreditResponse.getError() == Error.TARGET_USER_NOT_FOUND
+                    || sendCreditResponse.getError() == Error.USER_NOT_FOUND) {
+                ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditsThisUser());
+            } else if (sendCreditResponse.getError() == Error.INVALID_AMOUNT) {
+                ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNegative());
+            }
         }
-        else
-            ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
     }
 
 
