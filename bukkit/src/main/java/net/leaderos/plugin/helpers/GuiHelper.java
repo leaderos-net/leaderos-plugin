@@ -88,6 +88,7 @@ public class GuiHelper {
 
     /**
      * WebStore GUI add credit icon
+     * @param credits to show
      *
      * @return add item icon
      */

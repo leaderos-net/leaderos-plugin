@@ -8,7 +8,6 @@ public class ListingRequest extends GetRequest {
     /**
      * Request constructor
      *
-     * @param api of request
      * @throws IOException for HttpUrlConnection
      */
     public ListingRequest() throws IOException {

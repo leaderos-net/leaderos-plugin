@@ -36,6 +36,7 @@ public class CreditManager {
      * Sets player's credit
      * @param target to set credit
      * @param amount to set
+     * @return true if success
      */
     public boolean set(String target, Double amount) {
         Response setCreditResponse = CreditHelper.setCreditRequest(target, amount);
@@ -47,6 +48,7 @@ public class CreditManager {
      * Adds player's credit
      * @param target to add credit
      * @param amount to add
+     * @return true if success
      */
     public boolean add(String target, Double amount) {
         Response addCreditResponse = CreditHelper.addCreditRequest(target, amount);
@@ -58,6 +60,7 @@ public class CreditManager {
      * Removes player's credit
      * @param target to remove credit
      * @param amount to remove
+     * @return true if success
      */
     public boolean remove(String  target, Double amount) {
         Response removeCreditResponse = CreditHelper.removeCreditRequest(target, amount);
@@ -70,6 +73,7 @@ public class CreditManager {
      * @param sender sender of credit
      * @param target receiver of credit
      * @param amount to send
+     * @return null if success, error if not
      */
     public Error send(String sender, String target, Double amount) {
         Response sendCreditResponse = CreditHelper.sendCreditRequest(sender, target, amount);

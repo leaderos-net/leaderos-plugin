@@ -66,6 +66,7 @@ public class ChatUtil {
     /**
      * Get colored message with prefix
      * @param message to send
+     * @return colored message
      */
     public static String getMessage(String message) {
         return ChatUtil.color(replacePlaceholders(message, new Placeholder("{prefix}",

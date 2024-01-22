@@ -56,6 +56,7 @@ public class ConfirmPurchaseGui {
 
     /**
      * ConfirmPurchase GUI add product icon
+     * @param product to buy
      *
      * @return product icon
      */
@@ -70,6 +71,9 @@ public class ConfirmPurchaseGui {
 
     /**
      * ConfirmPurchase GUI add confirm button
+     * @param player to buy product
+     * @param product to buy
+     * @param gui to manage gui
      *
      * @return confirm icon
      */
@@ -90,6 +94,7 @@ public class ConfirmPurchaseGui {
 
     /**
      * ConfirmPurchase GUI add cancel button
+     * @param gui to manage gui
      *
      * @return cancel icon
      */

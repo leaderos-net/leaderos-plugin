@@ -111,6 +111,7 @@ public class Velocity {
      * @param server proxyserver
      * @param logger logger class
      * @param dataDirectory data path
+     * @param metricsFactory bStats metrics
      */
     @Inject
     public Velocity(ProxyServer server, Logger logger, @DataDirectory Path dataDirectory, Metrics.Factory metricsFactory) {

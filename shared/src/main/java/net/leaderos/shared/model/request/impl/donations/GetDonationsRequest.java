@@ -8,7 +8,7 @@ public class GetDonationsRequest extends GetRequest {
     /**
      * Request constructor
      *
-     * @param api of request
+     * @param type of request
      * @throws IOException for HttpUrlConnection
      */
     public GetDonationsRequest(String type) throws IOException {
