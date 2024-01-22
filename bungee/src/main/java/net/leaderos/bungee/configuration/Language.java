@@ -49,6 +49,8 @@ public class Language extends OkaeriConfig {
 
         private String targetPlayerNotAvailable = "{prefix} &cTarget player is not available.";
 
+        private String haveRequestOngoing = "&cPlease wait for your current request to be done!";
+
         /**
          * Help commands message
          */

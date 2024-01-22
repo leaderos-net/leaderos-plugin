@@ -52,6 +52,8 @@ public class en extends Language {
 
         private String cannotCreateFull = "{prefix} &cPlease create some space in your inventory and try again.";
 
+        private String haveRequestOngoing = "&cPlease wait for your current request to be done!";
+
         /**
          * Help commands message
          */
@@ -424,6 +426,12 @@ public class en extends Language {
              * purchase subtitle success
              */
             private String buyWebStoreNotEnoughCredit = "&cNot enough credits.";
+
+            private String buyWebStoreOutOfStock = "&cOut of stock.";
+
+            private String buyWebStoreProductNotFound = "&cProduct not found.";
+
+            private String buyWebStoreUserNotFound = "&cUser not found.";
 
             /**
              * withdraw item subtitle error

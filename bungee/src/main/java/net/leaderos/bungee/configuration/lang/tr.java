@@ -49,6 +49,8 @@ public class tr extends Language {
 
         private String targetPlayerNotAvailable = "{prefix} &cBu oyuncu mevcut değil.";
 
+        private String haveRequestOngoing = "&cLütfen şu anki işleminin bitmesini bekle!";
+
         /**
          * Help commands message
          */

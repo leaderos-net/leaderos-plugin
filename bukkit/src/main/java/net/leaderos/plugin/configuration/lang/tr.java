@@ -52,6 +52,8 @@ public class tr extends Language {
 
         private String cannotCreateFull = "{prefix} &cEnvanterinde yeterli boşluk bulunmamakta, lütfen envanterini boşalt ve tekrar dene.";
 
+        private String haveRequestOngoing = "&cLütfen şu anki işleminin bitmesini bekle!";
+
         /**
          * Help commands message
          */
@@ -417,6 +419,12 @@ public class tr extends Language {
              * purchase subtitle success
              */
             private String buyWebStoreSuccess = "&aSatın alım başarılı.";
+
+            private String buyWebStoreOutOfStock = "&cStok yok.";
+
+            private String buyWebStoreProductNotFound = "&cÜrün bulunamadı.";
+
+            private String buyWebStoreUserNotFound = "&cKullanıcı bulunamadı.";
 
             /**
              * purchase subtitle success

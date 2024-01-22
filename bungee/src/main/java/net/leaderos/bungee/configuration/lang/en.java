@@ -1,6 +1,5 @@
 package net.leaderos.bungee.configuration.lang;
 
-import eu.okaeri.configs.OkaeriConfig;
 import eu.okaeri.configs.annotation.Comment;
 import eu.okaeri.configs.annotation.NameModifier;
 import eu.okaeri.configs.annotation.NameStrategy;
@@ -49,6 +48,8 @@ public class en extends Language {
         private String playerNotAvailable = "{prefix} &cPlayer is not available.";
 
         private String targetPlayerNotAvailable = "{prefix} &cTarget player is not available.";
+
+        private String haveRequestOngoing = "&cPlease wait for your current request to be done!";
 
         /**
          * Help commands message
