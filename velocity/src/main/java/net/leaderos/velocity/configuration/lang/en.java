@@ -219,6 +219,8 @@ public class en extends Language {
 
             private String creditInfoOther = "{prefix} &b{target} &ahas &e{amount} &acredit(s)";
 
+            private String cannotSendCreditsThisUser = "{prefix} &cCould not send credits to this user.";
+
             private String cannotSendCreditYourself = "{prefix} &cYou can not send credit(s) to yourself.";
 
             private String cannotSendCreditNegative = "{prefix} &cPlease enter a valid amount. The amount must be higher than 0.";
