@@ -139,19 +139,34 @@ public class CreditCommand extends BaseCommand {
     @SubCommand(value = "see", alias = {"göster", "goster", "gör", "gor", "bak"})
     @Permission("leaderos.credit.see.other")
     public void showCommand(CommandSender sender, String target) {
-        Double amount = LeaderOSAPI.getCreditManager().get(target);
-
-        if (amount != null) {
-            ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Bukkit.getInstance().getLangFile().getMessages().getCredit().getCreditInfoOther(),
-                    new Placeholder("{amount}", MoneyUtil.format(amount)),
-                    new Placeholder("{target}", target)
-            ));
+        if (sender instanceof Player && !RequestUtil.canRequest(((Player)sender).getUniqueId())) {
+            ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getHaveRequestOngoing());
+            return;
         }
-        else
-            ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable()
-            ));
+
+        if (sender instanceof Player) {
+            RequestUtil.addRequest(((Player)sender).getUniqueId());
+        }
+
+        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+            Double amount = LeaderOSAPI.getCreditManager().get(target);
+
+            if (amount != null) {
+                ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
+                        Bukkit.getInstance().getLangFile().getMessages().getCredit().getCreditInfoOther(),
+                        new Placeholder("{amount}", MoneyUtil.format(amount)),
+                        new Placeholder("{target}", target)
+                ));
+            }
+            else
+                ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
+                        Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable()
+                ));
+
+            if (sender instanceof Player) {
+                RequestUtil.invalidate(((Player)sender).getUniqueId());
+            }
+        });
     }
 
     /**
@@ -170,20 +185,37 @@ public class CreditCommand extends BaseCommand {
             return;
         }
 
-        boolean addCredit = LeaderOSAPI.getCreditManager().add(target, amount);
-        if (addCredit) {
-            if (org.bukkit.Bukkit.getPlayerExact(target) != null)
-                // Calls UpdateCache event for update player's cache
-                org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.ADD));
-
-            ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Bukkit.getInstance().getLangFile().getMessages().getCredit().getSuccessfullyAddedCredit(),
-                    new Placeholder("{amount}", MoneyUtil.format(amount)),
-                    new Placeholder("{target}", target)
-            ));
+        if (sender instanceof Player && !RequestUtil.canRequest(((Player)sender).getUniqueId())) {
+            ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getHaveRequestOngoing());
+            return;
         }
-        else
-            ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getTargetPlayerNotAvailable());
+
+        if (sender instanceof Player) {
+            RequestUtil.addRequest(((Player)sender).getUniqueId());
+        }
+
+        Double finalAmount = amount;
+        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+            boolean addCredit = LeaderOSAPI.getCreditManager().add(target, finalAmount);
+            if (addCredit) {
+                if (org.bukkit.Bukkit.getPlayerExact(target) != null)
+                    // Calls UpdateCache event for update player's cache
+                    org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(),
+                            () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, finalAmount, UpdateType.ADD)));
+
+                ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
+                        Bukkit.getInstance().getLangFile().getMessages().getCredit().getSuccessfullyAddedCredit(),
+                        new Placeholder("{amount}", MoneyUtil.format(finalAmount)),
+                        new Placeholder("{target}", target)
+                ));
+            }
+            else
+                ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getTargetPlayerNotAvailable());
+
+            if (sender instanceof Player) {
+                RequestUtil.invalidate(((Player)sender).getUniqueId());
+            }
+        });
     }
 
     /**
@@ -201,20 +233,38 @@ public class CreditCommand extends BaseCommand {
             ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getCredit().getCannotSendCreditNotEnough());
             return;
         }
-        boolean removeCredit = LeaderOSAPI.getCreditManager().remove(target, amount);
-        if (removeCredit) {
-            if (org.bukkit.Bukkit.getPlayerExact(target) != null)
-                // Calls UpdateCache event for update player's cache
-                org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.REMOVE));
 
-            ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Bukkit.getInstance().getLangFile().getMessages().getCredit().getSuccessfullyRemovedCredit(),
-                    new Placeholder("{amount}", MoneyUtil.format(amount)),
-                    new Placeholder("{target}", target)
-            ));
+        if (sender instanceof Player && !RequestUtil.canRequest(((Player)sender).getUniqueId())) {
+            ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getHaveRequestOngoing());
+            return;
         }
-        else
-            ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getTargetPlayerNotAvailable());
+
+        if (sender instanceof Player) {
+            RequestUtil.addRequest(((Player)sender).getUniqueId());
+        }
+
+        Double finalAmount = amount;
+        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+            boolean removeCredit = LeaderOSAPI.getCreditManager().remove(target, finalAmount);
+            if (removeCredit) {
+                if (org.bukkit.Bukkit.getPlayerExact(target) != null)
+                    // Calls UpdateCache event for update player's cache
+                    org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(),
+                            () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, finalAmount, UpdateType.REMOVE)));
+
+                ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
+                        Bukkit.getInstance().getLangFile().getMessages().getCredit().getSuccessfullyRemovedCredit(),
+                        new Placeholder("{amount}", MoneyUtil.format(finalAmount)),
+                        new Placeholder("{target}", target)
+                ));
+            } else
+                ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getTargetPlayerNotAvailable());
+
+            if (sender instanceof Player) {
+                RequestUtil.invalidate(((Player)sender).getUniqueId());
+            }
+        });
+
     }
 
     /**
@@ -228,19 +278,35 @@ public class CreditCommand extends BaseCommand {
     public void setCommand(CommandSender sender, String target, Double amount) {
         amount = MoneyUtil.parseDouble(amount);
 
-        boolean setCredit = LeaderOSAPI.getCreditManager().set(target, amount);
-        if (setCredit) {
-            if (org.bukkit.Bukkit.getPlayerExact(target) != null)
-                // Calls UpdateCache event for update player's cache
-                org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.SET));
-
-            ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
-                    Bukkit.getInstance().getLangFile().getMessages().getCredit().getSuccessfullySetCredit(),
-                    new Placeholder("{amount}", MoneyUtil.format(amount)),
-                    new Placeholder("{target}", target)
-            ));
+        if (sender instanceof Player && !RequestUtil.canRequest(((Player)sender).getUniqueId())) {
+            ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getHaveRequestOngoing());
+            return;
         }
-        else
-            ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getTargetPlayerNotAvailable());
+
+        if (sender instanceof Player) {
+            RequestUtil.addRequest(((Player)sender).getUniqueId());
+        }
+
+        Double finalAmount = amount;
+        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+            boolean setCredit = LeaderOSAPI.getCreditManager().set(target, finalAmount);
+            if (setCredit) {
+                if (org.bukkit.Bukkit.getPlayerExact(target) != null)
+                    // Calls UpdateCache event for update player's cache
+                    org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, finalAmount, UpdateType.SET)));
+
+                ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
+                        Bukkit.getInstance().getLangFile().getMessages().getCredit().getSuccessfullySetCredit(),
+                        new Placeholder("{amount}", MoneyUtil.format(finalAmount)),
+                        new Placeholder("{target}", target)
+                ));
+            }
+            else
+                ChatUtil.sendMessage(sender, Bukkit.getInstance().getLangFile().getMessages().getTargetPlayerNotAvailable());
+
+            if (sender instanceof Player) {
+                RequestUtil.invalidate(((Player)sender).getUniqueId());
+            }
+        });
     }
 }
