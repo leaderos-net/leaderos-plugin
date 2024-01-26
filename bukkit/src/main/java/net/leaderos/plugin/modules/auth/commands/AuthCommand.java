@@ -35,17 +35,19 @@ public class AuthCommand extends BaseCommand {
 
         RequestUtil.addRequest(player.getUniqueId());
 
-        String link = AuthHelper.getAuthLink(player.getName(), player.getUniqueId());
-        if (link != null)
-            player.spigot().sendMessage(
-                MDChatAPI.getFormattedMessage(ChatUtil.color(Bukkit.getInstance()
-                        .getLangFile().getMessages()
-                        .getAuth().getCommandMessage()
-                        .replace("%link%", link)
-                        .replace("{prefix}", Bukkit.getInstance().getLangFile().getMessages().getPrefix()))));
-        else
-            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getAuth().getNoLink());
+        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+            String link = AuthHelper.getAuthLink(player.getName(), player.getUniqueId());
+            if (link != null)
+                player.spigot().sendMessage(
+                        MDChatAPI.getFormattedMessage(ChatUtil.color(Bukkit.getInstance()
+                                .getLangFile().getMessages()
+                                .getAuth().getCommandMessage()
+                                .replace("%link%", link)
+                                .replace("{prefix}", Bukkit.getInstance().getLangFile().getMessages().getPrefix()))));
+            else
+                ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getAuth().getNoLink());
 
-        RequestUtil.invalidate(player.getUniqueId());
+            RequestUtil.invalidate(player.getUniqueId());
+        });
     }
 }
