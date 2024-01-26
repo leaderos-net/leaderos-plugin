@@ -39,7 +39,7 @@ public class WebStoreHelper {
                         if (buyRequest.getResponseCode() == HttpURLConnection.HTTP_OK) {
                             // Calls UpdateCache event for update player's cache
                             double credits = buyRequest.getResponseMessage().getJSONObject("data").getDouble("credits");
-                            org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), credits, UpdateType.SET));
+                            org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), credits, UpdateType.SET)));
                             player.sendTitle(title, subtitleSuccess);
                         }
                         else if (buyRequest.getError() == Error.INVALID_QUANTITY
