@@ -174,7 +174,7 @@ public class CreditCommand extends BaseCommand {
         if (addCredit) {
             if (org.bukkit.Bukkit.getPlayerExact(target) != null)
                 // Calls UpdateCache event for update player's cache
-                org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.REMOVE)));
+                org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.ADD));
 
             ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                     Bukkit.getInstance().getLangFile().getMessages().getCredit().getSuccessfullyAddedCredit(),
