@@ -70,7 +70,7 @@ public class CreditHelper {
      */
     public static @Nullable Response removeCreditRequest(String target, double amount) {
         try {
-            PostRequest postRemoveCredit = new RemoveCreditsRequest("credits/" + target + "/remove", amount);
+            PostRequest postRemoveCredit = new RemoveCreditsRequest(target, amount);
             return postRemoveCredit.getResponse();
         }
         catch (Exception e) {
