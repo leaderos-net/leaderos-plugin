@@ -233,7 +233,7 @@ public class tr extends Language {
 
             private String successfullyAddedCredit = "{prefix} &b{target} &aadlı oyuncuya başarıyla &e{amount} kredi &aeklendi.";
 
-            private String successfullyRemovedCredit = "{prefix} &b{target} adlı oyuncunun &e{amount} kredisi &abaşarıyla silindi.";
+            private String successfullyRemovedCredit = "{prefix} &b{target} &aadlı oyuncunun &e{amount} kredisi &abaşarıyla silindi.";
 
             private String receivedCredit = "{prefix} &b{player} &aadlı oyuncudan &e{amount} kredi &aaldın.";
         }
