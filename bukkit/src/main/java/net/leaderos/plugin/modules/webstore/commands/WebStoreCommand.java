@@ -7,13 +7,12 @@ import dev.triumphteam.cmd.core.annotation.Default;
 import dev.triumphteam.cmd.core.annotation.SubCommand;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
+import net.leaderos.plugin.api.LeaderOSAPI;
 import net.leaderos.plugin.api.managers.ModuleManager;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.webstore.gui.MainWebStoreGui;
-import net.leaderos.plugin.api.LeaderOSAPI;
 import net.leaderos.plugin.modules.webstore.helpers.WebStoreHelper;
-import net.leaderos.shared.Shared;
-import net.leaderos.shared.helpers.UrlUtil;
+import net.leaderos.plugin.modules.webstore.model.Product;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -50,6 +49,14 @@ public class WebStoreCommand extends BaseCommand {
         if (!ModuleManager.getModule("WebStore").isEnabled()) return;
 
         Player player = (Player) sender;
-        WebStoreHelper.buyItem(player, productId);
+
+        Product product = WebStoreHelper.findProductById(productId);
+
+        if (product == null) {
+            player.sendMessage(ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreError()));
+            return;
+        }
+
+        WebStoreHelper.buyItem(player, product);
     }
 }
