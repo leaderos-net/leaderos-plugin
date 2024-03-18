@@ -42,7 +42,7 @@ public class BazaarGui {
 
         RequestUtil.addRequest(player.getUniqueId());
         
-        getFoliaLib().getImpl().runAsync(Bukkit.getInstance(), () -> {
+        Bukkit.p.getFoliaLib().getImpl().runAsync(Bukkit.getInstance(), () -> {
             // Gui template as array
             String[] layout = Bukkit.getInstance().getModulesFile().getBazaar().getGui().getLayout().toArray(new String[0]);
             // Inventory object
@@ -105,7 +105,7 @@ public class BazaarGui {
             gui.addElement(GuiHelper.createNextPage(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getNextPage().getItem()));
             gui.addElement(GuiHelper.createPreviousPage(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getPreviousPage().getItem()));
 
-            getFoliaLib().getImpl().runNextTick(Bukkit.getInstance(), () -> {
+            Bukkit.p.getFoliaLib().getImpl().runNextTick(Bukkit.getInstance(), () -> {
                 gui.show(player);
             });
         });
