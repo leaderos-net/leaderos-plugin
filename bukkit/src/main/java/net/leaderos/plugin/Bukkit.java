@@ -30,6 +30,7 @@ import net.leaderos.shared.helpers.UrlUtil;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+import com.tcoded.folialib.FoliaLib;
 
 import java.io.File;
 
@@ -67,6 +68,9 @@ public class Bukkit extends JavaPlugin {
     @Getter
     private Language langFile;
 
+    // FoliaLib Impl
+    private FoliaLib foliaLib;
+
     /**
      * Module file of plugin
      */
@@ -98,7 +102,8 @@ public class Bukkit extends JavaPlugin {
     public void onEnable() {
         commandManager = BukkitCommandManager.create(this);
         setupCommands();
-
+        // Load FoliaLib
+        foliaLib = new FoliaLib(this);
         // Loads modules
         LeaderOSAPI.getModuleManager().registerModule(new AuthModule());
         LeaderOSAPI.getModuleManager().registerModule(new DiscordModule());
@@ -183,6 +188,10 @@ public class Bukkit extends JavaPlugin {
         }
     }
 
+    // FoliaLib Function
+    public @NotNull FoliaLib getFoliaLib() {
+    return foliaLib;
+    }
     public void checkUpdate() {
         org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
             PluginUpdater updater = new PluginUpdater(getDescription().getVersion());

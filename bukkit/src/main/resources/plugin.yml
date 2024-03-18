@@ -4,6 +4,7 @@ main: net.leaderos.plugin.Bukkit
 version: '${shared.version}'
 api-version: 1.13
 softdepend: [PlaceholderAPI]
+folia-supported: true
 commands:
     leaderos:
         description: Default command of leaderos

@@ -46,6 +46,13 @@
             <artifactId>json</artifactId>
             <version>20231013</version>
         </dependency>
+        <!-- FoliaLib -->
+        <dependency>
+            <groupId>com.tcoded</groupId>
+            <artifactId>FoliaLib</artifactId>
+            <version>0.3.1</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <!-- Repos -->
@@ -90,6 +97,11 @@
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
+        <!-- FoliaLib-->
+        <repository>
+            <id>devmart-other</id>
+            <url>https://nexuslite.gcnt.net/repos/other/</url>
+        </repository>
     </repositories>
 
     <build>
@@ -122,6 +134,10 @@
                         <relocation>
                             <pattern>de.themoep.inventorygui</pattern>
                             <shadedPattern>net.leaderos.shades.inventorygui</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.tcoded.folialib</pattern>
+                            <shadedPattern>net.leaderos.shades.folialib</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>org.jetbrains.annotations</pattern>
