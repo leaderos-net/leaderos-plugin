@@ -108,6 +108,6 @@ public class BazaarGui {
             getFoliaLib().getImpl().runNextTick(Bukkit.getInstance(), () -> {
                 gui.show(player);
             });
-        })
+        });
     }
 }
