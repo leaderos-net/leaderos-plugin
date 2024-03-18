@@ -189,7 +189,7 @@ public class Bukkit extends JavaPlugin {
     }
 
     // FoliaLib Function
-    public @NotNull FoliaLib getFoliaLib() {
+    public FoliaLib getFoliaLib() {
     return foliaLib;
     }
     public void checkUpdate() {
