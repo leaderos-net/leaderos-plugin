@@ -42,7 +42,7 @@ public static void showGui(Player player) {
     }
 
     RequestUtil.addRequest(player.getUniqueId());
-    foliaLib = new FoliaLib(this);
+    FoliaLib foliaLib = new FoliaLib(this);
     foliaLib.getImpl().runAsync(() -> {
         // Gui template as array
         String[] layout = Bukkit.getInstance().getModulesFile().getBazaar().getGui().getLayout().toArray(new String[0]);
