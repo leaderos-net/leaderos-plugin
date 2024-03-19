@@ -187,7 +187,7 @@ public class Bukkit extends JavaPlugin {
     }
 
     public void checkUpdate() {
-        AsyncScheduler.get(this).run(Bukkit.getInstance(), () -> {
+        AsyncScheduler.get(this).run(() -> {
             PluginUpdater updater = new PluginUpdater(getDescription().getVersion());
             try {
                 if (updater.checkForUpdates()) {
