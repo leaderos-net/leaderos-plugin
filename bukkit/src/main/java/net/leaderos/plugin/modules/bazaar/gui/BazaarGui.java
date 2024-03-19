@@ -42,17 +42,19 @@ public static void showGui(Player player) {
 
     RequestUtil.addRequest(player.getUniqueId());
 
-    // Obtain an instance of Bukkit instead of calling a non-static method
-    Bukkit bukkit = Bukkit.getInstance();
+    Bukkit.getFoliaLib().getImpl().runAsync(() -> {
+        // Gui template as array
+        String[] layout = Bukkit.getInstance().getModulesFile().getBazaar().getGui().getLayout().toArray(new String[0]);
+        // Inventory object
+        String guiName = ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getGuiName());
+        InventoryGui gui = new InventoryGui(Bukkit.getInstance(), null, guiName, layout);
+        // Filler item for empty slots
+        gui.setFiller(GuiHelper.getFiller(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().isUseFiller(), Bukkit.getInstance().getModulesFile().getBazaar().getGui().getFillerItem().getMaterial()));
 
-    bukkit.getFoliaLib().getImpl().runAsync(() -> {
-        String[] layout = bukkit.getModulesFile().getBazaar().getGui().getLayout().toArray(new String[0]);
-        String guiName = ChatUtil.replacePlaceholders(bukkit.getLangFile().getGui().getBazaarGui().getGuiName());
-        InventoryGui gui = new InventoryGui(bukkit, null, guiName, layout);
-        gui.setFiller(GuiHelper.getFiller(bukkit.getModulesFile().getBazaar().getGui().getFillerItem().isUseFiller(), bukkit.getModulesFile().getBazaar().getGui().getFillerItem().getMaterial()));
-
+        // List creator
         List<PlayerBazaar> playerBazaarList = PlayerBazaar.getBazaarStorage(User.getUser(player.getName()).getId());
 
+        // Add item icon
         gui.addElement(new StaticGuiElement('a', GuiHelper.addItemIcon(), 1, click -> {
             gui.close();
             click.getEvent().setCancelled(true);
@@ -60,24 +62,25 @@ public static void showGui(Player player) {
             return false;
         }));
 
+        // Bazaar group creator
         GuiElementGroup bazaarGui = new GuiElementGroup('i');
         if (!playerBazaarList.isEmpty()) {
             playerBazaarList.forEach(playerBazaarItem -> {
                 ItemStack bazaarItem = playerBazaarItem.getItem();
-                bazaarGui.addElement(new DynamicGuiElement('s', viewer -> new StaticGuiElement('s', bazaarItem, bazaarItem.getAmount(), itemClick -> {
+                bazaarGui.addElement(new DynamicGuiElement('s', (viewer) -> new StaticGuiElement('s', bazaarItem, bazaarItem.getAmount(), itemClick -> {
                     itemClick.getEvent().setCancelled(true);
                     gui.close();
                     if (player.getInventory().firstEmpty() == -1) {
-                        ChatUtil.sendMessage(player, bukkit.getLangFile().getMessages().getCannotCreateFull());
+                        ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCannotCreateFull());
                         return false;
                     }
-                    String title = ChatUtil.color(bukkit.getLangFile().getGui().getBazaarGui().getWithdrawTitle());
-                    String subtitleError = ChatUtil.color(bukkit.getLangFile().getGui().getBazaarGui().getWithdrawErrorSubtitle());
-                    String subtitleSuccess = ChatUtil.color(bukkit.getLangFile().getGui().getBazaarGui().getWithdrawSuccessSubtitle());
-                    String subtitleProgress = ChatUtil.color(bukkit.getLangFile().getGui().getBazaarGui().getWithdrawProgressSubtitle());
+                    String title = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawTitle());
+                    String subtitleError = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawErrorSubtitle());
+                    String subtitleSuccess = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawSuccessSubtitle());
+                    String subtitleProgress = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawProgressSubtitle());
                     player.sendTitle(title, subtitleProgress);
 
-                    bukkit.getFoliaLib().getImpl().runNextTick(bukkit, () -> {
+                    Bukkit.getFoliaLib().getImpl().runNextTick(() -> {
                         Error error = playerBazaarItem.withdrawItem(player);
                         if (error == null)
                             player.sendTitle(title, subtitleSuccess);
@@ -93,14 +96,13 @@ public static void showGui(Player player) {
         }
         gui.addElement(bazaarGui);
 
-        gui.addElement(GuiHelper.createNextPage(bukkit.getModulesFile().getBazaar().getGui().getNextPage().getItem()));
-        gui.addElement(GuiHelper.createPreviousPage(bukkit.getModulesFile().getBazaar().getGui().getPreviousPage().getItem()));
+        // Next and previous page icons
+        gui.addElement(GuiHelper.createNextPage(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getNextPage().getItem()));
+        gui.addElement(GuiHelper.createPreviousPage(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getPreviousPage().getItem()));
 
-        bukkit.getFoliaLib().getImpl().runNextTick(bukkit, () -> {
+        Bukkit.getFoliaLib().getImpl().runNextTick(() -> {
             gui.show(player);
         });
     });
 }
-
-
 }
