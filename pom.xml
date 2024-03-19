@@ -46,11 +46,29 @@
             <artifactId>json</artifactId>
             <version>20231013</version>
         </dependency>
-        <!-- FoliaLib -->
+        <!-- MineLib -->
         <dependency>
-            <groupId>com.tcoded</groupId>
-            <artifactId>FoliaLib</artifactId>
-            <version>0.3.1</version>
+            <groupId>io.github.projectunified</groupId>
+            <artifactId>minelib-scheduler-entity</artifactId>
+            <version>1.1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.projectunified</groupId>
+            <artifactId>minelib-scheduler-global</artifactId>
+            <version>1.1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.projectunified</groupId>
+            <artifactId>minelib-scheduler-async</artifactId>
+            <version>1.1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.github.projectunified</groupId>
+            <artifactId>minelib-scheduler-canceller</artifactId>
+            <version>1.1.2</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
@@ -97,10 +115,16 @@
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
-        <!-- FoliaLib-->
+        <!-- MineLib-->
         <repository>
-            <id>devmart-other</id>
-            <url>https://nexuslite.gcnt.net/repos/other/</url>
+            <id>minecraft-libraries</id>
+            <name>Minecraft Libraries</name>
+            <url>https://libraries.minecraft.net</url>
+        </repository>
+        <repository>
+            <id>mvdw-software-repo</id>
+            <name>MVdW Public Repositories</name>
+            <url>https://repo.mvdw-software.com/content/groups/public/</url>
         </repository>
     </repositories>
 
@@ -136,8 +160,8 @@
                             <shadedPattern>net.leaderos.shades.inventorygui</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>com.tcoded.folialib</pattern>
-                            <shadedPattern>net.leaderos.shades.folialib</shadedPattern>
+                            <pattern>io.github.projectunified.minelib</pattern>
+                            <shadedPattern>net.leaderos.shades.minelib</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>org.jetbrains.annotations</pattern>

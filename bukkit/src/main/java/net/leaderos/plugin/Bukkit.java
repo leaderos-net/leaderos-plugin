@@ -30,7 +30,9 @@ import net.leaderos.shared.helpers.UrlUtil;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
-import com.tcoded.folialib.FoliaLib;
+import io.github.projectunified.minelib.scheduler.async.AsyncScheduler;
+import io.github.projectunified.minelib.scheduler.common.task.Task;
+import io.github.projectunified.minelib.scheduler.global.GlobalScheduler;
 
 import java.io.File;
 
@@ -68,9 +70,6 @@ public class Bukkit extends JavaPlugin {
     @Getter
     private Language langFile;
 
-    // FoliaLib Impl
-    private FoliaLib foliaLib;
-
     /**
      * Module file of plugin
      */
@@ -102,8 +101,7 @@ public class Bukkit extends JavaPlugin {
     public void onEnable() {
         commandManager = BukkitCommandManager.create(this);
         setupCommands();
-        // Load FoliaLib
-        foliaLib = new FoliaLib(this);
+
         // Loads modules
         LeaderOSAPI.getModuleManager().registerModule(new AuthModule());
         LeaderOSAPI.getModuleManager().registerModule(new DiscordModule());
@@ -187,8 +185,9 @@ public class Bukkit extends JavaPlugin {
             throw new RuntimeException("Error loading config.yml");
         }
     }
+
     public void checkUpdate() {
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        AsyncScheduler.get(plugin).run(Bukkit.getInstance(), () -> {
             PluginUpdater updater = new PluginUpdater(getDescription().getVersion());
             try {
                 if (updater.checkForUpdates()) {
