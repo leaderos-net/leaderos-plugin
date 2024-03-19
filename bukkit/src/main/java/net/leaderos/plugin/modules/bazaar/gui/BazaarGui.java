@@ -34,7 +34,6 @@ public class BazaarGui {
     /**
      * Instance of plugin
      */
-    @Getter
     private static Bukkit instance;
 
     /**
