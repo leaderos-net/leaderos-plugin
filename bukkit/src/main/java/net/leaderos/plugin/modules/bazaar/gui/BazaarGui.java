@@ -14,6 +14,9 @@ import net.leaderos.shared.error.Error;
 import net.leaderos.shared.helpers.RequestUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import io.github.projectunified.minelib.scheduler.async.AsyncScheduler;
+import io.github.projectunified.minelib.scheduler.common.task.Task;
+import io.github.projectunified.minelib.scheduler.global.GlobalScheduler;
 
 import java.util.List;
 
@@ -28,6 +31,11 @@ public class BazaarGui {
      * Constructor of gui
      */
     public BazaarGui() {}
+    /**
+     * Instance of plugin
+     */
+    @Getter
+    private static Bukkit instance;
 
     /**
      * Opens gui to player
@@ -42,7 +50,7 @@ public class BazaarGui {
 
         RequestUtil.addRequest(player.getUniqueId());
 
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        AsyncScheduler.get(instance).run(() -> {
             // Gui template as array
             String[] layout = Bukkit.getInstance().getModulesFile().getBazaar().getGui().getLayout().toArray(new String[0]);
             // Inventory object
@@ -85,7 +93,7 @@ public class BazaarGui {
                                         String subtitleProgress = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawProgressSubtitle());
                                         player.sendTitle(title, subtitleProgress);
 
-                                        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+                                        AsyncScheduler.get(instance).run(() -> {
                                             Error error = playerBazaarItem.withdrawItem(player);
                                             if (error == null)
                                                 player.sendTitle(title, subtitleSuccess);
@@ -105,7 +113,7 @@ public class BazaarGui {
             gui.addElement(GuiHelper.createNextPage(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getNextPage().getItem()));
             gui.addElement(GuiHelper.createPreviousPage(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getPreviousPage().getItem()));
 
-            org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+            GlobalScheduler.get(instance).run(() -> {
                 gui.show(player);
             });
         });
