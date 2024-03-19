@@ -31,6 +31,7 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import io.github.projectunified.minelib.scheduler.async.AsyncScheduler;
+import io.github.projectunified.minelib.scheduler.common.Scheduler;
 import io.github.projectunified.minelib.scheduler.global.GlobalScheduler;
 
 import java.io.File;
