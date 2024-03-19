@@ -71,12 +71,6 @@
             <version>1.2.0</version>
             <scope>compile</scope>
         </dependency>
-        <dependency>
-            <groupId>io.github.projectunified</groupId>
-            <artifactId>minelib-scheduler-task</artifactId>
-            <version>1.2.0</version>
-            <scope>compile</scope>
-        </dependency>
     </dependencies>
 
     <!-- Repos -->
