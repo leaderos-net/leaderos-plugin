@@ -14,6 +14,7 @@ import net.leaderos.shared.error.Error;
 import net.leaderos.shared.helpers.RequestUtil;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import com.tcoded.folialib.FoliaLib;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class BazaarGui {
      * Constructor of gui
      */
     public BazaarGui() {}
-
+    private FoliaLib foliaLib;
     /**
      * Opens gui to player
      * @param player to show gui
@@ -41,8 +42,8 @@ public static void showGui(Player player) {
     }
 
     RequestUtil.addRequest(player.getUniqueId());
-
-    Bukkit.getFoliaLib().getImpl().runAsync(() -> {
+    foliaLib = new FoliaLib(this);
+    foliaLib.getImpl().runAsync(() -> {
         // Gui template as array
         String[] layout = Bukkit.getInstance().getModulesFile().getBazaar().getGui().getLayout().toArray(new String[0]);
         // Inventory object
@@ -80,7 +81,7 @@ public static void showGui(Player player) {
                     String subtitleProgress = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawProgressSubtitle());
                     player.sendTitle(title, subtitleProgress);
 
-                    Bukkit.getFoliaLib().getImpl().runNextTick(() -> {
+                    foliaLib.getImpl().runNextTick(() -> {
                         Error error = playerBazaarItem.withdrawItem(player);
                         if (error == null)
                             player.sendTitle(title, subtitleSuccess);
@@ -100,7 +101,7 @@ public static void showGui(Player player) {
         gui.addElement(GuiHelper.createNextPage(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getNextPage().getItem()));
         gui.addElement(GuiHelper.createPreviousPage(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getPreviousPage().getItem()));
 
-        Bukkit.getFoliaLib().getImpl().runNextTick(() -> {
+        foliaLib.getImpl().runNextTick(() -> {
             gui.show(player);
         });
     });

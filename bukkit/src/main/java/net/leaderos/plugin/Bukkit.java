@@ -187,11 +187,6 @@ public class Bukkit extends JavaPlugin {
             throw new RuntimeException("Error loading config.yml");
         }
     }
-
-    // FoliaLib Function
-    public FoliaLib getFoliaLib() {
-    return foliaLib;
-    }
     public void checkUpdate() {
         org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
             PluginUpdater updater = new PluginUpdater(getDescription().getVersion());
