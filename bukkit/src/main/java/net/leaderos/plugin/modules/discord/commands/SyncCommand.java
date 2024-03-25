@@ -11,6 +11,9 @@ import net.leaderos.plugin.helpers.MDChat.MDChatAPI;
 import net.leaderos.shared.helpers.RequestUtil;
 import net.leaderos.shared.modules.discord.DiscordHelper;
 import org.bukkit.entity.Player;
+import io.github.projectunified.minelib.scheduler.async.AsyncScheduler;
+import io.github.projectunified.minelib.scheduler.common.task.Task;
+import io.github.projectunified.minelib.scheduler.global.GlobalScheduler;
 
 /**
  * Discord commands
@@ -21,6 +24,8 @@ import org.bukkit.entity.Player;
 @Command(value = "discord-sync", alias = {"discord-link"})
 public class SyncCommand extends BaseCommand {
 
+    private static Bukkit instance;
+    
     /**
      * Default command of discord-sync
      * @param player executor
@@ -35,7 +40,7 @@ public class SyncCommand extends BaseCommand {
 
         RequestUtil.addRequest(player.getUniqueId());
 
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        AsyncScheduler.get(instance).run(() -> {
             String link = DiscordHelper.getSyncLink(player.getName());
             if (link != null)
                 player.spigot().sendMessage(

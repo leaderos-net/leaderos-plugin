@@ -8,6 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import io.github.projectunified.minelib.scheduler.async.AsyncScheduler;
+import io.github.projectunified.minelib.scheduler.common.task.Task;
+import io.github.projectunified.minelib.scheduler.global.GlobalScheduler;
+import io.github.projectunified.minelib.scheduler.entity.EntityScheduler;
 
 import java.util.List;
 
@@ -18,6 +22,8 @@ import java.util.List;
  * @since 1.0
  */
 public class LoginListener implements Listener {
+    
+    private static Bukkit instance;
 
     /**
      * Listens player join event to execute commands
@@ -34,7 +40,7 @@ public class LoginListener implements Listener {
             if (commands == null || commands.isEmpty()) return;
 
             // Execute commands
-            org.bukkit.Bukkit.getScheduler().runTaskLater(Bukkit.getInstance(), () -> {
+            EntityScheduler.get(instance, player).runLater(() -> {
                 if (!player.isOnline()) return;
 
                 commands.forEach(command -> {

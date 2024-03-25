@@ -20,6 +20,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import io.github.projectunified.minelib.scheduler.async.AsyncScheduler;
+import io.github.projectunified.minelib.scheduler.common.task.Task;
+import io.github.projectunified.minelib.scheduler.global.GlobalScheduler;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
@@ -35,6 +38,7 @@ import java.util.Objects;
 public class VoucherListener implements Listener {
 
     private List<String> awaitingVouchers = new ArrayList<>();
+    private static Bukkit instance;
 
     /**
      * Right-Click event for voucher
@@ -86,13 +90,13 @@ public class VoucherListener implements Listener {
         VoucherModule.getVoucherData().set("used", list);
         VoucherModule.getVoucherData().save();
 
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        AsyncScheduler.get(instance).run(() -> {
             Response depositResponse = CreditHelper.addCreditRequest(player.getName(), amount);
             if (Objects.requireNonNull(depositResponse).getResponseCode() == HttpURLConnection.HTTP_OK
                     && depositResponse.getResponseMessage().getBoolean("status")) {
 
                 // Calls UpdateCache event for update player's cache
-                org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+                GlobalScheduler.get(instance).run(() -> {
                     org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.ADD));
                     awaitingVouchers.remove(String.valueOf(id));
                     remove(player, id);

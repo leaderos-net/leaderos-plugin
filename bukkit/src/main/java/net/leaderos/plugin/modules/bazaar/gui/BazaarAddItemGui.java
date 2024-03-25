@@ -21,6 +21,9 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
+import io.github.projectunified.minelib.scheduler.async.AsyncScheduler;
+import io.github.projectunified.minelib.scheduler.common.task.Task;
+import io.github.projectunified.minelib.scheduler.global.GlobalScheduler;
 
 import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
@@ -41,6 +44,7 @@ public class BazaarAddItemGui {
      */
     public BazaarAddItemGui() {}
 
+    private static Bukkit instance;
 
     /**
      * Opens gui to player
@@ -113,7 +117,7 @@ public class BazaarAddItemGui {
                         String modelId = ItemUtil.getModelId(item);
                         String enchantment = ItemUtil.getEnchantments(item);
 
-                        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+                        AsyncScheduler.get(instance).run(() -> {
                             // Sends response
                             try {
                                 Response postBazaarItem = new AddBazaarItemRequest(userId, name, lore, amount, maxDurability, durability, base64, price, creationDate, modelId, enchantment, serverId, material.name()).getResponse();

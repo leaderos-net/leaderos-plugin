@@ -17,6 +17,9 @@ import net.leaderos.shared.helpers.RequestUtil;
 import net.leaderos.shared.modules.credit.enums.UpdateType;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import io.github.projectunified.minelib.scheduler.async.AsyncScheduler;
+import io.github.projectunified.minelib.scheduler.common.task.Task;
+import io.github.projectunified.minelib.scheduler.global.GlobalScheduler;
 
 import java.util.Objects;
 
@@ -27,7 +30,9 @@ import java.util.Objects;
 @RequiredArgsConstructor
 @Command(value = "credits", alias = {"credit", "kredi"})
 public class CreditCommand extends BaseCommand {
-
+    
+    private static Bukkit instance;
+    
     /**
      * Base command
      * @param player executor
@@ -42,7 +47,7 @@ public class CreditCommand extends BaseCommand {
 
         RequestUtil.addRequest(player.getUniqueId());
 
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        AsyncScheduler.get(instance).run(() -> {
             Double amount = LeaderOSAPI.getCreditManager().get(player.getName());
             if (amount == null)
                 amount = 0.00;
@@ -72,7 +77,7 @@ public class CreditCommand extends BaseCommand {
 
         RequestUtil.addRequest(player.getUniqueId());
 
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        AsyncScheduler.get(instance).run(() -> {
             double amount = MoneyUtil.parseDouble(a);
             Player targetPlayer = org.bukkit.Bukkit.getPlayerExact(target);
 
@@ -92,7 +97,7 @@ public class CreditCommand extends BaseCommand {
 
             if (error == null) {
                 // Calls UpdateCache event for update player's cache
-                org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.REMOVE)));
+                GlobalScheduler.get(instance).run(() -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.REMOVE)));
 
                 ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
                         Bukkit.getInstance().getLangFile().getMessages().getCredit().getSuccessfullySentCredit(),
@@ -102,7 +107,7 @@ public class CreditCommand extends BaseCommand {
 
                 if (targetPlayer != null) {
                     // Calls UpdateCache event for update player's cache
-                    org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.ADD)));
+                    GlobalScheduler.get(instance).run(() -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.ADD)));
 
                     ChatUtil.sendMessage(Objects.requireNonNull(targetPlayer), ChatUtil.replacePlaceholders(
                             Bukkit.getInstance().getLangFile().getMessages().getCredit().getReceivedCredit(),
@@ -148,7 +153,7 @@ public class CreditCommand extends BaseCommand {
             RequestUtil.addRequest(((Player)sender).getUniqueId());
         }
 
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        AsyncScheduler.get(instance).run(() -> {
             Double amount = LeaderOSAPI.getCreditManager().get(target);
 
             if (amount != null) {
@@ -195,13 +200,12 @@ public class CreditCommand extends BaseCommand {
         }
 
         Double finalAmount = amount;
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        AsyncScheduler.get(instance).run(() -> {
             boolean addCredit = LeaderOSAPI.getCreditManager().add(target, finalAmount);
             if (addCredit) {
                 if (org.bukkit.Bukkit.getPlayerExact(target) != null)
                     // Calls UpdateCache event for update player's cache
-                    org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(),
-                            () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, finalAmount, UpdateType.ADD)));
+                    GlobalScheduler.get(instance).run(() -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, finalAmount, UpdateType.ADD)));
 
                 ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                         Bukkit.getInstance().getLangFile().getMessages().getCredit().getSuccessfullyAddedCredit(),
@@ -244,13 +248,12 @@ public class CreditCommand extends BaseCommand {
         }
 
         Double finalAmount = amount;
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        AsyncScheduler.get(instance).run(() -> {
             boolean removeCredit = LeaderOSAPI.getCreditManager().remove(target, finalAmount);
             if (removeCredit) {
                 if (org.bukkit.Bukkit.getPlayerExact(target) != null)
                     // Calls UpdateCache event for update player's cache
-                    org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(),
-                            () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, finalAmount, UpdateType.REMOVE)));
+                    GlobalScheduler.get(instance).run(() -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, finalAmount, UpdateType.REMOVE)));
 
                 ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                         Bukkit.getInstance().getLangFile().getMessages().getCredit().getSuccessfullyRemovedCredit(),
@@ -288,12 +291,12 @@ public class CreditCommand extends BaseCommand {
         }
 
         Double finalAmount = amount;
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        AsyncScheduler.get(instance).run(() -> {
             boolean setCredit = LeaderOSAPI.getCreditManager().set(target, finalAmount);
             if (setCredit) {
                 if (org.bukkit.Bukkit.getPlayerExact(target) != null)
                     // Calls UpdateCache event for update player's cache
-                    org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, finalAmount, UpdateType.SET)));
+                    GlobalScheduler.get(instance).run(() -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, finalAmount, UpdateType.SET)));
 
                 ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                         Bukkit.getInstance().getLangFile().getMessages().getCredit().getSuccessfullySetCredit(),

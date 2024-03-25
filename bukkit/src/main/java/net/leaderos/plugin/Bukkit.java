@@ -200,7 +200,6 @@ public class Bukkit extends JavaPlugin {
             } catch (Exception ignored) {}
         });
     }
-
     /**
      * Constructor of Main class
      */

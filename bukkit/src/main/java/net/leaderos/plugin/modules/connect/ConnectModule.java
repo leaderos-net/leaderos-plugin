@@ -9,6 +9,9 @@ import net.leaderos.shared.modules.LeaderOSModule;
 import net.leaderos.shared.modules.connect.socket.SocketClient;
 import net.leaderos.shared.modules.connect.data.CommandsQueue;
 import org.bukkit.event.HandlerList;
+import io.github.projectunified.minelib.scheduler.async.AsyncScheduler;
+import io.github.projectunified.minelib.scheduler.common.task.Task;
+import io.github.projectunified.minelib.scheduler.global.GlobalScheduler;
 
 import java.net.URISyntaxException;
 import java.util.List;
@@ -21,6 +24,8 @@ import java.util.List;
  */
 @Getter
 public class ConnectModule extends LeaderOSModule {
+
+    private static Bukkit instance;
 
     /**
      * Socket client for connect to leaderos
@@ -75,7 +80,7 @@ public class ConnectModule extends LeaderOSModule {
                         });
                     } else {
                         // Execute commands
-                        org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+                        GlobalScheduler.get(instance).run(() -> {
                             commands.forEach(command -> {
                                 org.bukkit.Bukkit.dispatchCommand(org.bukkit.Bukkit.getConsoleSender(), command);
 
