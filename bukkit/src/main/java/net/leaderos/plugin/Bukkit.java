@@ -30,6 +30,9 @@ import net.leaderos.shared.helpers.UrlUtil;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
+import io.github.projectunified.minelib.scheduler.async.AsyncScheduler;
+import io.github.projectunified.minelib.scheduler.common.task.Task;
+import io.github.projectunified.minelib.scheduler.global.GlobalScheduler;
 
 import java.io.File;
 
@@ -184,7 +187,7 @@ public class Bukkit extends JavaPlugin {
     }
 
     public void checkUpdate() {
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        AsyncScheduler.get(this).run(() -> {
             PluginUpdater updater = new PluginUpdater(getDescription().getVersion());
             try {
                 if (updater.checkForUpdates()) {
@@ -197,7 +200,6 @@ public class Bukkit extends JavaPlugin {
             } catch (Exception ignored) {}
         });
     }
-
     /**
      * Constructor of Main class
      */

@@ -5,6 +5,9 @@ import net.leaderos.plugin.modules.cache.model.User;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
+import io.github.projectunified.minelib.scheduler.async.AsyncScheduler;
+import io.github.projectunified.minelib.scheduler.common.task.Task;
+import io.github.projectunified.minelib.scheduler.global.GlobalScheduler;
 
 /**
  * Login listener class
@@ -13,12 +16,14 @@ import org.bukkit.event.player.PlayerLoginEvent;
  */
 public class LoginListener implements Listener {
 
+    private static Bukkit instance;
+
     /**
      * Login event of player
      * @param event LoginEvent
      */
     @EventHandler
     public void playerLoginEvent(PlayerLoginEvent event) {
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> User.loadPlayerCache(event.getPlayer()));
+       AsyncScheduler.get(instance).run(() -> User.loadPlayerCache(event.getPlayer()));
     }
 }

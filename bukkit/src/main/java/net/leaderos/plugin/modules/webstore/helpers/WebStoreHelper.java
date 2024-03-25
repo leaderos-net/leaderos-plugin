@@ -17,12 +17,18 @@ import net.leaderos.plugin.modules.webstore.model.Category;
 import org.bukkit.entity.Player;
 import org.json.JSONArray;
 import org.json.JSONObject;
+import io.github.projectunified.minelib.scheduler.async.AsyncScheduler;
+import io.github.projectunified.minelib.scheduler.common.task.Task;
+import io.github.projectunified.minelib.scheduler.global.GlobalScheduler;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.List;
 
 public class WebStoreHelper {
+
+    private static Bukkit instance;
+
     public static void buyItem(Player player, Product product) {
         if (RequestUtil.canRequest(player.getUniqueId())) {
 
@@ -37,7 +43,7 @@ public class WebStoreHelper {
                 String subtitleSuccess = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreSuccess());
                 String subtitleNotEnoughCredit = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreNotEnoughCredit());
                 player.sendTitle(title, subtitleProgress);
-                org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+                AsyncScheduler.get(instance).run(() -> {
                     // Buy progress
                     try {
                         Response buyRequest = new BuyRequest(user.getId(), product.getProductId()).getResponse();
@@ -56,7 +62,7 @@ public class WebStoreHelper {
 
                             // Calls UpdateCache event for update player's cache
                             double credits = responseData.getDouble("credits");
-                            org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), credits, UpdateType.SET)));
+                            GlobalScheduler.get(instance).run(() -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), credits, UpdateType.SET)));
                             player.sendTitle(title, subtitleSuccess);
                         }
                         else if (buyRequest.getError() == Error.INVALID_QUANTITY
@@ -75,7 +81,7 @@ public class WebStoreHelper {
                 });
             }
             else {
-                org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+                AsyncScheduler.get(instance).run(() -> {
                     // If auth login is enabled
                     if (ModuleManager.getModuleStatus("Auth")) {
                         String authLink = AuthHelper.getAuthLink(player.getName(), player.getUniqueId());
