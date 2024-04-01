@@ -44,6 +44,8 @@ public class tr extends Language {
 
         private String changeApiUrl = "{prefix} &cLütfen API URL adresini değiştirin!";
 
+        private String changeApiUrlHttps = "{prefix} &cAPI URL adresi HTTPS (https://) ile başlamalıdır!";
+
         private String playerNotOnline = "{prefix} &cOyuncu çevrimiçi değil.";
 
         private String playerNotAvailable = "{prefix} &cOyuncu mevcut değil.";

@@ -44,6 +44,8 @@ public class en extends Language {
 
         private String changeApiUrl = "{prefix} &cPlease change the API URL in the config.";
 
+        private String changeApiUrlHttps = "{prefix} &cPlease change the API URL to HTTPS (https://) in the config.";
+
         private String playerNotOnline = "{prefix} &cTarget player is not online.";
 
         private String playerNotAvailable = "{prefix} &cPlayer is not available.";

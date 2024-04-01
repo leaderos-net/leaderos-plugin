@@ -45,7 +45,7 @@ import java.nio.file.Path;
 @Plugin(
         id = "leaderos",
         name = "LeaderOS",
-        version = "1.0.5",
+        version = "1.0.6",
         url = "https://leaderos.net",
         description = "LeaderOS Plugin for Velocity",
         authors = {"leaderos"}
@@ -146,6 +146,10 @@ public class Velocity {
             getLogger().warn(ChatUtil.componentToString(
                     ChatUtil.getMessage(getLangFile().getMessages().getChangeApiUrl())
             ));
+        } else if (getConfigFile().getSettings().getUrl().startsWith("http://")) {
+            getLogger().warn(ChatUtil.componentToString(
+                    ChatUtil.getMessage(getLangFile().getMessages().getChangeApiUrlHttps())
+            ));
         } else {
             getModuleManager().enableModules();
         }
@@ -205,7 +209,7 @@ public class Velocity {
 
     public void checkUpdate() {
         Velocity.getInstance().getServer().getScheduler().buildTask(Velocity.getInstance(), () -> {
-            PluginUpdater updater = new PluginUpdater("1.0.5");
+            PluginUpdater updater = new PluginUpdater("1.0.6");
             try {
                 if (updater.checkForUpdates()) {
                     Component msg = ChatUtil.replacePlaceholders(

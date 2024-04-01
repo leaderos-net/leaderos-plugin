@@ -2,6 +2,7 @@ package net.leaderos.shared.modules.connect.socket;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
+import io.socket.engineio.client.transports.WebSocket;
 import lombok.Getter;
 import lombok.Setter;
 import net.leaderos.shared.model.request.PostRequest;
@@ -40,6 +41,9 @@ public abstract class SocketClient {
         auth.put("apiKey", apiKey);
         auth.put("token", serverToken);
         opts.auth = auth;
+
+        // Set transports
+        opts.transports = new String[] {WebSocket.NAME};
 
         this.socket = IO.socket(url, opts);
 

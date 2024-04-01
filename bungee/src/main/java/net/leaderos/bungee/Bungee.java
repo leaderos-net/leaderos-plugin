@@ -88,6 +88,8 @@ public class Bungee extends Plugin {
 
         if (getConfigFile().getSettings().getUrl().equals("https://yourwebsite.com")) {
             getLogger().warning(ChatUtil.getMessage(getLangFile().getMessages().getChangeApiUrl()));
+        } else if (getConfigFile().getSettings().getUrl().startsWith("http://")) {
+            getLogger().warning(ChatUtil.getMessage(getLangFile().getMessages().getChangeApiUrlHttps()));
         } else {
             getModuleManager().enableModules();
         }
