@@ -11,6 +11,9 @@ import net.leaderos.plugin.helpers.MDChat.MDChatAPI;
 import net.leaderos.shared.helpers.RequestUtil;
 import net.leaderos.shared.modules.auth.AuthHelper;
 import org.bukkit.entity.Player;
+import io.github.projectunified.minelib.scheduler.async.AsyncScheduler;
+import io.github.projectunified.minelib.scheduler.common.task.Task;
+import io.github.projectunified.minelib.scheduler.global.GlobalScheduler;
 
 /**
  * Auth commands
@@ -20,7 +23,7 @@ import org.bukkit.entity.Player;
 @RequiredArgsConstructor
 @Command(value = "auth", alias = {"authy", "kayit", "site", "web"})
 public class AuthCommand extends BaseCommand {
-
+    private static Bukkit instance;
     /**
      * Default command of auth
      * @param player executor
@@ -35,7 +38,7 @@ public class AuthCommand extends BaseCommand {
 
         RequestUtil.addRequest(player.getUniqueId());
 
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        AsyncScheduler.get(instance).run(() -> {
             String link = AuthHelper.getAuthLink(player.getName(), player.getUniqueId());
             if (link != null)
                 player.spigot().sendMessage(

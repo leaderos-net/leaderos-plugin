@@ -10,6 +10,9 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.json.JSONObject;
+import io.github.projectunified.minelib.scheduler.async.AsyncScheduler;
+import io.github.projectunified.minelib.scheduler.common.task.Task;
+import io.github.projectunified.minelib.scheduler.global.GlobalScheduler;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -32,6 +35,8 @@ public class User {
      */
     @Getter
     private static HashMap<String, User> userList = new HashMap<>();
+
+    private static Bukkit instance;
 
     /**
      * Gets one player @Nullable
@@ -142,7 +147,7 @@ public class User {
      * loads all player data
      */
     public static void loadAllPlayers() {
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () ->
+        AsyncScheduler.get(instance).run(() ->
                 org.bukkit.Bukkit.getOnlinePlayers().forEach(User::loadPlayerCache));
     }
 
