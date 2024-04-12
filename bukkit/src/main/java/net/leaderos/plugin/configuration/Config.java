@@ -7,6 +7,7 @@ import eu.okaeri.configs.annotation.NameStrategy;
 import eu.okaeri.configs.annotation.Names;
 import lombok.Getter;
 import lombok.Setter;
+import net.leaderos.shared.model.DebugMode;
 
 /**
  * Main config file
@@ -41,8 +42,14 @@ public class Config extends OkaeriConfig {
         @Comment("API Key for request")
         private String apiKey = "YOUR_API_KEY";
 
-        @Comment("Debug mode for API requests")
-        private boolean debug = false;
+        @Comment({
+                "Debug mode for API requests.",
+                "Available modes:",
+                "DISABLED: No debug messages",
+                "ENABLED: All debug messages",
+                "ONLY_ERRORS: Only error messages"
+        })
+        private DebugMode debugMode = DebugMode.ONLY_ERRORS;
 
         @Comment("Time format for plugin")
         private String timeFormat= "yyyy-MM-dd HH:mm:ss";

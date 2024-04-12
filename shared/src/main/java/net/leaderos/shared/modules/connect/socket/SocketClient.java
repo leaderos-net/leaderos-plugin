@@ -2,6 +2,7 @@ package net.leaderos.shared.modules.connect.socket;
 
 import io.socket.client.IO;
 import io.socket.client.Socket;
+import io.socket.engineio.client.transports.Polling;
 import io.socket.engineio.client.transports.WebSocket;
 import lombok.Getter;
 import lombok.Setter;
@@ -43,13 +44,18 @@ public abstract class SocketClient {
         opts.auth = auth;
 
         // Set transports
-        opts.transports = new String[] {WebSocket.NAME};
+        opts.transports = new String[] {WebSocket.NAME, Polling.NAME};
 
         this.socket = IO.socket(url, opts);
 
         // Error listener
         socket.on(Socket.EVENT_CONNECT_ERROR, args -> {
             System.out.println("Socket Error: " + Arrays.toString(args));
+        });
+
+        // Disconnect listener
+        socket.on(Socket.EVENT_DISCONNECT, args -> {
+            System.out.println("Socket Disconnected: " + Arrays.toString(args));
         });
 
         // Connect to socket

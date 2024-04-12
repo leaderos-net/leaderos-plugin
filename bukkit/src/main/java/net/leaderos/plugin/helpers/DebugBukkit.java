@@ -2,6 +2,7 @@ package net.leaderos.plugin.helpers;
 
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.shared.helpers.DebugAPI;
+import net.leaderos.shared.model.DebugMode;
 
 /**
  * Sends debug to console
@@ -17,7 +18,10 @@ public class DebugBukkit implements DebugAPI {
      */
     @Override
     public void send(String message, boolean strict) {
-        if (Bukkit.getInstance().getConfigFile().getSettings().isDebug() || strict) {
+        if (
+                Bukkit.getInstance().getConfigFile().getSettings().getDebugMode() == DebugMode.ENABLED ||
+                        (Bukkit.getInstance().getConfigFile().getSettings().getDebugMode() == DebugMode.ONLY_ERRORS && strict)
+        ) {
             Bukkit.getInstance().getLogger().warning(ChatUtil.color(
                     "&e[DEBUG] &f" + message
             ));
