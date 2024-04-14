@@ -44,7 +44,7 @@ public abstract class SocketClient {
         opts.auth = auth;
 
         // Set transports
-        opts.transports = new String[] {WebSocket.NAME, Polling.NAME};
+        //opts.transports = new String[] {WebSocket.NAME, Polling.NAME};
 
         this.socket = IO.socket(url, opts);
 
@@ -106,7 +106,7 @@ public abstract class SocketClient {
                 executeCommands(commandsList, username);
 
                 // Sends commands back if everything is ok
-                socket.emit("sent", commandsJSON);
+                socket.emit("sentOK", commandsJSON);
             } catch (Exception e) {
                 e.printStackTrace();
             }
