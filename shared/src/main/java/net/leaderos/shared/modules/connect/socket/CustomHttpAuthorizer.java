@@ -1,4 +1,4 @@
-package net.leaderos.shared.modules.connect.models;
+package net.leaderos.shared.modules.connect.socket;
 
 import com.pusher.client.AuthorizationFailureException;
 import com.pusher.client.util.HttpChannelAuthorizer;

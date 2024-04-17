@@ -9,7 +9,6 @@ import com.pusher.client.connection.ConnectionStateChange;
 import lombok.Getter;
 import lombok.Setter;
 import net.leaderos.shared.model.request.PostRequest;
-import net.leaderos.shared.modules.connect.models.CustomHttpAuthorizer;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
