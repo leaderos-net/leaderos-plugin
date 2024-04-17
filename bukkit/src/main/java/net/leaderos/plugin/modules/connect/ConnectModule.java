@@ -52,49 +52,45 @@ public class ConnectModule extends LeaderOSModule {
         }
 
         // Socket connection
-        try {
-            socket = new SocketClient(Bukkit.getInstance().getConfigFile().getSettings().getApiKey(),
-                    Bukkit.getInstance().getModulesFile().getConnect().getServerToken()) {
-                /**
-                 * Executes console command
-                 * @param commands command list to execute
-                 * @param username username of player
-                 */
-                @Override
-                public void executeCommands(List<String> commands, String username) {
-                    // If player is offline and onlyOnline is true
-                    if (Bukkit.getInstance().getModulesFile().getConnect().isOnlyOnline() && org.bukkit.Bukkit.getPlayer(username) == null) {
-                        commandsQueue.addCommands(username, commands);
+        socket = new SocketClient(Bukkit.getInstance().getConfigFile().getSettings().getApiKey(),
+                Bukkit.getInstance().getModulesFile().getConnect().getServerToken()) {
+            /**
+             * Executes console command
+             * @param commands command list to execute
+             * @param username username of player
+             */
+            @Override
+            public void executeCommands(List<String> commands, String username) {
+                // If player is offline and onlyOnline is true
+                if (Bukkit.getInstance().getModulesFile().getConnect().isOnlyOnline() && org.bukkit.Bukkit.getPlayer(username) == null) {
+                    commandsQueue.addCommands(username, commands);
 
+                    commands.forEach(command -> {
+                        String msg = ChatUtil.replacePlaceholders(
+                                Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
+                                new Placeholder("%command%", command)
+                        );
+                        ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), msg);
+                    });
+                } else {
+                    // Execute commands
+                    org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
                         commands.forEach(command -> {
-                            String msg = ChatUtil.replacePlaceholders(
-                                    Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
-                                    new Placeholder("%command%", command)
-                            );
+                            org.bukkit.Bukkit.dispatchCommand(org.bukkit.Bukkit.getConsoleSender(), command);
+
+                            String msg = ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),
+                                    new Placeholder("%command%", command));
                             ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), msg);
                         });
-                    } else {
-                        // Execute commands
-                        org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
-                            commands.forEach(command -> {
-                                org.bukkit.Bukkit.dispatchCommand(org.bukkit.Bukkit.getConsoleSender(), command);
-
-                                String msg = ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),
-                                        new Placeholder("%command%", command));
-                                ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), msg);
-                            });
-                        });
-                    }
+                    });
                 }
+            }
 
-                @Override
-                public void joinedRoom() {
-                    ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), Bukkit.getInstance().getLangFile().getMessages().getConnect().getJoinedSocketRoom());
-                }
-            };
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+            @Override
+            public void subscribed() {
+                ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), Bukkit.getInstance().getLangFile().getMessages().getConnect().getSubscribedChannel());
+            }
+        };
     }
 
     /**
@@ -112,7 +108,7 @@ public class ConnectModule extends LeaderOSModule {
      * onReload method of module
      */
     public void onReload() {
-        socket.getSocket().close();
+        socket.getPusher().disconnect();
     }
 
     /**

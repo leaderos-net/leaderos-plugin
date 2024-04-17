@@ -299,7 +299,7 @@ public class tr extends Language {
 
             private String connectExecutedCommandFromQueue = "{prefix} &aConnect modülü, oyuncu sunucuya katıldıktan sonra komutu çalıştırdı: &e%command%";
 
-            private String joinedSocketRoom = "{prefix} &aConnect modülü başarıyla odaya bağlandı.";
+            private String subscribedChannel = "{prefix} &aConnect modülü başarıyla sunucuya bağlandı!";
         }
     }
 

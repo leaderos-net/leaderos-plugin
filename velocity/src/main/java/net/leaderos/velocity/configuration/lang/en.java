@@ -257,7 +257,7 @@ public class en extends Language {
 
             private String connectExecutedCommandFromQueue = "{prefix} &aConnect module executed the command from the queue: &e%command%";
 
-            private String joinedSocketRoom = "{prefix} &aConnect module has been successfully connected to the room.";
+            private String subscribedChannel = "{prefix} &aConnect module has been successfully connected to the server!";
         }
     }
 }
