@@ -428,6 +428,8 @@ public class tr extends Language {
 
             private String buyWebStoreUserNotFound = "&cKullanıcı bulunamadı.";
 
+            private String webStoreCategoryNotFound = "&cKategori bulunamadı.";
+
             /**
              * purchase subtitle success
              */

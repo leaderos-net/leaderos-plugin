@@ -291,29 +291,26 @@ public class Modules extends OkaeriConfig {
              */
             @Getter @Setter
             public static class DefaultCategory extends OkaeriConfig {
+                /**
+                 * Enable Default Category
+                 */
+                private boolean enable = false;
 
                 /**
-                 * Default material
+                 * Default Category ID
                  */
-                private String material = "CHEST";
+                private String categoryId = "0";
             }
 
             /**
-             * DefaultProduct attributes
+             * Category default material
              */
-            private Gui.DefaultProduct defaultProduct = new Gui.DefaultProduct();
+            private String categoryDefaultMaterial = "CHEST";
 
             /**
-             * DefaultProduct arguments class
+             * Product default material
              */
-            @Getter @Setter
-            public static class DefaultProduct extends OkaeriConfig {
-
-                /**
-                 * Default material
-                 */
-                private String material = "DIAMOND";
-            }
+            private String productDefaultMaterial = "DIAMOND";
 
             /**
              * Credit attributes

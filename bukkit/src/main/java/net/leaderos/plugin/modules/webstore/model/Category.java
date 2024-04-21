@@ -108,7 +108,7 @@ public class Category {
             this.material = XMaterial.matchXMaterial(category.getString("minecraftItem")).get();
 
         if (material == null || !material.isSupported())
-            this.material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getDefaultCategory().getMaterial()).orElse(XMaterial.CHEST);
+            this.material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getCategoryDefaultMaterial()).orElse(XMaterial.CHEST);
 
         // products
         JSONArray products = category.getJSONArray("products");

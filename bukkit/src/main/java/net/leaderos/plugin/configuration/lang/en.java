@@ -435,6 +435,8 @@ public class en extends Language {
 
             private String buyWebStoreUserNotFound = "&cUser not found.";
 
+            private String webStoreCategoryNotFound = "&cCategory not found.";
+
             /**
              * withdraw item subtitle error
              */

@@ -15,6 +15,7 @@ import net.leaderos.shared.modules.auth.AuthHelper;
 import net.leaderos.shared.modules.credit.enums.UpdateType;
 import net.leaderos.plugin.modules.webstore.model.Category;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -127,6 +128,36 @@ public class WebStoreHelper {
         }
 
         // Product not found
+        return null;
+    }
+
+    public static Category findCategoryById(String categoryId) {
+        List<Category> categories = Category.getCategories();
+
+        for (Category category : categories) {
+            Category foundCategory = findCategoryByIdRecursive(categoryId, category);
+            if (foundCategory != null) {
+                return foundCategory;
+            }
+        }
+        return null;
+    }
+
+    private static Category findCategoryByIdRecursive(String categoryId, Category category) {
+        // Check if the category is this category
+        if (category.getCategoryId().equalsIgnoreCase(categoryId)) {
+            return category;
+        }
+
+        // Check if the category is in any sub-category
+        for (Category subCategory : category.getSubCategories()) {
+            Category foundCategory = findCategoryByIdRecursive(categoryId, subCategory);
+            if (foundCategory != null) {
+                return foundCategory;
+            }
+        }
+
+        // Category not found
         return null;
     }
 }

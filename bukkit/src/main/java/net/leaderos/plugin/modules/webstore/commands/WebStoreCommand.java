@@ -11,7 +11,9 @@ import net.leaderos.plugin.api.LeaderOSAPI;
 import net.leaderos.plugin.api.managers.ModuleManager;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.webstore.gui.MainWebStoreGui;
+import net.leaderos.plugin.modules.webstore.gui.WebStoreGui;
 import net.leaderos.plugin.modules.webstore.helpers.WebStoreHelper;
+import net.leaderos.plugin.modules.webstore.model.Category;
 import net.leaderos.plugin.modules.webstore.model.Product;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -33,8 +35,37 @@ public class WebStoreCommand extends BaseCommand {
     @Permission("leaderos.webstore.open")
     public void defaultCommand(Player player) {
         LeaderOSAPI.getModuleManager();
-        if (ModuleManager.getModule("WebStore").isEnabled())
+        if (!ModuleManager.getModule("WebStore").isEnabled()) return;
+
+        String categoryId = Bukkit.getInstance().getModulesFile().getWebStore().getGui().getDefaultCategory().getCategoryId();
+        if (Bukkit.getInstance().getModulesFile().getWebStore().getGui().getDefaultCategory().isEnable() && !categoryId.equals("0")) {
+            categoryCommand(player, categoryId);
+        } else {
             MainWebStoreGui.showGui(player);
+        }
+    }
+
+    /**
+     * Open category command of webstore
+     * @param sender commandsender
+     * @param categoryId category id to open
+     */
+    @Permission("leaderos.webstore.open")
+    @SubCommand("category")
+    public void categoryCommand(CommandSender sender, String categoryId) {
+        if (!(sender instanceof Player)) return;
+        if (!ModuleManager.getModule("WebStore").isEnabled()) return;
+
+        Player player = (Player) sender;
+
+        Category category = WebStoreHelper.findCategoryById(categoryId);
+
+        if (category == null) {
+            player.sendMessage(ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getWebStoreCategoryNotFound()));
+            return;
+        }
+
+        WebStoreGui.showGui(player, category);
     }
 
     /**

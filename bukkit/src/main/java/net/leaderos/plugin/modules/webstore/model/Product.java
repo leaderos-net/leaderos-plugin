@@ -135,7 +135,7 @@ public class Product {
             this.material = XMaterial.matchXMaterial(product.getString("minecraftItem")).get();
 
         if (material == null || !material.isSupported())
-            this.material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getDefaultProduct().getMaterial()).orElse(XMaterial.DIAMOND);
+            this.material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getProductDefaultMaterial()).orElse(XMaterial.DIAMOND);
     }
 
     /**
