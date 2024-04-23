@@ -18,7 +18,7 @@ import org.bukkit.entity.Player;
  * @since 1.0
  */
 @RequiredArgsConstructor
-@Command(value = "auth", alias = {"authy", "kayit", "site", "web"})
+@Command(value = "auth")
 public class AuthCommand extends BaseCommand {
 
     /**

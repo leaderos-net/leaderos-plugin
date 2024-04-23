@@ -1,5 +1,5 @@
 name: LeaderOS
-authors: [leaderos, geik]
+authors: [leaderos]
 main: net.leaderos.plugin.Bukkit
 version: '${shared.version}'
 api-version: 1.13

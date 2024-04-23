@@ -35,7 +35,7 @@ public class Modules extends OkaeriConfig {
         /**
          * Status of Auth mode
          */
-        private boolean status = true;
+        private boolean status = false;
     }
 
     /**
@@ -75,7 +75,7 @@ public class Modules extends OkaeriConfig {
         /**
          * Status of Cache mode
          */
-        private boolean status = true;
+        private boolean status = false;
     }
 
     /**
