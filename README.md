@@ -15,7 +15,7 @@
 [https://www.spigotmc.org/resources/leaderos-net-official-plugin.105496/](https://www.spigotmc.org/resources/leaderos-net-official-plugin.105496/)
 
 ## Wiki
-🇺🇸 English: [https://help.leaderos.net/free-services/leaderos-plugin](https://help.leaderos.net/free-services/leaderos-plugin)
+🇺🇸 English: [https://docs.leaderos.net/integrations/leaderos-plugin](https://docs.leaderos.net/integrations/leaderos-plugin)
 
 🇹🇷 Türkçe: [https://destek.leaderos.com.tr/uecretsiz-hizmetler/leaderos-plugin](https://destek.leaderos.com.tr/uecretsiz-hizmetler/leaderos-plugin)
 
