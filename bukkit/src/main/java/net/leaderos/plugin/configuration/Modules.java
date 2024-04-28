@@ -190,22 +190,6 @@ public class Modules extends OkaeriConfig {
         public static class Gui extends OkaeriConfig {
 
             /**
-             * landing layout of gui
-             */
-            @Comment({
-                    "Layout of gui",
-                    "c: Category",
-                    "b: Prev Page",
-                    "n: Next Page"
-            })
-            private List<String> landingGuiLayout = Arrays.asList(
-                    "         ",
-                    "  ccccc  ",
-                    "         ",
-                    "b       n"
-            );
-
-            /**
              * layout of gui
              */
             @Comment({

@@ -6,25 +6,25 @@ import net.leaderos.plugin.api.managers.ModuleManager;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.MDChat.MDChatAPI;
 import net.leaderos.plugin.modules.cache.model.User;
-import net.leaderos.plugin.modules.webstore.model.Product;
 import net.leaderos.shared.error.Error;
 import net.leaderos.shared.helpers.RequestUtil;
 import net.leaderos.shared.model.Response;
+import net.leaderos.shared.model.request.GetRequest;
 import net.leaderos.shared.model.request.impl.store.BuyRequest;
+import net.leaderos.shared.model.request.impl.store.ListingRequest;
 import net.leaderos.shared.modules.auth.AuthHelper;
 import net.leaderos.shared.modules.credit.enums.UpdateType;
 import net.leaderos.plugin.modules.webstore.model.Category;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.Nullable;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
 import java.util.List;
 
 public class WebStoreHelper {
-    public static void buyItem(Player player, Product product) {
+    public static void buyItem(Player player, String productId) {
         if (RequestUtil.canRequest(player.getUniqueId())) {
 
             RequestUtil.addRequest(player.getUniqueId());
@@ -41,19 +41,15 @@ public class WebStoreHelper {
                 org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
                     // Buy progress
                     try {
-                        Response buyRequest = new BuyRequest(user.getId(), product.getProductId()).getResponse();
+                        if (user == null) {
+                            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreUserNotFound());
+                            RequestUtil.invalidate(player.getUniqueId());
+                            return;
+                        }
+
+                        Response buyRequest = new BuyRequest(user.getId(), productId).getResponse();
                         if (buyRequest.getResponseCode() == HttpURLConnection.HTTP_OK) {
                             JSONObject responseData = buyRequest.getResponseMessage().getJSONObject("data");
-
-                            // Update Stock
-                            JSONArray products = responseData.getJSONArray("products");
-                            for (int i = 0; i < products.length(); i++) {
-                                JSONObject productData = products.getJSONObject(i);
-                                if (productData.getString("id").equals(product.getProductId())) {
-                                    product.setStock(productData.getInt("stock"));
-                                    break;
-                                }
-                            }
 
                             // Calls UpdateCache event for update player's cache
                             double credits = responseData.getDouble("credits");
@@ -101,40 +97,21 @@ public class WebStoreHelper {
         }
     }
 
-    public static Product findProductById(String productId) {
-        List<Category> categories = Category.getCategories();
+    public static List<Category> getCategories(String username) {
+        List<Category> categories = new ArrayList<>();
+        try {
+            GetRequest getRequest = new ListingRequest(username);
+            JSONObject response = getRequest.getResponse().getResponseMessage();
+            response.getJSONArray("categories").forEach(jsonObj -> {
+                categories.add(new Category((JSONObject) jsonObj));
+            });
+        } catch (Exception ignore) {}
 
-        for (Category category : categories) {
-            Product foundProduct = findProductByIdRecursive(productId, category);
-            if (foundProduct != null) {
-                return foundProduct;
-            }
-        }
-        return null;
+        return categories;
     }
 
-    private static Product findProductByIdRecursive(String productId, Category category) {
-        // Check if the product is in this category
-        for (Product product : category.getProductList()) {
-            if (product.getProductId().equalsIgnoreCase(productId)) {
-                return product;
-            }
-        }
-
-        // Check if the product is in any sub-category
-        for (Category subCategory : category.getSubCategories()) {
-            Product foundProduct = findProductByIdRecursive(productId, subCategory);
-            if (foundProduct != null) {
-                return foundProduct;
-            }
-        }
-
-        // Product not found
-        return null;
-    }
-
-    public static Category findCategoryById(String categoryId) {
-        List<Category> categories = Category.getCategories();
+    public static Category findCategoryById(String username, String categoryId) {
+        List<Category> categories = getCategories(username);
 
         for (Category category : categories) {
             Category foundCategory = findCategoryByIdRecursive(categoryId, category);

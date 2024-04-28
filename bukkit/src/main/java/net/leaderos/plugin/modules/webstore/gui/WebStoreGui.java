@@ -4,8 +4,6 @@ import de.themoep.inventorygui.DynamicGuiElement;
 import de.themoep.inventorygui.GuiElementGroup;
 import de.themoep.inventorygui.InventoryGui;
 import de.themoep.inventorygui.StaticGuiElement;
-import net.leaderos.plugin.api.handlers.UpdateCacheEvent;
-import net.leaderos.plugin.api.managers.ModuleManager;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.cache.model.User;
 import net.leaderos.plugin.modules.webstore.helpers.WebStoreHelper;
@@ -13,15 +11,8 @@ import net.leaderos.plugin.modules.webstore.model.Category;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.webstore.model.Product;
 import net.leaderos.plugin.helpers.GuiHelper;
-import net.leaderos.plugin.helpers.MDChat.MDChatAPI;
-import net.leaderos.shared.model.Response;
-import net.leaderos.shared.model.request.PostRequest;
-import net.leaderos.shared.modules.auth.AuthHelper;
-import net.leaderos.shared.modules.credit.enums.UpdateType;
 import org.bukkit.entity.Player;
 
-import java.io.IOException;
-import java.net.HttpURLConnection;
 import java.util.*;
 
 /**
@@ -54,7 +45,7 @@ public class WebStoreGui {
         List<Category> categoryList;
         List<Product> productList;
         if (categoryObj == null) {
-            categoryList = Category.getCategories();
+            categoryList = WebStoreHelper.getCategories(player.getName());
             productList = new ArrayList<>();
         } else {
             categoryList = categoryObj.getSubCategories();
@@ -91,7 +82,6 @@ public class WebStoreGui {
         User user = User.getUser(player.getName());
         double credit = user == null ? 0.00 : user.getCredit();
         gui.addElement(GuiHelper.addCreditIcon(credit));
-
 
         // Next and previous page icons
         gui.addElement(GuiHelper.createNextPage(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getNextPage().getItem()));

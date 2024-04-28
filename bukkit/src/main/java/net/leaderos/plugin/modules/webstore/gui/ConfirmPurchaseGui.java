@@ -86,7 +86,7 @@ public class ConfirmPurchaseGui {
                 1,
                 click -> {
                     gui.close();
-                    WebStoreHelper.buyItem(player, product);
+                    WebStoreHelper.buyItem(player, product.getProductId());
                     return true;
                 }
         );

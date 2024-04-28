@@ -28,13 +28,6 @@ import java.util.List;
 @Getter
 @Setter
 public class Category {
-
-    /**
-     * Category list
-     */
-    @Getter
-    private static List<Category> categories = new ArrayList<>();
-
     /**
      * Status of category
      */
@@ -44,6 +37,11 @@ public class Category {
      * Category Id
      */
     private String categoryId;
+
+    /**
+     * Parent Id
+     */
+    private String parentId;
 
     /**
      * Name of Category
@@ -84,6 +82,7 @@ public class Category {
             return;
         }
         this.categoryId = category.getString("id");
+        this.parentId = category.getString("parentID");
         // if title is empty removes it.
         try {
             this.categoryName = category.getString("minecraftTitle");
@@ -127,10 +126,6 @@ public class Category {
                 if (subCategory.isStatus())
                     this.subCategories.add(subCategory);
             });
-
-        // Adds category to list
-        if (category.getString("parentID").equals("0"))
-            categories.add(this);
     }
 
     /**
@@ -139,15 +134,6 @@ public class Category {
      */
     public ItemStack getCategoryIcon() {
         return ItemUtil.getItem(getMaterial(), ChatUtil.color(getCategoryName()), ChatUtil.color(getCategoryLore()));
-    }
-
-    public static void loadAllCategories() throws IOException, RequestException {
-        if (!categories.isEmpty())
-            categories.clear();
-
-        GetRequest getRequest = new ListingRequest();
-        JSONObject response = getRequest.getResponse().getResponseMessage();
-        response.getJSONArray("categories").forEach(jsonObj -> new Category((JSONObject) jsonObj));
     }
 
 }

@@ -120,7 +120,9 @@ public class ChatUtil {
      * @return converted string value
      */
     public static String replacePlaceholders(String string) {
-        string = PlaceholderAPI.setPlaceholders(null, string);
+        if (org.bukkit.Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
+            string = PlaceholderAPI.setPlaceholders(null, string);
+
         return color(string);
     }
 

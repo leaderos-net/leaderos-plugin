@@ -21,11 +21,6 @@ public class WebStoreModule extends LeaderOSModule {
      */
     public void onEnable() {
         Bukkit.getCommandManager().registerCommand(new WebStoreCommand());
-        try {
-            Category.loadAllCategories();
-        } catch (IOException | RequestException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     /**

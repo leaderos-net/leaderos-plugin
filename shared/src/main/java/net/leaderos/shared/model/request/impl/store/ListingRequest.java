@@ -8,9 +8,10 @@ public class ListingRequest extends GetRequest {
     /**
      * Request constructor
      *
+     * @param username of the user
      * @throws IOException for HttpUrlConnection
      */
-    public ListingRequest() throws IOException {
-        super("store/listing");
+    public ListingRequest(String username) throws IOException {
+        super("store/listing?user=" + username);
     }
 }

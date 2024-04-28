@@ -10,11 +10,9 @@ import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.LeaderOSAPI;
 import net.leaderos.plugin.api.managers.ModuleManager;
 import net.leaderos.plugin.helpers.ChatUtil;
-import net.leaderos.plugin.modules.webstore.gui.MainWebStoreGui;
 import net.leaderos.plugin.modules.webstore.gui.WebStoreGui;
 import net.leaderos.plugin.modules.webstore.helpers.WebStoreHelper;
 import net.leaderos.plugin.modules.webstore.model.Category;
-import net.leaderos.plugin.modules.webstore.model.Product;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -41,7 +39,7 @@ public class WebStoreCommand extends BaseCommand {
         if (Bukkit.getInstance().getModulesFile().getWebStore().getGui().getDefaultCategory().isEnable() && !categoryId.equals("0")) {
             categoryCommand(player, categoryId);
         } else {
-            MainWebStoreGui.showGui(player);
+            WebStoreGui.showGui(player, null);
         }
     }
 
@@ -58,7 +56,7 @@ public class WebStoreCommand extends BaseCommand {
 
         Player player = (Player) sender;
 
-        Category category = WebStoreHelper.findCategoryById(categoryId);
+        Category category = WebStoreHelper.findCategoryById(player.getName(), categoryId);
 
         if (category == null) {
             player.sendMessage(ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getWebStoreCategoryNotFound()));
@@ -81,13 +79,6 @@ public class WebStoreCommand extends BaseCommand {
 
         Player player = (Player) sender;
 
-        Product product = WebStoreHelper.findProductById(productId);
-
-        if (product == null) {
-            player.sendMessage(ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreError()));
-            return;
-        }
-
-        WebStoreHelper.buyItem(player, product);
+        WebStoreHelper.buyItem(player, productId);
     }
 }

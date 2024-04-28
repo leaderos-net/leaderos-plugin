@@ -43,14 +43,15 @@ public class CreditCommand extends BaseCommand {
         RequestUtil.addRequest(player.getUniqueId());
 
         org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
-            Double amount = LeaderOSAPI.getCreditManager().get(player.getName());
-            if (amount == null)
-                amount = 0.00;
+            final Double amount = LeaderOSAPI.getCreditManager().get(player.getName());
 
             ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
                     Bukkit.getInstance().getLangFile().getMessages().getCredit().getCreditInfo(),
-                    new Placeholder("{amount}", MoneyUtil.format(amount))
+                    new Placeholder("{amount}", MoneyUtil.format(amount == null ? 0 : amount))
             ));
+
+            // Update cache
+            org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount == null ? 0 : amount, UpdateType.SET)));
 
             RequestUtil.invalidate(player.getUniqueId());
         });

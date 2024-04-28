@@ -44,7 +44,7 @@ public class CacheModule extends LeaderOSModule {
         // Loads all player data
         User.loadAllPlayers();
         // Placeholder loader
-        if( org.bukkit.Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
+        if (org.bukkit.Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             new Placeholders().register();
     }
 
