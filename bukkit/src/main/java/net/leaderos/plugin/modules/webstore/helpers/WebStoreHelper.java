@@ -69,6 +69,8 @@ public class WebStoreHelper {
                             player.sendTitle(title, ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreUserNotFound()));
                         else if (buyRequest.getError() == Error.PRODUCT_NOT_FOUND)
                             player.sendTitle(title, ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreProductNotFound()));
+                        else if (buyRequest.getError() == Error.REQUIRED_PRODUCT)
+                            player.sendTitle(title, ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreRequiredProduct()));
                     } catch (IOException e) {
                         player.sendTitle(title, subtitleError);
                     }

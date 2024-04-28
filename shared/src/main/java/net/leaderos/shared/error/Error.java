@@ -10,6 +10,7 @@ public enum Error {
     INSUFFICIENT_BALANCE,
     OUT_OF_STOCK,
     PRODUCT_NOT_FOUND,
+    REQUIRED_PRODUCT,
 
     // donations
     INVALID_LIMIT,

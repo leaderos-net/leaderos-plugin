@@ -437,6 +437,8 @@ public class Language extends OkaeriConfig {
 
             private String webStoreCategoryNotFound = "&cCategory not found.";
 
+            private String buyWebStoreRequiredProduct = "&cThere are required products you do not own!";
+
             /**
              * withdraw item subtitle error
              */

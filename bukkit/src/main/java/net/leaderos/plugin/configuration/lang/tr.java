@@ -430,6 +430,8 @@ public class tr extends Language {
 
             private String webStoreCategoryNotFound = "&cKategori bulunamadı.";
 
+            private String buyWebStoreRequiredProduct = "&cSahip olmadığınız gerekli ürünleri satın almalısınız!";
+
             /**
              * purchase subtitle success
              */

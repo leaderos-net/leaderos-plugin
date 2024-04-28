@@ -437,6 +437,8 @@ public class en extends Language {
 
             private String webStoreCategoryNotFound = "&cCategory not found.";
 
+            private String buyWebStoreRequiredProduct = "&cThere are required products you do not own!";
+
             /**
              * withdraw item subtitle error
              */
