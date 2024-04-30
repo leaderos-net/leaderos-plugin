@@ -134,6 +134,27 @@ public class ItemUtil {
 
     /**
      * Check for material and
+     * get item with a material and model id.
+     * @param material of item
+     * @param name of item
+     * @param lore of item
+     * @return ItemStack of destination item
+     */
+    public static @NotNull ItemStack getItem(XMaterial material, String name, List<String> lore, int modelId) {
+        ItemStack result;
+        // material based item
+        result = material.parseItem();
+        ItemMeta meta = result.getItemMeta();
+        meta.setLore(lore);
+        meta.setDisplayName(name);
+        if (XMaterial.supports(14) && modelId > 0)
+            meta.setCustomModelData(modelId);
+        result.setItemMeta(meta);
+        return result;
+    }
+
+    /**
+     * Check for material and
      * get item with a material.
      * @param material of item
      * @param name of item

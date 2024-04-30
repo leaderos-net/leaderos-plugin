@@ -54,6 +54,11 @@ public class Product {
     private XMaterial material;
 
     /**
+     * Product model id
+     */
+    private int modelId;
+
+    /**
      * Product price
      */
     private double price;
@@ -136,6 +141,10 @@ public class Product {
 
         if (material == null || !material.isSupported())
             this.material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getProductDefaultMaterial()).orElse(XMaterial.DIAMOND);
+
+        String modelId = product.getString("minecraftItemModelID");
+        if (modelId != null && !modelId.isEmpty())
+            this.modelId = Integer.parseInt(modelId);
     }
 
     /**
@@ -195,6 +204,6 @@ public class Product {
         lore = ChatUtil.color(lore);
         displayName = ChatUtil.color(displayName);
 
-        return ItemUtil.getItem(getMaterial(), displayName, lore);
+        return ItemUtil.getItem(getMaterial(), displayName, lore, getModelId());
     }
 }

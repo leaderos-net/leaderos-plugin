@@ -59,6 +59,11 @@ public class Category {
     private XMaterial material;
 
     /**
+     * Category model id
+     */
+    private int modelId;
+
+    /**
      * Sub-categories of category
      */
     private List<Category> subCategories = new ArrayList<>();
@@ -109,6 +114,10 @@ public class Category {
         if (material == null || !material.isSupported())
             this.material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getCategoryDefaultMaterial()).orElse(XMaterial.CHEST);
 
+        String modelId = category.getString("minecraftItemModelID");
+        if (modelId != null && !modelId.isEmpty())
+            this.modelId = Integer.parseInt(modelId);
+
         // products
         JSONArray products = category.getJSONArray("products");
         if (!products.isEmpty())
@@ -133,7 +142,7 @@ public class Category {
      * @return category item
      */
     public ItemStack getCategoryIcon() {
-        return ItemUtil.getItem(getMaterial(), ChatUtil.color(getCategoryName()), ChatUtil.color(getCategoryLore()));
+        return ItemUtil.getItem(getMaterial(), ChatUtil.color(getCategoryName()), ChatUtil.color(getCategoryLore()), getModelId());
     }
 
 }
