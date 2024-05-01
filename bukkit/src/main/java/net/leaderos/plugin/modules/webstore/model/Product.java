@@ -142,9 +142,9 @@ public class Product {
         if (material == null || !material.isSupported())
             this.material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getProductDefaultMaterial()).orElse(XMaterial.DIAMOND);
 
-        String modelId = product.getString("minecraftItemModelID");
-        if (modelId != null && !modelId.isEmpty())
-            this.modelId = Integer.parseInt(modelId);
+        Optional.ofNullable(product.optString("minecraftItemModelID", null))
+                .filter(id -> !id.isEmpty() && !id.equals("0"))
+                .ifPresent(modelId -> this.modelId = Integer.parseInt(modelId));
     }
 
     /**

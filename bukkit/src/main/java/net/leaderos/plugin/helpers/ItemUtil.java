@@ -147,8 +147,9 @@ public class ItemUtil {
         ItemMeta meta = result.getItemMeta();
         meta.setLore(lore);
         meta.setDisplayName(name);
-        if (XMaterial.supports(14) && modelId > 0)
+        if (XMaterial.supports(14) && modelId > 0) {
             meta.setCustomModelData(modelId);
+        }
         result.setItemMeta(meta);
         return result;
     }

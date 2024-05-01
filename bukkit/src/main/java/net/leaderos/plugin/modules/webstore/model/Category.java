@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Categories of web-store
@@ -114,9 +115,9 @@ public class Category {
         if (material == null || !material.isSupported())
             this.material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getCategoryDefaultMaterial()).orElse(XMaterial.CHEST);
 
-        String modelId = category.getString("minecraftItemModelID");
-        if (modelId != null && !modelId.isEmpty())
-            this.modelId = Integer.parseInt(modelId);
+        Optional.ofNullable(category.optString("minecraftItemModelID", null))
+                .filter(id -> !id.isEmpty() && !id.equals("0"))
+                .ifPresent(modelId -> this.modelId = Integer.parseInt(modelId));
 
         // products
         JSONArray products = category.getJSONArray("products");

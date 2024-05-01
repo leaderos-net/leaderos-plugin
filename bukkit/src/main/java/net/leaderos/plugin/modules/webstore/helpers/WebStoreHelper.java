@@ -6,7 +6,9 @@ import net.leaderos.plugin.api.managers.ModuleManager;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.MDChat.MDChatAPI;
 import net.leaderos.plugin.modules.cache.model.User;
+import net.leaderos.shared.Shared;
 import net.leaderos.shared.error.Error;
+import net.leaderos.shared.helpers.DebugAPI;
 import net.leaderos.shared.helpers.RequestUtil;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.GetRequest;
@@ -105,7 +107,9 @@ public class WebStoreHelper {
             response.getJSONArray("categories").forEach(jsonObj -> {
                 categories.add(new Category((JSONObject) jsonObj));
             });
-        } catch (Exception ignore) {}
+        } catch (Exception e) {
+            Shared.getDebugAPI().send(e.getMessage(), true);
+        }
 
         return categories;
     }
