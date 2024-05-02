@@ -19,6 +19,7 @@ public class CustomHttpAuthorizer extends HttpChannelAuthorizer {
     public String authorize(String channelName, String socketId) throws AuthorizationFailureException {
         Map<String, String> headers = new HashMap<>();
         headers.put("X-Api-Key", apiKey);
+        headers.put("Accept", "application/json");
         this.setHeaders(headers);
 
         return super.authorize(channelName, socketId);
