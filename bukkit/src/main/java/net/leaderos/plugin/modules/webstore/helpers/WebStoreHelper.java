@@ -105,7 +105,10 @@ public class WebStoreHelper {
             GetRequest getRequest = new ListingRequest(username);
             JSONObject response = getRequest.getResponse().getResponseMessage();
             response.getJSONArray("categories").forEach(jsonObj -> {
-                categories.add(new Category((JSONObject) jsonObj));
+                Category category = new Category((JSONObject) jsonObj);
+                if (category.isStatus()) {
+                    categories.add(category);
+                }
             });
         } catch (Exception e) {
             Shared.getDebugAPI().send(e.getMessage(), true);
