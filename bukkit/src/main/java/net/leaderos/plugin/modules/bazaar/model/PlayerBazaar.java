@@ -78,8 +78,8 @@ public class PlayerBazaar {
      * @return status of withdraw
      */
     @SneakyThrows
-    public Error withdrawItem(Player player) {
-        Response deleteRequest = new RemoveBazaarItemRequest(getUserId(), getUserId()).getResponse();
+    public Error withdrawItem(Player player, int itemId) {
+        Response deleteRequest = new RemoveBazaarItemRequest(getUserId(), itemId).getResponse();
         if (deleteRequest.getResponseCode() == HttpURLConnection.HTTP_OK
                 && deleteRequest.getResponseMessage().getBoolean("status")) {
             ItemStack item = ItemUtil.fromBase64(getBase64());

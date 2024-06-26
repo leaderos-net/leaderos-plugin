@@ -79,14 +79,20 @@ public class BazaarGui {
                                             ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCannotCreateFull());
                                             return false;
                                         }
+                                        if (!RequestUtil.canRequest(player.getUniqueId())) {
+                                            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getHaveRequestOngoing());
+                                            return false;
+                                        }
                                         String title = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawTitle());
                                         String subtitleError = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawErrorSubtitle());
                                         String subtitleSuccess = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawSuccessSubtitle());
                                         String subtitleProgress = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawProgressSubtitle());
                                         player.sendTitle(title, subtitleProgress);
 
+                                        RequestUtil.addRequest(player.getUniqueId());
+
                                         org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
-                                            Error error = playerBazaarItem.withdrawItem(player);
+                                            Error error = playerBazaarItem.withdrawItem(player, playerBazaarItem.getId());
                                             if (error == null)
                                                 player.sendTitle(title, subtitleSuccess);
                                             else if (error == Error.DELETE_ERROR)
@@ -108,6 +114,8 @@ public class BazaarGui {
             org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
                 gui.show(player);
             });
+
+            RequestUtil.invalidate(player.getUniqueId());
         });
     }
 }

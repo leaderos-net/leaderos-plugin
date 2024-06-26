@@ -9,12 +9,14 @@ import dev.triumphteam.cmd.core.annotation.Default;
 import dev.triumphteam.cmd.core.annotation.SubCommand;
 import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
+import net.leaderos.plugin.api.LeaderOSAPI;
 import net.leaderos.plugin.api.handlers.UpdateCacheEvent;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.ItemUtil;
 import net.leaderos.plugin.modules.voucher.VoucherModule;
 import net.leaderos.shared.helpers.MoneyUtil;
 import net.leaderos.shared.helpers.Placeholder;
+import net.leaderos.shared.helpers.RequestUtil;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.modules.credit.CreditHelper;
 import net.leaderos.shared.modules.credit.enums.UpdateType;
@@ -89,25 +91,35 @@ public class VoucherCommand extends BaseCommand {
             return;
         }
 
-        try {
-            Response removeCreditRequest = CreditHelper.removeCreditRequest(player.getName(), amount);
+        if (!RequestUtil.canRequest(player.getUniqueId())) {
+            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getHaveRequestOngoing());
+            return;
+        }
 
-            if (Objects.requireNonNull(removeCreditRequest).getResponseCode() == HttpURLConnection.HTTP_OK
-                    && removeCreditRequest.getResponseMessage().getBoolean("status")) {
-                // Calls UpdateCache event for update player's cache
-                org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.REMOVE));
-                ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                        Bukkit.getInstance().getLangFile().getMessages().getVouchers().getSuccessfullyCreated(),
-                        new Placeholder("{amount}", MoneyUtil.format(amount))
-                ));
-                giveVoucher(player, amount);
-            }
-            // TODO if code not afforded or not ok
-            else
-                ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                        Bukkit.getInstance().getLangFile().getMessages().getVouchers().getCannotCreateNotEnough(),
-                        new Placeholder("{amount}", MoneyUtil.format(amount))
-                ));
+        try {
+            Double finalAmount = amount;
+            RequestUtil.addRequest(player.getUniqueId());
+
+            org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+                boolean removeCredit = LeaderOSAPI.getCreditManager().remove(player.getName(), finalAmount);
+                if (removeCredit) {
+                    // Calls UpdateCache event for update player's cache
+                    org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), finalAmount, UpdateType.REMOVE));
+
+                    ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
+                            Bukkit.getInstance().getLangFile().getMessages().getVouchers().getSuccessfullyCreated(),
+                            new Placeholder("{amount}", MoneyUtil.format(finalAmount))
+                    ));
+                    giveVoucher(player, finalAmount);
+                } else {
+                    ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
+                            Bukkit.getInstance().getLangFile().getMessages().getVouchers().getCannotCreateNotEnough(),
+                            new Placeholder("{amount}", MoneyUtil.format(finalAmount))
+                    ));
+                }
+
+                RequestUtil.invalidate(player.getUniqueId());
+            });
         }
         catch (Exception ignored) {
             ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable());

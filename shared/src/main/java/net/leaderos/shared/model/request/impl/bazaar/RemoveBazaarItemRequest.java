@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class RemoveBazaarItemRequest extends DeleteRequest {
 
-    public RemoveBazaarItemRequest(String userId, String id) throws IOException {
+    public RemoveBazaarItemRequest(String userId, int id) throws IOException {
         super("bazaar/storages/" + userId + "/items/" + id, new HashMap<>());
     }
 

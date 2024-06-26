@@ -13,6 +13,7 @@ import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.webstore.gui.WebStoreGui;
 import net.leaderos.plugin.modules.webstore.helpers.WebStoreHelper;
 import net.leaderos.plugin.modules.webstore.model.Category;
+import net.leaderos.shared.helpers.RequestUtil;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -56,14 +57,24 @@ public class WebStoreCommand extends BaseCommand {
 
         Player player = (Player) sender;
 
-        Category category = WebStoreHelper.findCategoryById(player.getName(), categoryId);
-
-        if (category == null) {
-            player.sendMessage(ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getWebStoreCategoryNotFound()));
+        if (!RequestUtil.canRequest(player.getUniqueId())) {
+            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getHaveRequestOngoing());
             return;
         }
 
-        WebStoreGui.showGui(player, category);
+        RequestUtil.addRequest(player.getUniqueId());
+
+        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+            Category category = WebStoreHelper.findCategoryById(player.getName(), categoryId);
+            RequestUtil.invalidate(player.getUniqueId());
+
+            if (category == null) {
+                player.sendMessage(ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getWebStoreCategoryNotFound()));
+                return;
+            }
+
+            WebStoreGui.showGui(player, category);
+        });
     }
 
     /**
