@@ -95,7 +95,10 @@ public class WebStoreGui {
             // Next and previous page icons
             gui.addElement(GuiHelper.createNextPage(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getNextPage().getItem()));
             gui.addElement(GuiHelper.createPreviousPage(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getPreviousPage().getItem()));
-            gui.show(player);
+
+            org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+                gui.show(player);
+            });
 
             RequestUtil.invalidate(player.getUniqueId());
         });
