@@ -20,7 +20,7 @@ public class PluginUpdater {
     }
 
     public String getLatestVersion() {
-        return newVersion;
+        return this.newVersion;
     }
 
     public boolean checkForUpdates() throws Exception {
@@ -43,8 +43,8 @@ public class PluginUpdater {
         Gson gson = new Gson();
         JsonObject jsonObject = gson.fromJson(response.toString(), JsonObject.class);
 
-        if (jsonObject.get("newVersion") != null)
-            newVersion = jsonObject.get("newVersion").getAsString();
+        if (jsonObject.get("version") != null)
+            this.newVersion = jsonObject.get("version").getAsString();
 
         return jsonObject.get("update").getAsBoolean();
     }
