@@ -104,7 +104,7 @@ public class VoucherCommand extends BaseCommand {
                 boolean removeCredit = LeaderOSAPI.getCreditManager().remove(player.getName(), finalAmount);
                 if (removeCredit) {
                     // Calls UpdateCache event for update player's cache
-                    org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), finalAmount, UpdateType.REMOVE));
+                    org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), finalAmount, UpdateType.REMOVE)));
 
                     ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
                             Bukkit.getInstance().getLangFile().getMessages().getVouchers().getSuccessfullyCreated(),
