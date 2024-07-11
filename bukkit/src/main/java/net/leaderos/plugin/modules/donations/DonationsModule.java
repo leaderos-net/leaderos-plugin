@@ -1,7 +1,8 @@
 package net.leaderos.plugin.modules.donations;
 
-import com.cryptomorin.xseries.SkullUtils;
 import com.cryptomorin.xseries.XMaterial;
+import com.cryptomorin.xseries.profiles.builder.XSkull;
+import com.cryptomorin.xseries.profiles.objects.Profileable;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.ItemUtil;
@@ -61,8 +62,12 @@ public class DonationsModule extends LeaderOSModule {
         ItemStack item = XMaterial.PLAYER_HEAD.parseItem();
         assert item != null;
         OfflinePlayer player = org.bukkit.Bukkit.getOfflinePlayer(donation.getUsername());
-        UUID playerUUID = player.getUniqueId();
-        SkullMeta meta = SkullUtils.applySkin(Objects.requireNonNull(item.getItemMeta()), playerUUID);
+        SkullMeta meta;
+        try {
+            meta = (SkullMeta) XSkull.of(Objects.requireNonNull(item.getItemMeta())).profile(Profileable.of(player)).apply();
+        } catch (Exception e) {
+            meta = (SkullMeta) item.getItemMeta();
+        }
         meta.setDisplayName(ChatUtil.replacePlaceholders(
                 Bukkit.getInstance().getLangFile().getGui().getDonationsGui().getDisplayName(),
                 new Placeholder("%i%", String.valueOf(donation.getRank())),

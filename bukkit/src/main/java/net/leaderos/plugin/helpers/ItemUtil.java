@@ -1,5 +1,6 @@
 package net.leaderos.plugin.helpers;
 
+import com.cryptomorin.xseries.XEnchantment;
 import com.cryptomorin.xseries.XMaterial;
 import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.Material;
@@ -167,7 +168,8 @@ public class ItemUtil {
         ItemStack result = getItem(material, name, lore);
         ItemMeta meta = result.getItemMeta();
         if (glow) {
-            meta.addEnchant(Enchantment.DURABILITY, 1, true);
+            assert XEnchantment.UNBREAKING.getEnchant() != null;
+            meta.addEnchant(XEnchantment.UNBREAKING.getEnchant(), 1, true);
             meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         }
         result.setItemMeta(meta);
