@@ -34,6 +34,7 @@ net.leaderos.plugin.modules.cache.listeners
 net.leaderos.plugin.modules.cache.model
 net.leaderos.plugin.modules.connect
 net.leaderos.plugin.modules.connect.listeners
+net.leaderos.plugin.modules.connect.timer
 net.leaderos.plugin.modules.credit
 net.leaderos.plugin.modules.credit.commands
 net.leaderos.plugin.modules.discord
