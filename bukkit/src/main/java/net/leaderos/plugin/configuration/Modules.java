@@ -149,13 +149,32 @@ public class Modules extends OkaeriConfig {
         /**
          * Executes commands only if player is online
          */
-        @Comment("Executes commands only if player is online")
+        @Comment({
+                "Executes commands only if player is online",
+                "If you set this option to true, the command will be executed only if the player is online.",
+                "If the player is offline, the command will be added to the queue and executed when the player comes online."
+        })
         private boolean onlyOnline = true;
 
         /**
          * Executes command with delay when player comes online (in seconds)
          */
+        @Comment({
+                "Executes command with delay when player comes online (in seconds)",
+                "This option will execute commands in the queue with a delay (x seconds) when the player comes online.",
+        })
         private int executeDelay = 5;
+
+        /**
+         * You can activate this option if you are experiencing disconnections. (in seconds) (0 to disable)
+         */
+        @Comment({
+                "You can activate this option if you are experiencing disconnections.",
+                "Set 0 to disable this option. If you are experiencing disconnections, you can set this option to 10 or higher.",
+                "This option will check the connection every x seconds and reconnect if the connection is lost.",
+                "Restart the server after changing this option. Reload will not work!"
+        })
+        private long reconnectionTimer = 0;
     }
 
     /**

@@ -1,9 +1,11 @@
 package net.leaderos.plugin.modules.connect;
 
+import com.pusher.client.connection.ConnectionState;
 import lombok.Getter;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.connect.listeners.LoginListener;
+import net.leaderos.plugin.modules.connect.timer.Timer;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.modules.LeaderOSModule;
 import net.leaderos.shared.modules.connect.socket.SocketClient;
@@ -91,6 +93,10 @@ public class ConnectModule extends LeaderOSModule {
                 ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), Bukkit.getInstance().getLangFile().getMessages().getConnect().getSubscribedChannel());
             }
         };
+
+        try {
+            Timer.run();
+        } catch (Exception ignored) {}
     }
 
     /**
@@ -101,6 +107,7 @@ public class ConnectModule extends LeaderOSModule {
         try {
             HandlerList.unregisterAll(loginListener);
             getCommandsQueue().getExecutor().shutdown();
+            Timer.taskid.cancel();
         } catch (Exception ignored) {}
     }
 
@@ -109,6 +116,17 @@ public class ConnectModule extends LeaderOSModule {
      */
     public void onReload() {
         socket.getPusher().disconnect();
+    }
+
+    /**
+     * Check connection and reconnect
+     */
+    public void reconnect() {
+        if (socket.getPusher().getConnection().getState() == ConnectionState.DISCONNECTED) {
+            try {
+                socket.getPusher().connect();
+            } catch (Exception ignored) {}
+        }
     }
 
     /**

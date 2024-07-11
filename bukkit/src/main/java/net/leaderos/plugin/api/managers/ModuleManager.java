@@ -123,6 +123,15 @@ public class ModuleManager {
     }
 
     /**
+     * reload module
+     */
+    public static void reload(String moduleName) {
+        Modulable module = modules.get(moduleName);
+        if (module.isEnabled())
+            module.onReload();
+    }
+
+    /**
      * Reload modules
      */
     public void reloadModules() {
