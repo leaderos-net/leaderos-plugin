@@ -44,20 +44,24 @@ public class DonationGui {
         // Filler item for empty slots
         gui.setFiller(GuiHelper.getFiller(Bukkit.getInstance().getModulesFile().getDonations().getGui().getFillerItem().isUseFiller(), Bukkit.getInstance().getModulesFile().getDonations().getGui().getFillerItem().getMaterial()));
 
-        GuiElementGroup latestGroup = getGuiElementGroup(DonationType.LATEST);
-        gui.addElement(latestGroup);
+        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+            GuiElementGroup latestGroup = getGuiElementGroup(DonationType.LATEST);
+            gui.addElement(latestGroup);
 
-        GuiElementGroup allTimeGroup = getGuiElementGroup(DonationType.TOP_ALLTIME);
-        gui.addElement(allTimeGroup);
+            GuiElementGroup allTimeGroup = getGuiElementGroup(DonationType.TOP_ALLTIME);
+            gui.addElement(allTimeGroup);
 
-        GuiElementGroup annualGroup = getGuiElementGroup(DonationType.TOP_ANNUAL);
-        gui.addElement(annualGroup);
+            GuiElementGroup annualGroup = getGuiElementGroup(DonationType.TOP_ANNUAL);
+            gui.addElement(annualGroup);
 
-        GuiElementGroup monthlyGroup = getGuiElementGroup(DonationType.TOP_MONTHLY);
-        gui.addElement(monthlyGroup);
+            GuiElementGroup monthlyGroup = getGuiElementGroup(DonationType.TOP_MONTHLY);
+            gui.addElement(monthlyGroup);
 
-        GuiElementGroup dailyGroup = getGuiElementGroup(DonationType.TOP_DAILY);
-        gui.addElement(dailyGroup);
+            GuiElementGroup dailyGroup = getGuiElementGroup(DonationType.TOP_DAILY);
+            gui.addElement(dailyGroup);
+
+            gui.draw(player);
+        });
 
         // Info
         GuiElementGroup latestInfoGroup = getGuiElementGroupInfo(DonationType.LATEST);
