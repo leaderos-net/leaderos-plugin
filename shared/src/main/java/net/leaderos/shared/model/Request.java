@@ -88,8 +88,11 @@ public abstract class Request {
             JSONObject obj = getResponseObj(responseString);
             this.response = new Response(responseCode, status, obj, obj.has("error") ? obj.getEnum(Error.class, "error") : null);
 
+            Shared.getDebugAPI().send("Response Code: " + responseCode, false);
+            Shared.getDebugAPI().send("URL: " + this.url, false);
             Shared.getDebugAPI().send(this.response.getResponseMessage().toString(), false);
         } catch (Exception e) {
+            Shared.getDebugAPI().send("URL: " + this.url, false);
             Shared.getDebugAPI().send(e.getMessage(), true);
             Shared.getDebugAPI().send(responseString, true);
         }
