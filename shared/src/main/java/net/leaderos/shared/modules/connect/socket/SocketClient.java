@@ -49,7 +49,10 @@ public abstract class SocketClient {
         options.setWsPort(6001);
         options.setWssPort(6002);
         options.setChannelAuthorizer(authorizer);
-        options.setActivityTimeout(30000);
+        options.setActivityTimeout(10000);
+        options.setPongTimeout(5000);
+        options.setMaxReconnectionAttempts(100);
+        options.setMaxReconnectGapInSeconds(5);
 
         // Create pusher instance
         this.pusher = new Pusher(appKey, options);
