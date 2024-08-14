@@ -104,9 +104,9 @@
         </dependency>
         <!-- xSeries -->
         <dependency>
-            <groupId>com.github.cryptomorin</groupId>
+            <groupId>com.github.CryptoMorin</groupId>
             <artifactId>XSeries</artifactId>
-            <version>11.2.0.1</version>
+            <version>2bb477356a</version>
         </dependency>
         <!-- NBT Api -->
         <dependency>
