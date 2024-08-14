@@ -98,9 +98,7 @@ public class GuiHelper {
         //List<String> lore = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getCredit().getLore());
         return new StaticGuiElement(
                 'i',
-                ItemUtil.getItem(material, displayName),
-                1,
-                click -> true
+                ItemUtil.getItem(material, displayName)
         );
     }
 }

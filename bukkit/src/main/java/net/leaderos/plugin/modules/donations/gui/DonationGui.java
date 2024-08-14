@@ -97,12 +97,7 @@ public class DonationGui {
         if (!donations.isEmpty())
             donations.forEach(donation -> donationItems.addElement(new DynamicGuiElement('s', (viewer)
                     -> new StaticGuiElement('s',
-                    DonationsModule.getDonationHead(donation),
-                    1,
-                    click ->  {
-                        click.getEvent().setCancelled(true);
-                        return false;
-                    })))
+                    DonationsModule.getDonationHead(donation))))
             );
         return donationItems;
     }
@@ -120,60 +115,35 @@ public class DonationGui {
                     DonationsModule.getDonationInfoItem(
                             Bukkit.getInstance().getModulesFile().getDonations().getGui().getInfoItems().getLatestMaterial(),
                             ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getDonationsGui().getInfo().getLatest().getDisplayName())
-                    ),
-                    1,
-                    click -> {
-                        click.getEvent().setCancelled(true);
-                        return false;
-                    })));
+                    ))));
         } else if (type == DonationType.TOP_ALLTIME) {
             info.addElement(new DynamicGuiElement('s', (viewer)
                     -> new StaticGuiElement('s',
                     DonationsModule.getDonationInfoItem(
                             Bukkit.getInstance().getModulesFile().getDonations().getGui().getInfoItems().getTopAllTimeMaterial(),
                             ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getDonationsGui().getInfo().getTopAllTime().getDisplayName())
-                    ),
-                    1,
-                    click -> {
-                        click.getEvent().setCancelled(true);
-                        return false;
-                    })));
+                    ))));
         } else if (type == DonationType.TOP_ANNUAL) {
             info.addElement(new DynamicGuiElement('s', (viewer)
                     -> new StaticGuiElement('s',
                     DonationsModule.getDonationInfoItem(
                             Bukkit.getInstance().getModulesFile().getDonations().getGui().getInfoItems().getTopAnnualMaterial(),
                             ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getDonationsGui().getInfo().getTopAnnual().getDisplayName())
-                    ),
-                    1,
-                    click -> {
-                        click.getEvent().setCancelled(true);
-                        return false;
-                    })));
+                    ))));
         } else if (type == DonationType.TOP_MONTHLY) {
             info.addElement(new DynamicGuiElement('s', (viewer)
                     -> new StaticGuiElement('s',
                     DonationsModule.getDonationInfoItem(
                             Bukkit.getInstance().getModulesFile().getDonations().getGui().getInfoItems().getTopMonthlyMaterial(),
                             ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getDonationsGui().getInfo().getTopMonthly().getDisplayName())
-                    ),
-                    1,
-                    click -> {
-                        click.getEvent().setCancelled(true);
-                        return false;
-                    })));
+                    ))));
         } else if (type == DonationType.TOP_DAILY) {
             info.addElement(new DynamicGuiElement('s', (viewer)
                     -> new StaticGuiElement('s',
                     DonationsModule.getDonationInfoItem(
                             Bukkit.getInstance().getModulesFile().getDonations().getGui().getInfoItems().getTopDailyMaterial(),
                             ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getDonationsGui().getInfo().getTopDaily().getDisplayName())
-                    ),
-                    1,
-                    click -> {
-                        click.getEvent().setCancelled(true);
-                        return false;
-                    })));
+                    ))));
         }
         return info;
     }

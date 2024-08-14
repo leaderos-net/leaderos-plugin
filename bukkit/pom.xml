@@ -100,19 +100,19 @@
             <groupId>de.themoep</groupId>
             <artifactId>inventorygui</artifactId>
             <!--The following version may not be the latest. Check it before using.-->
-            <version>1.5-SNAPSHOT</version>
+            <version>1.6.3-SNAPSHOT</version>
         </dependency>
         <!-- xSeries -->
         <dependency>
             <groupId>com.github.cryptomorin</groupId>
             <artifactId>XSeries</artifactId>
-            <version>11.2.0</version>
+            <version>11.2.0.1</version>
         </dependency>
         <!-- NBT Api -->
         <dependency>
             <groupId>de.tr7zw</groupId>
             <artifactId>item-nbt-api</artifactId>
-            <version>2.13.1</version>
+            <version>2.13.2</version>
         </dependency>
         <!-- Triump command -->
         <dependency>

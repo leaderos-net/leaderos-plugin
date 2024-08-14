@@ -58,9 +58,8 @@ public class BazaarGui {
             // Add item icon
             gui.addElement(new StaticGuiElement('a', GuiHelper.addItemIcon(), 1, click -> {
                 gui.close();
-                click.getEvent().setCancelled(true);
                 BazaarAddItemGui.showGui(player, playerBazaarList.size());
-                return false;
+                return true;
             }));
 
             // Bazaar group creator
@@ -72,16 +71,15 @@ public class BazaarGui {
                                     -> new StaticGuiElement('s',
                                     bazaarItem,
                                     bazaarItem.getAmount(),
-                                    click ->  {
-                                        click.getEvent().setCancelled(true);
+                                    click -> {
                                         gui.close();
                                         if (player.getInventory().firstEmpty() == -1) {
                                             ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getCannotCreateFull());
-                                            return false;
+                                            return true;
                                         }
                                         if (!RequestUtil.canRequest(player.getUniqueId())) {
                                             ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getHaveRequestOngoing());
-                                            return false;
+                                            return true;
                                         }
                                         String title = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawTitle());
                                         String subtitleError = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getWithdrawErrorSubtitle());
@@ -101,7 +99,7 @@ public class BazaarGui {
                                             RequestUtil.invalidate(player.getUniqueId());
                                         });
 
-                                        return false;
+                                        return true;
                                     })));
                         }
                 );

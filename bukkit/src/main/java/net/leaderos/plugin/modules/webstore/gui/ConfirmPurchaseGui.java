@@ -63,9 +63,7 @@ public class ConfirmPurchaseGui {
     public static StaticGuiElement productIcon(Product product) {
         return new StaticGuiElement(
                 'p',
-                product.getProductIcon(),
-                1,
-                click -> true
+                product.getProductIcon()
         );
     }
 

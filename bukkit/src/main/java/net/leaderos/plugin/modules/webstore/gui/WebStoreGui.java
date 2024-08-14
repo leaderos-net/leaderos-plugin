@@ -135,7 +135,6 @@ public class WebStoreGui {
                 category.getCategoryIcon(),
                 1,
                 click -> {
-                    click.getEvent().setCancelled(true);
                     showGui(player, category);
                     return true;
                 })))
