@@ -3,7 +3,6 @@
   <h1>leaderos-plugin</h1>
 <p>
 
-[![Leaderos JavaDoc](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/publish-javadoc-maven.yml/badge.svg)](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/publish-javadoc-maven.yml)
 [![Java CI with Maven](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/maven.yml/badge.svg)](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/maven.yml)
 
 </p>
@@ -20,10 +19,7 @@
 🇹🇷 Türkçe: [https://destek.leaderos.com.tr/uecretsiz-hizmetler/leaderos-plugin](https://destek.leaderos.com.tr/uecretsiz-hizmetler/leaderos-plugin)
 
 ## API
-[![Leaderos JavaDoc](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/publish-javadoc-maven.yml/badge.svg)](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/publish-javadoc-maven.yml)
 [![Java CI with Maven](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/maven.yml/badge.svg)](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/maven.yml)
-
-### [Javadoc](https://leaderos-net.github.io/leaderos-plugin/)
 
 ### Maven:
 
