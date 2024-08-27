@@ -117,8 +117,7 @@ public class BazaarAddItemGui {
                             // Sends response
                             try {
                                 Response postBazaarItem = new AddBazaarItemRequest(userId, name, lore, amount, maxDurability, durability, base64, price, creationDate, modelId, enchantments, serverId, material.name()).getResponse();
-                                if (postBazaarItem.getResponseCode() == HttpURLConnection.HTTP_OK
-                                        && postBazaarItem.getResponseMessage().getBoolean("status")) {
+                                if (postBazaarItem.getResponseCode() == HttpURLConnection.HTTP_OK && postBazaarItem.getResponseMessage().getBoolean("status")) {
                                     ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
                                             Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getAddItemMessage(),
                                             new Placeholder("%item_name%", name)
