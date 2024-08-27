@@ -19,7 +19,6 @@
 🇹🇷 Türkçe: [https://destek.leaderos.com.tr/uecretsiz-hizmetler/leaderos-plugin](https://destek.leaderos.com.tr/uecretsiz-hizmetler/leaderos-plugin)
 
 ## API
-[![Java CI with Maven](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/maven.yml/badge.svg)](https://github.com/leaderos-net/leaderos-plugin/actions/workflows/maven.yml)
 
 ### Maven:
 
