@@ -111,12 +111,12 @@ public class BazaarAddItemGui {
                         double price = 0.0;
                         String creationDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
                         String modelId = ItemUtil.getModelId(item);
-                        String enchantment = ItemUtil.getEnchantments(item);
+                        String enchantments = ItemUtil.getEnchantments(item);
 
                         org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
                             // Sends response
                             try {
-                                Response postBazaarItem = new AddBazaarItemRequest(userId, name, lore, amount, maxDurability, durability, base64, price, creationDate, modelId, enchantment, serverId, material.name()).getResponse();
+                                Response postBazaarItem = new AddBazaarItemRequest(userId, name, lore, amount, maxDurability, durability, base64, price, creationDate, modelId, enchantments, serverId, material.name()).getResponse();
                                 if (postBazaarItem.getResponseCode() == HttpURLConnection.HTTP_OK
                                         && postBazaarItem.getResponseMessage().getBoolean("status")) {
                                     ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
