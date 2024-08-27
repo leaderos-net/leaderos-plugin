@@ -45,7 +45,7 @@ public class BazaarAddItemGui {
     /**
      * Opens gui to player
      * @param player to show gui
-     * @param itemAmount amount of items in storage
+     * @param itemAmount amount of items in bazaar storage
      */
     @SneakyThrows
     public static void showGui(Player player, int itemAmount) {
