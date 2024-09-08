@@ -1,6 +1,7 @@
 package net.leaderos.plugin.modules.cache;
 
 import net.leaderos.plugin.Bukkit;
+import net.leaderos.plugin.modules.cache.commands.CacheCommand;
 import net.leaderos.plugin.modules.cache.listeners.CacheUpdateEvent;
 import net.leaderos.plugin.modules.cache.listeners.LoginListener;
 import net.leaderos.plugin.modules.cache.listeners.QuitListener;
@@ -43,6 +44,8 @@ public class CacheModule extends LeaderOSModule {
         org.bukkit.Bukkit.getPluginManager().registerEvents(cacheUpdateEvent, Bukkit.getInstance());
         // Loads all player data
         User.loadAllPlayers();
+        // Register Command
+        Bukkit.getCommandManager().registerCommand(new CacheCommand());
         // Placeholder loader
         if (org.bukkit.Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             new Placeholders().register();
@@ -57,6 +60,8 @@ public class CacheModule extends LeaderOSModule {
         HandlerList.unregisterAll(cacheUpdateEvent);
         // Removes cache
         User.getUserList().clear();
+        // Unregister Command
+        Bukkit.getCommandManager().unregisterCommand(new CacheCommand());
         // Placeholder unloader
         if( org.bukkit.Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             new Placeholders().unregister();

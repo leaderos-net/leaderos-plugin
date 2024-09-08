@@ -280,6 +280,8 @@ public class en extends Language {
             private String successfullyRemovedCredit = "{prefix} &aSuccessfully removed &e{amount} credit &afrom &b{target}&a.";
 
             private String receivedCredit = "{prefix} &aYou just received &e{amount} credit(s) &afrom &b{player}&a.";
+
+            private String cacheUpdated = "{prefix} &aSuccessfully updated cache for &b{target}&a.";
         }
 
         /**
