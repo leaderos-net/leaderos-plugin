@@ -34,7 +34,6 @@ public class BazaarModule extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
-        Bukkit.getCommandManager().unregisterCommand(new BazaarCommand());
         CommandHelper.unregisterCommands(Arrays.asList("bazaar", "webbazaar", "pazar"));
     }
 

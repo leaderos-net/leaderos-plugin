@@ -26,7 +26,6 @@ public class DiscordModule extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
-        Bukkit.getCommandManager().unregisterCommand(new SyncCommand());
         CommandHelper.unregisterCommands(Arrays.asList("discord-sync", "discord-link"));
     }
 

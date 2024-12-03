@@ -41,7 +41,6 @@ public class DonationsModule extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
-        Bukkit.getCommandManager().unregisterCommand(new DonationsCommand());
         CommandHelper.unregisterCommands(Arrays.asList("donations", "recentdonations", "krediyukleyenler"));
         Timer.taskid.cancel();
         if( org.bukkit.Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))

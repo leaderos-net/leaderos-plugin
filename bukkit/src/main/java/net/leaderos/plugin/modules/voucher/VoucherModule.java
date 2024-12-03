@@ -44,7 +44,6 @@ public class VoucherModule extends LeaderOSModule {
      */
     public void onDisable() {
         HandlerList.unregisterAll(voucherListener);
-        Bukkit.getCommandManager().unregisterCommand(new VoucherCommand());
         CommandHelper.unregisterCommands(Arrays.asList("creditvoucher", "creditsvoucher", "creditsvouchers", "kredikagidi"));
     }
 

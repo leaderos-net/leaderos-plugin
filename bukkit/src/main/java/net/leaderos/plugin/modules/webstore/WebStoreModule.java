@@ -29,7 +29,6 @@ public class WebStoreModule extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
-        Bukkit.getCommandManager().unregisterCommand(new WebStoreCommand());
         CommandHelper.unregisterCommands(Arrays.asList("webstore", "webshop", "sitemarket", "webmarket"));
     }
 

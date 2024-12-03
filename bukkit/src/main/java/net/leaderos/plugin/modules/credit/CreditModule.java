@@ -26,7 +26,6 @@ public class CreditModule extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
-        Bukkit.getCommandManager().unregisterCommand(new CreditCommand());
         CommandHelper.unregisterCommands(Arrays.asList("credit", "credits", "kredi"));
     }
 

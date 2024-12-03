@@ -65,7 +65,6 @@ public class CacheModule extends LeaderOSModule {
         // Removes cache
         User.getUserList().clear();
         // Unregister Command
-        Bukkit.getCommandManager().unregisterCommand(new CacheCommand());
         CommandHelper.unregisterCommands(Collections.singletonList("leaderos-cache"));
         // Placeholder unloader
         if( org.bukkit.Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))

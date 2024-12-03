@@ -28,7 +28,6 @@ public class AuthModule extends LeaderOSModule {
      */
     public void onDisable() {
         CommandHelper.unregisterCommands(Collections.singletonList("auth"));
-        Bukkit.getCommandManager().unregisterCommand(new AuthCommand());
     }
 
     /**
