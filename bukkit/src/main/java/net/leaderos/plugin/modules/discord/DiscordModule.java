@@ -1,8 +1,11 @@
 package net.leaderos.plugin.modules.discord;
 
 import net.leaderos.plugin.Bukkit;
+import net.leaderos.plugin.helpers.CommandHelper;
 import net.leaderos.plugin.modules.discord.commands.SyncCommand;
 import net.leaderos.shared.modules.LeaderOSModule;
+
+import java.util.Arrays;
 
 /**
  * Discord module of leaderos-plugin
@@ -23,7 +26,7 @@ public class DiscordModule extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
-        Bukkit.getCommandManager().unregisterCommand(new SyncCommand());
+        CommandHelper.unregisterCommands(Arrays.asList("discord-sync", "discord-link"));
     }
 
     /**
