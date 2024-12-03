@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Sends debug to console
+ * Unload mechanism for commands
  * @author WaterArchery, hyperion
  * @since 1.0.0
  */
