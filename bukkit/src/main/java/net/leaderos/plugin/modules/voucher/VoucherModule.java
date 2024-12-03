@@ -2,11 +2,14 @@ package net.leaderos.plugin.modules.voucher;
 
 import lombok.Getter;
 import net.leaderos.plugin.Bukkit;
+import net.leaderos.plugin.helpers.CommandHelper;
 import net.leaderos.plugin.modules.voucher.commands.VoucherCommand;
 import net.leaderos.plugin.modules.voucher.listeners.VoucherListener;
 import net.leaderos.plugin.modules.voucher.data.Data;
 import net.leaderos.shared.modules.LeaderOSModule;
 import org.bukkit.event.HandlerList;
+
+import java.util.Arrays;
 
 /**
  * Voucher module of leaderos plugin
@@ -42,6 +45,7 @@ public class VoucherModule extends LeaderOSModule {
     public void onDisable() {
         HandlerList.unregisterAll(voucherListener);
         Bukkit.getCommandManager().unregisterCommand(new VoucherCommand());
+        CommandHelper.unregisterCommands(Arrays.asList("creditvoucher", "creditsvoucher", "creditsvouchers", "kredikagidi"));
     }
 
     /**

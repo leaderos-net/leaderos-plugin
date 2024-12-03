@@ -1,8 +1,12 @@
 package net.leaderos.plugin.modules.auth;
 
 import net.leaderos.plugin.Bukkit;
+import net.leaderos.plugin.helpers.CommandHelper;
 import net.leaderos.plugin.modules.auth.commands.AuthCommand;
 import net.leaderos.shared.modules.LeaderOSModule;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Auth module of leaderos-plugin
@@ -23,6 +27,7 @@ public class AuthModule extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
+        CommandHelper.unregisterCommands(Collections.singletonList("auth"));
         Bukkit.getCommandManager().unregisterCommand(new AuthCommand());
     }
 

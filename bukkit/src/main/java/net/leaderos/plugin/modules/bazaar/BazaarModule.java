@@ -2,8 +2,11 @@ package net.leaderos.plugin.modules.bazaar;
 
 import lombok.Getter;
 import net.leaderos.plugin.Bukkit;
+import net.leaderos.plugin.helpers.CommandHelper;
 import net.leaderos.plugin.modules.bazaar.commands.BazaarCommand;
 import net.leaderos.shared.modules.LeaderOSModule;
+
+import java.util.Arrays;
 
 /**
  * Bazaar module of leaderos-plugin
@@ -32,6 +35,7 @@ public class BazaarModule extends LeaderOSModule {
      */
     public void onDisable() {
         Bukkit.getCommandManager().unregisterCommand(new BazaarCommand());
+        CommandHelper.unregisterCommands(Arrays.asList("bazaar", "webbazaar", "pazar"));
     }
 
     /**

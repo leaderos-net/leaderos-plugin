@@ -1,6 +1,7 @@
 package net.leaderos.plugin.modules.cache;
 
 import net.leaderos.plugin.Bukkit;
+import net.leaderos.plugin.helpers.CommandHelper;
 import net.leaderos.plugin.modules.cache.commands.CacheCommand;
 import net.leaderos.plugin.modules.cache.listeners.CacheUpdateEvent;
 import net.leaderos.plugin.modules.cache.listeners.LoginListener;
@@ -8,6 +9,9 @@ import net.leaderos.plugin.modules.cache.listeners.QuitListener;
 import net.leaderos.plugin.modules.cache.model.User;
 import net.leaderos.shared.modules.LeaderOSModule;
 import org.bukkit.event.HandlerList;
+
+import java.util.Arrays;
+import java.util.Collections;
 
 /**
  * Cache module of leaderos-plugin
@@ -62,6 +66,7 @@ public class CacheModule extends LeaderOSModule {
         User.getUserList().clear();
         // Unregister Command
         Bukkit.getCommandManager().unregisterCommand(new CacheCommand());
+        CommandHelper.unregisterCommands(Collections.singletonList("leaderos-cache"));
         // Placeholder unloader
         if( org.bukkit.Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             new Placeholders().unregister();
