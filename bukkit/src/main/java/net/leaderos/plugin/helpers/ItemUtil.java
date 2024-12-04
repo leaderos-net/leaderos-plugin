@@ -148,6 +148,9 @@ public class ItemUtil {
         ItemMeta meta = result.getItemMeta();
         meta.setLore(lore);
         meta.setDisplayName(name);
+        meta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         if (XMaterial.supports(14) && modelId > 0) {
             meta.setCustomModelData(modelId);
         }
