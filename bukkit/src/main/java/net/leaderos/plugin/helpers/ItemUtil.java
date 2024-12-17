@@ -1,11 +1,11 @@
 package net.leaderos.plugin.helpers;
 
 import com.cryptomorin.xseries.XEnchantment;
+import com.cryptomorin.xseries.XItemFlag;
 import com.cryptomorin.xseries.XMaterial;
 import org.apache.commons.lang3.text.WordUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
@@ -136,6 +136,7 @@ public class ItemUtil {
     /**
      * Check for material and
      * get item with a material and model id.
+     * for WebStore
      * @param material of item
      * @param name of item
      * @param lore of item
@@ -148,6 +149,9 @@ public class ItemUtil {
         ItemMeta meta = result.getItemMeta();
         meta.setLore(lore);
         meta.setDisplayName(name);
+        meta.addItemFlags(XItemFlag.HIDE_ENCHANTS.get());
+        meta.addItemFlags(XItemFlag.HIDE_ATTRIBUTES.get());
+        meta.addItemFlags(XItemFlag.HIDE_ADDITIONAL_TOOLTIP.get());
         if (XMaterial.supports(14) && modelId > 0) {
             meta.setCustomModelData(modelId);
         }
@@ -158,6 +162,7 @@ public class ItemUtil {
     /**
      * Check for material and
      * get item with a material.
+     * for Voucher item
      * @param material of item
      * @param name of item
      * @param lore of item
@@ -168,9 +173,10 @@ public class ItemUtil {
         ItemStack result = getItem(material, name, lore);
         ItemMeta meta = result.getItemMeta();
         if (glow) {
-            assert XEnchantment.UNBREAKING.getEnchant() != null;
-            meta.addEnchant(XEnchantment.UNBREAKING.getEnchant(), 1, true);
-            meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            assert XEnchantment.UNBREAKING.get() != null;
+            assert meta != null;
+            meta.addEnchant(XEnchantment.UNBREAKING.get(), 1, true);
+            meta.addItemFlags(XItemFlag.HIDE_ENCHANTS.get());
         }
         result.setItemMeta(meta);
         return result;
