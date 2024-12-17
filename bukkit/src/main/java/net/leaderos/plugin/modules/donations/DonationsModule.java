@@ -5,6 +5,7 @@ import com.cryptomorin.xseries.profiles.builder.XSkull;
 import com.cryptomorin.xseries.profiles.objects.Profileable;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
+import net.leaderos.plugin.helpers.CommandHelper;
 import net.leaderos.plugin.helpers.ItemUtil;
 import net.leaderos.plugin.modules.donations.commands.DonationsCommand;
 import net.leaderos.plugin.modules.donations.model.Donation;
@@ -16,8 +17,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Arrays;
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * Donations module main class
@@ -40,7 +41,7 @@ public class DonationsModule extends LeaderOSModule {
      * onDisable method of module
      */
     public void onDisable() {
-        Bukkit.getCommandManager().unregisterCommand(new DonationsCommand());
+        CommandHelper.unregisterCommands(Arrays.asList("donations", "recentdonations", "krediyukleyenler"));
         Timer.taskid.cancel();
         if( org.bukkit.Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             new Placeholders().unregister();
