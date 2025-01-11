@@ -20,27 +20,6 @@ import java.util.List;
 @Setter
 @Names(strategy = NameStrategy.IDENTITY)
 public class Modules extends OkaeriConfig {
-
-    /**
-     * Auth system
-     */
-    private Auth Auth = new Auth();
-
-    /**
-     * Auth module settings
-     *
-     * @since 1.0
-     * @author poyrazinan
-     */
-    @Getter
-    @Setter
-    public static class Auth extends OkaeriConfig {
-        /**
-         * Status of Auth mode
-         */
-        private boolean status = false;
-    }
-
     /**
      * Discord module
      */

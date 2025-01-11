@@ -17,7 +17,6 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
-import java.util.UUID;
 
 /**
  * Donations module main class
@@ -61,7 +60,7 @@ public class DonationsModule extends LeaderOSModule {
         // Player head collector
         ItemStack item = XMaterial.PLAYER_HEAD.parseItem();
         assert item != null;
-        OfflinePlayer player = org.bukkit.Bukkit.getOfflinePlayer(donation.getUsername());
+        OfflinePlayer player = org.bukkit.Bukkit.getOfflinePlayer(donation.getDisplayName());
         SkullMeta meta;
         try {
             meta = (SkullMeta) XSkull.of(Objects.requireNonNull(item.getItemMeta())).profile(Profileable.of(player)).apply();
@@ -71,14 +70,14 @@ public class DonationsModule extends LeaderOSModule {
         meta.setDisplayName(ChatUtil.replacePlaceholders(
                 Bukkit.getInstance().getLangFile().getGui().getDonationsGui().getDisplayName(),
                 new Placeholder("%i%", String.valueOf(donation.getRank())),
-                new Placeholder("%player%", donation.getUsername()),
+                new Placeholder("%player%", donation.getDisplayName()),
                 new Placeholder("%amount%", String.valueOf(donation.getAmount())),
                 new Placeholder("%symbol%", donation.getSymbol())
         ));
         meta.setLore(ChatUtil.replacePlaceholders(
                 Bukkit.getInstance().getLangFile().getGui().getDonationsGui().getLore(),
                 new Placeholder("%i%", String.valueOf(donation.getRank())),
-                new Placeholder("%player%", donation.getUsername()),
+                new Placeholder("%player%", donation.getDisplayName()),
                 new Placeholder("%amount%", String.valueOf(donation.getAmount())),
                 new Placeholder("%symbol%", donation.getSymbol())
         ));

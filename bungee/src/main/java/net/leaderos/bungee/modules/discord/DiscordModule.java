@@ -4,8 +4,8 @@ import net.leaderos.bungee.Bungee;
 import net.leaderos.bungee.helpers.ChatUtil;
 import net.leaderos.bungee.helpers.MDChat.MDChatAPI;
 import net.leaderos.bungee.modules.discord.commands.SyncCommand;
+import net.leaderos.shared.Shared;
 import net.leaderos.shared.modules.LeaderOSModule;
-import net.leaderos.shared.modules.discord.DiscordHelper;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 /**
@@ -43,15 +43,12 @@ public class DiscordModule extends LeaderOSModule {
      */
     public static void sendSyncCommandMessage(ProxiedPlayer player) {
         try {
-            String link = DiscordHelper.getSyncLink(player.getName());
-            if (link != null)
-                player.sendMessage(MDChatAPI.getFormattedMessage(ChatUtil.color(Bungee.getInstance()
-                        .getLangFile().getMessages()
-                        .getAuth().getCommandMessage()
-                        .replace("%link%", link)
-                        .replace("{prefix}", Bungee.getInstance().getLangFile().getMessages().getPrefix()))));
-            else
-                ChatUtil.sendMessage(player, Bungee.getInstance().getLangFile().getMessages().getDiscord().getNoLink());
+            String link = Shared.getLink() + "/discord/link";
+            player.sendMessage(MDChatAPI.getFormattedMessage(ChatUtil.color(Bungee.getInstance()
+                    .getLangFile().getMessages()
+                    .getDiscord().getCommandMessage()
+                    .replace("%link%", link)
+                    .replace("{prefix}", Bungee.getInstance().getLangFile().getMessages().getPrefix()))));
         } catch (Exception ignored) {
             ChatUtil.sendMessage(player, Bungee.getInstance().getLangFile().getMessages().getDiscord().getNoLink());
         }

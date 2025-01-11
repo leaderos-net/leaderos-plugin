@@ -5,7 +5,9 @@ import dev.triumphteam.cmd.core.BaseCommand;
 import dev.triumphteam.cmd.core.annotation.Command;
 import dev.triumphteam.cmd.core.annotation.Default;
 import lombok.RequiredArgsConstructor;
+import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.api.managers.ModuleManager;
+import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.cache.model.User;
 import net.leaderos.plugin.modules.bazaar.gui.BazaarGui;
 import org.bukkit.entity.Player;
@@ -26,7 +28,10 @@ public class BazaarCommand extends BaseCommand {
     @Default
     @Permission("leaderos.bazaar.open")
     public void defaultCommand(Player player) {
-        if (ModuleManager.getModule("Bazaar").isEnabled() && User.isPlayerAuthed(player))
-            BazaarGui.showGui(player);
+        if (ModuleManager.getModule("Bazaar").isEnabled())
+            if (User.isPlayerAuthed(player))
+                BazaarGui.showGui(player);
+            else
+                ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getRegistrationRequired());
     }
 }

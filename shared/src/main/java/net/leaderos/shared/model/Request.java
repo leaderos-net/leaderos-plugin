@@ -60,7 +60,7 @@ public abstract class Request {
      */
     public Request(String api, Map<String, String> body, @NotNull RequestType type) throws IOException {
         this.body = encodeFormData(body);
-        this.url = new URL( Shared.getLink()+ "/api/" + api);
+        this.url = new URL( Shared.getLink() + "/api/" + api);
         this.apiKey = Shared.getApiKey();
         this.connection = (HttpURLConnection) this.url.openConnection();
         // Request type selector

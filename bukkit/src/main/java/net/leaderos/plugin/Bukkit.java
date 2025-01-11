@@ -14,7 +14,6 @@ import net.leaderos.plugin.configuration.Language;
 import net.leaderos.plugin.configuration.Modules;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.DebugBukkit;
-import net.leaderos.plugin.modules.auth.AuthModule;
 import net.leaderos.plugin.modules.bazaar.BazaarModule;
 import net.leaderos.plugin.modules.cache.CacheModule;
 import net.leaderos.plugin.modules.connect.ConnectModule;
@@ -100,7 +99,6 @@ public class Bukkit extends JavaPlugin {
         setupCommands();
 
         // Loads modules
-        LeaderOSAPI.getModuleManager().registerModule(new AuthModule());
         LeaderOSAPI.getModuleManager().registerModule(new DiscordModule());
         LeaderOSAPI.getModuleManager().registerModule(new CacheModule());
         LeaderOSAPI.getModuleManager().registerModule(new CreditModule());

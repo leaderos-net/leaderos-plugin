@@ -110,7 +110,7 @@ public class DonationManager {
                 JSONArray data = recentDonationResponse.getResponseMessage().getJSONArray("array");
                 for (int i = 0; i < data.length(); i++) {
                     JSONObject donation = (JSONObject) data.get(i);
-                    donations.add(new Donation(i + 1, donation.getString("username"), donation.getDouble("raw_total"), donation.getString("currency")));
+                    donations.add(new Donation(i + 1, donation.getString("display_name"), donation.getString("username"), donation.getDouble("raw_total"), donation.getString("currency")));
                 }
             }
         } catch (IOException ignored) {}

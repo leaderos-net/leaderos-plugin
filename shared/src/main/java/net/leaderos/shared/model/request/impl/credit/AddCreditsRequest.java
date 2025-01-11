@@ -7,8 +7,9 @@ import java.util.HashMap;
 
 public class AddCreditsRequest extends PostRequest {
 
-    public AddCreditsRequest(String target, double amount) throws IOException {
-        super("credits/" + target + "/add", new HashMap<String, String>() {{
+    public AddCreditsRequest(String targetUsername, double amount) throws IOException {
+        super("credits/add", new HashMap<String, String>() {{
+            put("target_username", String.valueOf(targetUsername));
             put("amount", String.valueOf(amount));
         }});
     }

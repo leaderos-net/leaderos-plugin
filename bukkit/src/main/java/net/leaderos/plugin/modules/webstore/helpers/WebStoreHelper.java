@@ -8,13 +8,11 @@ import net.leaderos.plugin.helpers.MDChat.MDChatAPI;
 import net.leaderos.plugin.modules.cache.model.User;
 import net.leaderos.shared.Shared;
 import net.leaderos.shared.error.Error;
-import net.leaderos.shared.helpers.DebugAPI;
 import net.leaderos.shared.helpers.RequestUtil;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.GetRequest;
 import net.leaderos.shared.model.request.impl.store.BuyRequest;
 import net.leaderos.shared.model.request.impl.store.ListingRequest;
-import net.leaderos.shared.modules.auth.AuthHelper;
 import net.leaderos.shared.modules.credit.enums.UpdateType;
 import net.leaderos.plugin.modules.webstore.model.Category;
 import org.bukkit.entity.Player;
@@ -77,19 +75,7 @@ public class WebStoreHelper {
             }
             else {
                 org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
-                    // If auth login is enabled
-                    if (ModuleManager.getModuleStatus("Auth")) {
-                        String authLink = AuthHelper.getAuthLink(player.getName(), player.getUniqueId());
-                        if (authLink != null)
-                            player.spigot().sendMessage(
-                                    MDChatAPI.getFormattedMessage(
-                                            ChatUtil.color(Bukkit.getInstance().getLangFile().getMessages().getAuth().getModuleError()
-                                                    .replace("%link%", authLink)
-                                                    .replace("{prefix}", Bukkit.getInstance().getLangFile().getMessages().getPrefix()))));
-                    }
-                    // If cache not found and Auth is disabled situation
-                    else
-                        ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreNoAuthLinkError());
+                    ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getRegistrationRequired());
 
                     RequestUtil.invalidate(player.getUniqueId());
                 });

@@ -6,8 +6,8 @@ import com.velocitypowered.api.proxy.Player;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
+import net.leaderos.shared.Shared;
 import net.leaderos.shared.modules.LeaderOSModule;
-import net.leaderos.shared.modules.discord.DiscordHelper;
 import net.leaderos.velocity.Velocity;
 import net.leaderos.velocity.helpers.ChatUtil;
 import net.leaderos.velocity.modules.discord.commands.SyncCommand;
@@ -56,23 +56,18 @@ public class DiscordModule extends LeaderOSModule {
      */
     public static void sendSyncCommandMessage(Player player) {
         try {
-            String link = DiscordHelper.getSyncLink(player.getUsername());
-            if (link != null) {
-                // Hover message
-                Component hoverMsg = ChatUtil.color(Velocity.getInstance().getLangFile().getMessages().getAuth().getHoverMessage());
-                // Main message of auth
-                Component commandMessage = ChatUtil.color(
-                        Velocity.getInstance().getLangFile().getMessages().getDiscord().getCommandMessage()
-                                .replace("{prefix}", Velocity.getInstance().getLangFile().getMessages().getPrefix()));
-                // Finalized msg
-                Component component = commandMessage
-                        .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, link))
-                        .hoverEvent(HoverEvent.showText(hoverMsg));
-                player.sendMessage(component);
-            }
-            else {
-                ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getDiscord().getNoLink());
-            }
+            String link = Shared.getLink() + "/discord/link";
+            // Hover message
+            Component hoverMsg = ChatUtil.color(Velocity.getInstance().getLangFile().getMessages().getDiscord().getHoverMessage());
+            // Main message of auth
+            Component commandMessage = ChatUtil.color(
+                    Velocity.getInstance().getLangFile().getMessages().getDiscord().getCommandMessage()
+                            .replace("{prefix}", Velocity.getInstance().getLangFile().getMessages().getPrefix()));
+            // Finalized msg
+            Component component = commandMessage
+                    .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, link))
+                    .hoverEvent(HoverEvent.showText(hoverMsg));
+            player.sendMessage(component);
         } catch (Exception ignored) {
             ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getDiscord().getNoLink());
         }

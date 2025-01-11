@@ -6,8 +6,9 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class RemoveCreditsRequest extends PostRequest {
-    public RemoveCreditsRequest(String target, double amount) throws IOException {
-        super("credits/" + target + "/remove", new HashMap<String, String>() {{
+    public RemoveCreditsRequest(String targetUsername, double amount) throws IOException {
+        super("credits/remove", new HashMap<String, String>() {{
+            put("target_username", String.valueOf(targetUsername));
             put("amount", String.valueOf(amount));
         }});
     }

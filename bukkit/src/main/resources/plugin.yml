@@ -15,8 +15,6 @@ commands:
         description: Voucher module command
     bazaar:
         description: bazaar default command
-    auth:
-        description: Connects your ingame account with website
     discord-sync:
         description: Sync your account with discord
     donations:

@@ -148,33 +148,6 @@ public class tr extends Language {
         }
 
         /**
-         * Auth messages
-         */
-        private Auth auth = new Auth();
-
-        /**
-         * Auth messages of plugin
-         */
-        @Getter @Setter
-        public static class Auth extends Language.Messages.Auth {
-
-            /**
-             * Command Message
-             */
-            private String commandMessage = "{prefix} <&aHesabını eşlemek için tıkla!{&eTıkla!}(open_url:%link%)>";
-
-            /**
-             * Module error message
-             */
-            private String moduleError = "{prefix} <&cSistem siteye girişi gerektirmektedir. Giriş yapmak için tıkla!{&eTıkla!}(open_url:%link%)>";
-
-            /**
-             * error on auth link
-             */
-            private String noLink = "{prefix} &cSunucuya bağlanırken hata oluştu.";
-        }
-
-        /**
          * Discord messages
          */
         private Discord discord = new Discord();

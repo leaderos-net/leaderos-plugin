@@ -25,7 +25,6 @@ import net.leaderos.velocity.configuration.Language;
 import net.leaderos.velocity.configuration.Modules;
 import net.leaderos.velocity.helpers.ChatUtil;
 import net.leaderos.velocity.helpers.DebugVelocity;
-import net.leaderos.velocity.modules.auth.AuthModule;
 import net.leaderos.velocity.modules.connect.ConnectModule;
 import net.leaderos.velocity.modules.credit.CreditModule;
 import net.leaderos.velocity.modules.discord.DiscordModule;
@@ -138,7 +137,6 @@ public class Velocity {
         );
         this.moduleManager = new ModuleManager();
         getModuleManager().registerModule(new CreditModule());
-        getModuleManager().registerModule(new AuthModule());
         getModuleManager().registerModule(new DiscordModule());
         getModuleManager().registerModule(new ConnectModule());
 

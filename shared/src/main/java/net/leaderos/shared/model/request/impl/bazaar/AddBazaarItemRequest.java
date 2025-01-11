@@ -9,7 +9,6 @@ public class AddBazaarItemRequest extends PostRequest {
 
     public AddBazaarItemRequest(String userId, String name, String lore, int amount, int maxDurability, int durability, String base64, double price, String creationDate, String modelId, String enchantments, int serverId, String item) throws IOException {
         super("bazaar/storages/" + userId + "/items", new HashMap<String, String>() {{
-            put("owner", userId);
             put("name", name);
             if (lore != null)
                 put("lore", lore);

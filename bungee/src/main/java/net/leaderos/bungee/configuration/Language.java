@@ -148,33 +148,6 @@ public class Language extends OkaeriConfig {
         }
 
         /**
-         * Auth messages
-         */
-        private Auth auth = new Auth();
-
-        /**
-         * Auth messages of plugin
-         */
-        @Getter @Setter
-        public static class Auth extends OkaeriConfig {
-
-            /**
-             * Command Message
-             */
-            private String commandMessage = "{prefix} <&aClick here for authentication!{&eClick Me!}(open_url:%link%)>";
-
-            /**
-             * Module error message
-             */
-            private String moduleError = "{prefix} <&cThis system require you to login website, click here!{&eClick Me!}(open_url:%link%)>";
-
-            /**
-             * error on auth link
-             */
-            private String noLink = "{prefix} &cAn error occurred while connecting web-server. Please visit our website.";
-        }
-
-        /**
          * Discord messages
          */
         private Discord discord = new Discord();

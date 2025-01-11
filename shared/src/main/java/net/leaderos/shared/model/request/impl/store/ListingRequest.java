@@ -12,6 +12,6 @@ public class ListingRequest extends GetRequest {
      * @throws IOException for HttpUrlConnection
      */
     public ListingRequest(String username) throws IOException {
-        super("store/listing?user=" + username);
+        super("store/listing?username=" + username);
     }
 }

@@ -148,38 +148,6 @@ public class en extends Language {
         }
 
         /**
-         * Auth messages
-         */
-        private Auth auth = new Auth();
-
-        /**
-         * Auth messages of plugin
-         */
-        @Getter @Setter
-        public static class Auth extends Language.Messages.Auth {
-
-            /**
-             * Command Message
-             */
-            private String commandMessage = "{prefix} &aClick here for authentication!";
-
-            /**
-             * Module error message
-             */
-            private String moduleError = "{prefix} &cThis system require you to login website, click here!";
-
-            /**
-             * error on auth link
-             */
-            private String noLink = "{prefix} &cAn error occurred while connecting web-server. Please visit our website.";
-
-            /**
-             * Hover message
-             */
-            private String hoverMessage = "&eClick here to open url!";
-        }
-
-        /**
          * Discord messages
          */
         private Discord discord = new Discord();

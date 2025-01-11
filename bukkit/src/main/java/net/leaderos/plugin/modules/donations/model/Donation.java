@@ -19,6 +19,11 @@ public class Donation {
     private int rank;
 
     /**
+     * Display Name data type of String
+     */
+    private String displayName;
+
+    /**
      * Username data type of String
      */
     private String username;

@@ -54,7 +54,9 @@ public class tr extends Language {
 
         private String cannotCreateFull = "{prefix} &cEnvanterinde yeterli boşluk bulunmamakta, lütfen envanterini boşalt ve tekrar dene.";
 
-        private String haveRequestOngoing = "&cLütfen şu anki işleminin bitmesini bekle!";
+        private String haveRequestOngoing = "&cLütfen şu anki işleminin bitmesini bekleyiniz.";
+
+        private String registrationRequired = "{prefix} &cBu işlemi yapabilmek için siteye kayıt olmalısın!";
 
         /**
          * Help commands message
@@ -155,33 +157,6 @@ public class tr extends Language {
              */
             private String noPerm = "{prefix} &cBu işlemi yapabilmek için yeterli yetkiye sahip değilsin!";
 
-        }
-
-        /**
-         * Auth messages
-         */
-        private Auth auth = new Auth();
-
-        /**
-         * Auth messages of plugin
-         */
-        @Getter @Setter
-        public static class Auth extends Language.Messages.Auth {
-
-            /**
-             * Command Message
-             */
-            private String commandMessage = "{prefix} <&aHesabını eşlemek için tıkla!{&eTıkla!}(open_url:%link%)>";
-
-            /**
-             * Module error message
-             */
-            private String moduleError = "{prefix} <&cBu sistem siteye girişi gerektirmektedir. Giriş yapmak için tıkla!{&eTıkla!}(open_url:%link%)>";
-
-            /**
-             * error on auth link
-             */
-            private String noLink = "{prefix} &cSunucuya bağlanırken hata oluştu.";
         }
 
         /**
@@ -443,11 +418,6 @@ public class tr extends Language {
              * purchase subtitle error
              */
             private String buyWebStoreError = "&cSatın alım hatası.";
-
-            /**
-             * register website for this action
-             */
-            private String buyWebStoreNoAuthLinkError = "{prefix} &cBu işlemi yapabilmek için siteye kayıt olmalısın.";
 
             /**
              * Default Category attributes

@@ -7,9 +7,9 @@ import java.util.HashMap;
 
 public class BuyRequest extends PostRequest {
 
-    public BuyRequest(String user, String productId) throws IOException {
+    public BuyRequest(String userId, String productId) throws IOException {
         super("store/buy", new HashMap<String, String>() {{
-            put("user", user);
+            put("userID", userId);
             put("products[0][id]", productId);
             put("products[0][quantity]", "1");
         }});

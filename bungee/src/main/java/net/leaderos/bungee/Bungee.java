@@ -10,7 +10,6 @@ import net.leaderos.bungee.configuration.Language;
 import net.leaderos.bungee.configuration.Modules;
 import net.leaderos.bungee.helpers.ChatUtil;
 import net.leaderos.bungee.helpers.DebugBungee;
-import net.leaderos.bungee.modules.auth.AuthModule;
 import net.leaderos.bungee.modules.connect.ConnectModule;
 import net.leaderos.bungee.modules.credit.CreditModule;
 import net.leaderos.bungee.modules.discord.DiscordModule;
@@ -81,7 +80,6 @@ public class Bungee extends Plugin {
         )
         ;
         Bungee.getInstance().getProxy().getPluginManager().registerCommand(Bungee.getInstance(), new LeaderOSCommand("leaderos"));
-        getModuleManager().registerModule(new AuthModule());
         getModuleManager().registerModule(new DiscordModule());
         getModuleManager().registerModule(new CreditModule());
         getModuleManager().registerModule(new ConnectModule());

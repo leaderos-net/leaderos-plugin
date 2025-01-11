@@ -8,8 +8,8 @@ import lombok.RequiredArgsConstructor;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.helpers.MDChat.MDChatAPI;
+import net.leaderos.shared.Shared;
 import net.leaderos.shared.helpers.RequestUtil;
-import net.leaderos.shared.modules.discord.DiscordHelper;
 import org.bukkit.entity.Player;
 
 /**
@@ -36,16 +36,13 @@ public class SyncCommand extends BaseCommand {
         RequestUtil.addRequest(player.getUniqueId());
 
         org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
-            String link = DiscordHelper.getSyncLink(player.getName());
-            if (link != null)
-                player.spigot().sendMessage(
-                        MDChatAPI.getFormattedMessage(ChatUtil.color(Bukkit.getInstance()
-                                .getLangFile().getMessages()
-                                .getDiscord().getCommandMessage()
-                                .replace("%link%", link)
-                                .replace("{prefix}", Bukkit.getInstance().getLangFile().getMessages().getPrefix()))));
-            else
-                ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getDiscord().getNoLink());
+            String link = Shared.getLink() + "/discord/link";
+            player.spigot().sendMessage(
+                    MDChatAPI.getFormattedMessage(ChatUtil.color(Bukkit.getInstance()
+                            .getLangFile().getMessages()
+                            .getDiscord().getCommandMessage()
+                            .replace("%link%", link)
+                            .replace("{prefix}", Bukkit.getInstance().getLangFile().getMessages().getPrefix()))));
 
             RequestUtil.invalidate(player.getUniqueId());
         });

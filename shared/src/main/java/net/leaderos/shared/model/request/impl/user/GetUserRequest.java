@@ -6,8 +6,8 @@ import java.io.IOException;
 
 public class GetUserRequest extends GetRequest {
 
-    public GetUserRequest(String name) throws IOException {
-        super("users/" + name);
+    public GetUserRequest(String username) throws IOException {
+        super("users?username=" + username);
     }
 
 }
