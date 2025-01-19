@@ -60,7 +60,6 @@ public class tr extends Language {
         private List<String> help = Arrays.asList(
                 "&6&l  LEADEROS EKLENTI KOMUTLARI",
                 "",
-                "&8 ▪ &e/auth &8» &fHesap eşleme bağlantısı verir.",
                 "&8 ▪ &e/discord-sync &8» &fDiscord eşleme bağlantısı verir.",
                 "",
                 "&8 ▪ &e/credits &8» &fKredi miktarını görüntüler.",

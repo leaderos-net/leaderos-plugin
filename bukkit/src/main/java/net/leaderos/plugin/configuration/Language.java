@@ -65,7 +65,6 @@ public class Language extends OkaeriConfig {
         private List<String> help = Arrays.asList(
                 "&6&l  LEADEROS PLUGIN'S COMMANDS",
                 "",
-                "&8 ▪ &e/auth &8» &fGives you the auth link.",
                 "&8 ▪ &e/discord-sync &8» &fGives you the Discord sync link.",
                 "",
                 "&8 ▪ &e/webbazaar &8» &fOpens the Bazaar Storage menu.",
