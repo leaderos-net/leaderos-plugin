@@ -67,6 +67,8 @@ public class Placeholders extends PlaceholderExpansion {
             return user.getEmail();
         else if (identifier.equals("credit"))
             return String.valueOf(user.getCredit());
+        else if (identifier.equals("credit_integer"))
+            return String.valueOf((int) user.getCredit());
         else if (identifier.equals("creation_ip"))
             return user.getCreationIp();
         else if (identifier.equals("creation_date"))
