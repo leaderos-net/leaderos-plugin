@@ -20,6 +20,7 @@ import net.leaderos.plugin.modules.connect.ConnectModule;
 import net.leaderos.plugin.modules.credit.CreditModule;
 import net.leaderos.plugin.modules.discord.DiscordModule;
 import net.leaderos.plugin.modules.donations.DonationsModule;
+import net.leaderos.plugin.modules.verify.VerifyModule;
 import net.leaderos.plugin.modules.voucher.VoucherModule;
 import net.leaderos.plugin.modules.webstore.WebStoreModule;
 import net.leaderos.shared.Shared;
@@ -99,6 +100,7 @@ public class Bukkit extends JavaPlugin {
         setupCommands();
 
         // Loads modules
+        LeaderOSAPI.getModuleManager().registerModule(new VerifyModule());
         LeaderOSAPI.getModuleManager().registerModule(new DiscordModule());
         LeaderOSAPI.getModuleManager().registerModule(new CacheModule());
         LeaderOSAPI.getModuleManager().registerModule(new CreditModule());

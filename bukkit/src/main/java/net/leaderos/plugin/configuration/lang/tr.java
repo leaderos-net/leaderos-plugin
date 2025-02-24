@@ -65,6 +65,7 @@ public class tr extends Language {
         private List<String> help = Arrays.asList(
                 "&6&l  LEADEROS EKLENTI KOMUTLARI",
                 "",
+                "&8 ▪ &e/verify <kod> &8» &fMinecraft hesabınızı doğrular.",
                 "&8 ▪ &e/discord-sync &8» &fDiscord eşleme bağlantısı verir.",
                 "",
                 "&8 ▪ &e/webbazaar &8» &fPazar depo menüsünü açar.",
@@ -156,6 +157,27 @@ public class tr extends Language {
              */
             private String noPerm = "{prefix} &cBu işlemi yapabilmek için yeterli yetkiye sahip değilsin!";
 
+        }
+
+        /**
+         * Verify messages
+         */
+        private Verify verify = new Verify();
+
+        /**
+         * Discord messages of plugin
+         */
+        @Getter @Setter
+        public static class Verify extends Language.Messages.Verify {
+            /**
+             * success message
+             */
+            private String successMessage = "{prefix} &aHesabınız başarıyla doğrulandı. Websiteye geri dönünüz.";
+
+            /**
+             * error message
+             */
+            private String failMessage = "{prefix} &cHesabınız doğrulanamadı. Lütfen daha sonra tekrar deneyin.";
         }
 
         /**

@@ -60,6 +60,7 @@ public class Language extends OkaeriConfig {
         private List<String> help = Arrays.asList(
                 "&6&l  LEADEROS PLUGIN'S COMMANDS",
                 "",
+                "&8 ▪ &e/verify <code> &8» &fVerifies your Minecraft account.",
                 "&8 ▪ &e/discord-sync &8» &fGives you the Discord sync link.",
                 "",
                 "&8 ▪ &e/credits &8» &fShows your credit amount.",
@@ -144,6 +145,27 @@ public class Language extends OkaeriConfig {
              */
             private String noPerm = "{prefix} &cYou do not have permission to do this action!";
 
+        }
+
+        /**
+         * Verify messages
+         */
+        private Verify verify = new Verify();
+
+        /**
+         * Discord messages of plugin
+         */
+        @Getter @Setter
+        public static class Verify extends OkaeriConfig {
+            /**
+             * success message
+             */
+            private String successMessage = "{prefix} &aYour account has been successfully verified. Please back to the website.";
+
+            /**
+             * error message
+             */
+            private String failMessage = "{prefix} &cAn error occurred while verifying your account. Please try again later.";
         }
 
         /**

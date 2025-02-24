@@ -21,6 +21,26 @@ import java.util.List;
 @Names(strategy = NameStrategy.IDENTITY)
 public class Modules extends OkaeriConfig {
     /**
+     * Verify module
+     */
+    private Verify Verify = new Verify();
+
+    /**
+     * Verify module settings
+     *
+     * @since 1.0
+     * @author leaderos
+     */
+    @Getter
+    @Setter
+    public static class Verify extends OkaeriConfig {
+        /**
+         * Status of Verify module
+         */
+        private boolean status = false;
+    }
+
+    /**
      * Discord module
      */
     private Discord Discord = new Discord();
