@@ -6,6 +6,7 @@ import com.velocitypowered.api.proxy.Player;
 import net.leaderos.shared.error.Error;
 import net.leaderos.shared.helpers.MoneyUtil;
 import net.leaderos.shared.helpers.Placeholder;
+import net.leaderos.shared.helpers.RequestUtil;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.modules.credit.CreditHelper;
 import net.leaderos.velocity.Velocity;
@@ -30,67 +31,87 @@ public class CreditCommand implements SimpleCommand {
     public void execute(Invocation invocation) {
         CommandSource source = invocation.source();
         String[] args = invocation.arguments();
-        if (source instanceof Player) {
-            Player player = (Player) source;
 
+        if (source instanceof Player && !RequestUtil.canRequest(((Player)source).getUniqueId())) {
+            ChatUtil.sendMessage(source, Velocity.getInstance().getLangFile().getMessages().getHaveRequestOngoing());
+            return;
+        }
+
+        if (source instanceof Player) {
+            RequestUtil.addRequest(((Player)source).getUniqueId());
+        }
+
+        Velocity.getInstance().getServer().getScheduler().buildTask(Velocity.getInstance(), () -> {
             if (args.length == 0) {
-                if (player.hasPermission("leaderos.credit.see")) {
-                    Response targetCredits = CreditHelper.getRequest(player.getUsername());
-                    if (Objects.requireNonNull(targetCredits).getResponseCode() == HttpURLConnection.HTTP_OK) {
-                        ChatUtil.sendMessage(player,
-                                ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getCredit().getCreditInfo(),
-                                        new Placeholder("{amount}", MoneyUtil.format(targetCredits.getResponseMessage().getDouble("raw_credits")))));
+                if (source instanceof Player) {
+                    Player player = (Player) source;
+
+                    if (player.hasPermission("leaderos.credit.see")) {
+                        Response targetCredits = CreditHelper.getRequest(player.getUsername());
+                        if (Objects.requireNonNull(targetCredits).getResponseCode() == HttpURLConnection.HTTP_OK) {
+                            ChatUtil.sendMessage(player,
+                                    ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getCredit().getCreditInfo(),
+                                            new Placeholder("{amount}", MoneyUtil.format(targetCredits.getResponseMessage().getDouble("raw_credits")))));
+                        }
+                        else
+                            ChatUtil.sendMessage(player,
+                                    ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getCredit().getCreditInfo(),
+                                            new Placeholder("{amount}", MoneyUtil.format(0.00))));
                     }
-                    else
-                        ChatUtil.sendMessage(player,
-                                ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getCredit().getCreditInfo(),
-                                        new Placeholder("{amount}", MoneyUtil.format(0.00))));
-                }
-                else {
-                    ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
+                    else {
+                        ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
+                    }
                 }
             } else if (args.length == 2) {
                 if (args[0].equalsIgnoreCase("see")) {
-                    if (player.hasPermission("leaderos.credit.see.other")) {
-                        showCommand(player, args[1]);
+                    if (source.hasPermission("leaderos.credit.see.other")) {
+                        showCommand(source, args[1]);
                     } else {
-                        ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
+                        ChatUtil.sendMessage(source, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
                     }
                 }
             } else if (args.length == 3) {
                 double value = Double.parseDouble(args[2]);
                 String target = args[1];
                 if (args[0].equalsIgnoreCase("send")) {
-                    if (player.hasPermission("leaderos.credit.send")) {
-                        sendCommand(player, target, value);
-                    } else {
-                        ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
+                    if (source instanceof Player) {
+                        Player player = (Player) source;
+
+                        if (player.hasPermission("leaderos.credit.send")) {
+                            sendCommand(player, target, value);
+                        } else {
+                            ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
+                        }
                     }
                 } else if (args[0].equalsIgnoreCase("add")) {
-                    if (player.hasPermission("leaderos.credit.add")) {
-                        addCommand(player, target, value);
+                    if (source.hasPermission("leaderos.credit.add")) {
+                        addCommand(source, target, value);
                     } else {
-                        ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
+                        ChatUtil.sendMessage(source, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
                     }
                 } else if (args[0].equalsIgnoreCase("set")) {
-                    if (player.hasPermission("leaderos.credit.set")) {
-                        setCommand(player, target, value);
+                    if (source.hasPermission("leaderos.credit.set")) {
+                        setCommand(source, target, value);
                     } else {
-                        ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
+                        ChatUtil.sendMessage(source, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
                     }
                 } else if (args[0].equalsIgnoreCase("remove")) {
-                    if (player.hasPermission("leaderos.credit.remove")) {
-                        removeCommand(player, target, value);
+                    if (source.hasPermission("leaderos.credit.remove")) {
+                        removeCommand(source, target, value);
                     } else {
-                        ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
+                        ChatUtil.sendMessage(source, Velocity.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
                     }
                 } else {
-                    ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getInvalidArgument());
+                    ChatUtil.sendMessage(source, Velocity.getInstance().getLangFile().getMessages().getCommand().getInvalidArgument());
                 }
             } else {
-                ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getNotEnoughArguments());
+                ChatUtil.sendMessage(source, Velocity.getInstance().getLangFile().getMessages().getCommand().getNotEnoughArguments());
             }
-        }
+
+            if (source instanceof Player) {
+                RequestUtil.invalidate(((Player)source).getUniqueId());
+            }
+        }).schedule();
     }
 
 
@@ -173,7 +194,7 @@ public class CreditCommand implements SimpleCommand {
                     new Placeholder("{target}", target)
             ));
 
-            if (targetPlayer.isPresent())
+            if (targetPlayer != null && targetPlayer.isPresent())
                 ChatUtil.sendMessage(player,
                         ChatUtil.replacePlaceholders(Velocity.getInstance().getLangFile().getMessages().getCredit().getReceivedCredit(),
                                 new Placeholder("{amount}", MoneyUtil.format(amount)),

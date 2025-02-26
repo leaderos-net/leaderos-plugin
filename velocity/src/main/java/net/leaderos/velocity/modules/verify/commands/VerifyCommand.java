@@ -3,6 +3,7 @@ package net.leaderos.velocity.modules.verify.commands;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import com.velocitypowered.api.proxy.Player;
+import net.leaderos.shared.helpers.RequestUtil;
 import net.leaderos.shared.model.Response;
 import net.leaderos.shared.model.request.impl.verify.VerifyRequest;
 import net.leaderos.velocity.Velocity;
@@ -28,21 +29,33 @@ public class VerifyCommand implements SimpleCommand {
 
         if (source instanceof Player) {
             Player player = (Player) source;
+
             if (player.hasPermission("leaderos.verify")) {
                 if (args.length == 1) {
-                    try {
-                        String code = args[0];
-                        String username = player.getUsername();
-                        String uuid = player.getUniqueId().toString();
-                        Response verifyRequest = new VerifyRequest(code, username, uuid).getResponse();
-                        if (verifyRequest.getResponseCode() == HttpURLConnection.HTTP_OK && verifyRequest.getResponseMessage().getBoolean("status")) {
-                            ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getVerify().getSuccessMessage());
-                        } else {
+                    if (!RequestUtil.canRequest(player.getUniqueId())) {
+                        ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getHaveRequestOngoing());
+                        return;
+                    }
+
+                    RequestUtil.addRequest(player.getUniqueId());
+
+                    Velocity.getInstance().getServer().getScheduler().buildTask(Velocity.getInstance(), () -> {
+                        try {
+                            String code = args[0];
+                            String username = player.getUsername();
+                            String uuid = player.getUniqueId().toString();
+                            Response verifyRequest = new VerifyRequest(code, username, uuid).getResponse();
+                            if (verifyRequest.getResponseCode() == HttpURLConnection.HTTP_OK && verifyRequest.getResponseMessage().getBoolean("status")) {
+                                ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getVerify().getSuccessMessage());
+                            } else {
+                                ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getVerify().getFailMessage());
+                            }
+                        } catch (Exception e) {
                             ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getVerify().getFailMessage());
                         }
-                    } catch (Exception e) {
-                        ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getVerify().getFailMessage());
-                    }
+
+                        RequestUtil.invalidate(player.getUniqueId());
+                    }).schedule();
                 } else {
                     ChatUtil.sendMessage(player, Velocity.getInstance().getLangFile().getMessages().getCommand().getNotEnoughArguments());
                 }
