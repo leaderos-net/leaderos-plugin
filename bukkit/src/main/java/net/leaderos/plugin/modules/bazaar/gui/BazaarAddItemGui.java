@@ -63,43 +63,39 @@ public class BazaarAddItemGui {
         gui.addElement(new GuiStorageElement('i', inv));
         // Close action area (event)
         gui.setCloseAction(close -> {
-                    // Calculating storage amounts
-                    int maxStorageAmount = GameUtil.getAmountFromPerm(player,
-                            "bazaar.maxstorage.",
-                            Bukkit.getInstance().getModulesFile().getBazaar().getDefaultStorageSize());
+            int maxStorageAmount = GameUtil.getAmountFromPerm(player,
+                    "bazaar.maxstorage.",
+                    Bukkit.getInstance().getModulesFile().getBazaar().getDefaultStorageSize());
+            int canStoreAmount = maxStorageAmount - itemAmount;
+            List<ItemStack> items = Arrays.stream(inv.getContents()).collect(Collectors.toList());
+            String userId = User.getUser(player.getName()).getId();
+            int serverId = BazaarModule.getServerId();
 
-                    int canStoreAmount = maxStorageAmount - itemAmount;
-                    // Items which stored (airs included)
-                    List<ItemStack> items = Arrays.stream(inv.getContents()).collect(Collectors.toList());
-                    String userId = User.getUser(player.getName()).getId();
-                    int serverId = BazaarModule.getServerId();
+            // List to store items that need to be returned to the player
+            List<ItemStack> returnItems = new ArrayList<>();
 
-                    // If player maxed out storage limit items will be added to
-                    // this list then gives back to player.
-                    List<ItemStack> returnItems = new ArrayList<>();
+            // List to store items that will be processed
+            List<ItemStack> itemsToStore = new ArrayList<>();
 
-                    // item loop
-                    for (ItemStack item : items) {
-                        // Checks if item is empty or null (can be AIR etc.)
-                        if (item == null)
-                            continue;
-                        if (item.getType() == null)
-                            continue;
-                        if (item.getType().equals(Material.AIR))
-                            continue;
-                        // Checks if area is filler item
-                        if (item.equals(fillerItem))
-                            continue;
+            // First, determine which items exceed the storage limit
+            for (ItemStack item : items) {
+                if (item == null || item.getType() == Material.AIR || item.equals(fillerItem))
+                    continue;
 
-                        // Calculates storage amount
-                        if (canStoreAmount > 0)
-                            canStoreAmount--;
-                            // If maxed out then add items to temp array
-                        else {
-                            returnItems.add(item);
-                            continue;
-                        }
-                        // Item info
+                if (canStoreAmount > 0) {
+                    canStoreAmount--;
+                    itemsToStore.add(item);
+                } else {
+                    returnItems.add(item);
+                }
+            }
+
+            // Start asynchronous processing
+            org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+                List<ItemStack> failedItems = new ArrayList<>();
+
+                for (ItemStack item : itemsToStore) {
+                    try {
                         XMaterial material = XMaterial.matchXMaterial(item);
                         String name = ItemUtil.getName(item);
                         String lore = (item.hasItemMeta() && item.getItemMeta().hasLore()) ?
@@ -113,37 +109,38 @@ public class BazaarAddItemGui {
                         String modelId = ItemUtil.getModelId(item);
                         String enchantments = ItemUtil.getEnchantments(item);
 
-                        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
-                            // Sends response
-                            try {
-                                Response postBazaarItem = new AddBazaarItemRequest(userId, name, lore, amount, maxDurability, durability, base64, price, creationDate, modelId, enchantments, serverId, material.name()).getResponse();
-                                if (postBazaarItem.getResponseCode() == HttpURLConnection.HTTP_OK && postBazaarItem.getResponseMessage().getBoolean("status")) {
-                                    ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
-                                            Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getAddItemMessage(),
-                                            new Placeholder("%item_name%", name)
-                                    ));
-                                } else if (postBazaarItem.getError() == Error.INSERT_ERROR) {
-                                    returnItems.add(item);
-                                } else throw new Exception();
-                            } catch (Exception e) {
-                                // TODO error msg
-                                e.printStackTrace();
-                                // If something occur when adding item it will pop item back to player inventory
-                                returnItems.add(item);
-                            }
-                            if (!returnItems.isEmpty()) {
-                                PlayerInventory playerInventory = player.getInventory();
+                        Response postBazaarItem = new AddBazaarItemRequest(userId, name, lore, amount, maxDurability,
+                                durability, base64, price, creationDate, modelId, enchantments, serverId, material.name()).getResponse();
 
-                                returnItems.forEach(playerInventory::addItem);
-                                String returnMessage = Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getReturnItemMessage();
-                                returnMessage = returnMessage.replace("%max_amount%", String.valueOf(maxStorageAmount))
-                                        .replace("%amount%", String.valueOf(returnItems.size()));
-                                ChatUtil.sendMessage(player, returnMessage);
-                            }
-                        });
+                        // If the request fails, add the item to the failed list
+                        if (postBazaarItem.getResponseCode() != HttpURLConnection.HTTP_OK || !postBazaarItem.getResponseMessage().getBoolean("status")) {
+                            failedItems.add(item);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        failedItems.add(item);
                     }
-                    return false; // Don't go back to the previous GUI (true would automatically go back to the previously opened one)
+                }
+
+                // Add failed items to the return list
+                returnItems.addAll(failedItems);
+
+                // Return the failed or excess items to the player
+                if (!returnItems.isEmpty()) {
+                    org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+                        PlayerInventory playerInventory = player.getInventory();
+                        returnItems.forEach(playerInventory::addItem);
+                        String returnMessage = Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getReturnItemMessage();
+                        returnMessage = returnMessage.replace("%max_amount%", String.valueOf(maxStorageAmount))
+                                .replace("%amount%", String.valueOf(returnItems.size()));
+                        ChatUtil.sendMessage(player, returnMessage);
+                    });
+                }
             });
+
+            return false; // Don't go back to the previous GUI (true would automatically go back to the previously opened one)
+        });
+
         gui.show(player);
     }
 }
