@@ -117,6 +117,9 @@ public class WebStoreGui {
                 product.getProductIcon(),
                 1,
                 click -> {
+                    // Disable click
+                    if (product.isRestricted()) return true;
+
                     ConfirmPurchaseGui.showGui(player, product);
                     return true;
                 })))

@@ -430,6 +430,12 @@ public class tr extends Language {
 
             private String buyWebStoreRequiredProduct = "&cSahip olmadığınız gerekli ürünleri satın almalısınız!";
 
+            private String buyWebStoreRequiredLinkedAccount = "&cBu ürünü satın almak için hesabınızı eşlemeniz gerekiyor!";
+
+            private String buyWebStoreDowngradeNotAllowed = "&cÜyeliğinizin paketini düşüremezsiniz!";
+
+            private String buyWebStoreInvalidVariable = "&cGeçersiz değişken girdiniz!";
+
             /**
              * purchase subtitle success
              */

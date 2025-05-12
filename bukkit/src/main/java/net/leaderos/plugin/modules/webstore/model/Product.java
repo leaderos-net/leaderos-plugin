@@ -24,11 +24,6 @@ import java.util.stream.Collectors;
 public class Product {
 
     /**
-     * dateFormatter
-     */
-    private static SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-    /**
      * Product status
      */
     private boolean status;
@@ -59,34 +54,44 @@ public class Product {
     private int modelId;
 
     /**
-     * Product price
+     * Product total price
      */
-    private double price;
+    private double total;
 
     /**
-     * Product price text with currency
+     * Product discount
      */
-    private String priceText;
+    private double discount;
 
     /**
-     * Product discount price
+     * Product original price
      */
-    private double discountedPrice;
+    private double originalPrice;
 
     /**
-     * Product discounted price text with currency
+     * Product original price text with currency
      */
-    private String discountedPriceText;
+    private String originalPriceText;
 
     /**
-     * Discount expiry date
+     * Product total price text with currency
      */
-    private Date discountExpiryDate;
+    private String totalText;
+
+    /**
+     * Product discount percent
+     */
+    private int discountPercent;
 
     /**
      * Product stock
      */
     private int stock;
+
+    /**
+     * Restricted Status
+     */
+    private boolean restricted;
 
     /**
      * Constructor of Product
@@ -118,22 +123,15 @@ public class Product {
         this.productLore.addAll(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getDefaultProduct().getLore());
 
         // price, discountedPrice, stock data
-        this.price = product.getDouble("price");
-        this.priceText = product.getString("priceText");
-        this.discountedPrice = product.getDouble("discountedPrice");
-        this.discountedPriceText = product.getString("discountedPriceText");
+        this.total = product.getDouble("total");
+        this.originalPrice = product.getDouble("originalPrice");
+        this.discount = product.getDouble("discount");
         this.stock = product.getInt("stock");
+        this.restricted = product.getBoolean("restricted");
 
-        // expire date data
-        try {
-            this.discountExpiryDate = format.parse(product.getString("discountExpiryDate"));
-        }
-        catch (ParseException e) {
-            try {
-                this.discountExpiryDate = format.parse("1000-01-01 00:00:00");
-            } catch (ParseException ex) {}
-        }
-
+        this.originalPriceText = product.getString("originalPriceFormatted");
+        this.totalText = product.getString("totalFormatted");
+        this.discountPercent = product.getInt("discountPercent");
 
         String materialName = product.getString("minecraftItem");
         if (materialName != null && XMaterial.matchXMaterial(materialName).isPresent())
@@ -155,28 +153,23 @@ public class Product {
     public ItemStack getProductIcon() {
         String displayName = getProductName();
         List<String> lore;
+        XMaterial material = this.restricted ? XMaterial.BARRIER : getMaterial();
 
         // Discount calculation and replacements
-        boolean hasDiscount = false;
-        Date discountDate = getDiscountExpiryDate();
+        boolean hasDiscount = getDiscount() > 0;
 
-        if (getDiscountedPrice() > 0
-                && (discountDate.after(new Date()) || format.format(discountDate).equals("1000-01-01 00:00:00")))
-            hasDiscount = true;
-
-        int discountAmount = (int) (((getPrice() - getDiscountedPrice()) / getPrice()) * 100);
         // Formatters of price
         String priceFormat = Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getPriceFormat()
-                .replace("{price}", String.valueOf(priceText))
-                .replace("{rawPrice}", String.valueOf(price));
+                .replace("{price}", String.valueOf(getTotalText()))
+                .replace("{rawPrice}", String.valueOf(getTotal()));
         // Formatters of discount
         String discountedPriceFormat = Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountedPriceFormat()
-                .replace("{price}", String.valueOf(priceText))
-                .replace("{rawPrice}", String.valueOf(price))
-                .replace("{discountedPrice}", String.valueOf(discountedPriceText))
-                .replace("{rawDiscountedPrice}", String.valueOf(discountedPrice));
+                .replace("{price}", String.valueOf(getOriginalPriceText()))
+                .replace("{rawPrice}", String.valueOf(getOriginalPrice()))
+                .replace("{discountedPrice}", String.valueOf(getTotalText()))
+                .replace("{rawDiscountedPrice}", String.valueOf(getTotal()));
         String discountAmountFormat = Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getDiscountAmountFormat()
-                .replace("{discount}", String.valueOf(discountAmount));
+                .replace("{discount}", String.valueOf(getDiscountPercent()));
         String stockUnlimited = Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getStockUnlimited();
 
 
@@ -204,6 +197,6 @@ public class Product {
         lore = ChatUtil.color(lore);
         displayName = ChatUtil.color(displayName);
 
-        return ItemUtil.getItem(getMaterial(), displayName, lore, getModelId());
+        return ItemUtil.getItem(material, displayName, lore, getModelId());
     }
 }

@@ -67,6 +67,12 @@ public class WebStoreHelper {
                             player.sendTitle(title, ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreProductNotFound()));
                         else if (buyRequest.getError() == Error.REQUIRED_PRODUCT)
                             player.sendTitle(title, ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreRequiredProduct()));
+                        else if (buyRequest.getError() == Error.REQUIRED_LINKED_ACCOUNT)
+                            player.sendTitle(title, ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreRequiredLinkedAccount()));
+                        else if (buyRequest.getError() == Error.DOWNGRADE_NOT_ALLOWED)
+                            player.sendTitle(title, ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreDowngradeNotAllowed()));
+                        else if (buyRequest.getError() == Error.INVALID_VARIABLE)
+                            player.sendTitle(title, ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreDowngradeNotAllowed()));
                     } catch (IOException e) {
                         player.sendTitle(title, subtitleError);
                     }
