@@ -440,7 +440,7 @@ public class en extends Language {
 
             private String buyWebStoreRequiredLinkedAccount = "&cYou must link your account to buy this product!";
 
-            private String buyWebStoreDowngradeNotAllowed = "&cYou cannot downgrade your plan!";
+            private String buyWebStoreDowngradeNotAllowed = "&cYou cannot downgrade your subscription!";
 
             private String buyWebStoreInvalidVariable = "&cInvalid variables provided!";
 
