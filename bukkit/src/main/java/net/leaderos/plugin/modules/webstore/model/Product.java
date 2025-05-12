@@ -140,6 +140,10 @@ public class Product {
         if (material == null || !material.isSupported() || material == XMaterial.AIR)
             this.material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getProductDefaultMaterial()).orElse(XMaterial.DIAMOND);
 
+        if (this.restricted) {
+            this.material = XMaterial.matchXMaterial(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getRestrictedProduct().getItem()).orElse(XMaterial.BARRIER);
+        }
+
         Optional.ofNullable(product.optString("minecraftItemModelID", null))
                 .filter(id -> !id.isEmpty() && !id.equals("0"))
                 .ifPresent(modelId -> this.modelId = Integer.parseInt(modelId));
@@ -153,7 +157,7 @@ public class Product {
     public ItemStack getProductIcon() {
         String displayName = getProductName();
         List<String> lore;
-        XMaterial material = this.restricted ? XMaterial.BARRIER : getMaterial();
+        XMaterial material = getMaterial();
 
         // Discount calculation and replacements
         boolean hasDiscount = getDiscount() > 0;

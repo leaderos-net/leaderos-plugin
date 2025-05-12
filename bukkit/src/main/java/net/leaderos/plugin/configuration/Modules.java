@@ -284,6 +284,22 @@ public class Modules extends OkaeriConfig {
             }
 
             /**
+             * RestrictedProduct item object
+             */
+            private Gui.RestrictedProduct restrictedProduct = new Gui.RestrictedProduct();
+
+            /**
+             * PreviousPage item arguments class
+             */
+            @Getter @Setter
+            public static class RestrictedProduct extends OkaeriConfig {
+                /**
+                 * material of item
+                 */
+                private String item = "BARRIER";
+            }
+
+            /**
              * Default Category attributes
              */
             private Gui.DefaultCategory defaultCategory = new Gui.DefaultCategory();
