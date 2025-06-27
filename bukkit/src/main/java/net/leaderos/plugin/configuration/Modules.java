@@ -174,6 +174,23 @@ public class Modules extends OkaeriConfig {
                 "Restart the server after changing this option. Reload will not work!"
         })
         private long reconnectionTimer = 0;
+
+        /**
+         * List of commands that are blocked from being executed by the module
+         */
+        @Comment({
+                "Blacklist of commands to be executed",
+                "You can add commands that you do not want to be executed here.",
+                "Example: /op, /stop, /ban"
+        })
+        private List<String> commandBlacklist = Arrays.asList(
+                "op",
+                "deop",
+                "stop",
+                "restart",
+                "reload",
+                "ban"
+        );
     }
 
     /**

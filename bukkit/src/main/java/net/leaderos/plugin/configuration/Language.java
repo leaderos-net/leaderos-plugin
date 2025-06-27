@@ -298,6 +298,8 @@ public class Language extends OkaeriConfig {
             private String connectExecutedCommandFromQueue = "{prefix} &aConnect module executed the command from the queue: &e%command%";
 
             private String subscribedChannel = "{prefix} &aConnect module has been successfully connected to the server!";
+
+            private String commandBlacklisted = "{prefix} &cThis command is blacklisted and cannot be executed: &e%command%";
         }
     }
 

@@ -11,6 +11,7 @@ import net.leaderos.shared.modules.connect.socket.SocketClient;
 import net.leaderos.shared.modules.connect.data.CommandsQueue;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -61,11 +62,39 @@ public class ConnectModule extends LeaderOSModule {
              */
             @Override
             public void executeCommands(List<String> commands, String username) {
+                List<String> validatedCommands = new ArrayList<>();
+
+                // Get command blacklist from config
+                List<String> commandBlacklist = Bungee.getInstance().getModulesFile().getConnect().getCommandBlacklist();
+
+                // Check if commands are in blacklist
+                for (String command : commands) {
+                    // If command is not empty and starts with a slash, remove the slash
+                    if (command.startsWith("/")) {
+                        command = command.substring(1);
+                    }
+
+                    // Get the root command (the first word before space)
+                    String commandRoot = command.split(" ")[0];
+
+                    // Check if the command is blacklisted
+                    if (commandBlacklist.contains(commandRoot)) {
+                        String msg = ChatUtil.replacePlaceholders(
+                                Bungee.getInstance().getLangFile().getMessages().getConnect().getCommandBlacklisted(),
+                                new Placeholder("%command%", command)
+                        );
+                        ChatUtil.sendMessage(Bungee.getInstance().getProxy().getConsole(), msg);
+                    } else {
+                        // If command is valid, add to validatedCommands
+                        validatedCommands.add(command);
+                    }
+                }
+
                 // If player is offline and onlyOnline is true
                 if (Bungee.getInstance().getModulesFile().getConnect().isOnlyOnline() && Bungee.getInstance().getProxy().getPlayer(username) == null) {
-                    commandsQueue.addCommands(username, commands);
+                    commandsQueue.addCommands(username, validatedCommands);
 
-                    commands.forEach(command -> {
+                    validatedCommands.forEach(command -> {
                         String msg = ChatUtil.replacePlaceholders(
                                 Bungee.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
                                 new Placeholder("%command%", command)
@@ -74,7 +103,7 @@ public class ConnectModule extends LeaderOSModule {
                     });
                 } else {
                     // Execute commands
-                    commands.forEach(command -> {
+                    validatedCommands.forEach(command -> {
                         Bungee.getInstance().getProxy().getPluginManager().dispatchCommand(Bungee.getInstance().getProxy().getConsole(), command);
                         String msg = ChatUtil.replacePlaceholders(
                                 Bungee.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),

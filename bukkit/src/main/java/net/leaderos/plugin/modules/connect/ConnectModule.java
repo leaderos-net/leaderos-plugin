@@ -13,6 +13,7 @@ import net.leaderos.shared.modules.connect.data.CommandsQueue;
 import org.bukkit.event.HandlerList;
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -63,11 +64,49 @@ public class ConnectModule extends LeaderOSModule {
              */
             @Override
             public void executeCommands(List<String> commands, String username) {
+                List<String> validatedCommands = new ArrayList<>();
+
+                // Get command blacklist from config
+                List<String> commandBlacklist = Bukkit.getInstance().getModulesFile().getConnect().getCommandBlacklist();
+
+                // Check if commands are in blacklist
+                for (String command : commands) {
+                    // If command is not empty and starts with a slash, remove the slash
+                    if (command.startsWith("/")) {
+                        command = command.substring(1);
+                    }
+
+                    // Get the root command (the first word before space)
+                    String commandRoot = command.split(" ")[0];
+
+                    // Clean bukkit: prefix
+                    if (commandRoot.startsWith("bukkit:")) {
+                        commandRoot = commandRoot.substring(7);
+                    }
+
+                    // Clean minecraft: prefix
+                    if (commandRoot.startsWith("minecraft:")) {
+                        commandRoot = commandRoot.substring(10);
+                    }
+
+                    // Check if the command is blacklisted
+                    if (commandBlacklist.contains(commandRoot)) {
+                        String msg = ChatUtil.replacePlaceholders(
+                                Bukkit.getInstance().getLangFile().getMessages().getConnect().getCommandBlacklisted(),
+                                new Placeholder("%command%", command)
+                        );
+                        ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), msg);
+                    } else {
+                        // If command is valid, add to validatedCommands
+                        validatedCommands.add(command);
+                    }
+                }
+
                 // If player is offline and onlyOnline is true
                 if (Bukkit.getInstance().getModulesFile().getConnect().isOnlyOnline() && org.bukkit.Bukkit.getPlayer(username) == null) {
-                    commandsQueue.addCommands(username, commands);
+                    commandsQueue.addCommands(username, validatedCommands);
 
-                    commands.forEach(command -> {
+                    validatedCommands.forEach(command -> {
                         String msg = ChatUtil.replacePlaceholders(
                                 Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectWillExecuteCommand(),
                                 new Placeholder("%command%", command)
@@ -75,9 +114,9 @@ public class ConnectModule extends LeaderOSModule {
                         ChatUtil.sendMessage(org.bukkit.Bukkit.getConsoleSender(), msg);
                     });
                 } else {
-                    // Execute commands
+                    // Execute validated commands
                     org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
-                        commands.forEach(command -> {
+                        validatedCommands.forEach(command -> {
                             org.bukkit.Bukkit.dispatchCommand(org.bukkit.Bukkit.getConsoleSender(), command);
 
                             String msg = ChatUtil.replacePlaceholders(Bukkit.getInstance().getLangFile().getMessages().getConnect().getConnectExecutedCommand(),

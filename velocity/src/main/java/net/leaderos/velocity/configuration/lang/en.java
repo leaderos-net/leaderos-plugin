@@ -247,6 +247,8 @@ public class en extends Language {
             private String connectExecutedCommandFromQueue = "{prefix} &aConnect module executed the command from the queue: &e%command%";
 
             private String subscribedChannel = "{prefix} &aConnect module has been successfully connected to the server!";
+
+            private String commandBlacklisted = "{prefix} &cBu komut kara listeye alındığı için çalıştırılamadı: &e%command%";
         }
     }
 }

@@ -242,6 +242,8 @@ public class tr extends Language {
             private String connectExecutedCommandFromQueue = "{prefix} &aConnect modülü, oyuncu sunucuya katıldıktan sonra komutu çalıştırdı: &e%command%";
 
             private String subscribedChannel = "{prefix} &aConnect modülü başarıyla sunucuya bağlandı!";
+
+            private String commandBlacklisted = "{prefix} &cBu komut kara listeye alındığı için çalıştırılamadı: &e%command%";
         }
     }
 }
