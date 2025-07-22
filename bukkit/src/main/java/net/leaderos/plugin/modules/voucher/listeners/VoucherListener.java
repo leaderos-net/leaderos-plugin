@@ -17,7 +17,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -51,12 +53,17 @@ public class VoucherListener implements Listener {
         ItemStack itemStack = event.getItem();
         if (itemStack.getType() == Material.AIR)
             return;
+
+        if (!event.getAction().equals(Action.RIGHT_CLICK_AIR) && !event.getAction().equals(Action.RIGHT_CLICK_BLOCK))
+            return;
+
         NBTItem nbtItem = new NBTItem(itemStack);
         if (!nbtItem.hasKey("voucher"))
             return;
 
         // not actually necessary but just in case
         event.setCancelled(true);
+
         int id = nbtItem.getInteger("voucher:id");
         // Cache check
         if (awaitingVouchers.contains(String.valueOf(id)))
@@ -81,57 +88,61 @@ public class VoucherListener implements Listener {
             return;
         }
 
+        // Item clone. We will return it if error.
+        ItemStack removedVoucher = itemStack.clone();
+
+        // Remove item from the correct hand
+        if (event.getHand() == EquipmentSlot.HAND) {
+            player.getInventory().setItemInMainHand(null);
+        } else if (event.getHand() == EquipmentSlot.OFF_HAND) {
+            player.getInventory().setItemInOffHand(null);
+        }
+
         RequestUtil.addRequest(player.getUniqueId());
-        list.add(id);
-        VoucherModule.getVoucherData().set("used", list);
-        VoucherModule.getVoucherData().save();
 
         org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
             Response depositResponse = CreditHelper.addCreditRequest(player.getName(), amount);
             if (Objects.requireNonNull(depositResponse).getResponseCode() == HttpURLConnection.HTTP_OK
                     && depositResponse.getResponseMessage().getBoolean("status")) {
 
-                // Calls UpdateCache event for update player's cache
                 org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+                    // Add voucher to used list
+                    List<Integer> usedList = VoucherModule.getVoucherData().getIntegerList("used");
+                    usedList.add(id);
+                    VoucherModule.getVoucherData().set("used", usedList);
+                    VoucherModule.getVoucherData().save();
+
+                    // Calls UpdateCache event for update player's cache
                     org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), amount, UpdateType.ADD));
                     awaitingVouchers.remove(String.valueOf(id));
-                    remove(player, id);
                 });
 
                 ChatUtil.sendMessage(player, ChatUtil.replacePlaceholders(
                         Bukkit.getInstance().getLangFile().getMessages().getVouchers()
                                 .getSuccessfullyUsed(), new Placeholder("{amount}", MoneyUtil.format(amount))
                 ));
-            } else if (depositResponse.getError() == Error.USER_NOT_FOUND) {
-                ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
+            } else {
+                // Return item to player if error
+                org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+                    // Drop item if inventory is full
+                    if (player.getInventory().firstEmpty() == -1) {
+                        player.getWorld().dropItemNaturally(player.getLocation(), removedVoucher);
+                    } else {
+                        // Add item to inventory
+                        player.getInventory().addItem(removedVoucher);
+                    }
+                });
+
+                // Send message if user not found
+                if (depositResponse.getError() == Error.USER_NOT_FOUND) {
+                    ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
+                }
+
+                // Remove voucher from awaiting list
                 awaitingVouchers.remove(String.valueOf(id));
             }
 
             RequestUtil.invalidate(player.getUniqueId());
         });
-    }
-
-    /**
-     * Removes item from player inventory
-     * @param target player
-     * @param id of slot
-     */
-    private void remove(@NotNull Player target, int id) {
-        int slot = -1;
-        for (ItemStack item : target.getInventory().getContents()) {
-            slot++;
-            if (item == null || item.getType() != XMaterial.PAPER.parseMaterial()) continue;
-
-            NBTItem nbtItem = new NBTItem(item);
-            if (nbtItem.hasKey("voucher") && nbtItem.getInteger("voucher:id") == id) {
-                if (item.getAmount() > 1) {
-                    item.setAmount(item.getAmount() - 1);
-                    break;
-                } else if (item.getAmount() == 1) {
-                    target.getInventory().setItem(slot, null);
-                    break;
-                }
-            }
-        }
     }
 }
