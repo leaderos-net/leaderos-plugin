@@ -66,6 +66,7 @@ public class en extends Language {
         private List<String> help = Arrays.asList(
                 "&6&l  LEADEROS PLUGIN'S COMMANDS",
                 "",
+                "&8 ▪ &e/ai <prompt> &8» &fGenerates an AI response based on the prompt.",
                 "&8 ▪ &e/verify <code> &8» &fVerifies your Minecraft account.",
                 "&8 ▪ &e/discord-sync &8» &fGives you the Discord sync link.",
                 "",
@@ -179,6 +180,37 @@ public class en extends Language {
              * error message
              */
             private String failMessage = "{prefix} &cAn error occurred while verifying your account. Please try again later.";
+        }
+
+        /**
+         * AI messages
+         */
+        private Ai ai = new Ai();
+
+        /**
+         * AI messages of plugin
+         */
+        @Getter @Setter
+        public static class Ai extends Language.Messages.Ai {
+            /**
+             * AI message
+             */
+            private String aiMessage = "{prefix} &f{message}";
+
+            /**
+             * AI command usage
+             */
+            private String usage = "{prefix} &fUsage: &e/ai <prompt>";
+
+            /*
+             * Generating AI response message
+             */
+            private String generating = "{prefix} &7Generating AI response, please wait a moment.";
+
+            /**
+             * Error message
+             */
+            private String failMessage = "{prefix} &cAn error occurred while generating AI response. Please try again later.";
         }
 
         /**

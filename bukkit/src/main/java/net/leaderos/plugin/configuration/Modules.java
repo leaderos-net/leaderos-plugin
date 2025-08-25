@@ -21,6 +21,26 @@ import java.util.List;
 @Names(strategy = NameStrategy.IDENTITY)
 public class Modules extends OkaeriConfig {
     /**
+     * AI module
+     */
+    private Ai Ai = new Ai();
+
+    /**
+     * AI module settings
+     *
+     * @since 1.0
+     * @author leaderos
+     */
+    @Getter
+    @Setter
+    public static class Ai extends OkaeriConfig {
+        /**
+         * Status of AI module
+         */
+        private boolean status = false;
+    }
+
+    /**
      * Verify module
      */
     private Verify Verify = new Verify();

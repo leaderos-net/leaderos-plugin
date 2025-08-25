@@ -19,3 +19,7 @@ commands:
         description: Sync your account with discord
     donations:
         description: Shows who donated server recently with
+    verify:
+        description: Verifies your Minecraft account
+    ai:
+        description: Generates an AI response based on the prompt

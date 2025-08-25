@@ -60,6 +60,7 @@ public class Language extends OkaeriConfig {
         private List<String> help = Arrays.asList(
                 "&6&l  LEADEROS PLUGIN'S COMMANDS",
                 "",
+                "&8 ▪ &e/ai <prompt> &8» &fGenerates a response from AI.",
                 "&8 ▪ &e/verify <code> &8» &fVerifies your Minecraft account.",
                 "&8 ▪ &e/discord-sync &8» &fGives you the Discord sync link.",
                 "",
@@ -166,6 +167,37 @@ public class Language extends OkaeriConfig {
              * error message
              */
             private String failMessage = "{prefix} &cAn error occurred while verifying your account. Please try again later.";
+        }
+
+        /**
+         * AI messages
+         */
+        private Ai ai = new Ai();
+
+        /**
+         * AI messages of plugin
+         */
+        @Getter @Setter
+        public static class Ai extends OkaeriConfig {
+            /**
+             * AI message
+             */
+            private String aiMessage = "{prefix} &f{message}";
+
+            /**
+             * AI command usage
+             */
+            private String usage = "{prefix} &fUsage: &e/ai <prompt>";
+
+            /*
+            * Generating AI response message
+             */
+            private String generating = "{prefix} &7Generating AI response, please wait a moment.";
+
+            /**
+             * Error message
+             */
+            private String failMessage = "{prefix} &cAn error occurred while generating AI response. Please try again later.";
         }
 
         /**

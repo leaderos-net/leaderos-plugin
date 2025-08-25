@@ -60,6 +60,7 @@ public class tr extends Language {
         private List<String> help = Arrays.asList(
                 "&6&l  LEADEROS EKLENTI KOMUTLARI",
                 "",
+                "&8 ▪ &e/ai <prompt> &8» &fYapay Zekaya soru sorar.",
                 "&8 ▪ &e/verify <kod> &8» &fMinecraft hesabınızı doğrular.",
                 "&8 ▪ &e/discord-sync &8» &fDiscord eşleme bağlantısı verir.",
                 "",
@@ -166,6 +167,37 @@ public class tr extends Language {
              * error message
              */
             private String failMessage = "{prefix} &cHesabınız doğrulanamadı. Lütfen daha sonra tekrar deneyin.";
+        }
+
+        /**
+         * AI messages
+         */
+        private Ai ai = new Ai();
+
+        /**
+         * AI messages of plugin
+         */
+        @Getter @Setter
+        public static class Ai extends Language.Messages.Ai {
+            /**
+             * AI message
+             */
+            private String aiMessage = "{prefix} &f{message}";
+
+            /**
+             * AI command usage
+             */
+            private String usage = "{prefix} &fKullanım: &e/ai <soru>";
+
+            /*
+             * Generating AI response message
+             */
+            private String generating = "{prefix} &7Yapay Zeka cevap oluşturuyor, lütfen bekleyiniz...";
+
+            /**
+             * Error message
+             */
+            private String failMessage = "{prefix} &cYapay Zeka ile iletişim kurulamadı. Lütfen daha sonra tekrar deneyin.";
         }
 
         /**
