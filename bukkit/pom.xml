@@ -32,6 +32,7 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.6.0</version>
                 <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
                     <relocations>
                         <relocation>
                             <pattern>com.cryptomorin.xseries</pattern>
@@ -56,10 +57,6 @@
                         <relocation>
                             <pattern>de.tr7zw.changeme.nbtapi</pattern>
                             <shadedPattern>net.leaderos.plugin.shades.nbtapi</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>com.cryptomorin.xseries</pattern>
-                            <shadedPattern>net.leaderos.plugin.shades.xseries</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>dev.triumphteam</pattern>

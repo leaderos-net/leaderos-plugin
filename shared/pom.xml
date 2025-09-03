@@ -24,6 +24,7 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.6.0</version>
                 <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
                     <relocations>
                         <relocation>
                             <pattern>de.leonhard.storage</pattern>
@@ -64,6 +65,7 @@
             <groupId>com.github.simplix-softworks</groupId>
             <artifactId>simplixstorage</artifactId>
             <version>3.2.7</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.pusher</groupId>
