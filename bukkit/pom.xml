@@ -27,7 +27,6 @@
             </resource>
         </resources>
         <plugins>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -36,11 +35,47 @@
                     <relocations>
                         <relocation>
                             <pattern>com.cryptomorin.xseries</pattern>
-                            <shadedPattern>net.leaderos.utils.xseries</shadedPattern>
+                            <shadedPattern>net.leaderos.plugin.shades.xseries</shadedPattern>
+                            <excludes>
+                                <exclude>com/cryptomorin/xseries/XBiome*</exclude>
+                                <exclude>com/cryptomorin/xseries/XEnchantment*</exclude>
+                                <exclude>com/cryptomorin/xseries/XEntity*</exclude>
+                                <exclude>com/cryptomorin/xseries/XPotion*</exclude>
+                                <exclude>com/cryptomorin/xseries/particles/*</exclude>
+                                <exclude>com/cryptomorin/xseries/XTag*</exclude>
+                                <exclude>com/cryptomorin/xseries/NMSExtras*</exclude>
+                                <exclude>com/cryptomorin/xseries/NoteBlockMusic*</exclude>
+                                <exclude>com/cryptomorin/xseries/SkullCacheListener*</exclude>
+                                <exclude>com/cryptomorin/xseries/XItemStack*</exclude>
+                            </excludes>
+                        </relocation>
+                        <relocation>
+                            <pattern>de.themoep.inventorygui</pattern>
+                            <shadedPattern>net.leaderos.plugin.shades.inventorygui</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>de.tr7zw.changeme.nbtapi</pattern>
+                            <shadedPattern>net.leaderos.plugin.shades.nbtapi</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.cryptomorin.xseries</pattern>
+                            <shadedPattern>net.leaderos.plugin.shades.xseries</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>dev.triumphteam</pattern>
+                            <shadedPattern>net.leaderos.plugin.shades.triumphteam</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>eu.okaeri</pattern>
+                            <shadedPattern>net.leaderos.plugin.shades.okaeri</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>net.leaderos.utils.bstats</shadedPattern>
+                            <shadedPattern>net.leaderos.plugin.shades.bstats</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.tcoded.folialib</pattern>
+                            <shadedPattern>net.leaderos.plugin.shades.folialib</shadedPattern>
                         </relocation>
                     </relocations>
                     <!-- Here you can remove the classes you don't use. -->
@@ -70,15 +105,6 @@
             </plugin>
         </plugins>
     </build>
-
-    <repositories>
-        <!-- MojangAPI Repo -->
-        <repository>
-            <id>minecraft-libraries</id>
-            <name>Minecraft Libraries</name>
-            <url>https://libraries.minecraft.net/</url>
-        </repository>
-    </repositories>
 
     <dependencies>
         <!-- LeaderOS Shared -->
@@ -145,6 +171,13 @@
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
             <version>3.0.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <!-- FoliaLib -->
+        <dependency>
+            <groupId>com.tcoded</groupId>
+            <artifactId>FoliaLib</artifactId>
+            <version>0.5.1</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
