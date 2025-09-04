@@ -40,7 +40,9 @@ public class DonationsModule extends LeaderOSModule {
      */
     public void onDisable() {
         Bukkit.getCommandManager().unregisterCommand(new DonationsCommand());
-        Timer.taskid.cancel();
+        if (Timer.task != null) {
+            Timer.task.cancel();
+        }
         if( org.bukkit.Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             new Placeholders().unregister();
     }

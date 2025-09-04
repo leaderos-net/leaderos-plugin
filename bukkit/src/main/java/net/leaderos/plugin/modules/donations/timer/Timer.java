@@ -1,8 +1,8 @@
 package net.leaderos.plugin.modules.donations.timer;
 
+import com.tcoded.folialib.wrapper.task.WrappedTask;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.modules.donations.managers.DonationManager;
-import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * Time checker for update scheduler
@@ -15,25 +15,15 @@ public class Timer {
     /**
      * Runnable id for cancel or resume
      */
-    public static BukkitRunnable taskid;
+    public static WrappedTask task;
     public static void run() {
-        if (taskid != null) {
-            taskid.cancel();
-            taskid = null;
+        if (task != null) {
+            task.cancel();
+            task = null;
         }
-        taskid = new BukkitRunnable() {
-            @Override
-            public synchronized void cancel() throws IllegalStateException {
-                super.cancel();
-            }
-            public void run() {
-                DonationManager.updateAllData();
-            }
 
-        };
-        taskid.runTaskTimerAsynchronously(Bukkit.getInstance(),
-                1L,
-                20* Bukkit.getInstance().getModulesFile().getDonations().getUpdateSecond());
-
+        task = Bukkit.getFoliaLib().getScheduler().runTimerAsync(() -> {
+            DonationManager.updateAllData();
+        }, 1L, 20* Bukkit.getInstance().getModulesFile().getDonations().getUpdateSecond());
     }
 }

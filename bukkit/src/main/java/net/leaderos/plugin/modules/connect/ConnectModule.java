@@ -12,7 +12,6 @@ import net.leaderos.shared.modules.connect.socket.SocketClient;
 import net.leaderos.shared.modules.connect.data.CommandsQueue;
 import org.bukkit.event.HandlerList;
 
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -146,7 +145,9 @@ public class ConnectModule extends LeaderOSModule {
         try {
             HandlerList.unregisterAll(loginListener);
             getCommandsQueue().getExecutor().shutdown();
-            Timer.taskid.cancel();
+            if (Timer.task != null) {
+                Timer.task.cancel();
+            }
         } catch (Exception ignored) {}
     }
 
