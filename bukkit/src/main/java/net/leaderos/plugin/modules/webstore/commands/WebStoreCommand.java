@@ -64,7 +64,7 @@ public class WebStoreCommand extends BaseCommand {
 
         RequestUtil.addRequest(player.getUniqueId());
 
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        Bukkit.getFoliaLib().getScheduler().runAsync((task) -> {
             Category category = WebStoreHelper.findCategoryById(player.getName(), categoryId);
             RequestUtil.invalidate(player.getUniqueId());
 

@@ -38,7 +38,7 @@ public class WebStoreHelper {
                 String subtitleSuccess = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreSuccess());
                 String subtitleNotEnoughCredit = ChatUtil.color(Bukkit.getInstance().getLangFile().getGui().getWebStoreGui().getBuyWebStoreNotEnoughCredit());
                 player.sendTitle(title, subtitleProgress);
-                org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+                Bukkit.getFoliaLib().getScheduler().runAsync((task) -> {
                     // Buy progress
                     try {
                         if (user == null) {
@@ -53,7 +53,7 @@ public class WebStoreHelper {
 
                             // Calls UpdateCache event for update player's cache
                             double credits = responseData.getDouble("credits");
-                            org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), credits, UpdateType.SET)));
+                            Bukkit.getFoliaLib().getScheduler().runNextTick((event_task) -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(player.getName(), credits, UpdateType.SET)));
                             player.sendTitle(title, subtitleSuccess);
                         }
                         else if (buyRequest.getError() == Error.INVALID_QUANTITY
@@ -80,7 +80,7 @@ public class WebStoreHelper {
                 });
             }
             else {
-                org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+                Bukkit.getFoliaLib().getScheduler().runAsync((task) -> {
                     ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getRegistrationRequired());
 
                     RequestUtil.invalidate(player.getUniqueId());

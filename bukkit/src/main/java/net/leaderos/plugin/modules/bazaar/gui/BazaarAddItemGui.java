@@ -91,7 +91,7 @@ public class BazaarAddItemGui {
             }
 
             // Start asynchronous processing
-            org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+            Bukkit.getFoliaLib().getScheduler().runAsync((task) -> {
                 List<ItemStack> failedItems = new ArrayList<>();
 
                 for (ItemStack item : itemsToStore) {
@@ -127,7 +127,7 @@ public class BazaarAddItemGui {
 
                 // Return the failed or excess items to the player
                 if (!returnItems.isEmpty()) {
-                    org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+                    Bukkit.getFoliaLib().getScheduler().runNextTick((items_task) -> {
                         PlayerInventory playerInventory = player.getInventory();
                         returnItems.forEach(playerInventory::addItem);
                         String returnMessage = Bukkit.getInstance().getLangFile().getGui().getBazaarGui().getReturnItemMessage();

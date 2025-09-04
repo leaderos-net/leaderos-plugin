@@ -100,12 +100,12 @@ public class VoucherListener implements Listener {
 
         RequestUtil.addRequest(player.getUniqueId());
 
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        Bukkit.getFoliaLib().getScheduler().runAsync((task) -> {
             Response depositResponse = CreditHelper.addCreditRequest(player.getName(), amount);
             if (Objects.requireNonNull(depositResponse).getResponseCode() == HttpURLConnection.HTTP_OK
                     && depositResponse.getResponseMessage().getBoolean("status")) {
 
-                org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+                Bukkit.getFoliaLib().getScheduler().runNextTick((file_task) -> {
                     // Add voucher to used list
                     List<Integer> usedList = VoucherModule.getVoucherData().getIntegerList("used");
                     usedList.add(id);
@@ -123,7 +123,7 @@ public class VoucherListener implements Listener {
                 ));
             } else {
                 // Return item to player if error
-                org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+                Bukkit.getFoliaLib().getScheduler().runNextTick((item_task) -> {
                     // Drop item if inventory is full
                     if (player.getInventory().firstEmpty() == -1) {
                         player.getWorld().dropItemNaturally(player.getLocation(), removedVoucher);

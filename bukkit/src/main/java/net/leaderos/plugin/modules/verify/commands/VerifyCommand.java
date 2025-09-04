@@ -38,7 +38,7 @@ public class VerifyCommand extends BaseCommand {
 
         RequestUtil.addRequest(player.getUniqueId());
 
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        Bukkit.getFoliaLib().getScheduler().runAsync((task) -> {
             try {
                 String username = player.getName();
                 String uuid = player.getUniqueId().toString();

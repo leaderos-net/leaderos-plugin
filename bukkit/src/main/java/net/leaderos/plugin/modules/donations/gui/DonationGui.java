@@ -44,7 +44,7 @@ public class DonationGui {
         // Filler item for empty slots
         gui.setFiller(GuiHelper.getFiller(Bukkit.getInstance().getModulesFile().getDonations().getGui().getFillerItem().isUseFiller(), Bukkit.getInstance().getModulesFile().getDonations().getGui().getFillerItem().getMaterial()));
 
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        Bukkit.getFoliaLib().getScheduler().runAsync((task) -> {
             GuiElementGroup latestGroup = getGuiElementGroup(DonationType.LATEST);
             gui.addElement(latestGroup);
 

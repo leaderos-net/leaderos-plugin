@@ -34,7 +34,7 @@ public class LoginListener implements Listener {
             if (commands == null || commands.isEmpty()) return;
 
             // Execute commands
-            org.bukkit.Bukkit.getScheduler().runTaskLater(Bukkit.getInstance(), () -> {
+            Bukkit.getFoliaLib().getScheduler().runLater(() -> {
                 if (!player.isOnline()) return;
 
                 commands.forEach(command -> {

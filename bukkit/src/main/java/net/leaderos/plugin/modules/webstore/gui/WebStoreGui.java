@@ -41,7 +41,7 @@ public class WebStoreGui {
 
         RequestUtil.addRequest(player.getUniqueId());
 
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        Bukkit.getFoliaLib().getScheduler().runAsync((task) -> {
             // Gui template as array
             String[] layout = Bukkit.getInstance().getModulesFile().getWebStore().getGui().getLayout().toArray(new String[0]);
             // Inventory object
@@ -96,7 +96,7 @@ public class WebStoreGui {
             gui.addElement(GuiHelper.createNextPage(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getNextPage().getItem()));
             gui.addElement(GuiHelper.createPreviousPage(Bukkit.getInstance().getModulesFile().getWebStore().getGui().getPreviousPage().getItem()));
 
-            org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+            Bukkit.getFoliaLib().getScheduler().runNextTick((gui_task) -> {
                 gui.show(player);
             });
 

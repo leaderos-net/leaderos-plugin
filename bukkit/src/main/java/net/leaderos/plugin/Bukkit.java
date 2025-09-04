@@ -1,5 +1,6 @@
 package net.leaderos.plugin;
 
+import com.tcoded.folialib.FoliaLib;
 import dev.triumphteam.cmd.bukkit.BukkitCommandManager;
 import dev.triumphteam.cmd.bukkit.message.BukkitMessageKey;
 import dev.triumphteam.cmd.core.message.MessageKey;
@@ -49,6 +50,12 @@ public class Bukkit extends JavaPlugin {
     private static Bukkit instance;
 
     /**
+     * Instance of FoliaLib
+     */
+    @Getter
+    private static FoliaLib foliaLib;
+
+    /**
      * Instance of shared;
      */
     @Setter
@@ -85,6 +92,7 @@ public class Bukkit extends JavaPlugin {
      */
     public void onLoad() {
         instance = this;
+        foliaLib = new FoliaLib(this);
         setupFiles();
         shared = new Shared(
                 UrlUtil.format(getConfigFile().getSettings().getUrl()),
@@ -188,7 +196,7 @@ public class Bukkit extends JavaPlugin {
     }
 
     public void checkUpdate() {
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        foliaLib.getScheduler().runAsync((task) -> {
             PluginUpdater updater = new PluginUpdater(getDescription().getVersion());
             try {
                 if (updater.checkForUpdates()) {

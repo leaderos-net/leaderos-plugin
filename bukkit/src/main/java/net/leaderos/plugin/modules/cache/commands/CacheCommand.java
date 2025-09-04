@@ -25,7 +25,7 @@ public class CacheCommand extends BaseCommand {
     @Permission("leaderos.cache.update")
     @SubCommand(value = "update", alias = {"reset"})
     public void updateCommand(CommandSender sender, String target) {
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        Bukkit.getFoliaLib().getScheduler().runAsync((task) -> {
 
             // Check if the player is online
             if (org.bukkit.Bukkit.getPlayer(target) == null) {
@@ -38,7 +38,7 @@ public class CacheCommand extends BaseCommand {
             Double amount = LeaderOSAPI.getCreditManager().get(target);
 
             if (amount != null) {
-                org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.SET)));
+                Bukkit.getFoliaLib().getScheduler().runNextTick((event_task) -> org.bukkit.Bukkit.getPluginManager().callEvent(new UpdateCacheEvent(target, amount, UpdateType.SET)));
 
                 ChatUtil.sendMessage(sender, ChatUtil.replacePlaceholders(
                         Bukkit.getInstance().getLangFile().getMessages().getCredit().getCacheUpdated(),

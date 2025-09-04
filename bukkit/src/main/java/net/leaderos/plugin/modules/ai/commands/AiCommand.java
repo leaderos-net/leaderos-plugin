@@ -47,7 +47,7 @@ public class AiCommand extends BaseCommand {
 
         ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getAi().getGenerating());
 
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        Bukkit.getFoliaLib().getScheduler().runAsync((task) -> {
             try {
                 // Get player locale
                 String locale = player.getLocale();

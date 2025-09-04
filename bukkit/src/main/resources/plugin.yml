@@ -3,6 +3,7 @@ authors: [leaderos]
 main: net.leaderos.plugin.Bukkit
 version: '${shared.version}'
 api-version: 1.13
+folia-supported: true
 softdepend: [PlaceholderAPI]
 commands:
     leaderos:

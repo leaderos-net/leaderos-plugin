@@ -42,7 +42,7 @@ public class BazaarGui {
 
         RequestUtil.addRequest(player.getUniqueId());
 
-        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+        Bukkit.getFoliaLib().getScheduler().runAsync((task) -> {
             // Gui template as array
             String[] layout = Bukkit.getInstance().getModulesFile().getBazaar().getGui().getLayout().toArray(new String[0]);
             // Inventory object
@@ -89,7 +89,7 @@ public class BazaarGui {
 
                                         RequestUtil.addRequest(player.getUniqueId());
 
-                                        org.bukkit.Bukkit.getScheduler().runTaskAsynchronously(Bukkit.getInstance(), () -> {
+                                        Bukkit.getFoliaLib().getScheduler().runAsync((item_task) -> {
                                             Error error = playerBazaarItem.withdrawItem(player, playerBazaarItem.getId());
                                             if (error == null)
                                                 player.sendTitle(title, subtitleSuccess);
@@ -109,7 +109,7 @@ public class BazaarGui {
             gui.addElement(GuiHelper.createNextPage(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getNextPage().getItem()));
             gui.addElement(GuiHelper.createPreviousPage(Bukkit.getInstance().getModulesFile().getBazaar().getGui().getPreviousPage().getItem()));
 
-            org.bukkit.Bukkit.getScheduler().runTask(Bukkit.getInstance(), () -> {
+            Bukkit.getFoliaLib().getScheduler().runNextTick((gui_task) -> {
                 gui.show(player);
             });
 
