@@ -8,7 +8,7 @@
 </p>
 </div>
 
-🧩 The official LeaderOS plugin for Minecraft servers. We currently support Bukkit, Spigot, Bungeecord, Velocity. Offer features such as Web Store, Bazaar, Credits, Authentication and ensure product delivery after purchase.
+🧩 The official LeaderOS plugin for Minecraft servers. We currently support Bukkit, Spigot, Paper, Folia, Bungeecord, Velocity. Offer features such as Web Store, Bazaar, Credits, Authentication and ensure product delivery after purchase.
 
 ## Download
 [https://www.spigotmc.org/resources/leaderos-net-official-plugin.105496/](https://www.spigotmc.org/resources/leaderos-net-official-plugin.105496/)
