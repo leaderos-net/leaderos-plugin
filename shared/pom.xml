@@ -17,33 +17,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-shade-plugin</artifactId>
-                <version>3.6.0</version>
-                <configuration>
-                    <createDependencyReducedPom>false</createDependencyReducedPom>
-                    <relocations>
-                        <relocation>
-                            <pattern>de.leonhard.storage</pattern>
-                            <shadedPattern>net.leaderos.shared.shades.storage</shadedPattern>
-                        </relocation>
-                    </relocations>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
     <dependencies>
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -65,7 +38,6 @@
             <groupId>com.github.simplix-softworks</groupId>
             <artifactId>simplixstorage</artifactId>
             <version>3.2.7</version>
-            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.pusher</groupId>
