@@ -24,6 +24,6 @@ public class Timer {
 
         task = Bukkit.getFoliaLib().getScheduler().runTimerAsync(() -> {
             DonationManager.updateAllData();
-        }, 1L, 20* Bukkit.getInstance().getModulesFile().getDonations().getUpdateSecond());
+        }, 1L, 20 * Bukkit.getInstance().getModulesFile().getDonations().getUpdateSecond());
     }
 }

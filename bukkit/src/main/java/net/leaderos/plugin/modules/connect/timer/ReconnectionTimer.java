@@ -9,7 +9,7 @@ import net.leaderos.plugin.modules.connect.ConnectModule;
  * Time checker for update scheduler
  *
  */
-public class Timer {
+public class ReconnectionTimer {
 
     /**
      * Runnable id for cancel or resume

@@ -5,7 +5,8 @@ import lombok.Getter;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.helpers.ChatUtil;
 import net.leaderos.plugin.modules.connect.listeners.LoginListener;
-import net.leaderos.plugin.modules.connect.timer.Timer;
+import net.leaderos.plugin.modules.connect.timer.FallbackTimer;
+import net.leaderos.plugin.modules.connect.timer.ReconnectionTimer;
 import net.leaderos.shared.helpers.Placeholder;
 import net.leaderos.shared.modules.LeaderOSModule;
 import net.leaderos.shared.modules.connect.socket.SocketClient;
@@ -27,6 +28,7 @@ public class ConnectModule extends LeaderOSModule {
     /**
      * Socket client for connect to leaderos
      */
+    @Getter
     private SocketClient socket;
 
     /**
@@ -133,7 +135,8 @@ public class ConnectModule extends LeaderOSModule {
         };
 
         try {
-            Timer.run();
+            ReconnectionTimer.run();
+            FallbackTimer.run();
         } catch (Exception ignored) {}
     }
 
@@ -145,8 +148,11 @@ public class ConnectModule extends LeaderOSModule {
         try {
             HandlerList.unregisterAll(loginListener);
             getCommandsQueue().getExecutor().shutdown();
-            if (Timer.task != null) {
-                Timer.task.cancel();
+            if (ReconnectionTimer.task != null) {
+                ReconnectionTimer.task.cancel();
+            }
+            if (FallbackTimer.task != null) {
+                FallbackTimer.task.cancel();
             }
         } catch (Exception ignored) {}
     }

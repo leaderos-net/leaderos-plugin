@@ -185,6 +185,15 @@ public class Modules extends OkaeriConfig {
         private int executeDelay = 5;
 
         /**
+         * Fallback timer in minutes
+         */
+        @Comment({
+                "If commands are not executed for any reason, this option will fetch the queue every x minutes.",
+                "Set to 0 to disable this option."
+        })
+        private long fallbackTimer = 0;
+
+        /**
          * You can activate this option if you are experiencing disconnections. (in seconds) (0 to disable)
          */
         @Comment({
