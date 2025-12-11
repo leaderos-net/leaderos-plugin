@@ -18,6 +18,7 @@ import net.leaderos.plugin.helpers.DebugBukkit;
 import net.leaderos.plugin.modules.ai.AiModule;
 import net.leaderos.plugin.modules.bazaar.BazaarModule;
 import net.leaderos.plugin.modules.cache.CacheModule;
+import net.leaderos.plugin.modules.communitygoal.CommunityGoalModule;
 import net.leaderos.plugin.modules.connect.ConnectModule;
 import net.leaderos.plugin.modules.credit.CreditModule;
 import net.leaderos.plugin.modules.discord.DiscordModule;
@@ -118,6 +119,7 @@ public class Bukkit extends JavaPlugin {
         LeaderOSAPI.getModuleManager().registerModule(new BazaarModule());
         LeaderOSAPI.getModuleManager().registerModule(new VoucherModule());
         LeaderOSAPI.getModuleManager().registerModule(new DonationsModule());
+        LeaderOSAPI.getModuleManager().registerModule(new CommunityGoalModule());
         LeaderOSAPI.getModuleManager().registerModule(new ConnectModule());
 
         if (getConfigFile().getSettings().getUrl().equals("https://yourwebsite.com")) {

@@ -719,4 +719,62 @@ public class Modules extends OkaeriConfig {
             }
         }
     }
+
+    /**
+     * CommunityGoal module setting
+     */
+    private CommunityGoal CommunityGoal = new CommunityGoal();
+
+    /**
+     * CommunityGoal module settings
+     *
+     * @since 1.0
+     * @author leaderos
+     */
+    @Getter
+    @Setter
+    public static class CommunityGoal extends OkaeriConfig {
+        /**
+         * Status of CommunityGoal
+         */
+        private boolean status = true;
+        /**
+         * CommunityGoal scheduler second
+         */
+        private long updateSecond = 900;
+
+        /**
+         * Progress bar settings
+         */
+        private ProgressBar progressBar = new ProgressBar();
+
+        /**
+         * ProgressBar settings
+         * @author leaderos
+         * @since 1.0
+         */
+        @Getter
+        @Setter
+        public static class ProgressBar extends OkaeriConfig {
+            /**
+             * Filled color
+             */
+            private String filledColor = "&a";
+
+            /**
+             * Empty color
+             */
+            private String emptyColor = "&f";
+
+            /**
+             * Bar symbol
+             */
+            private String symbol = "|";
+
+            /**
+             * Bar length
+             */
+            private int length = 10;
+        }
+    }
 }
