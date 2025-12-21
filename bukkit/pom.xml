@@ -54,7 +54,7 @@
         <dependency>
             <groupId>com.github.CryptoMorin</groupId>
             <artifactId>XSeries</artifactId>
-            <version>v13.5.1</version>
+            <version>v13.6.0</version>
         </dependency>
         <!-- NBT Api -->
         <dependency>
