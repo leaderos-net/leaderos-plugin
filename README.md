@@ -16,7 +16,7 @@
 ## Wiki
 🇺🇸 English: [https://docs.leaderos.net/integrations/leaderos-plugin](https://docs.leaderos.net/integrations/leaderos-plugin)
 
-🇹🇷 Türkçe: [https://destek.leaderos.com.tr/uecretsiz-hizmetler/leaderos-plugin](https://destek.leaderos.com.tr/uecretsiz-hizmetler/leaderos-plugin)
+🇹🇷 Türkçe: [https://destek.leaderos.com.tr/plugins/minecraft/leaderos-plugin](https://destek.leaderos.com.tr/plugins/minecraft/leaderos-plugin)
 
 ## API
 
