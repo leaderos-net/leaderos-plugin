@@ -15,7 +15,7 @@ public class PluginUpdater {
 
     public PluginUpdater(String currentVersion) {
         try {
-            this.url = new URL("https://api2.leaderos.net/plugin-version-check.php?version=" + currentVersion);
+            this.url = new URL("https://api2.leaderos.net/plugin-version-check.php?plugin=minecraft_leaderos&version=" + currentVersion);
         } catch (Exception ignored) {}
     }
 
