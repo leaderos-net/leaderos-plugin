@@ -49,19 +49,10 @@ public class HttpTimer {
                 response.getJSONArray("array").forEach(queue -> {
                     try {
                         JSONObject queueObject = (JSONObject) queue;
-                        int retry = 0;
-                        long timeDiff = 0;
-                        try {
-                            retry = Integer.parseInt(queueObject.getString("retry"));
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                            Date date = sdf.parse(queueObject.getString("updatedAt"));
-                            timeDiff = (System.currentTimeMillis() - date.getTime()) / 1000;
-                        } catch (Exception ignored) {}
 
                         // Only add error or stuck commands
                         if (
-                                queueObject.getString("status").equals("error") ||
-                                        (queueObject.getString("status").equals("sending") && retry < 60 && timeDiff > 60 && timeDiff < 86400)
+                                queueObject.getString("status").equals("error") || queueObject.getString("status").equals("sending")
                         ) {
                             logIDs.add(queueObject.getString("id"));
                         }
