@@ -8,6 +8,7 @@ import eu.okaeri.configs.annotation.Names;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -166,6 +167,30 @@ public class Modules extends OkaeriConfig {
         private String serverToken = "YOUR_SERVER_TOKEN";
 
         /**
+         * Connection mode: AUTO, SOCKET, or HTTP
+         * AUTO  - Tries socket first; falls back to HTTP polling if socket fails
+         * SOCKET - Uses only WebSocket (Pusher) connection
+         * HTTP   - Uses only HTTP polling to fetch the command queue
+         */
+        @Comment({
+                "Connection mode for the Connect module.",
+                "AUTO   - Tries WebSocket first; automatically falls back to HTTP polling on connection failure.",
+                "SOCKET - Uses only WebSocket (Pusher) connection. No HTTP fallback.",
+                "HTTP   - Uses only HTTP polling to fetch the command queue. No WebSocket."
+        })
+        private String connectionMode = "AUTO";
+
+        /**
+         * HTTP polling interval in minutes (used in HTTP mode and as fallback in AUTO mode)
+         */
+        @Comment({
+                "HTTP polling interval in minutes.",
+                "Used when connectionMode is HTTP, or when AUTO mode falls back to HTTP.",
+                "Set to 1 or higher. Must be greater than 0 when using HTTP or AUTO mode."
+        })
+        private long httpTimer = 2;
+
+        /**
          * Executes commands only if player is online
          */
         @Comment({
@@ -183,26 +208,6 @@ public class Modules extends OkaeriConfig {
                 "This option will execute commands in the queue with a delay (x seconds) when the player comes online.",
         })
         private int executeDelay = 5;
-
-        /**
-         * Fallback timer in minutes
-         */
-        @Comment({
-                "If commands are not executed for any reason, this option will fetch the queue every x minutes.",
-                "Set to 0 to disable this option."
-        })
-        private long fallbackTimer = 0;
-
-        /**
-         * You can activate this option if you are experiencing disconnections. (in seconds) (0 to disable)
-         */
-        @Comment({
-                "You can activate this option if you are experiencing disconnections.",
-                "Set 0 to disable this option. If you are experiencing disconnections, you can set this option to 10 or higher.",
-                "This option will check the connection every x seconds and reconnect if the connection is lost.",
-                "Restart the server after changing this option. Reload will not work!"
-        })
-        private long reconnectionTimer = 0;
 
         /**
          * List of commands that are blocked from being executed by the module

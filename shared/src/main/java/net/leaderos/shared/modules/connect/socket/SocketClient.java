@@ -62,6 +62,18 @@ public abstract class SocketClient {
             @Override
             public void onConnectionStateChange(ConnectionStateChange change) {
                 System.out.println("LeaderOS Connect: State changed from " + change.getPreviousState() + " to " + change.getCurrentState());
+
+                // Notify when connection is lost (DISCONNECTED after being CONNECTED)
+                if (change.getCurrentState() == ConnectionState.DISCONNECTED
+                        && change.getPreviousState() == ConnectionState.CONNECTED) {
+                    onConnectionLost();
+                }
+
+                // Notify when connection is re-established
+                if (change.getCurrentState() == ConnectionState.CONNECTED
+                        && change.getPreviousState() != ConnectionState.CONNECTED) {
+                    onConnectionRestored();
+                }
             }
 
             @Override
@@ -71,6 +83,7 @@ public abstract class SocketClient {
                         "\nmessage: " + message +
                         "\nException: " + e
                 );
+                onConnectionFailed(message, code, e);
             }
         }, ConnectionState.ALL);
 
@@ -174,4 +187,22 @@ public abstract class SocketClient {
      * Subscribed to channel
      */
     public abstract void subscribed();
+
+    /**
+     * Called when the socket connection is lost (CONNECTED → DISCONNECTED).
+     * Override in AUTO mode to start HTTP polling as fallback.
+     */
+    public void onConnectionLost() {}
+
+    /**
+     * Called when a connection error occurs during initial connect or reconnect.
+     * Override in AUTO mode to start HTTP polling as fallback.
+     */
+    public void onConnectionFailed(String message, String code, Exception e) {}
+
+    /**
+     * Called when the socket connection is restored (any state → CONNECTED).
+     * Override in AUTO mode to stop HTTP polling and resume socket-only operation.
+     */
+    public void onConnectionRestored() {}
 }
