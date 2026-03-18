@@ -27,6 +27,10 @@ public class HttpTimer {
      */
     public static WrappedTask task;
 
+    public static boolean isRunning() {
+        return task != null && !task.isCancelled();
+    }
+
     public static void run() {
         if (task != null) {
             task.cancel();

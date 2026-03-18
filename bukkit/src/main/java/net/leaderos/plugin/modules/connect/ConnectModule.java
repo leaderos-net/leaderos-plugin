@@ -42,6 +42,12 @@ public class ConnectModule extends LeaderOSModule {
     private static CommandsQueue commandsQueue;
 
     /**
+     * Tracks whether the socket is currently considered connected.
+     * Used to avoid redundant HttpTimer start/stop calls on repeated state changes.
+     */
+    private volatile boolean isConnected = true;
+
+    /**
      * onEnable method of module
      */
     public void onEnable() {
@@ -58,6 +64,7 @@ public class ConnectModule extends LeaderOSModule {
 
         if (mode.equals("HTTP")) {
             // HTTP-only mode: skip socket entirely, just poll via HTTP
+            isConnected = false;
             HttpTimer.run();
             return;
         }
@@ -85,24 +92,39 @@ public class ConnectModule extends LeaderOSModule {
             @Override
             public void onConnectionLost() {
                 if (mode.equals("AUTO")) {
-                    System.out.println("LeaderOS Connect [AUTO]: Socket connection lost. Starting HTTP polling as fallback.");
-                    HttpTimer.run();
+                    // Only trigger if we were previously connected (true → false)
+                    if (isConnected) {
+                        isConnected = false;
+                        System.out.println("LeaderOS Connect [AUTO]: Socket connection lost. Starting HTTP polling as fallback.");
+                        HttpTimer.run();
+                    }
                 }
             }
 
             @Override
             public void onConnectionFailed(String message, String code, Exception e) {
                 if (mode.equals("AUTO")) {
-                    System.out.println("LeaderOS Connect [AUTO]: Socket connection failed. Starting HTTP polling as fallback.");
-                    HttpTimer.run();
+                    // Only trigger if we were previously connected (true → false)
+                    if (isConnected) {
+                        isConnected = false;
+                        System.out.println("LeaderOS Connect [AUTO]: Socket connection failed. Starting HTTP polling as fallback.");
+                        HttpTimer.run();
+                    }
                 }
             }
 
             @Override
             public void onConnectionRestored() {
                 if (mode.equals("AUTO")) {
-                    System.out.println("LeaderOS Connect [AUTO]: Socket connection restored. Stopping HTTP polling.");
-                    HttpTimer.stop();
+                    // Only act if HTTP timer was actually running (i.e. we fell back to HTTP before)
+                    if (!isConnected) {
+                        isConnected = true;
+
+                        if (HttpTimer.isRunning()) {
+                            System.out.println("LeaderOS Connect [AUTO]: Socket connection restored. Stopping HTTP polling.");
+                            HttpTimer.stop();
+                        }
+                    }
                 }
             }
         };
