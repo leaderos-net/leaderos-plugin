@@ -13,10 +13,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.jetbrains.annotations.NotNull;
-import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.Base64;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -28,19 +28,13 @@ import java.util.Set;
  */
 public class ItemUtil {
 
-    /**
-     * convert item to base64
-     *
-     * @param itemStack itemStack of item
-     * @return base64 of item
-     */
     public static String toBase64(ItemStack itemStack) {
         try (ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
              BukkitObjectOutputStream dataOutput = new BukkitObjectOutputStream(outputStream)) {
 
             dataOutput.writeObject(itemStack);
 
-            return Base64Coder.encodeLines(outputStream.toByteArray());
+            return Base64.getMimeEncoder().encodeToString(outputStream.toByteArray());
         } catch (Exception e) {
             throw new IllegalStateException("Unable to save itemStack.", e);
         }
@@ -52,10 +46,13 @@ public class ItemUtil {
      * @return created item
      */
     public static ItemStack fromBase64(String encoded) {
-        try (ByteArrayInputStream outputStream = new ByteArrayInputStream(Base64Coder.decodeLines(encoded));
-             BukkitObjectInputStream dataOutput = new BukkitObjectInputStream(outputStream)) {
+        try {
+            byte[] bytes = Base64.getMimeDecoder().decode(encoded);
+            try (ByteArrayInputStream inputStream = new ByteArrayInputStream(bytes);
+                 BukkitObjectInputStream dataInput = new BukkitObjectInputStream(inputStream)) {
 
-            return (ItemStack) dataOutput.readObject();
+                return (ItemStack) dataInput.readObject();
+            }
         } catch (Exception e) {
             throw new IllegalStateException("Unable to read itemStack.", e);
         }
