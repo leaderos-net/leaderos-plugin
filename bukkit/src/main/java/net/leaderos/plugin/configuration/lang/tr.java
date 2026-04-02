@@ -624,7 +624,11 @@ public class tr extends Language {
             /**
              * Add item lore
              */
-            private List<String> addItemLore = Arrays.asList("", "&aTıkla ve eşya ekle!");
+            private List<String> addItemLore = Arrays.asList(
+                    "&7Pazar deposuna item eklemek için",
+                    "&7itemi elinde elinde tutarken",
+                    "&e/pazar ekle &7komutunu kullan."
+            );
 
             /**
              * Add item gui name
@@ -637,6 +641,11 @@ public class tr extends Language {
              * return item message
              */
             private String returnItemMessage = "{prefix} &cDepo sınırına ulaştın, en fazla &8(&4%max_amount%&8) &ceşya ekleyebilirsin. &e%amount% &cadet eşya iade edildi.";
+
+            /**
+             * no item in hand message
+             */
+            private String noItemInHandMessage = "{prefix} &cPazar deposuna ekleyeceğin itemi elinde tutmalısın!";
         }
 
         /**

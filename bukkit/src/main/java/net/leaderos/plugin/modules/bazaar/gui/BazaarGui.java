@@ -56,11 +56,7 @@ public class BazaarGui {
             List<PlayerBazaar> playerBazaarList = PlayerBazaar.getBazaarStorage(User.getUser(player.getName()).getId());
 
             // Add item icon
-            gui.addElement(new StaticGuiElement('a', GuiHelper.addItemIcon(), 1, click -> {
-                gui.close();
-                BazaarAddItemGui.showGui(player, playerBazaarList.size());
-                return true;
-            }));
+            gui.addElement(new StaticGuiElement('a', GuiHelper.addItemIcon()));
 
             // Bazaar group creator
             GuiElementGroup bazaarGui = new GuiElementGroup('i');

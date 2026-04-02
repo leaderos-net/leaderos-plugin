@@ -624,8 +624,13 @@ public class Language extends OkaeriConfig {
 
             /**
              * Add item lore
+             * /bazaar add komutu ile eklemesini iste
              */
-            private List<String> addItemLore = Arrays.asList("", "&aClick to add item!");
+            private List<String> addItemLore = Arrays.asList(
+                    "&7To add an item to bazaar storage,",
+                    "&7use &e/bazaar add &7while holding",
+                    "&7the item in your main hand."
+            );
 
             /**
              * Add item gui name
@@ -638,6 +643,11 @@ public class Language extends OkaeriConfig {
              * return item message
              */
             private String returnItemMessage = "{prefix} &cYou have reached max storage amount &8(&4%max_amount%&8) &creturned &e%amount% &citem.";
+
+            /**
+             * no item in hand message
+             */
+            private String noItemInHandMessage = "{prefix} &cYou must have an item in your main hand to add to bazaar storage.";
         }
 
         /**
