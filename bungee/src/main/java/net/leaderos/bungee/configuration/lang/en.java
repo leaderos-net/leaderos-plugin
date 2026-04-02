@@ -53,6 +53,8 @@ public class en extends Language {
 
         private String haveRequestOngoing = "&cPlease wait for your current request to be done!";
 
+        private String unexpectedError = "{prefix} &cAn unexpected error occurred. Please try again later.";
+
         /**
          * Help commands message
          */

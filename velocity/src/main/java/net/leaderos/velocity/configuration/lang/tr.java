@@ -53,6 +53,8 @@ public class tr extends Language {
 
         private String haveRequestOngoing = "&cLütfen şu anki işleminin bitmesini bekle!";
 
+        private String unexpectedError = "{prefix} &cBeklenmeyen bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
+
         /**
          * Help commands message
          */

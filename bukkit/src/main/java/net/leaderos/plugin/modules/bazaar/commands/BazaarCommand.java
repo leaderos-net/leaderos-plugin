@@ -194,14 +194,14 @@ public class BazaarCommand extends BaseCommand {
                 } else {
                     // API rejected, return item
                     BazaarHelper.returnItemToPlayer(player, itemToStore);
-                    ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
+                    ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getUnexpectedError());
                 }
 
             } catch (Exception e) {
                 e.printStackTrace();
                 // Safety net: always return the item on unexpected exceptions
                 BazaarHelper.returnItemToPlayer(player, itemToStore);
-                ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
+                ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getUnexpectedError());
 
             } finally {
                 // Release both locks unconditionally

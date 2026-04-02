@@ -122,7 +122,7 @@ public class VoucherCommand extends BaseCommand {
             });
         }
         catch (Exception ignored) {
-            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getPlayerNotAvailable());
+            ChatUtil.sendMessage(player, Bukkit.getInstance().getLangFile().getMessages().getUnexpectedError());
         }
     }
 

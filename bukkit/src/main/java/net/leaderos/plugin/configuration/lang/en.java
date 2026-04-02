@@ -59,6 +59,8 @@ public class en extends Language {
 
         private String registrationRequired = "{prefix} &cYou must register on the website for this action!";
 
+        private String unexpectedError = "{prefix} &cAn unexpected error occurred. Please try again later.";
+
         /**
          * Help commands message
          */

@@ -59,6 +59,8 @@ public class tr extends Language {
 
         private String registrationRequired = "{prefix} &cBu işlemi yapabilmek için siteye kayıt olmalısın!";
 
+        private String unexpectedError = "{prefix} &cBeklenmeyen bir hata oluştu. Lütfen daha sonra tekrar deneyin.";
+
         /**
          * Help commands message
          */
