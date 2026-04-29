@@ -111,7 +111,7 @@ public class CreditCommand extends Command {
 
                 }
                 else if (args[0].equalsIgnoreCase("remove")) {
-                    if (!sender.hasPermission("leaderos.credit.remove"))
+                    if (sender.hasPermission("leaderos.credit.remove"))
                         removeCommand(sender, target, value);
                     else
                         ChatUtil.sendMessage(sender, Bungee.getInstance().getLangFile().getMessages().getCommand().getNoPerm());
