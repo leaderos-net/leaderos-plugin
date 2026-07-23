@@ -1,6 +1,9 @@
 package net.leaderos.plugin.helpers;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.shared.helpers.Placeholder;
 import net.md_5.bungee.api.ChatColor;
@@ -21,9 +24,6 @@ import java.util.stream.Collectors;
  */
 public class ChatUtil {
 
-    /**
-     * Decimal formatter
-     */
     public static final DecimalFormat FORMATTER = (DecimalFormat) NumberFormat.getNumberInstance();
 
     static {
@@ -33,18 +33,46 @@ public class ChatUtil {
         FORMATTER.setGroupingSize(3);
     }
 
-    /**
-     * Hex pattern for color codes
-     */
     private final static Pattern HEX_PATTERN = Pattern.compile("#[a-fA-F0-9]{6}");
 
     /**
-     * Applies chat color formats to message
+     * Simple tag pattern to detect MiniMessage format.
+     * E.g.: <red>, <#ff0000>, <gradient:red:blue>, <hover:...>
+     */
+    private final static Pattern MINIMESSAGE_PATTERN = Pattern.compile("<[a-zA-Z0-9_#:,!/ ]+>");
+
+    /**
+     * MiniMessage instance (thread-safe, no need to recreate repeatedly)
+     */
+    private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
+
+    /**
+     * Component -> legacy (§ coded) String serializer.
+     * Also supports Hex colors.
+     */
+    private static final LegacyComponentSerializer LEGACY_SERIALIZER = LegacyComponentSerializer.builder()
+            .character('§')
+            .hexColors()
+            .build();
+
+    /**
+     * Applies chat color formats to message.
+     * Supports both legacy (&, hex) and MiniMessage formats.
      * @param message to convert
      * @return String of converted message
      */
     public static String color(String message) {
         message = StringEscapeUtils.unescapeHtml4(message);
+
+        // Process MiniMessage format first if it contains it
+        if (containsMiniMessageTags(message)) {
+            try {
+                Component component = MINI_MESSAGE.deserialize(message);
+                return LEGACY_SERIALIZER.serialize(component);
+            } catch (Exception ignored) {
+                // If there is an invalid/unparseable MiniMessage tag, continue with the legacy system
+            }
+        }
 
         Matcher matcher = HEX_PATTERN.matcher(message);
         StringBuffer buffer = new StringBuffer();
@@ -56,55 +84,39 @@ public class ChatUtil {
     }
 
     /**
+     * Checks if the message contains MiniMessage tags
+     * @param message message to check
+     * @return true if it contains MiniMessage tags
+     */
+    private static boolean containsMiniMessageTags(String message) {
+        return MINIMESSAGE_PATTERN.matcher(message).find();
+    }
+
+    /**
      * Removes color codes from text
      * @param text to remove color codes
      * @return String of removed color codes
      */
     public static String removeColorCode(String text) {
         String regex = "(&[a-zA-Z0-9]|§[a-zA-Z0-9]|#[0-9a-fA-F]{6})";
-
         text = text.replaceAll(regex, "");
-
         return text;
     }
 
-    /**
-     * Applies chat color formats to list
-     * @param list to convert
-     * @return List of converted message
-     */
     public static List<String> color(List<String> list) {
         return list.stream().map(ChatUtil::color).collect(Collectors.toList());
     }
 
-    /**
-     * Get colored message with prefix
-     * @param message to send
-     * @return colored message
-     */
     public static String getMessage(String message) {
         return ChatUtil.color(replacePlaceholders(message, new Placeholder("{prefix}",
                 Bukkit.getInstance().getLangFile().getMessages().getPrefix())));
     }
 
-    /**
-     * Sends message to command sender
-     * @param player executor
-     * @param message to send
-     */
     public static void sendMessage(@NotNull CommandSender player, String message) {
         player.sendMessage(ChatUtil.color(replacePlaceholders(message, new Placeholder("{prefix}",
                 Bukkit.getInstance().getLangFile().getMessages().getPrefix()))));
     }
 
-    /**
-     * Replaces placeholder data on string
-     * <p><b>also format chat messages too @see ChatUtil#color(String)</b></p>
-     *
-     * @param string to be converted
-     * @param placeholders additional placeholder data
-     * @return converted string value
-     */
     public static String replacePlaceholders(String string, Placeholder... placeholders) {
         for (Placeholder placeholder : placeholders) {
             string = string.replace(placeholder.getKey(), placeholder.getValue());
@@ -112,13 +124,6 @@ public class ChatUtil {
         return color(string);
     }
 
-    /**
-     * Replaces placeholders on string
-     * <p><b>also format chat messages too @see ChatUtil#color(String)</b></p>
-     *
-     * @param string to be converted
-     * @return converted string value
-     */
     public static String replacePlaceholders(String string) {
         if (org.bukkit.Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
             string = PlaceholderAPI.setPlaceholders(null, string);
@@ -126,13 +131,6 @@ public class ChatUtil {
         return color(string);
     }
 
-    /**
-     * Replaces placeholder data on list
-     *
-     * @param list to be converted
-     * @param placeholders additional placeholder data
-     * @return converted list value
-     */
     public static List<String> replacePlaceholders(List<String> list, Placeholder... placeholders) {
         return list.stream().map(s-> replacePlaceholders(s, placeholders)).collect(Collectors.toList());
     }

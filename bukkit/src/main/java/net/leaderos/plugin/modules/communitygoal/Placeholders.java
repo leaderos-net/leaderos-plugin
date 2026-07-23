@@ -1,11 +1,14 @@
 package net.leaderos.plugin.modules.communitygoal;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import net.leaderos.plugin.Bukkit;
 import net.leaderos.plugin.configuration.Modules;
 import net.leaderos.plugin.modules.communitygoal.managers.CommunityGoalManager;
 import net.leaderos.plugin.modules.communitygoal.model.CommunityGoal;
-import net.leaderos.plugin.helpers.ChatUtil;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 
 import java.text.DecimalFormat;
@@ -111,15 +114,30 @@ public class Placeholders extends PlaceholderExpansion {
             filledAmount = length;
 
         StringBuilder sb = new StringBuilder();
+
+        // Filled bars
         sb.append(filledColor);
         for (int i = 0; i < filledAmount; i++) {
             sb.append(symbol);
         }
+
+        // Add reset color code between filled and empty bars
+        sb.append("<reset>");
+
+        // Empty bars
         sb.append(emptyColor);
         for (int i = 0; i < length - filledAmount; i++) {
             sb.append(symbol);
         }
 
-        return ChatUtil.color(sb.toString());
+        // Convert MiniMessage to legacy format
+        MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
+        LegacyComponentSerializer LEGACY_SERIALIZER = LegacyComponentSerializer.builder()
+                .character('&')
+                .hexColors()
+                .useUnusualXRepeatedCharacterHexFormat()
+                .build();
+        Component component = MINI_MESSAGE.deserialize(sb.toString());
+        return ChatColor.translateAlternateColorCodes('&', LEGACY_SERIALIZER.serialize(component));
     }
 }

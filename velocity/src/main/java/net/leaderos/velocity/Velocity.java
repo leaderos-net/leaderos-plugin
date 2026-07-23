@@ -46,7 +46,7 @@ import java.nio.file.Path;
 @Plugin(
         id = "leaderos",
         name = "LeaderOS",
-        version = "1.2.7",
+        version = "1.2.8",
         url = "https://leaderos.net",
         description = "LeaderOS Plugin for Velocity",
         authors = {"leaderos"}
@@ -211,7 +211,7 @@ public class Velocity {
 
     public void checkUpdate() {
         Velocity.getInstance().getServer().getScheduler().buildTask(Velocity.getInstance(), () -> {
-            PluginUpdater updater = new PluginUpdater("1.2.7");
+            PluginUpdater updater = new PluginUpdater("1.2.8");
             try {
                 if (updater.checkForUpdates()) {
                     Component msg = ChatUtil.replacePlaceholders(
