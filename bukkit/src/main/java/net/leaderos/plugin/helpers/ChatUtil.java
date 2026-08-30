@@ -39,7 +39,14 @@ public class ChatUtil {
      * Simple tag pattern to detect MiniMessage format.
      * E.g.: <red>, <#ff0000>, <gradient:red:blue>, <hover:...>
      */
-    private final static Pattern MINIMESSAGE_PATTERN = Pattern.compile("<[a-zA-Z0-9_#:,!/ ]+>");
+    private final static Pattern MINIMESSAGE_PATTERN = Pattern.compile(
+            "</?(#[0-9a-fA-F]{6}|black|dark_blue|dark_green|dark_aqua|dark_red|dark_purple|gold|gray|grey|" +
+                    "dark_gray|dark_grey|blue|green|aqua|red|light_purple|yellow|white|" +
+                    "bold|b|italic|i|em|underlined|u|strikethrough|st|obfuscated|obf|reset|" +
+                    "gradient|rainbow|click|hover|insertion|key|keybind|lang|translatable|nbt|score|selector|" +
+                    "newline|br|pride|shadow|transition)(:[^<>]*)?>",
+            Pattern.CASE_INSENSITIVE
+    );
 
     /**
      * MiniMessage instance (thread-safe, no need to recreate repeatedly)
