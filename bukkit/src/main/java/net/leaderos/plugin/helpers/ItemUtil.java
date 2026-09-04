@@ -74,7 +74,7 @@ public class ItemUtil {
             entries = itemStack.getEnchantments().entrySet();
         }
         for (Map.Entry<Enchantment, Integer> entry : entries) {
-            builder.append((XMaterial.supports(13) ? entry.getKey().getKey().getKey() : entry.getKey().getName()).toUpperCase())
+            builder.append((XMaterial.supports(1, 13) ? entry.getKey().getKey().getKey() : entry.getKey().getName()).toUpperCase())
                     .append(':').append(entry.getValue()).append(',');
         }
 
@@ -91,7 +91,7 @@ public class ItemUtil {
      */
     public static String getModelId(ItemStack itemStack) {
         String modelId = null;
-        if (XMaterial.supports(14) && itemStack.hasItemMeta() && itemStack.getItemMeta().hasCustomModelData())
+        if (XMaterial.supports(1, 14) && itemStack.hasItemMeta() && itemStack.getItemMeta().hasCustomModelData())
             modelId = String.valueOf(itemStack.getItemMeta().getCustomModelData());
         return modelId;
     }
@@ -104,7 +104,7 @@ public class ItemUtil {
      */
     public static int getDurability(ItemStack item, int maxDurability) {
         int durability = 0;
-        if (XMaterial.supports(13))
+        if (XMaterial.supports(1, 13))
             durability = maxDurability - ((Damageable) item.getItemMeta()).getDamage();
         else
             durability = maxDurability + 1 - item.getDurability();
@@ -149,7 +149,7 @@ public class ItemUtil {
         meta.addItemFlags(XItemFlag.HIDE_ENCHANTS.get());
         meta.addItemFlags(XItemFlag.HIDE_ATTRIBUTES.get());
         meta.addItemFlags(XItemFlag.HIDE_ADDITIONAL_TOOLTIP.get());
-        if (XMaterial.supports(14) && modelId > 0) {
+        if (XMaterial.supports(1, 14) && modelId > 0) {
             meta.setCustomModelData(modelId);
         }
         result.setItemMeta(meta);
