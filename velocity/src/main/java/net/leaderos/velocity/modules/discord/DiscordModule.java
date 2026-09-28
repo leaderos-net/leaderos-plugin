@@ -65,7 +65,7 @@ public class DiscordModule extends LeaderOSModule {
                             .replace("{prefix}", Velocity.getInstance().getLangFile().getMessages().getPrefix()));
             // Finalized msg
             Component component = commandMessage
-                    .clickEvent(ClickEvent.clickEvent(ClickEvent.Action.OPEN_URL, link))
+                    .clickEvent(ClickEvent.openUrl(link))
                     .hoverEvent(HoverEvent.showText(hoverMsg));
             player.sendMessage(component);
         } catch (Exception ignored) {
