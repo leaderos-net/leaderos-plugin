@@ -150,13 +150,13 @@ public abstract class Request {
                 if (encodedData.length() != 0) {
                     encodedData.append("&");
                 }
-                encodedData.append(entry.getKey());
+                encodedData.append(java.net.URLEncoder.encode(entry.getKey(), "UTF-8"));
                 encodedData.append("=");
-                encodedData.append(entry.getValue());
+                encodedData.append(java.net.URLEncoder.encode(entry.getValue(), "UTF-8"));
             }
             return encodedData.toString();
         }
-        catch (NullPointerException e) {
+        catch (NullPointerException | java.io.UnsupportedEncodingException e) {
             return null;
         }
     }

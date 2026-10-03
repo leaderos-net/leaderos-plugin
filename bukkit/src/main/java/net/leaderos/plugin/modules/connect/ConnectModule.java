@@ -183,7 +183,7 @@ public class ConnectModule extends LeaderOSModule {
             }
 
             // Get the root command (the first word before space)
-            String commandRoot = command.split(" ")[0];
+            String commandRoot = command.split(" ")[0].toLowerCase();
 
             // Clean bukkit: prefix
             if (commandRoot.startsWith("bukkit:")) {
@@ -195,8 +195,16 @@ public class ConnectModule extends LeaderOSModule {
                 commandRoot = commandRoot.substring(10);
             }
 
-            // Check if the command is blacklisted
-            if (commandBlacklist.contains(commandRoot)) {
+            // Check if the command is blacklisted (case-insensitive now)
+            boolean isBlacklisted = false;
+            for (String blacklisted : commandBlacklist) {
+                if (blacklisted.toLowerCase().equals(commandRoot)) {
+                    isBlacklisted = true;
+                    break;
+                }
+            }
+
+            if (isBlacklisted) {
                 String msg = ChatUtil.replacePlaceholders(
                         Bukkit.getInstance().getLangFile().getMessages().getConnect().getCommandBlacklisted(),
                         new Placeholder("%command%", command)
