@@ -16,6 +16,11 @@ import java.util.Locale;
  */
 public class Placeholders extends PlaceholderExpansion {
 
+    @Override
+    public boolean persist() {
+        return true;
+    }
+
     /**
      * identifier of placeholder
      * @return identifier

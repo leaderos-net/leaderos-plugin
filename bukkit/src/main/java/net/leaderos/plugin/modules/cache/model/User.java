@@ -81,7 +81,8 @@ public class User {
      */
     @SneakyThrows
     public User(@NotNull JSONObject user) {
-        this.id = user.getString("id");
+        Object id = user.get("id");
+        this.id = id instanceof Number ? id.toString() : user.getString("id");
         this.credit = Double.parseDouble(user.getString("credit"));
         this.username = user.getString("realname");
         this.email = user.getString("email");

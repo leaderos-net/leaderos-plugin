@@ -14,6 +14,11 @@ import java.text.SimpleDateFormat;
  */
 public class Placeholders extends PlaceholderExpansion {
 
+    @Override
+    public boolean persist() {
+        return true;
+    }
+
     /**
      * Date formatter for placeholders
      */
